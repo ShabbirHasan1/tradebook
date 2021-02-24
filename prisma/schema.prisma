@@ -1,12 +1,38 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["microsoftSqlServer", "groupBy"]
+}
 
 datasource db {
   provider = "sqlserver"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["microsoftSqlServer"]
+model Tradebook {
+  symbol               String   @db.NVarChar(50)
+  trade_date           DateTime
+  exchange             String   @db.NVarChar(50)
+  segment              String   @db.NVarChar(50)
+  series               String   @db.NVarChar(50)
+  trade_type           String   @db.NVarChar(50)
+  quantity             Float
+  price                Float
+  trade_id             Int
+  order_id             Float
+  order_execution_time DateTime
+  Equity               Equity   @relation(fields: [symbol, exchange], references: [security_id, exchange])
+
+  @@id([trade_id, order_id])
+}
+
+model Equity {
+  security_id   String      @db.NVarChar(50)
+  security_name String      @db.NVarChar(500)
+  exchange      String      @db.NVarChar(50)
+  series        String?     @db.NVarChar(50)
+  isin_no       String      @db.NVarChar(50)
+  face_value    Float
+  Tradebook     Tradebook[]
+
+  @@id([security_id, exchange])
 }

@@ -1,67 +1,32 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import useSWR from 'swr';
+import { Box, List, ListItem } from '@chakra-ui/react';
+
+export type Summary = {
+  symbol: string;
+  exchange: string;
+  sum: {
+    quantity: number;
+  };
+};
 
 export default function Home() {
+  const fetcher = (...args: Parameters<typeof fetch>) =>
+    fetch(...args).then((response) => response.json());
+  const { data, error } = useSWR<Summary[]>(`/api/summary`, fetcher);
+  if (error) return <div>An error occured.</div>;
+  if (!data) return <div>Loading ...</div>;
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{` `}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <p className={styles.description}>This is not an official starter!</p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=typescript-nextjs-starter"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=typescript-nextjs-starter"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{` `}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+    <Box>
+      <List>
+        {data.map((sum) => (
+          <ListItem key={sum.symbol}>
+            <Box>{sum.symbol}</Box>
+            <Box>{sum.exchange}</Box>
+            <Box>{sum.sum.quantity}</Box>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   );
 }
