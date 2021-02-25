@@ -1,5 +1,14 @@
 import { extendTheme } from '@chakra-ui/react';
 import { Global } from '@emotion/react';
+import { Styles } from '@chakra-ui/theme-tools';
+
+const styles: Styles = {
+  global: {
+    'html, body': {
+      bg: `gray.100`,
+    },
+  },
+};
 
 const Fonts = () => (
   <Global
@@ -49,6 +58,7 @@ const Theme = extendTheme({
     body: `Inter`,
     heading: `Inter`,
   },
+  styles,
 });
 
 export { Theme, Fonts };

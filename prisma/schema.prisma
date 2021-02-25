@@ -20,19 +20,19 @@ model Tradebook {
   trade_id             Int
   order_id             Float
   order_execution_time DateTime
-  Equity               Equity   @relation(fields: [symbol, exchange], references: [security_id, exchange])
+  Equity               Equity   @relation(fields: [symbol, exchange], references: [symbol, exchange])
 
   @@id([trade_id, order_id])
 }
 
 model Equity {
-  security_id   String      @db.NVarChar(50)
-  security_name String      @db.NVarChar(500)
-  exchange      String      @db.NVarChar(50)
-  series        String?     @db.NVarChar(50)
-  isin_no       String      @db.NVarChar(50)
-  face_value    Float
-  Tradebook     Tradebook[]
+  symbol     String      @db.NVarChar(50)
+  name       String      @db.NVarChar(500)
+  exchange   String      @db.NVarChar(50)
+  series     String?     @db.NVarChar(50)
+  isin_no    String      @db.NVarChar(50)
+  face_value Float
+  Tradebook  Tradebook[]
 
-  @@id([security_id, exchange])
+  @@id([symbol, exchange])
 }
