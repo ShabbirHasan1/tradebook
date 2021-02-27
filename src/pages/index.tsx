@@ -1,68 +1,77 @@
 import useSWR from 'swr';
-import { Box, List, ListItem, HStack, Button } from '@chakra-ui/react';
-import { Summary } from '@/common/types';
+import { ButtonGroup, Button, Center, Stack } from '@chakra-ui/react';
+import { Portfolio, Summary } from '@/common/types';
+import { Layout } from '@/components/layout';
+import { SummaryCard } from '@/components/summary-card';
+import { useState } from 'react';
+import { PortfolioList } from '@/components/portfolio-list';
 
 export default function Home() {
+  const today = new Date();
+  const [exchange, setExchange] = useState(`NSE`);
+  const [period, setPeriod] = useState(
+    today.getFullYear() * 100 + (today.getMonth() + 1),
+  );
   const fetcher = (...args: Parameters<typeof fetch>) =>
     fetch(...args).then((response) => response.json());
-  const { data, error } = useSWR<Summary[]>(`/api/summary`, fetcher);
-  if (error) return <div>An error occured.</div>;
-  if (!data) return <div>Loading ...</div>;
-
-  const hover = { bg: `blue.600` };
-
+  const { data: summary } = useSWR<Summary[]>(
+    `/api/summary?exchange=${exchange}&period=${period}`,
+    fetcher,
+  );
+  const { data: portfolios } = useSWR<Portfolio[]>(
+    `/api/portfolio?exchange=${exchange}&period=${period}`,
+    fetcher,
+  );
   return (
-    <Box w="100%">
-      <HStack bg="blue.500" py={4} w="100%" px={32} spacing={2}>
-        <Button
-          as="a"
-          bg="blue.700"
-          color="white"
-          _hover={hover}
-          _active={hover}
-        >
-          Summary
-        </Button>
-        <Button
-          as="a"
-          bg="transparent"
-          color="white"
-          _hover={hover}
-          _active={hover}
-        >
-          Tradebook
-        </Button>
-        <Button
-          as="a"
-          bg="transparent"
-          color="white"
-          _hover={hover}
-          _active={hover}
-        >
-          Holding
-        </Button>
-      </HStack>
-      <Box bg="white" rounded={6} my={8} py={8} mx={32} px={8}>
-        <List spacing={4}>
-          {data.map((sum) => {
-            if (sum.quantity > 0)
-              return (
-                <ListItem bg="green.100" key={sum.symbol + sum.exchange}>
-                  <Box>{sum.name}</Box>
-                  <Box>{sum.exchange}</Box>
-                  <Box>{sum.quantity}</Box>
-                </ListItem>
-              );
-            return (
-              <ListItem bg="red.100" key={sum.symbol + sum.exchange}>
-                <Box>{sum.name}</Box>
-                <Box>{sum.exchange}</Box>
-                <Box>{sum.quantity}</Box>
-              </ListItem>
-            );
-          })}
-        </List>
-      </Box>
-    </Box>
+    <Layout
+      nextFunc={() => {
+        const year = Math.floor(period / 100);
+        const month = period - year * 100;
+        const newPeriod =
+          month === 12 ? (year + 1) * 100 + 1 : year * 100 + (month + 1);
+        setPeriod(newPeriod);
+      }}
+      prevFunc={() => {
+        const year = Math.floor(period / 100);
+        const month = period - year * 100;
+        const newPeriod =
+          month === 1 ? (year - 1) * 100 + 12 : year * 100 + (month - 1);
+        setPeriod(newPeriod);
+      }}
+      title={period.toString()}
+    >
+      <Stack spacing={4}>
+        <Center>
+          <ButtonGroup size="lg" isAttached>
+            <Button
+              variant={exchange === `NSE` ? `solid` : `outline`}
+              color={exchange === `NSE` ? `white` : `blue.400`}
+              onClick={() => setExchange(`NSE`)}
+              bg={exchange === `NSE` ? `blue.400` : `transparent`}
+              borderWidth={2}
+              borderColor="blue.400"
+              _hover={{ bg: exchange === `NSE` ? `blue.400` : `blue.50` }}
+              _active={{ bg: exchange === `NSE` ? `blue.400` : `blue.50` }}
+            >
+              NSE
+            </Button>
+            <Button
+              variant={exchange === `BSE` ? `solid` : `outline`}
+              color={exchange === `BSE` ? `white` : `blue.400`}
+              onClick={() => setExchange(`BSE`)}
+              bg={exchange === `BSE` ? `blue.400` : `transparent`}
+              borderWidth={2}
+              borderColor="blue.400"
+              _hover={{ bg: exchange === `BSE` ? `blue.400` : `blue.50` }}
+              _active={{ bg: exchange === `BSE` ? `blue.400` : `blue.50` }}
+            >
+              BSE
+            </Button>
+          </ButtonGroup>
+        </Center>
+        <SummaryCard summary={summary} date={today} />
+        <PortfolioList portfolios={portfolios} />
+      </Stack>
+    </Layout>
   );
 }

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-import { Summary } from '@/common/types';
+import { Portfolio } from '@/common/types';
 
 const prisma = new PrismaClient();
 
@@ -11,8 +11,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     query: { exchange, period },
   } = req;
 
-  const summary = await prisma.$queryRaw<Summary[]>(
-    `EXEC [dbo].[usp_Summary] 
+  const summary = await prisma.$queryRaw<Portfolio[]>(
+    `EXEC [dbo].[usp_Portfolio] 
       @period = ${period},
       @exchange = '${exchange}'`,
   );

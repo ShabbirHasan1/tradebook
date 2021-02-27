@@ -6,6 +6,7 @@ const styles: Styles = {
   global: {
     'html, body': {
       bg: `gray.100`,
+      color: `gray.500`,
     },
   },
 };

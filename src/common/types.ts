@@ -1,7 +1,17 @@
 export type Summary = {
-  exchange: string;
+  ordinal: number;
+  key: string;
+  label: string;
+  value: number;
+  indicator: string;
+};
+
+export type Portfolio = {
   symbol: string;
   name: string;
-  isin_no: string;
-  quantity: number;
+  buy_qty: number;
+  sell_qty: number;
+  avg_buy_price: number;
+  avg_sell_price: number;
+  pnl: number;
 };
