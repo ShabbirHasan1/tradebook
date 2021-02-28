@@ -4,6 +4,7 @@ export type Summary = {
   label: string;
   value: number;
   indicator: string;
+  type: string;
 };
 
 export type Portfolio = {

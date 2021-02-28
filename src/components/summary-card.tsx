@@ -12,26 +12,34 @@ type StatButtonProps = {
   label: string;
   value: number;
   helpText: string;
+  type: string;
   color?: ChakraProps['color'];
 };
 
-const StatButton = ({ label, value, color }: StatButtonProps) => (
-  <Stat
-    borderRight={1}
-    borderStyle="solid"
-    borderColor="gray.100"
-    _last={{ borderRight: 0 }}
-    p={6}
-    textAlign="center"
-  >
-    <StatLabel fontWeight="medium" isTruncated>
-      {label}
-    </StatLabel>
-    <StatNumber fontSize="3xl" fontWeight="medium" color={color || `black`}>
-      {value}
-    </StatNumber>
-  </Stat>
-);
+const StatButton = ({ label, value, color, type }: StatButtonProps) => {
+  const fmt = new Intl.NumberFormat(`en-IN`, {
+    style: `currency`,
+    currency: `INR`,
+    notation: `compact`,
+  });
+  return (
+    <Stat
+      borderRight={1}
+      borderStyle="solid"
+      borderColor="gray.100"
+      _last={{ borderRight: 0 }}
+      p={6}
+      textAlign="center"
+    >
+      <StatLabel fontWeight="medium" isTruncated>
+        {label}
+      </StatLabel>
+      <StatNumber fontSize="3xl" fontWeight="medium" color={color || `black`}>
+        {type === `c` ? fmt.format(value) : value}
+      </StatNumber>
+    </Stat>
+  );
+};
 
 const StatLoader = () => (
   <Stat
@@ -61,6 +69,7 @@ export const SummaryCard = ({ summary, date: today }: StatCardProps) => {
     year: `numeric`,
     month: `short`,
   };
+
   return (
     <StatGroup
       boxShadow="md"
@@ -73,10 +82,11 @@ export const SummaryCard = ({ summary, date: today }: StatCardProps) => {
     >
       {summary ? (
         summary.map((sum) => {
-          const { key, label, value, indicator } = sum;
+          const { key, label, value, indicator, type } = sum;
           return (
             <StatButton
               key={key}
+              type={type}
               label={label}
               value={value}
               color={indicator === `p` ? `green.400` : `red.400`}

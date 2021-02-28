@@ -1,8 +1,8 @@
-CREATE PROCEDURE [dbo].[usp_Portfolio]
+CREATE PROCEDURE [dbo].[usp_Position]
 (
-	@period	   int,
-	@exchange  nvarchar(50),
-	@exits bit = 0
+	@period	  int,
+	@exchange nvarchar(50),
+	@exits	  bit = 0
 )
 AS
 BEGIN
@@ -166,7 +166,10 @@ BEGIN
 		WHERE
 			(cs.buy_qty > 0 OR cs.sell_qty > 0)
 			AND 1 = (CASE @exits
-				WHEN 0 THEN 1
+				WHEN 0 THEN CASE
+							WHEN cs.buy_qty = cs.total_buy_qty THEN 1
+							ELSE 0
+						END
 				WHEN 1 THEN CASE
 							WHEN cs.total_sell_qty = cs.total_buy_qty
 								AND cs.sell_qty > 0 THEN 1

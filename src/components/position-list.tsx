@@ -11,16 +11,14 @@ import {
   Switch,
   FormControl,
   FormLabel,
-  Button,
-  SwitchProps,
 } from '@chakra-ui/react';
 import * as React from 'react';
 
-export type PortfolioListItemProps = {
+export type PositionListItemProps = {
   portfolio: Portfolio;
 };
 
-export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
+export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
   const {
     symbol,
     name,
@@ -81,17 +79,12 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
   }
 };
 
-export type PortfolioListProps = {
+export type PositionListProps = {
   portfolios?: Portfolio[];
   onExit: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // value: SwitchProps['value'];
 };
 
-export const PortfolioList = ({
-  portfolios,
-  onExit,
-}: // value,
-PortfolioListProps) => (
+export const PositionList = ({ portfolios, onExit }: PositionListProps) => (
   <Box
     w="100%"
     mx="auto"
@@ -102,15 +95,15 @@ PortfolioListProps) => (
   >
     <Flex align="center" justify="space-between" px="6" py="4">
       <Text as="h3" fontWeight="bold" fontSize="lg">
-        Portfolio
+        Position
       </Text>
       <Box>
         <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="email-alerts" mb="0">
-            Only exits?
+            Entry/Exit
           </FormLabel>
           <Switch
-            // value={value}
+            colorScheme="red"
             onChange={(e) => onExit && onExit(e)}
             id="email-alerts"
           />
@@ -122,14 +115,15 @@ PortfolioListProps) => (
       p={4}
       gap={4}
       templateColumns="1fr 1fr"
+      templateRows="min-content"
       maxH="500px"
       minH="500px"
       overflowY="auto"
     >
       {portfolios && portfolios?.length > 0 ? (
         portfolios.map((pt) => (
-          <GridItem key={pt.symbol}>
-            <PortfolioListItem key={pt.symbol} portfolio={pt} />
+          <GridItem _last={{ mb: 4 }} key={pt.symbol}>
+            <PositionListItem key={pt.symbol} portfolio={pt} />
           </GridItem>
         ))
       ) : (

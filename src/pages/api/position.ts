@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } = req;
 
   const summary = await prisma.$queryRaw<Portfolio[]>(
-    `EXEC [dbo].[usp_Portfolio] 
+    `EXEC [dbo].[usp_Position] 
       @period = ${period},
       @exchange = '${exchange}',
       @exits = '${exits}'`,

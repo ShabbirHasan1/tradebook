@@ -4,7 +4,8 @@ import { Portfolio, Summary } from '@/common/types';
 import { Layout } from '@/components/layout';
 import { SummaryCard } from '@/components/summary-card';
 import { useState } from 'react';
-import { PortfolioList } from '@/components/portfolio-list';
+import { PositionList } from '@/components/position-list';
+import { formatPeriod } from '@/common/functions';
 
 export default function Home() {
   const today = new Date();
@@ -20,7 +21,7 @@ export default function Home() {
     fetcher,
   );
   const { data: portfolios } = useSWR<Portfolio[]>(
-    `/api/portfolio?exchange=${exchange}&period=${period}&exits=${exits}`,
+    `/api/position?exchange=${exchange}&period=${period}&exits=${exits}`,
     fetcher,
   );
   const headerRight = (
@@ -53,7 +54,7 @@ export default function Home() {
     </ButtonGroup>
   );
   return (
-    <Layout headerRight={headerRight} title={period.toString()}>
+    <Layout headerRight={headerRight} title={formatPeriod(period)}>
       <Stack spacing={4}>
         <Center>
           <ButtonGroup size="lg" isAttached>
@@ -84,7 +85,7 @@ export default function Home() {
           </ButtonGroup>
         </Center>
         <SummaryCard summary={summary} date={today} />
-        <PortfolioList
+        <PositionList
           onExit={(e) => setExits(e.target.checked)}
           portfolios={portfolios}
         />

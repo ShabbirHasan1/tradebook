@@ -166,7 +166,8 @@ BEGIN
 				WHERE
 					cs.buy_qty > 0
 		), 0), 2),
-		[indicator] = 'p'
+		[indicator] = 'p',
+		[type] =	  'q'
 	UNION
 	SELECT
 		[ordinal] =	  2,
@@ -182,12 +183,30 @@ BEGIN
 				WHERE
 					cs.sell_qty > 0
 		), 0), 2),
-		[indicator] = 's'
+		[indicator] = 's',
+		[type] =	  'q'
 	UNION
 	SELECT
 		[ordinal] =	  3,
-		[key] =		  'total_exits',
-		[label] =	  'No of exits',
+		[key] =		  'new_entries',
+		[label] =	  'New entries',
+		[value] =	  
+		ROUND(ISNULL(
+		(
+			SELECT
+				COUNT(1)
+				FROM
+					CTE_Summary cs
+				WHERE
+					cs.buy_qty = cs.total_buy_qty
+		), 0), 2),
+		[indicator] = 'p',
+		[type] =	  'q'
+	UNION
+	SELECT
+		[ordinal] =	  4,
+		[key] =		  'new_exits',
+		[label] =	  'New exits',
 		[value] =	  
 		ROUND(ISNULL(
 		(
@@ -199,10 +218,11 @@ BEGIN
 					cs.total_sell_qty = cs.total_buy_qty
 					AND cs.sell_qty > 0
 		), 0), 2),
-		[indicator] = 's'
+		[indicator] = 's',
+		[type] =	  'q'
 	UNION
 	SELECT
-		[ordinal] =	  4,
+		[ordinal] =	  5,
 		[key] =		  'buy_amt',
 		[label] =	  'Total amount bought',
 		[value] =	  
@@ -215,10 +235,11 @@ BEGIN
 				WHERE
 					cs.buy_qty > 0
 		), 0), 2),
-		[indicator] = 'p'
+		[indicator] = 'p',
+		[type] =	  'c'
 	UNION
 	SELECT
-		[ordinal] =	  5,
+		[ordinal] =	  6,
 		[key] =		  'sell_amt',
 		[label] =	  'Total amount sold',
 		[value] =	  
@@ -231,10 +252,11 @@ BEGIN
 				WHERE
 					cs.sell_qty > 0
 		), 0), 2),
-		[indicator] = 's'
+		[indicator] = 's',
+		[type] =	  'c'
 	UNION
 	SELECT
-		[ordinal] = 6,
+		[ordinal] = 7,
 		[key] =		'pnl',
 		[label] =   'Profit and Loss',
 		[value] =   
@@ -255,7 +277,8 @@ BEGIN
 								CTE_Summary cs
 					), 0), 2) > 0 THEN 'p'
 				ELSE 's'
-			END
+			END,
+		[type] =	'c'
 		ORDER BY
 			1;
 END
