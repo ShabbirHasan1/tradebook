@@ -1,7 +1,8 @@
 CREATE PROCEDURE [dbo].[usp_Portfolio]
 (
-	@period	  int,
-	@exchange nvarchar(50)
+	@period	   int,
+	@exchange  nvarchar(50),
+	@exits bit = 0
 )
 AS
 BEGIN
@@ -42,6 +43,19 @@ BEGIN
 							AND t.exchange = e.exchange
 							AND t.period <= @period
 							AND t.trade_type = 'sell'
+				), 0),
+				total_buy_qty =
+				ISNULL(
+				(
+					SELECT
+						SUM(t.quantity)
+						FROM
+							CTE_Data t
+						WHERE
+							t.symbol = e.symbol
+							AND t.exchange = e.exchange
+							AND t.period <= @period
+							AND t.trade_type = 'buy'
 				), 0),
 				avg_buy =
 				ISNULL(
@@ -151,9 +165,14 @@ BEGIN
 			CTE_Summary cs
 		WHERE
 			(cs.buy_qty > 0 OR cs.sell_qty > 0)
+			AND 1 = (CASE @exits
+				WHEN 0 THEN 1
+				WHEN 1 THEN CASE
+							WHEN cs.total_sell_qty = cs.total_buy_qty
+								AND cs.sell_qty > 0 THEN 1
+							ELSE 0
+						END
+			END)
 		ORDER BY
 			1;
 END
-GO
-
-

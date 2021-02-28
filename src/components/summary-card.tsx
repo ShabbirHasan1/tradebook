@@ -17,12 +17,12 @@ type StatButtonProps = {
 
 const StatButton = ({ label, value, color }: StatButtonProps) => (
   <Stat
-    textAlign="center"
     borderRight={1}
     borderStyle="solid"
     borderColor="gray.100"
     _last={{ borderRight: 0 }}
     p={6}
+    textAlign="center"
   >
     <StatLabel fontWeight="medium" isTruncated>
       {label}

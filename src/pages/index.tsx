@@ -9,6 +9,7 @@ import { PortfolioList } from '@/components/portfolio-list';
 export default function Home() {
   const today = new Date();
   const [exchange, setExchange] = useState(`NSE`);
+  const [exits, setExits] = useState(false);
   const [period, setPeriod] = useState(
     today.getFullYear() * 100 + (today.getMonth() + 1),
   );
@@ -19,27 +20,40 @@ export default function Home() {
     fetcher,
   );
   const { data: portfolios } = useSWR<Portfolio[]>(
-    `/api/portfolio?exchange=${exchange}&period=${period}`,
+    `/api/portfolio?exchange=${exchange}&period=${period}&exits=${exits}`,
     fetcher,
   );
+  const headerRight = (
+    <ButtonGroup variant="outline" size="lg" isAttached>
+      <Button
+        borderColor="blue.400"
+        mr="-px"
+        onClick={() => {
+          const year = Math.floor(period / 100);
+          const month = period - year * 100;
+          const newPeriod =
+            month === 1 ? (year - 1) * 100 + 12 : year * 100 + (month - 1);
+          setPeriod(newPeriod);
+        }}
+      >
+        Prev
+      </Button>
+      <Button
+        borderColor="blue.400"
+        onClick={() => {
+          const year = Math.floor(period / 100);
+          const month = period - year * 100;
+          const newPeriod =
+            month === 12 ? (year + 1) * 100 + 1 : year * 100 + (month + 1);
+          setPeriod(newPeriod);
+        }}
+      >
+        Next
+      </Button>
+    </ButtonGroup>
+  );
   return (
-    <Layout
-      nextFunc={() => {
-        const year = Math.floor(period / 100);
-        const month = period - year * 100;
-        const newPeriod =
-          month === 12 ? (year + 1) * 100 + 1 : year * 100 + (month + 1);
-        setPeriod(newPeriod);
-      }}
-      prevFunc={() => {
-        const year = Math.floor(period / 100);
-        const month = period - year * 100;
-        const newPeriod =
-          month === 1 ? (year - 1) * 100 + 12 : year * 100 + (month - 1);
-        setPeriod(newPeriod);
-      }}
-      title={period.toString()}
-    >
+    <Layout headerRight={headerRight} title={period.toString()}>
       <Stack spacing={4}>
         <Center>
           <ButtonGroup size="lg" isAttached>
@@ -70,7 +84,10 @@ export default function Home() {
           </ButtonGroup>
         </Center>
         <SummaryCard summary={summary} date={today} />
-        <PortfolioList portfolios={portfolios} />
+        <PortfolioList
+          onExit={(e) => setExits(e.target.checked)}
+          portfolios={portfolios}
+        />
       </Stack>
     </Layout>
   );

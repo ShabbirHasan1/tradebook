@@ -43,6 +43,19 @@ BEGIN
 							AND t.period <= @period
 							AND t.trade_type = 'sell'
 				), 0),
+				total_buy_qty =
+				ISNULL(
+				(
+					SELECT
+						SUM(t.quantity)
+						FROM
+							CTE_Data t
+						WHERE
+							t.symbol = e.symbol
+							AND t.exchange = e.exchange
+							AND t.period <= @period
+							AND t.trade_type = 'buy'
+				), 0),
 				avg_buy =
 				ISNULL(
 				(
@@ -173,6 +186,23 @@ BEGIN
 	UNION
 	SELECT
 		[ordinal] =	  3,
+		[key] =		  'total_exits',
+		[label] =	  'No of exits',
+		[value] =	  
+		ROUND(ISNULL(
+		(
+			SELECT
+				COUNT(1)
+				FROM
+					CTE_Summary cs
+				WHERE
+					cs.total_sell_qty = cs.total_buy_qty
+					AND cs.sell_qty > 0
+		), 0), 2),
+		[indicator] = 's'
+	UNION
+	SELECT
+		[ordinal] =	  4,
 		[key] =		  'buy_amt',
 		[label] =	  'Total amount bought',
 		[value] =	  
@@ -188,7 +218,7 @@ BEGIN
 		[indicator] = 'p'
 	UNION
 	SELECT
-		[ordinal] =	  4,
+		[ordinal] =	  5,
 		[key] =		  'sell_amt',
 		[label] =	  'Total amount sold',
 		[value] =	  
@@ -204,7 +234,7 @@ BEGIN
 		[indicator] = 's'
 	UNION
 	SELECT
-		[ordinal] = 5,
+		[ordinal] = 6,
 		[key] =		'pnl',
 		[label] =   'Profit and Loss',
 		[value] =   
@@ -229,4 +259,3 @@ BEGIN
 		ORDER BY
 			1;
 END
-GO

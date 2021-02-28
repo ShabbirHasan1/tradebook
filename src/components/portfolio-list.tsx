@@ -8,6 +8,11 @@ import {
   Grid,
   GridItem,
   Center,
+  Switch,
+  FormControl,
+  FormLabel,
+  Button,
+  SwitchProps,
 } from '@chakra-ui/react';
 import * as React from 'react';
 
@@ -78,9 +83,15 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
 
 export type PortfolioListProps = {
   portfolios?: Portfolio[];
+  onExit: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  // value: SwitchProps['value'];
 };
 
-export const PortfolioList = ({ portfolios }: PortfolioListProps) => (
+export const PortfolioList = ({
+  portfolios,
+  onExit,
+}: // value,
+PortfolioListProps) => (
   <Box
     w="100%"
     mx="auto"
@@ -93,6 +104,18 @@ export const PortfolioList = ({ portfolios }: PortfolioListProps) => (
       <Text as="h3" fontWeight="bold" fontSize="lg">
         Portfolio
       </Text>
+      <Box>
+        <FormControl display="flex" alignItems="center">
+          <FormLabel htmlFor="email-alerts" mb="0">
+            Only exits?
+          </FormLabel>
+          <Switch
+            // value={value}
+            onChange={(e) => onExit && onExit(e)}
+            id="email-alerts"
+          />
+        </FormControl>
+      </Box>
     </Flex>
     <Divider />
     <Grid
