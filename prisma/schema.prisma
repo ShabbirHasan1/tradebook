@@ -1,6 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["microsoftSqlServer", "groupBy"]
+  previewFeatures = ["microsoftSqlServer", "groupBy", "createMany"]
 }
 
 datasource db {

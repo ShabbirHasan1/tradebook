@@ -27,10 +27,17 @@ export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
     avg_buy_price,
     avg_sell_price,
     pnl,
+    exit_date,
   } = portfolio;
   {
     let bgColor = ``;
     let color = ``;
+    let dateFmt = `P&L`;
+    const mo = new Intl.DateTimeFormat(`en-In`, {
+      month: `short`,
+      day: `2-digit`,
+      year: `numeric`,
+    });
     if (buy_qty === sell_qty) {
       bgColor = `yellow.50`;
     } else if (buy_qty > 0) {
@@ -45,10 +52,17 @@ export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
     } else if (pnl < 0) {
       color = `red.400`;
     }
+    if (exit_date) {
+      const dt = new Date(exit_date);
+      if (dt.getFullYear() > 1900) {
+        dateFmt = mo.format(dt);
+      }
+    }
     return (
-      <Flex
+      <Grid
         as="dl"
-        direction={{ base: `column`, sm: `row` }}
+        gridTemplateColumns="1fr 1fr"
+        gridTemplateRows="min-content"
         px="6"
         py="4"
         bg={bgColor}
@@ -58,27 +72,31 @@ export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
         shadow="md"
         rounded={{ md: `lg` }}
       >
-        <Box as="dt" flexBasis="100%">
-          <Tooltip label={name} aria-label={name}>
-            <Text cursor="default" fontSize="xl" maxW="250px" isTruncated>
-              {name}
+        <GridItem as="dt">
+          <Box>
+            <Tooltip label={name} aria-label={name}>
+              <Text cursor="default" fontSize="xl" maxW="250px" isTruncated>
+                {name}
+              </Text>
+            </Tooltip>
+            <Text fontSize="sm">
+              {buy_qty} bought at ₹{avg_buy_price}
             </Text>
-          </Tooltip>
-          <Text fontSize="sm">
-            {buy_qty} bought at ₹{avg_buy_price}
-          </Text>
-          <Text fontSize="sm">
-            {sell_qty} sold at ₹{avg_sell_price}
-          </Text>
-        </Box>
-        <Box as="dd" textAlign="right" flex="1">
-          <Text>{symbol}</Text>
-          <Text fontSize="xl" color={color}>
-            {pnl}
-          </Text>
-          <Text fontSize="xs">P&L</Text>
-        </Box>
-      </Flex>
+            <Text fontSize="sm">
+              {sell_qty} sold at ₹{avg_sell_price}
+            </Text>
+          </Box>
+        </GridItem>
+        <GridItem as="dd">
+          <Box textAlign="right">
+            <Text>{symbol}</Text>
+            <Text fontSize="xl" color={color}>
+              {pnl}
+            </Text>
+            <Text fontSize="xs">{dateFmt}</Text>
+          </Box>
+        </GridItem>
+      </Grid>
     );
   }
 };

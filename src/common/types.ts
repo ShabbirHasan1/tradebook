@@ -10,6 +10,7 @@ export type Summary = {
 export type Portfolio = {
   symbol: string;
   name: string;
+  exit_date: string;
   buy_qty: number;
   sell_qty: number;
   avg_buy_price: number;

@@ -15,9 +15,10 @@ BEGIN
 				t.symbol,
 				t.quantity,
 				t.exchange,
+				trade_date = CAST(t.trade_date AS datetime),
 				t.trade_type,
 				t.price,
-				period = (YEAR(t.trade_date) * 100 + MONTH(t.trade_date))
+				period =	 (YEAR(t.trade_date) * 100 + MONTH(t.trade_date))
 				FROM
 					Tradebook t
 				WHERE
@@ -136,6 +137,21 @@ BEGIN
 							AND t.exchange = e.exchange
 							AND t.period = @period
 							AND t.trade_type = 'sell'
+				), 0),
+				exit_date =
+				ISNULL(
+				(
+					SELECT
+						MAX(IIF(t.trade_type = 'sell', t.trade_date, NULL))
+						FROM
+							CTE_Data t
+						WHERE
+							t.symbol = e.symbol
+							AND t.exchange = e.exchange
+							AND t.period <= @period
+						HAVING
+							SUM(IIF(t.trade_type = 'sell', t.quantity * -1, t.quantity)) = 0
+
 				), 0)
 				FROM
 					Equity e
@@ -156,6 +172,7 @@ BEGIN
 	SELECT
 		cs.symbol,
 		cs.name,
+		cs.exit_date,
 		cs.buy_qty,
 		cs.sell_qty,
 		avg_buy_price =	 ROUND(cs.avg_buy, 2),

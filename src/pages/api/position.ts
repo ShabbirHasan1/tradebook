@@ -5,18 +5,15 @@ import { Portfolio } from '@/common/types';
 const prisma = new PrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  res.statusCode = 200;
-
   const {
     query: { exchange, period, exits },
   } = req;
-
   const summary = await prisma.$queryRaw<Portfolio[]>(
     `EXEC [dbo].[usp_Position] 
       @period = ${period},
       @exchange = '${exchange}',
       @exits = '${exits}'`,
   );
-
-  res.json(summary);
+  prisma.$disconnect();
+  res.status(200).json(summary);
 };

@@ -8,6 +8,7 @@ export type ExchangeButtonProps = {
 export const ExchangeButton = ({ exchange, onChange }: ExchangeButtonProps) => (
   <ButtonGroup size="lg" isAttached>
     <Button
+      mr="-px"
       variant={exchange === `NSE` ? `solid` : `outline`}
       color={exchange === `NSE` ? `white` : `blue.400`}
       onClick={() => onChange(`NSE`)}
