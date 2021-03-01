@@ -1,4 +1,4 @@
-import { Box, Heading, Flex } from '@chakra-ui/react';
+import { Box, Heading, Flex, SlideFade } from '@chakra-ui/react';
 import { Nav } from '@/components/nav';
 
 export type LayoutProps = {
@@ -14,8 +14,10 @@ export const Layout = ({ children, title, headerRight }: LayoutProps) => (
       <Heading flexBasis="100%">{title}</Heading>
       {headerRight}
     </Flex>
-    <Box bg="white" rounded={6} my={8} py={8} mx={64} px={8}>
-      {children}
-    </Box>
+    <SlideFade in offsetY="20px">
+      <Box bg="white" rounded={6} my={8} py={8} mx={64} px={8}>
+        {children}
+      </Box>
+    </SlideFade>
   </Box>
 );

@@ -5,7 +5,8 @@ import { Layout } from '@/components/layout';
 import { SummaryCard } from '@/components/summary-card';
 import { useState } from 'react';
 import { PositionList } from '@/components/position-list';
-import { formatPeriod } from '@/common/functions';
+import { formatPeriod, fetcher } from '@/common/functions';
+import { ExchangeButton } from '@/components/exchange-button';
 
 export default function Home() {
   const today = new Date();
@@ -14,8 +15,6 @@ export default function Home() {
   const [period, setPeriod] = useState(
     today.getFullYear() * 100 + (today.getMonth() + 1),
   );
-  const fetcher = (...args: Parameters<typeof fetch>) =>
-    fetch(...args).then((response) => response.json());
   const { data: summary } = useSWR<Summary[]>(
     `/api/summary?exchange=${exchange}&period=${period}`,
     fetcher,
@@ -57,35 +56,14 @@ export default function Home() {
     <Layout headerRight={headerRight} title={formatPeriod(period)}>
       <Stack spacing={4}>
         <Center>
-          <ButtonGroup size="lg" isAttached>
-            <Button
-              variant={exchange === `NSE` ? `solid` : `outline`}
-              color={exchange === `NSE` ? `white` : `blue.400`}
-              onClick={() => setExchange(`NSE`)}
-              bg={exchange === `NSE` ? `blue.400` : `transparent`}
-              borderWidth={2}
-              borderColor="blue.400"
-              _hover={{ bg: exchange === `NSE` ? `blue.400` : `blue.50` }}
-              _active={{ bg: exchange === `NSE` ? `blue.400` : `blue.50` }}
-            >
-              NSE
-            </Button>
-            <Button
-              variant={exchange === `BSE` ? `solid` : `outline`}
-              color={exchange === `BSE` ? `white` : `blue.400`}
-              onClick={() => setExchange(`BSE`)}
-              bg={exchange === `BSE` ? `blue.400` : `transparent`}
-              borderWidth={2}
-              borderColor="blue.400"
-              _hover={{ bg: exchange === `BSE` ? `blue.400` : `blue.50` }}
-              _active={{ bg: exchange === `BSE` ? `blue.400` : `blue.50` }}
-            >
-              BSE
-            </Button>
-          </ButtonGroup>
+          <ExchangeButton
+            exchange={exchange}
+            onChange={(ex) => setExchange(ex)}
+          />
         </Center>
         <SummaryCard summary={summary} date={today} />
         <PositionList
+          title={`Position (${portfolios ? portfolios?.length : 0})`}
           onExit={(e) => setExits(e.target.checked)}
           portfolios={portfolios}
         />

@@ -11,8 +11,8 @@ import {
   Switch,
   FormControl,
   FormLabel,
+  Tooltip,
 } from '@chakra-ui/react';
-import * as React from 'react';
 
 export type PositionListItemProps = {
   portfolio: Portfolio;
@@ -59,7 +59,11 @@ export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
         rounded={{ md: `lg` }}
       >
         <Box as="dt" flexBasis="100%">
-          <Text fontSize="xl">{name}</Text>
+          <Tooltip label={name} aria-label={name}>
+            <Text cursor="default" fontSize="xl" maxW="250px" isTruncated>
+              {name}
+            </Text>
+          </Tooltip>
           <Text fontSize="sm">
             {buy_qty} bought at ₹{avg_buy_price}
           </Text>
@@ -81,10 +85,15 @@ export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
 
 export type PositionListProps = {
   portfolios?: Portfolio[];
-  onExit: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  title: string;
+  onExit?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const PositionList = ({ portfolios, onExit }: PositionListProps) => (
+export const PositionList = ({
+  portfolios,
+  onExit,
+  title,
+}: PositionListProps) => (
   <Box
     w="100%"
     mx="auto"
@@ -95,26 +104,28 @@ export const PositionList = ({ portfolios, onExit }: PositionListProps) => (
   >
     <Flex align="center" justify="space-between" px="6" py="4">
       <Text as="h3" fontWeight="bold" fontSize="lg">
-        Position
+        {title}
       </Text>
-      <Box>
-        <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="email-alerts" mb="0">
-            Entry/Exit
-          </FormLabel>
-          <Switch
-            colorScheme="red"
-            onChange={(e) => onExit && onExit(e)}
-            id="email-alerts"
-          />
-        </FormControl>
-      </Box>
+      {onExit && (
+        <Box>
+          <FormControl display="flex" alignItems="center">
+            <FormLabel htmlFor="email-alerts" mb="0">
+              Entry/Exit
+            </FormLabel>
+            <Switch
+              colorScheme="red"
+              onChange={(e) => onExit && onExit(e)}
+              id="email-alerts"
+            />
+          </FormControl>
+        </Box>
+      )}
     </Flex>
     <Divider />
     <Grid
       p={4}
       gap={4}
-      templateColumns="1fr 1fr"
+      templateColumns="1fr 1fr 1fr"
       templateRows="min-content"
       maxH="500px"
       minH="500px"
@@ -127,7 +138,7 @@ export const PositionList = ({ portfolios, onExit }: PositionListProps) => (
           </GridItem>
         ))
       ) : (
-        <GridItem colSpan={2} p={8}>
+        <GridItem colSpan={3} p={8}>
           <Center height="100%">No data found</Center>
         </GridItem>
       )}

@@ -11,11 +11,11 @@ export const Nav = () => {
       <NavLink href="/" active={path === `/`}>
         Summary
       </NavLink>
+      <NavLink href="/holding" active={path === `/holding`}>
+        Holding
+      </NavLink>
       <NavLink href="/exchange" active={path === `/exchange`}>
         Exchange
-      </NavLink>
-      <NavLink href="/tradebook" active={path === `/tradebook`}>
-        Tradebook
       </NavLink>
     </HStack>
   );

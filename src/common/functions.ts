@@ -45,3 +45,6 @@ export const formatPeriod = (period: number) => {
   }
   return monthString.concat(` `, year.toString());
 };
+
+export const fetcher = (...args: Parameters<typeof fetch>) =>
+  fetch(...args).then((response) => response.json());
