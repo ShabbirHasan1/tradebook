@@ -11,7 +11,6 @@ import {
 type StatButtonProps = {
   label: string;
   value: number;
-  helpText: string;
   type: string;
   color?: ChakraProps['color'];
 };
@@ -61,10 +60,9 @@ const StatLoader = () => (
 
 export type StatCardProps = {
   summary?: Summary[];
-  date: Date;
 };
 
-export const SummaryCard = ({ summary, date: today }: StatCardProps) => {
+export const SummaryCard = ({ summary }: StatCardProps) => {
   const options = {
     year: `numeric`,
     month: `short`,
@@ -90,7 +88,6 @@ export const SummaryCard = ({ summary, date: today }: StatCardProps) => {
               label={label}
               value={value}
               color={indicator === `p` ? `green.400` : `red.400`}
-              helpText={`As on ${today.toLocaleDateString(`en-IN`, options)}`}
             />
           );
         })

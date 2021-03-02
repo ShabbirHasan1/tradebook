@@ -1,11 +1,12 @@
 import useSWR from 'swr';
-import { Portfolio } from '@/common/types';
+import { Portfolio, Summary } from '@/common/types';
 import { Stack, Center, Button, Input, useToast } from '@chakra-ui/react';
 import { Layout } from '@/components/layout';
 import { ExchangeButton } from '@/components/exchange-button';
 import { ChangeEvent, useState, useRef } from 'react';
 import { fetcher, formatPeriod } from '@/common/functions';
-import { PositionList } from '@/components/position-list';
+import { PortfolioList } from '@/components/portfolio-list';
+import { SummaryCard } from '@/components/summary-card';
 
 export default function Holding() {
   const hiddenInput = useRef<HTMLInputElement>(null);
@@ -14,8 +15,12 @@ export default function Holding() {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const [period] = useState(today.getFullYear() * 100 + (today.getMonth() + 1));
+  const { data: summary } = useSWR<Summary[]>(
+    `/api/holding?type=s&exchange=${exchange}&period=${period}`,
+    fetcher,
+  );
   const { data: portfolios } = useSWR<Portfolio[]>(
-    `/api/holding?exchange=${exchange}&period=${period}`,
+    `/api/holding?type=d&exchange=${exchange}&period=${period}`,
     fetcher,
   );
   const onFileClick = () => {
@@ -81,7 +86,9 @@ export default function Holding() {
           </Button>
           <Input ref={hiddenInput} type="file" hidden onChange={onFileSelect} />
         </Center>
-        <PositionList
+        <SummaryCard summary={summary} />
+        <PortfolioList
+          isLoading={!portfolios}
           title={`Holding (${portfolios ? portfolios?.length : 0})`}
           portfolios={portfolios}
         />

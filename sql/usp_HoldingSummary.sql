@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_Summary]
+CREATE PROCEDURE [dbo].[usp_HoldingSummary]
 (
 	@period	  int,
 	@exchange nvarchar(50)
@@ -56,61 +56,7 @@ BEGIN
 							AND t.period <= @period
 							AND t.trade_type = 'buy'
 				), 0),
-				avg_buy =
-				ISNULL(
-				(
-					SELECT
-						SUM(t.quantity * t.price) / SUM(t.quantity)
-						FROM
-							CTE_Data t
-						WHERE
-							t.symbol = e.symbol
-							AND t.exchange = e.exchange
-							AND t.period <= @period
-							AND t.trade_type = 'buy'
-
-				), 0),
-				avg_sell =
-				ISNULL(
-				(
-					SELECT
-						SUM(t.quantity * t.price) / SUM(t.quantity)
-						FROM
-							CTE_Data t
-						WHERE
-							t.symbol = e.symbol
-							AND t.exchange = e.exchange
-							AND t.period <= @period
-							AND t.trade_type = 'sell'
-
-				), 0),
-				buy_qty =
-				ISNULL(
-				(
-					SELECT
-						SUM(t.quantity)
-						FROM
-							CTE_Data t
-						WHERE
-							t.symbol = e.symbol
-							AND t.exchange = e.exchange
-							AND t.period = @period
-							AND t.trade_type = 'buy'
-				), 0),
-				sell_qty =
-				ISNULL(
-				(
-					SELECT
-						SUM(t.quantity)
-						FROM
-							CTE_Data t
-						WHERE
-							t.symbol = e.symbol
-							AND t.exchange = e.exchange
-							AND t.period = @period
-							AND t.trade_type = 'sell'
-				), 0),
-				buy_amt =
+				total_buy_amt =
 				ISNULL(
 				(
 					SELECT
@@ -120,10 +66,10 @@ BEGIN
 						WHERE
 							t.symbol = e.symbol
 							AND t.exchange = e.exchange
-							AND t.period = @period
+							AND t.period <= @period
 							AND t.trade_type = 'buy'
 				), 0),
-				sell_amt =
+				total_sell_amt =
 				ISNULL(
 				(
 					SELECT
@@ -133,7 +79,7 @@ BEGIN
 						WHERE
 							t.symbol = e.symbol
 							AND t.exchange = e.exchange
-							AND t.period = @period
+							AND t.period <= @period
 							AND t.trade_type = 'sell'
 				), 0)
 				FROM
@@ -151,45 +97,38 @@ BEGIN
 								AND e.exchange = t.exchange
 								AND (YEAR(t.trade_date) * 100 + MONTH(t.trade_date)) <= @period
 					)
+		),
+	CTE_Avg
+	AS
+		(
+			SELECT
+				[total_sell_qty] = SUM(cs.total_sell_qty),
+				[avg_buy] =		   SUM(cs.total_buy_amt) / SUM(cs.total_buy_qty),
+				[avg_sell] =	   SUM(cs.total_sell_amt) / SUM(cs.total_sell_qty)
+				FROM
+					CTE_Summary cs
+				GROUP BY
+					cs.symbol
+				HAVING
+					SUM(cs.total_sell_qty) > 0
+		),
+	CTE_Pnl
+	AS
+		(
+			SELECT
+				ROUND(ISNULL(
+				(
+					SELECT
+						SUM((cs.total_sell_qty * cs.avg_sell) - (cs.total_sell_qty * cs.avg_buy))
+						FROM
+							CTE_Avg cs
+				)
+				, 0), 2) AS [PnL]
 		)
 	SELECT
-		[ordinal] =	  1,
-		[key] =		  'nos_bought',
-		[label] =	  'No of bought',
-		[value] =	  
-		ROUND(ISNULL(
-		(
-			SELECT
-				COUNT(cs.buy_qty)
-				FROM
-					CTE_Summary cs
-				WHERE
-					cs.buy_qty > 0
-		), 0), 2),
-		[indicator] = 'p',
-		[type] =	  'q'
-	UNION
-	SELECT
-		[ordinal] =	  2,
-		[key] =		  'nos_sold',
-		[label] =	  'No of sold',
-		[value] =	  
-		ROUND(ISNULL(
-		(
-			SELECT
-				COUNT(cs.sell_qty)
-				FROM
-					CTE_Summary cs
-				WHERE
-					cs.sell_qty > 0
-		), 0), 2),
-		[indicator] = 's',
-		[type] =	  'q'
-	UNION
-	SELECT
 		[ordinal] =	  3,
-		[key] =		  'new_entries',
-		[label] =	  'New entries',
+		[key] =		  'no_of_buy',
+		[label] =	  'No of bought',
 		[value] =	  
 		ROUND(ISNULL(
 		(
@@ -198,15 +137,15 @@ BEGIN
 				FROM
 					CTE_Summary cs
 				WHERE
-					cs.buy_qty = cs.total_buy_qty
+					cs.total_buy_qty > 0
 		), 0), 2),
 		[indicator] = 'p',
 		[type] =	  'q'
 	UNION
 	SELECT
 		[ordinal] =	  4,
-		[key] =		  'new_exits',
-		[label] =	  'New exits',
+		[key] =		  'no_of_sold',
+		[label] =	  'No of sold',
 		[value] =	  
 		ROUND(ISNULL(
 		(
@@ -215,42 +154,41 @@ BEGIN
 				FROM
 					CTE_Summary cs
 				WHERE
-					cs.total_sell_qty = cs.total_buy_qty
-					AND cs.sell_qty > 0
+					cs.total_sell_qty > 0
 		), 0), 2),
 		[indicator] = 's',
 		[type] =	  'q'
 	UNION
 	SELECT
 		[ordinal] =	  5,
-		[key] =		  'buy_amt',
+		[key] =		  'total_buy_amt',
 		[label] =	  'Total amount bought',
 		[value] =	  
 		ROUND(ISNULL(
 		(
 			SELECT
-				SUM(cs.buy_amt)
+				SUM(cs.total_buy_amt)
 				FROM
 					CTE_Summary cs
 				WHERE
-					cs.buy_qty > 0
+					cs.total_buy_qty > 0
 		), 0), 2),
 		[indicator] = 'p',
 		[type] =	  'c'
 	UNION
 	SELECT
 		[ordinal] =	  6,
-		[key] =		  'sell_amt',
+		[key] =		  'total_sell_amount',
 		[label] =	  'Total amount sold',
 		[value] =	  
 		ROUND(ISNULL(
 		(
 			SELECT
-				SUM(cs.sell_amt)
+				SUM(cs.total_sell_amt)
 				FROM
 					CTE_Summary cs
 				WHERE
-					cs.sell_qty > 0
+					cs.total_sell_qty > 0
 		), 0), 2),
 		[indicator] = 's',
 		[type] =	  'c'
@@ -260,25 +198,16 @@ BEGIN
 		[key] =		'pnl',
 		[label] =   'Profit and Loss',
 		[value] =   
-		ROUND(ISNULL(
-		(
-			SELECT
-				SUM((cs.total_sell_qty * cs.avg_sell) - (cs.total_sell_qty * cs.avg_buy))
-				FROM
-					CTE_Summary cs
-		), 0), 2),
+		p.PnL,
 		[indicator] =
 			CASE
-				WHEN ROUND(ISNULL(
-					(
-						SELECT
-							SUM((cs.total_sell_qty * cs.avg_sell) - (cs.total_sell_qty * cs.avg_buy))
-							FROM
-								CTE_Summary cs
-					), 0), 2) > 0 THEN 'p'
-				ELSE 's'
+				WHEN p.PnL > 0 THEN 'p'
+				WHEN p.Pnl < 0 THEN 's'
+				ELSE 'n'
 			END,
 		[type] =	'c'
+		FROM
+			CTE_Pnl p
 		ORDER BY
 			1;
 END

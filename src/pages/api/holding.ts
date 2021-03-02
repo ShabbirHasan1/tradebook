@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-import { Portfolio } from '@/common/types';
+import { Portfolio, Summary } from '@/common/types';
 import parse from 'csv-parse';
 
 const prisma = new PrismaClient();
@@ -9,15 +9,43 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case `GET`: {
       const {
-        query: { exchange, period },
+        query: { exchange, period, type },
       } = req;
-      const summary = await prisma.$queryRaw<Portfolio[]>(
-        `EXEC [dbo].[usp_Holding] 
-            @period = ${period},
-            @exchange = '${exchange}'`,
-      );
-      res.status(200).json(summary);
-      prisma.$disconnect();
+      switch (type) {
+        case `d`: {
+          try {
+            const summary = await prisma.$queryRaw<Portfolio[]>(
+              `EXEC [dbo].[usp_Holding] 
+                  @period = ${period},
+                  @exchange = '${exchange}'`,
+            );
+            res.status(200).json(summary);
+          } catch (error) {
+            res.status(500).json({ message: `Error loading data` });
+          } finally {
+            prisma.$disconnect();
+          }
+          break;
+        }
+        case `s`: {
+          try {
+            const summary = await prisma.$queryRaw<Summary[]>(
+              `EXEC [dbo].[usp_HoldingSummary] 
+                @period = ${period},
+                @exchange = '${exchange}'`,
+            );
+            res.status(200).json(summary);
+          } catch (error) {
+            res.status(500).json({ message: `Error loading data` });
+          } finally {
+            prisma.$disconnect();
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
       break;
     }
     case `POST`: {

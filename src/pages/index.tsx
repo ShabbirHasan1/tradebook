@@ -4,7 +4,7 @@ import { Portfolio, Summary } from '@/common/types';
 import { Layout } from '@/components/layout';
 import { SummaryCard } from '@/components/summary-card';
 import { useState } from 'react';
-import { PositionList } from '@/components/position-list';
+import { PortfolioList } from '@/components/portfolio-list';
 import { formatPeriod, fetcher } from '@/common/functions';
 import { ExchangeButton } from '@/components/exchange-button';
 
@@ -61,8 +61,9 @@ export default function Home() {
             onChange={(ex) => setExchange(ex)}
           />
         </Center>
-        <SummaryCard summary={summary} date={today} />
-        <PositionList
+        <SummaryCard summary={summary} />
+        <PortfolioList
+          isLoading={!portfolios}
           title={`Position (${portfolios ? portfolios?.length : 0})`}
           onExit={(e) => setExits(e.target.checked)}
           portfolios={portfolios}

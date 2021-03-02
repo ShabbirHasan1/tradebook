@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     query: { exchange, period },
   } = req;
   const summary = await prisma.$queryRaw<Summary[]>(
-    `EXEC [dbo].[usp_Summary] 
+    `EXEC [dbo].[usp_PositionSummary] 
       @period = ${period},
       @exchange = '${exchange}'`,
   );

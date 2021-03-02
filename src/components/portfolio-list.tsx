@@ -12,13 +12,15 @@ import {
   FormControl,
   FormLabel,
   Tooltip,
+  HStack,
+  Progress,
 } from '@chakra-ui/react';
 
-export type PositionListItemProps = {
+export type PortfolioListItemProps = {
   portfolio: Portfolio;
 };
 
-export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
+export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
   const {
     symbol,
     name,
@@ -28,11 +30,13 @@ export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
     avg_sell_price,
     pnl,
     exit_date,
+    entry_date,
   } = portfolio;
   {
     let bgColor = ``;
     let color = ``;
-    let dateFmt = `P&L`;
+    let dateFmtExit = ``;
+    let dateFmtEntry = ``;
     const mo = new Intl.DateTimeFormat(`en-In`, {
       month: `short`,
       day: `2-digit`,
@@ -55,7 +59,13 @@ export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
     if (exit_date) {
       const dt = new Date(exit_date);
       if (dt.getFullYear() > 1900) {
-        dateFmt = mo.format(dt);
+        dateFmtExit = mo.format(dt);
+      }
+    }
+    if (entry_date) {
+      const dt = new Date(entry_date);
+      if (dt.getFullYear() > 1900) {
+        dateFmtEntry = mo.format(dt);
       }
     }
     return (
@@ -72,6 +82,16 @@ export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
         shadow="md"
         rounded={{ md: `lg` }}
       >
+        <GridItem colSpan={2}>
+          <HStack justify="space-between">
+            <Text fontWeight="semibold" color="green.400" fontSize="xs">
+              {dateFmtEntry}
+            </Text>
+            <Text fontWeight="semibold" color="red.400" fontSize="xs">
+              {dateFmtExit}
+            </Text>
+          </HStack>
+        </GridItem>
         <GridItem as="dt">
           <Box>
             <Tooltip label={name} aria-label={name}>
@@ -93,7 +113,7 @@ export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
             <Text fontSize="xl" color={color}>
               {pnl}
             </Text>
-            <Text fontSize="xs">{dateFmt}</Text>
+            <Text fontSize="xs">P&L</Text>
           </Box>
         </GridItem>
       </Grid>
@@ -101,17 +121,19 @@ export const PositionListItem = ({ portfolio }: PositionListItemProps) => {
   }
 };
 
-export type PositionListProps = {
+export type PortfolioListProps = {
   portfolios?: Portfolio[];
   title: string;
+  isLoading: boolean;
   onExit?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const PositionList = ({
+export const PortfolioList = ({
   portfolios,
   onExit,
   title,
-}: PositionListProps) => (
+  isLoading,
+}: PortfolioListProps) => (
   <Box
     w="100%"
     mx="auto"
@@ -124,6 +146,7 @@ export const PositionList = ({
       <Text as="h3" fontWeight="bold" fontSize="lg">
         {title}
       </Text>
+
       {onExit && (
         <Box>
           <FormControl display="flex" alignItems="center">
@@ -139,6 +162,13 @@ export const PositionList = ({
         </Box>
       )}
     </Flex>
+    <Progress
+      size="xs"
+      w="100%"
+      colorScheme="blue"
+      isIndeterminate
+      hidden={!isLoading}
+    />
     <Divider />
     <Grid
       p={4}
@@ -152,11 +182,11 @@ export const PositionList = ({
       {portfolios && portfolios?.length > 0 ? (
         portfolios.map((pt) => (
           <GridItem _last={{ mb: 4 }} key={pt.symbol}>
-            <PositionListItem key={pt.symbol} portfolio={pt} />
+            <PortfolioListItem key={pt.symbol} portfolio={pt} />
           </GridItem>
         ))
       ) : (
-        <GridItem colSpan={3} p={8}>
+        <GridItem hidden={isLoading} colSpan={3} p={8}>
           <Center height="100%">No data found</Center>
         </GridItem>
       )}
