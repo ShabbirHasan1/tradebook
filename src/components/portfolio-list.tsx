@@ -11,10 +11,12 @@ import {
   Switch,
   FormControl,
   FormLabel,
-  Tooltip,
-  HStack,
   Progress,
+  Stack,
+  Link,
+  Circle,
 } from '@chakra-ui/react';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 export type PortfolioListItemProps = {
   portfolio: Portfolio;
@@ -31,24 +33,23 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
     pnl,
     exit_date,
     entry_date,
+    isin_no,
   } = portfolio;
   {
-    let bgColor = ``;
+    let bgColor = `white`;
     let color = ``;
     let dateFmtExit = ``;
     let dateFmtEntry = ``;
-    const mo = new Intl.DateTimeFormat(`en-In`, {
+    const fmt = new Intl.NumberFormat(`en-IN`, {
+      style: `currency`,
+      currency: `INR`,
+      notation: `compact`,
+    });
+    const mo = new Intl.DateTimeFormat(`en-IN`, {
       month: `short`,
       day: `2-digit`,
       year: `numeric`,
     });
-    if (buy_qty === sell_qty) {
-      bgColor = `yellow.50`;
-    } else if (buy_qty > 0) {
-      bgColor = `green.50`;
-    } else if (sell_qty > 0) {
-      bgColor = `red.50`;
-    }
     if (pnl === 0) {
       color = `inherent`;
     } else if (pnl > 0) {
@@ -60,6 +61,7 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
       const dt = new Date(exit_date);
       if (dt.getFullYear() > 1900) {
         dateFmtExit = mo.format(dt);
+        bgColor = `red.50`;
       }
     }
     if (entry_date) {
@@ -73,48 +75,114 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
         as="dl"
         gridTemplateColumns="1fr 1fr"
         gridTemplateRows="min-content"
-        px="6"
-        py="4"
-        bg={bgColor}
-        border={1}
-        borderStyle="solid"
-        borderColor="gray.200"
         shadow="md"
         rounded={{ md: `lg` }}
+        bg={bgColor}
       >
+        <GridItem display="flex" colSpan={2}>
+          <Stack
+            bg="white"
+            align="center"
+            borderTopLeftRadius={6}
+            borderTop={1}
+            borderLeft={1}
+            borderRight={1}
+            borderStyle="solid"
+            borderColor="gray.300"
+            p={4}
+            w="50%"
+          >
+            <Text color="green.400" fontWeight="semibold" fontSize="xl">
+              {fmt.format(avg_buy_price)}
+            </Text>
+            <Text color="gray.400" fontWeight="semibold">
+              {buy_qty} qty
+            </Text>
+          </Stack>
+          <Stack
+            bg="white"
+            align="center"
+            borderTop={1}
+            borderRight={1}
+            borderTopRightRadius={6}
+            borderStyle="solid"
+            borderColor="gray.300"
+            p={4}
+            w="50%"
+          >
+            <Text color="red.400" fontWeight="semibold" fontSize="xl">
+              {fmt.format(avg_sell_price)}
+            </Text>
+            <Text color="gray.400" fontWeight="semibold">
+              {sell_qty} qty
+            </Text>
+          </Stack>
+        </GridItem>
         <GridItem colSpan={2}>
-          <HStack justify="space-between">
-            <Text fontWeight="semibold" color="green.400" fontSize="xs">
-              {dateFmtEntry}
+          <Stack
+            spacing={1}
+            borderTop={1}
+            borderLeft={1}
+            borderRight={1}
+            borderStyle="solid"
+            borderColor="gray.300"
+            p={4}
+            bg={bgColor}
+            mt="-px"
+          >
+            <Text fontWeight="bold" isTruncated>
+              {name}
             </Text>
-            <Text fontWeight="semibold" color="red.400" fontSize="xs">
-              {dateFmtExit}
-            </Text>
-          </HStack>
-        </GridItem>
-        <GridItem as="dt">
-          <Box>
-            <Tooltip label={name} aria-label={name}>
-              <Text cursor="default" fontSize="xl" maxW="250px" isTruncated>
-                {name}
+            <Flex justify="space-between">
+              <Stack spacing={2} align="center" direction="row">
+                <Text fontSize="sm" color="gray.400" fontWeight="semibold">
+                  {symbol}
+                </Text>
+                <Circle size="6px" bg="gray.300" />
+                <Text fontSize="sm" color="gray.400" fontWeight="semibold">
+                  {isin_no}
+                </Text>
+              </Stack>
+              <Link
+                href={`https://www.nseindia.com/get-quotes/equity?symbol=${symbol}`}
+                isExternal
+              >
+                <ExternalLinkIcon />
+              </Link>
+            </Flex>
+            <Stack justify="space-between" direction="row">
+              <Text fontSize="sm" color="gray.400" fontWeight="semibold">
+                {dateFmtEntry}
               </Text>
-            </Tooltip>
-            <Text fontSize="sm">
-              {buy_qty} bought at ₹{avg_buy_price}
-            </Text>
-            <Text fontSize="sm">
-              {sell_qty} sold at ₹{avg_sell_price}
-            </Text>
-          </Box>
+              <Text fontSize="sm" color="gray.400" fontWeight="semibold">
+                {dateFmtExit}
+              </Text>
+            </Stack>
+          </Stack>
         </GridItem>
-        <GridItem as="dd">
-          <Box textAlign="right">
-            <Text>{symbol}</Text>
-            <Text fontSize="xl" color={color}>
-              {pnl}
+        <GridItem colSpan={2}>
+          <Flex
+            spacing="2"
+            borderTop={1}
+            borderLeft={1}
+            borderRight={1}
+            justify="space-between"
+            borderStyle="solid"
+            borderColor="gray.300"
+            p={4}
+            align="center"
+            bg="white"
+            mt="-px"
+            borderBottomRightRadius={6}
+            borderBottomLeftRadius={6}
+          >
+            <Text color="gray.400" casing="uppercase" fontWeight="semibold">
+              Profit & Loss
             </Text>
-            <Text fontSize="xs">P&L</Text>
-          </Box>
+            <Text color={color} fontSize="xl" fontWeight="bold">
+              {fmt.format(pnl)}
+            </Text>
+          </Flex>
         </GridItem>
       </Grid>
     );
@@ -173,7 +241,7 @@ export const PortfolioList = ({
     <Grid
       p={4}
       gap={4}
-      templateColumns="1fr 1fr 1fr"
+      templateColumns="1fr 1fr 1fr 1fr"
       templateRows="min-content"
       maxH="500px"
       minH="500px"
@@ -186,7 +254,7 @@ export const PortfolioList = ({
           </GridItem>
         ))
       ) : (
-        <GridItem hidden={isLoading} colSpan={3} p={8}>
+        <GridItem hidden={isLoading} colSpan={4} p={8}>
           <Center height="100%">No data found</Center>
         </GridItem>
       )}

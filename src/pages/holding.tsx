@@ -1,6 +1,13 @@
 import useSWR from 'swr';
 import { Portfolio, Summary } from '@/common/types';
-import { Stack, Center, Button, Input, useToast } from '@chakra-ui/react';
+import {
+  Stack,
+  Center,
+  Button,
+  Input,
+  useToast,
+  ButtonGroup,
+} from '@chakra-ui/react';
 import { Layout } from '@/components/layout';
 import { ExchangeButton } from '@/components/exchange-button';
 import { ChangeEvent, useState, useRef } from 'react';
@@ -14,7 +21,9 @@ export default function Holding() {
   const [exchange, setExchange] = useState(`NSE`);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-  const [period] = useState(today.getFullYear() * 100 + (today.getMonth() + 1));
+  const [period, setPeriod] = useState(
+    today.getFullYear() * 100 + (today.getMonth() + 1),
+  );
   const { data: summary } = useSWR<Summary[]>(
     `/api/holding?type=s&exchange=${exchange}&period=${period}`,
     fetcher,
@@ -64,8 +73,37 @@ export default function Holding() {
       reader.readAsText(f);
     }
   };
+  const headerRight = (
+    <ButtonGroup variant="outline" size="lg" isAttached>
+      <Button
+        borderColor="blue.400"
+        mr="-px"
+        onClick={() => {
+          const year = Math.floor(period / 100);
+          const month = period - year * 100;
+          const newPeriod =
+            month === 1 ? (year - 1) * 100 + 12 : year * 100 + (month - 1);
+          setPeriod(newPeriod);
+        }}
+      >
+        Prev
+      </Button>
+      <Button
+        borderColor="blue.400"
+        onClick={() => {
+          const year = Math.floor(period / 100);
+          const month = period - year * 100;
+          const newPeriod =
+            month === 12 ? (year + 1) * 100 + 1 : year * 100 + (month + 1);
+          setPeriod(newPeriod);
+        }}
+      >
+        Next
+      </Button>
+    </ButtonGroup>
+  );
   return (
-    <Layout title={`${formatPeriod(period)}`}>
+    <Layout headerRight={headerRight} title={`${formatPeriod(period)}`}>
       <Stack spacing={4}>
         <Center position="relative">
           <ExchangeButton

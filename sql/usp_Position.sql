@@ -32,6 +32,7 @@ BEGIN
 				period = @period,
 				e.symbol,
 				e.name,
+				e.isin_no,
 				total_sell_qty =
 				ISNULL(
 				(
@@ -138,6 +139,20 @@ BEGIN
 							AND t.period = @period
 							AND t.trade_type = 'sell'
 				), 0),
+				entry_date =
+				ISNULL(
+				(
+					SELECT
+						MIN(t.trade_date)
+						FROM
+							CTE_Data t
+						WHERE
+							t.symbol = e.symbol
+							AND t.exchange = e.exchange
+							AND t.period <= @period
+							AND t.trade_type = 'buy'
+
+				), 0),
 				exit_date =
 				ISNULL(
 				(
@@ -172,6 +187,8 @@ BEGIN
 	SELECT
 		cs.symbol,
 		cs.name,
+		cs.isin_no,
+		cs.entry_date,
 		cs.exit_date,
 		cs.buy_qty,
 		cs.sell_qty,

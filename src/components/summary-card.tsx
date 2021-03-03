@@ -62,44 +62,37 @@ export type StatCardProps = {
   summary?: Summary[];
 };
 
-export const SummaryCard = ({ summary }: StatCardProps) => {
-  const options = {
-    year: `numeric`,
-    month: `short`,
-  };
-
-  return (
-    <StatGroup
-      boxShadow="md"
-      border={1}
-      borderStyle="solid"
-      borderColor="gray.100"
-      borderRadius={{ md: `lg` }}
-      p={8}
-      justifyItems="center"
-    >
-      {summary ? (
-        summary.map((sum) => {
-          const { key, label, value, indicator, type } = sum;
-          return (
-            <StatButton
-              key={key}
-              type={type}
-              label={label}
-              value={value}
-              color={indicator === `p` ? `green.400` : `red.400`}
-            />
-          );
-        })
-      ) : (
-        <>
-          <StatLoader />
-          <StatLoader />
-          <StatLoader />
-          <StatLoader />
-          <StatLoader />
-        </>
-      )}
-    </StatGroup>
-  );
-};
+export const SummaryCard = ({ summary }: StatCardProps) => (
+  <StatGroup
+    boxShadow="md"
+    border={1}
+    borderStyle="solid"
+    borderColor="gray.100"
+    borderRadius={{ md: `lg` }}
+    p={8}
+    justifyItems="center"
+  >
+    {summary ? (
+      summary.map((sum) => {
+        const { key, label, value, indicator, type } = sum;
+        return (
+          <StatButton
+            key={key}
+            type={type}
+            label={label}
+            value={value}
+            color={indicator === `p` ? `green.400` : `red.400`}
+          />
+        );
+      })
+    ) : (
+      <>
+        <StatLoader />
+        <StatLoader />
+        <StatLoader />
+        <StatLoader />
+        <StatLoader />
+      </>
+    )}
+  </StatGroup>
+);

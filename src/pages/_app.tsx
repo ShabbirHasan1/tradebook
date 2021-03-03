@@ -2,7 +2,7 @@ import React from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ChakraProvider } from '@chakra-ui/react';
-import { Theme, Fonts } from '../styles/theme';
+import { Theme } from '../styles/theme';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,7 +12,6 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <title>Tradebook</title>
       </Head>
       <ChakraProvider theme={Theme}>
-        <Fonts />
         <Component {...pageProps} />
       </ChakraProvider>
     </>
