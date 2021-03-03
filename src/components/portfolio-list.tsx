@@ -15,6 +15,7 @@ import {
   Stack,
   Link,
   Circle,
+  useToast,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 
@@ -36,8 +37,18 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
     isin_no,
   } = portfolio;
   {
+    const toast = useToast();
+    const showCopySuccess = () => {
+      toast({
+        description: `Copied to clipboard`,
+        status: `success`,
+        duration: 2000,
+        isClosable: true,
+        position: `top`,
+      });
+    };
     let bgColor = `white`;
-    let color = ``;
+    let color = `gray.500`;
     let dateFmtExit = ``;
     let dateFmtEntry = ``;
     const fmt = new Intl.NumberFormat(`en-IN`, {
@@ -50,9 +61,7 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
       day: `2-digit`,
       year: `numeric`,
     });
-    if (pnl === 0) {
-      color = `inherent`;
-    } else if (pnl > 0) {
+    if (pnl > 0) {
       color = `green.400`;
     } else if (pnl < 0) {
       color = `red.400`;
@@ -130,16 +139,51 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
             bg={bgColor}
             mt="-px"
           >
-            <Text fontWeight="bold" isTruncated>
+            <Text
+              as="button"
+              textAlign="left"
+              fontWeight="bold"
+              outline="none"
+              isTruncated
+              cursor="pointer"
+              onClick={() => {
+                navigator?.clipboard?.writeText(name);
+                showCopySuccess();
+              }}
+            >
               {name}
             </Text>
             <Flex justify="space-between">
               <Stack spacing={2} align="center" direction="row">
-                <Text fontSize="sm" color="gray.400" fontWeight="semibold">
+                <Text
+                  as="button"
+                  textAlign="left"
+                  cursor="pointer"
+                  outline="none"
+                  onClick={() => {
+                    navigator?.clipboard?.writeText(symbol);
+                    showCopySuccess();
+                  }}
+                  fontSize="sm"
+                  color="gray.400"
+                  fontWeight="semibold"
+                >
                   {symbol}
                 </Text>
                 <Circle size="6px" bg="gray.300" />
-                <Text fontSize="sm" color="gray.400" fontWeight="semibold">
+                <Text
+                  as="button"
+                  textAlign="left"
+                  cursor="pointer"
+                  outline="none"
+                  onClick={() => {
+                    navigator?.clipboard?.writeText(isin_no);
+                    showCopySuccess();
+                  }}
+                  fontSize="sm"
+                  color="gray.400"
+                  fontWeight="semibold"
+                >
                   {isin_no}
                 </Text>
               </Stack>
