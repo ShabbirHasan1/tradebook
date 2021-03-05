@@ -52,6 +52,35 @@ export default function Home() {
       </Button>
     </ButtonGroup>
   );
+  const headerSlot = (
+    <ButtonGroup size="sm" isAttached>
+      <Button
+        mr="-px"
+        variant={!exits ? `solid` : `outline`}
+        color={!exits ? `white` : `blue.400`}
+        onClick={() => setExits(false)}
+        bg={!exits ? `blue.400` : `transparent`}
+        borderWidth={2}
+        borderColor="blue.400"
+        _hover={{ bg: !exits ? `blue.400` : `blue.50` }}
+        _active={{ bg: !exits ? `blue.400` : `blue.50` }}
+      >
+        Buy
+      </Button>
+      <Button
+        variant={exits ? `solid` : `outline`}
+        color={exits ? `white` : `blue.400`}
+        onClick={() => setExits(true)}
+        bg={exits ? `blue.400` : `transparent`}
+        borderWidth={2}
+        borderColor="blue.400"
+        _hover={{ bg: exits ? `blue.400` : `blue.50` }}
+        _active={{ bg: exits ? `blue.400` : `blue.50` }}
+      >
+        Sell
+      </Button>
+    </ButtonGroup>
+  );
   return (
     <Layout headerRight={headerRight} title={formatPeriod(period)}>
       <Stack spacing={4}>
@@ -65,7 +94,7 @@ export default function Home() {
         <PortfolioList
           isLoading={!portfolios}
           title={`Position (${portfolios ? portfolios?.length : 0})`}
-          onExit={(e) => setExits(e.target.checked)}
+          headerSlot={headerSlot}
           portfolios={portfolios}
         />
       </Stack>

@@ -15,9 +15,12 @@ import {
   Stack,
   Link,
   Circle,
+  Button,
+  ButtonGroup,
   useToast,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { useState } from 'react';
 
 export type PortfolioListItemProps = {
   portfolio: Portfolio;
@@ -146,6 +149,7 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
               outline="none"
               isTruncated
               cursor="pointer"
+              casing="uppercase"
               onClick={() => {
                 navigator?.clipboard?.writeText(name);
                 showCopySuccess();
@@ -237,14 +241,14 @@ export type PortfolioListProps = {
   portfolios?: Portfolio[];
   title: string;
   isLoading: boolean;
-  onExit?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  headerSlot?: React.ReactElement;
 };
 
 export const PortfolioList = ({
   portfolios,
-  onExit,
   title,
   isLoading,
+  headerSlot,
 }: PortfolioListProps) => (
   <Box
     w="100%"
@@ -255,24 +259,10 @@ export const PortfolioList = ({
     overflow="hidden"
   >
     <Flex align="center" justify="space-between" px="6" py="4">
-      <Text as="h3" fontWeight="bold" fontSize="lg">
+      <Text as="h3" fontWeight="bold" fontSize="xl">
         {title}
       </Text>
-
-      {onExit && (
-        <Box>
-          <FormControl display="flex" alignItems="center">
-            <FormLabel htmlFor="email-alerts" mb="0">
-              Entry/Exit
-            </FormLabel>
-            <Switch
-              colorScheme="red"
-              onChange={(e) => onExit && onExit(e)}
-              id="email-alerts"
-            />
-          </FormControl>
-        </Box>
-      )}
+      {headerSlot}
     </Flex>
     <Progress
       size="xs"
