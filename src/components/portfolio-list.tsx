@@ -226,7 +226,7 @@ export const PortfolioListItem = ({
         <GridItem colSpan={2}>
           <Flex
             spacing="2"
-            borderTop={1}
+            borderTop={2}
             borderLeft={1}
             borderRight={1}
             justify="space-between"
