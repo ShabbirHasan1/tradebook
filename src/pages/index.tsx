@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { ButtonGroup, Button, Center, Stack } from '@chakra-ui/react';
+import { ButtonGroup, Button, Center, Stack, useToast } from '@chakra-ui/react';
 import { Portfolio, Summary } from '@/common/types';
 import { Layout } from '@/components/layout';
 import { SummaryCard } from '@/components/summary-card';
@@ -12,6 +12,7 @@ export default function Home() {
   const today = new Date();
   const [exchange, setExchange] = useState(`NSE`);
   const [exits, setExits] = useState(false);
+  const [updating, setUpdating] = useState(false);
   const [period, setPeriod] = useState(
     today.getFullYear() * 100 + (today.getMonth() + 1),
   );
@@ -19,10 +20,40 @@ export default function Home() {
     `/api/summary?exchange=${exchange}&period=${period}`,
     fetcher,
   );
-  const { data: portfolios } = useSWR<Portfolio[]>(
+  const { data: portfolios, mutate } = useSWR<Portfolio[]>(
     `/api/position?exchange=${exchange}&period=${period}&exits=${exits}`,
     fetcher,
   );
+  const toast = useToast();
+  const onRecordClick = async (symbol: string) => {
+    setUpdating(true);
+    const res = await fetch(`/api/portfolio`, {
+      method: `POST`,
+      body: JSON.stringify({ symbol, exchange }),
+    });
+    const msg = await res.text();
+    if (res.status === 200) {
+      await mutate();
+      toast({
+        title: `Portfolio`,
+        description: msg,
+        status: `success`,
+        duration: 5000,
+        isClosable: true,
+        position: `top`,
+      });
+    } else {
+      toast({
+        title: `Portfolio`,
+        description: msg,
+        status: `error`,
+        duration: 5000,
+        isClosable: true,
+        position: `top`,
+      });
+    }
+    setUpdating(false);
+  };
   const headerRight = (
     <ButtonGroup variant="outline" size="lg" isAttached>
       <Button
@@ -92,6 +123,8 @@ export default function Home() {
         </Center>
         <SummaryCard summary={summary} />
         <PortfolioList
+          recordUpdating={updating}
+          onRecordClick={onRecordClick}
           isLoading={!portfolios}
           title={`Position (${portfolios ? portfolios?.length : 0})`}
           headerSlot={headerSlot}

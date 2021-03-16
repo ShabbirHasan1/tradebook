@@ -31,6 +31,7 @@ BEGIN
 				period = @period,
 				e.symbol,
 				e.name,
+				e.recorded,
 				e.isin_no,
 				total_sell_qty =
 				ISNULL(
@@ -160,6 +161,7 @@ BEGIN
 	SELECT
 		cs.symbol,
 		cs.name,
+		cs.recorded,
 		cs.isin_no,
 		cs.entry_date,
 		cs.exit_date,

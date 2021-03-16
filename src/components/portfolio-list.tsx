@@ -8,30 +8,34 @@ import {
   Grid,
   GridItem,
   Center,
-  Switch,
-  FormControl,
-  FormLabel,
   Progress,
   Stack,
   Link,
   Circle,
-  Button,
-  ButtonGroup,
   useToast,
+  Button,
+  IconButton,
 } from '@chakra-ui/react';
-import { ExternalLinkIcon } from '@chakra-ui/icons';
-import { useRef, CSSProperties, HTMLAttributes, useState } from 'react';
+import { ExternalLinkIcon, RepeatIcon } from '@chakra-ui/icons';
+import { CSSProperties } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { useMeasure, useScrollbarWidth } from 'react-use';
 
 export type PortfolioListItemProps = {
   portfolio: Portfolio;
+  onRecordClick?: (symbol: string) => void;
+  recordUpdating?: boolean;
 };
 
-export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
+export const PortfolioListItem = ({
+  portfolio,
+  onRecordClick,
+  recordUpdating,
+}: PortfolioListItemProps) => {
   const {
     symbol,
     name,
+    recorded,
     buy_qty,
     sell_qty,
     avg_buy_price,
@@ -95,7 +99,7 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
       >
         <GridItem display="flex" colSpan={2}>
           <Stack
-            bg="white"
+            bg={recorded ? `gray.100` : `white`}
             align="center"
             borderTopLeftRadius={6}
             borderTop={1}
@@ -114,7 +118,7 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
             </Text>
           </Stack>
           <Stack
-            bg="white"
+            bg={recorded ? `gray.100` : `white`}
             align="center"
             borderTop={1}
             borderRight={1}
@@ -143,6 +147,7 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
             p={4}
             bg={bgColor}
             mt="-px"
+            position="relative"
           >
             <Text
               as="button"
@@ -160,7 +165,7 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
               {name}
             </Text>
             <Flex justify="space-between">
-              <Stack spacing={2} align="center" direction="row">
+              <Stack flexGrow={1} spacing={2} align="center" direction="row">
                 <Text
                   as="button"
                   textAlign="left"
@@ -189,16 +194,24 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
                   fontSize="sm"
                   color="gray.400"
                   fontWeight="semibold"
+                  w={16}
+                  isTruncated
                 >
                   {isin_no}
                 </Text>
               </Stack>
-              <Link
-                href={`https://www.nseindia.com/get-quotes/equity?symbol=${symbol}`}
-                isExternal
-              >
-                <ExternalLinkIcon />
-              </Link>
+              {onRecordClick && !recorded && (
+                <IconButton
+                  w={4}
+                  size="xs"
+                  aria-label="Record"
+                  onClick={() => onRecordClick(symbol)}
+                  isLoading={recordUpdating}
+                  // href={`https://www.nseindia.com/get-quotes/equity?symbol=${symbol}`}
+                  // isExternal
+                  icon={<RepeatIcon />}
+                />
+              )}
             </Flex>
             <Stack justify="space-between" direction="row">
               <Text fontSize="sm" color="gray.400" fontWeight="semibold">
@@ -221,7 +234,7 @@ export const PortfolioListItem = ({ portfolio }: PortfolioListItemProps) => {
             borderColor="gray.300"
             p={4}
             align="center"
-            bg="white"
+            bg={recorded ? `gray.100` : `white`}
             mt="-px"
             borderBottomRightRadius={6}
             borderBottomLeftRadius={6}
@@ -244,6 +257,8 @@ export type PortfolioListProps = {
   title: string;
   isLoading: boolean;
   headerSlot?: React.ReactElement;
+  onRecordClick?: (symbol: string) => void;
+  recordUpdating?: boolean;
 };
 
 export const PortfolioList = ({
@@ -251,6 +266,8 @@ export const PortfolioList = ({
   title,
   isLoading,
   headerSlot,
+  onRecordClick,
+  recordUpdating,
 }: PortfolioListProps) => {
   const [parentRef, { width }] = useMeasure<HTMLDivElement>();
   const sbw = useScrollbarWidth();
@@ -279,7 +296,16 @@ export const PortfolioList = ({
           paddingRight: columnIndex === colCount - 1 ? `0.5rem` : `0`,
         }}
       >
-        {pt ? <PortfolioListItem key={pt.symbol} portfolio={pt} /> : <></>}
+        {pt ? (
+          <PortfolioListItem
+            onRecordClick={onRecordClick}
+            recordUpdating={recordUpdating}
+            key={pt.symbol}
+            portfolio={pt}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     );
   };

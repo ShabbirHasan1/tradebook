@@ -20,9 +20,11 @@ model Tradebook {
   trade_id             Int
   order_id             Float
   order_execution_time DateTime
+  period               Int?
   Equity               Equity   @relation(fields: [symbol, exchange], references: [symbol, exchange])
 
   @@id([trade_id, order_id])
+  @@index([exchange, price, quantity, symbol, trade_date, trade_type, period], name: "IX_Tradebook_period")
 }
 
 model Equity {
@@ -32,6 +34,7 @@ model Equity {
   series     String?     @db.NVarChar(50)
   isin_no    String      @db.NVarChar(50)
   face_value Float
+  recorded   Boolean     @default(false)
   Tradebook  Tradebook[]
 
   @@id([symbol, exchange])
