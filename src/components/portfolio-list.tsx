@@ -20,7 +20,9 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
+import { useRef, CSSProperties, HTMLAttributes, useState } from 'react';
+import { FixedSizeGrid } from 'react-window';
+import { useMeasure, useScrollbarWidth } from 'react-use';
 
 export type PortfolioListItemProps = {
   portfolio: Portfolio;
@@ -249,49 +251,84 @@ export const PortfolioList = ({
   title,
   isLoading,
   headerSlot,
-}: PortfolioListProps) => (
-  <Box
-    w="100%"
-    mx="auto"
-    rounded={{ md: `lg` }}
-    bg={mode(`white`, `gray.700`)}
-    shadow="md"
-    overflow="hidden"
-  >
-    <Flex align="center" justify="space-between" px="6" py="4">
-      <Text as="h3" fontWeight="bold" fontSize="xl">
-        {title}
-      </Text>
-      {headerSlot}
-    </Flex>
-    <Progress
-      size="xs"
+}: PortfolioListProps) => {
+  const [parentRef, { width }] = useMeasure<HTMLDivElement>();
+  const sbw = useScrollbarWidth();
+  const colCount = 5;
+  const length = portfolios ? portfolios.length : 1;
+  const rowCount =
+    length === 0 ? 0 : Math.floor(length / colCount) + (length % 5 > 0 ? 1 : 0);
+  const colWidth = Math.floor((width - (sbw || 0)) / colCount);
+  const Cell = ({
+    columnIndex,
+    rowIndex,
+    style,
+  }: {
+    columnIndex: number;
+    rowIndex: number;
+    style?: CSSProperties;
+  }) => {
+    const index = rowIndex * colCount + columnIndex;
+    const pt = portfolios ? portfolios[index] : ({} as Portfolio);
+    return (
+      <div
+        style={{
+          ...style,
+          paddingLeft: `0.5rem`,
+          paddingTop: `0.5rem`,
+          paddingRight: columnIndex === colCount - 1 ? `0.5rem` : `0`,
+        }}
+      >
+        {pt ? <PortfolioListItem key={pt.symbol} portfolio={pt} /> : <></>}
+      </div>
+    );
+  };
+  return (
+    <Box
       w="100%"
-      colorScheme="blue"
-      isIndeterminate
-      hidden={!isLoading}
-    />
-    <Divider />
-    <Grid
-      p={4}
-      gap={4}
-      templateColumns="1fr 1fr 1fr 1fr"
-      templateRows="min-content"
-      maxH="500px"
-      minH="500px"
-      overflowY="auto"
+      mx="auto"
+      rounded={{ md: `lg` }}
+      bg={mode(`white`, `gray.700`)}
+      shadow="md"
+      overflow="hidden"
+      ref={parentRef}
+      position="relative"
     >
-      {portfolios && portfolios?.length > 0 ? (
-        portfolios.map((pt) => (
-          <GridItem _last={{ mb: 4 }} key={pt.symbol}>
-            <PortfolioListItem key={pt.symbol} portfolio={pt} />
-          </GridItem>
-        ))
+      <Flex align="center" justify="space-between" px="6" py="4">
+        <Text as="h3" fontWeight="bold" fontSize="xl">
+          {title}
+        </Text>
+        {headerSlot}
+      </Flex>
+      <Progress
+        size="xs"
+        w="100%"
+        colorScheme="blue"
+        isIndeterminate
+        hidden={!isLoading}
+        position="absolute"
+      />
+      <Divider />
+      {portfolios && portfolios.length > 0 ? (
+        <FixedSizeGrid
+          style={{
+            visibility: isLoading ? `hidden` : `visible`,
+            padding: `0.5rem 0 0 0`,
+          }}
+          columnCount={colCount}
+          columnWidth={colWidth}
+          rowHeight={275}
+          height={500}
+          rowCount={rowCount}
+          width={width}
+        >
+          {Cell}
+        </FixedSizeGrid>
       ) : (
-        <GridItem hidden={isLoading} colSpan={4} p={8}>
-          <Center height="100%">No data found</Center>
-        </GridItem>
+        <Center w="100%" h="500px">
+          No data found
+        </Center>
       )}
-    </Grid>
-  </Box>
-);
+    </Box>
+  );
+};
