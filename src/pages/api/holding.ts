@@ -70,7 +70,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             inserts.push({
               order_id: Number(record.order_id),
               trade_id: Number(record.trade_id),
-              symbol: record.symbol,
+              symbol: record.symbol.replace(`-BE`, ``),
               exchange: record.exchange,
               price: Number(record.price),
               quantity: Number(record.quantity),
