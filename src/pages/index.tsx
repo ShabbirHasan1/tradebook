@@ -29,7 +29,7 @@ export default function Home() {
     setUpdating(true);
     const res = await fetch(`/api/portfolio`, {
       method: `POST`,
-      body: JSON.stringify({ symbol, exchange }),
+      body: JSON.stringify({ symbol, exchange, type: exits ? `sell` : `buy` }),
     });
     const msg = await res.text();
     if (res.status === 200) {
@@ -124,6 +124,7 @@ export default function Home() {
         <SummaryCard summary={summary} />
         <PortfolioList
           recordUpdating={updating}
+          exits={exits}
           onRecordClick={onRecordClick}
           isLoading={!portfolios}
           title={`Position (${portfolios ? portfolios?.length : 0})`}

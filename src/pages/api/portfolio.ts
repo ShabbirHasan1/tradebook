@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     case `POST`: {
       try {
         const { body } = req;
-        const { symbol, exchange } = JSON.parse(body);
+        const { symbol, exchange, type } = JSON.parse(body);
         await await prisma.equity.update({
           where: {
             symbol_exchange: {
@@ -16,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               exchange,
             },
           },
-          data: { recorded: true },
+          data: { recorded: type === `buy` },
         });
         res
           .status(200)

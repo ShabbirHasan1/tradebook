@@ -10,25 +10,25 @@ import {
   Center,
   Progress,
   Stack,
-  Link,
   Circle,
   useToast,
-  Button,
   IconButton,
 } from '@chakra-ui/react';
-import { ExternalLinkIcon, RepeatIcon } from '@chakra-ui/icons';
+import { RepeatIcon } from '@chakra-ui/icons';
 import { CSSProperties } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { useMeasure, useScrollbarWidth } from 'react-use';
 
 export type PortfolioListItemProps = {
   portfolio: Portfolio;
+  exits?: boolean;
   onRecordClick?: (symbol: string) => void;
   recordUpdating?: boolean;
 };
 
 export const PortfolioListItem = ({
   portfolio,
+  exits,
   onRecordClick,
   recordUpdating,
 }: PortfolioListItemProps) => {
@@ -56,10 +56,18 @@ export const PortfolioListItem = ({
         position: `top`,
       });
     };
+    let showRecord = false;
     let bgColor = `white`;
     let color = `gray.500`;
     let dateFmtExit = ``;
     let dateFmtEntry = ``;
+    if (exits) {
+      if (recorded) {
+        showRecord = true;
+      }
+    } else if (!recorded) {
+      showRecord = true;
+    }
     const fmt = new Intl.NumberFormat(`en-IN`, {
       style: `currency`,
       currency: `INR`,
@@ -200,7 +208,7 @@ export const PortfolioListItem = ({
                   {isin_no}
                 </Text>
               </Stack>
-              {onRecordClick && !recorded && (
+              {onRecordClick && showRecord && (
                 <IconButton
                   w={4}
                   size="xs"
@@ -257,6 +265,7 @@ export type PortfolioListProps = {
   title: string;
   isLoading: boolean;
   headerSlot?: React.ReactElement;
+  exits?: boolean;
   onRecordClick?: (symbol: string) => void;
   recordUpdating?: boolean;
 };
@@ -266,6 +275,7 @@ export const PortfolioList = ({
   title,
   isLoading,
   headerSlot,
+  exits,
   onRecordClick,
   recordUpdating,
 }: PortfolioListProps) => {
@@ -298,6 +308,7 @@ export const PortfolioList = ({
       >
         {pt ? (
           <PortfolioListItem
+            exits={exits}
             onRecordClick={onRecordClick}
             recordUpdating={recordUpdating}
             key={pt.symbol}
