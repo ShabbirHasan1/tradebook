@@ -62,6 +62,7 @@ export default function Holding() {
         </Center>
         <SummaryCard summary={summary} />
         <PortfolioList
+          period={period}
           isLoading={!portfolios}
           title={`Holding (${portfolios ? portfolios?.length : 0})`}
           portfolios={portfolios}

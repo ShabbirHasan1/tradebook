@@ -21,6 +21,7 @@ import { useMeasure, useScrollbarWidth } from 'react-use';
 
 export type PortfolioListItemProps = {
   portfolio: Portfolio;
+  period: number;
   exits?: boolean;
   onRecordClick?: (symbol: string) => void;
   recordUpdating?: boolean;
@@ -28,6 +29,7 @@ export type PortfolioListItemProps = {
 
 export const PortfolioListItem = ({
   portfolio,
+  period,
   exits,
   onRecordClick,
   recordUpdating,
@@ -57,16 +59,22 @@ export const PortfolioListItem = ({
       });
     };
     let showRecord = false;
-    let bgColor = `white`;
+    let recordedBgColor = `white`;
+    const bgColor = `white`;
     let color = `gray.500`;
     let dateFmtExit = ``;
     let dateFmtEntry = ``;
-    if (exits) {
-      if (recorded) {
+    const today = new Date();
+    const currPeriod = today.getFullYear() * 100 + (today.getMonth() + 1);
+    if (currPeriod === period) {
+      if (exits) {
+        if (recorded) {
+          showRecord = true;
+        }
+      } else if (!recorded) {
         showRecord = true;
       }
-    } else if (!recorded) {
-      showRecord = true;
+      recordedBgColor = exits ? `red.50` : `green.50`;
     }
     const fmt = new Intl.NumberFormat(`en-IN`, {
       style: `currency`,
@@ -87,7 +95,6 @@ export const PortfolioListItem = ({
       const dt = new Date(exit_date);
       if (dt.getFullYear() > 1900) {
         dateFmtExit = mo.format(dt);
-        bgColor = `red.50`;
       }
     }
     if (entry_date) {
@@ -107,7 +114,7 @@ export const PortfolioListItem = ({
       >
         <GridItem display="flex" colSpan={2}>
           <Stack
-            bg={recorded ? `gray.100` : `white`}
+            bg={recordedBgColor}
             align="center"
             borderTopLeftRadius={6}
             borderTop={1}
@@ -126,7 +133,7 @@ export const PortfolioListItem = ({
             </Text>
           </Stack>
           <Stack
-            bg={recorded ? `gray.100` : `white`}
+            bg={recordedBgColor}
             align="center"
             borderTop={1}
             borderRight={1}
@@ -242,7 +249,7 @@ export const PortfolioListItem = ({
             borderColor="gray.300"
             p={4}
             align="center"
-            bg={recorded ? `gray.100` : `white`}
+            bg={recordedBgColor}
             mt="-px"
             borderBottomRightRadius={6}
             borderBottomLeftRadius={6}
@@ -265,6 +272,7 @@ export type PortfolioListProps = {
   title: string;
   isLoading: boolean;
   headerSlot?: React.ReactElement;
+  period: number;
   exits?: boolean;
   onRecordClick?: (symbol: string) => void;
   recordUpdating?: boolean;
@@ -275,6 +283,7 @@ export const PortfolioList = ({
   title,
   isLoading,
   headerSlot,
+  period,
   exits,
   onRecordClick,
   recordUpdating,
@@ -308,6 +317,7 @@ export const PortfolioList = ({
       >
         {pt ? (
           <PortfolioListItem
+            period={period}
             exits={exits}
             onRecordClick={onRecordClick}
             recordUpdating={recordUpdating}

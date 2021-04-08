@@ -123,6 +123,7 @@ export default function Home() {
         </Center>
         <SummaryCard summary={summary} />
         <PortfolioList
+          period={period}
           recordUpdating={updating}
           exits={exits}
           onRecordClick={onRecordClick}
