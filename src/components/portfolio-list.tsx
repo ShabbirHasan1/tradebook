@@ -91,16 +91,25 @@ export const PortfolioListItem = ({
     } else if (pnl < 0) {
       color = `red.400`;
     }
+    let exitPeriod = 0;
+    let entryPeriod = 0;
     if (exit_date) {
       const dt = new Date(exit_date);
       if (dt.getFullYear() > 1900) {
+        exitPeriod = dt.getFullYear() * 100 + (dt.getMonth() + 1);
         dateFmtExit = mo.format(dt);
       }
     }
     if (entry_date) {
       const dt = new Date(entry_date);
       if (dt.getFullYear() > 1900) {
+        entryPeriod = dt.getFullYear() * 100 + (dt.getMonth() + 1);
         dateFmtEntry = mo.format(dt);
+      }
+    }
+    if (!exits) {
+      if (exitPeriod === entryPeriod) {
+        showRecord = false;
       }
     }
     return (

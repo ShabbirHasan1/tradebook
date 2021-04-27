@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_Position]
+CREATE OR ALTER PROCEDURE [dbo].[usp_Position]
 (
 	@period	  int,
 	@exchange nvarchar(50),
@@ -192,8 +192,8 @@ BEGIN
 		cs.isin_no,
 		cs.entry_date,
 		cs.exit_date,
-		cs.buy_qty,
-		cs.sell_qty,
+		buy_qty =		 cs.total_buy_qty,
+		sell_qty =		 cs.total_sell_qty,
 		avg_buy_price =	 ROUND(cs.avg_buy, 2),
 		avg_sell_price = ROUND(cs.avg_sell, 2),
 		pnl =			 ROUND((cs.total_sell_qty * cs.avg_sell) - (cs.total_sell_qty * cs.avg_buy), 2)
@@ -214,4 +214,4 @@ BEGIN
 			END)
 		ORDER BY
 			1;
-END
+END;

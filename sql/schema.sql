@@ -1,0 +1,52658 @@
+/****** Creating Object:  Table [dbo].[Equity] ******/
+CREATE TABLE [dbo].[Equity]
+(
+	[symbol]	 nvarchar(50)  NOT NULL,
+	[name]		 nvarchar(500) NOT NULL,
+	[exchange]	 nvarchar(50)  NOT NULL,
+	[series]	 nvarchar(50)  NULL,
+	[isin_no]	 nvarchar(50)  NOT NULL,
+	[face_value] [FLOAT]	   NOT NULL,
+	[recorded]	 [BIT]		   NOT NULL CONSTRAINT [DF_Equity_recorded] DEFAULT ((0)),
+	CONSTRAINT [PK_Equity] PRIMARY KEY CLUSTERED
+	(
+	[symbol] ASC,
+	[exchange] ASC
+	)
+)
+GO
+
+/****** Creating Object:  Table [dbo].[Tradebook] ******/
+CREATE TABLE [dbo].[Tradebook]
+(
+	[symbol]			   nvarchar(50) NOT NULL,
+	[trade_date]		   datetime2(7) NOT NULL,
+	[exchange]			   nvarchar(50) NOT NULL,
+	[segment]			   nvarchar(50) NOT NULL,
+	[series]			   nvarchar(50) NOT NULL,
+	[trade_type]		   nvarchar(50) NOT NULL,
+	[quantity]			   float		NOT NULL,
+	[price]				   float		NOT NULL,
+	[trade_id]			   int			NOT NULL,
+	[order_id]			   float		NOT NULL,
+	[order_execution_time] datetime2(7) NOT NULL,
+	CONSTRAINT [FK_Tradebook_Equity] FOREIGN KEY ([symbol], [exchange]) REFERENCES [dbo].[Equity] ([symbol], [exchange]),
+	CONSTRAINT [PK_Tradebook] PRIMARY KEY CLUSTERED
+	(
+	[trade_id] ASC,
+	[order_id] ASC
+	)
+)
+GO
+
+/****** Seeding Object:  Table [dbo].[Equity] ******/
+INSERT INTO [dbo].[Equity]
+(
+	[symbol],
+	[name],
+	[exchange],
+	[series],
+	[isin_no],
+	[face_value],
+	[recorded]
+)
+	SELECT
+		N'08ABB',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - DIRECT BONUS PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB17R6',
+		10,
+		0
+	UNION
+	SELECT
+		N'08ADD',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - DIRECT DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB11S7',
+		10,
+		0
+	UNION
+	SELECT
+		N'08ADR',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - DIRECT DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB12S5',
+		10,
+		0
+	UNION
+	SELECT
+		N'08AGG',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - DIRECT GROWTH PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB18R4',
+		10,
+		0
+	UNION
+	SELECT
+		N'08AMD',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - DIRECT MONTHLY DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB13S3',
+		10,
+		0
+	UNION
+	SELECT
+		N'08AMR',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - DIRECT MONTHLY DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB14S1',
+		10,
+		0
+	UNION
+	SELECT
+		N'08AQD',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - DIRECT QUARTERLY DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB19R2',
+		10,
+		0
+	UNION
+	SELECT
+		N'08AQR',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - DIRECT QUARTERLY DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB10S9',
+		10,
+		0
+	UNION
+	SELECT
+		N'08BPB',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - BONUS PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB15S8',
+		10,
+		0
+	UNION
+	SELECT
+		N'08DPD',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB19S0',
+		10,
+		0
+	UNION
+	SELECT
+		N'08DPR',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB10T7',
+		10,
+		0
+	UNION
+	SELECT
+		N'08GPG',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - GROWTH PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB16S6',
+		10,
+		0
+	UNION
+	SELECT
+		N'08MPD',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - MONTHLY DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB11T5',
+		10,
+		0
+	UNION
+	SELECT
+		N'08MPR',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - MONTHLY DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB12T3',
+		10,
+		0
+	UNION
+	SELECT
+		N'08QPD',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - QUARTERLY DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB17S4',
+		10,
+		0
+	UNION
+	SELECT
+		N'08QPR',
+		N'NIPPON INDIA EQUITY SAVINGS FUND -  SEGREGATED PORTFOLIO 2 - QUARTERLY DIVIDEND PLAN(Issue Price: 0.01)',
+		N'BSE',
+		NULL,
+		N'INF204KB18S2',
+		10,
+		0
+	UNION
+	SELECT
+		N'11ADD',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2DIRECT PLAN DIVIDEND PLANDIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB16T4',
+		10,
+		0
+	UNION
+	SELECT
+		N'11ADR',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2DIRECT PLAN DIVIDEND PLANDIVIDEND REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB17T2',
+		10,
+		0
+	UNION
+	SELECT
+		N'11AGG',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2DIRECT GROWTH PLAN GROWTH OPTIONGROWTH',
+		N'BSE',
+		NULL,
+		N'INF204KB13T1',
+		10,
+		0
+	UNION
+	SELECT
+		N'11AMD',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2DIRECT MONTHLY DIVIDEND PLANDIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB18T0',
+		10,
+		0
+	UNION
+	SELECT
+		N'11AMR',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2DIRECT MONTHLY DIVIDEND PLANREINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB19T8',
+		10,
+		0
+	UNION
+	SELECT
+		N'11AQD',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2DIRECT QUARTERLY DIVIDEND PLANDIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB14T9',
+		10,
+		0
+	UNION
+	SELECT
+		N'11AQR',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2DIRECT QUARTERLY DIVIDEND PLANREINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB15T6',
+		10,
+		0
+	UNION
+	SELECT
+		N'11DPD',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2DIVIDEND PLANDIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB13U9',
+		10,
+		0
+	UNION
+	SELECT
+		N'11DPR',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2DIVIDEND PLANDIVIDEND REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB14U7',
+		10,
+		0
+	UNION
+	SELECT
+		N'11GPG',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2GROWTH PLAN GROWTH OPTIONGROWTH',
+		N'BSE',
+		NULL,
+		N'INF204KB10U5',
+		10,
+		0
+	UNION
+	SELECT
+		N'11MPD',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2MONTHLY DIVIDEND PLANDIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB15U4',
+		10,
+		0
+	UNION
+	SELECT
+		N'11MPR',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2MONTHLY DIVIDEND PLANREINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB16U2',
+		10,
+		0
+	UNION
+	SELECT
+		N'11QPD',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2QUARTERLY DIVIDEND PLANDIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB11U3',
+		10,
+		0
+	UNION
+	SELECT
+		N'11QPR',
+		N'NIPPON INDIA EQUITY HYBRID FUND -  SEGREGATED PORTFOLIO 2QUARTERLY DIVIDEND PLANREINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB12U1',
+		10,
+		0
+	UNION
+	SELECT
+		N'1STCUS',
+		N'FIRST CUSTODIAN FUND (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE609B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'20MICRONS',
+		N'20 MICRONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE144J01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'20MICRONS',
+		N'20 Microns Limited',
+		N'NSE',
+		N'EQ',
+		N'INE144J01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'21STCENMGM',
+		N'TWENTYFIRST CENTURY MANAGEMENT SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE253B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'21STCENMGM',
+		N'21st Century Management Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE253B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'3IINFOTECH',
+		N'3I INFOTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE748C01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'3IINFOTECH',
+		N'3i Infotech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE748C01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'3MINDIA',
+		N'3M INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE470A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'3MINDIA',
+		N'3M India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE470A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'3PLAND',
+		N'3P Land Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE105C01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'3PLAND',
+		N'3P Land Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE105C01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'4THGEN',
+		N'FOURTH GENERATION INFORMATION SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE739B01039',
+		10,
+		0
+	UNION
+	SELECT
+		N'5PAISA',
+		N'5paisa Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE618L01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'5PAISA',
+		N'5Paisa Capital Limited',
+		N'NSE',
+		N'EQ',
+		N'INE618L01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'63MOONS',
+		N'63 Moons Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE111B01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'63MOONS',
+		N'63 moons technologies limited',
+		N'NSE',
+		N'EQ',
+		N'INE111B01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'7NR',
+		N'7NR Retail Ltd',
+		N'BSE',
+		NULL,
+		N'INE413X01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'7TEC',
+		N'SAVEN TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE856B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'A2ZINFRA',
+		N'A2Z Infra Engineering Limited',
+		N'BSE',
+		NULL,
+		N'INE619I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'A2ZINFRA',
+		N'A2Z Infra Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE619I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'AAIL',
+		N'Akar Auto Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE864E01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'AAKASH',
+		N'Aakash Exploration Services Limited',
+		N'NSE',
+		N'BE',
+		N'INE087Z01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'AAL',
+		N'A-1 Acid Ltd',
+		N'BSE',
+		NULL,
+		N'INE911Z01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AANANDALAK',
+		N'Aananda Lakshmi Spinning Mills Ltd',
+		N'BSE',
+		NULL,
+		N'INE197R01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'AANCHALISP',
+		N'Aanchal Ispat Ltd',
+		N'BSE',
+		NULL,
+		N'INE322R01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARCOM',
+		N'AAR Commercial Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE184K01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARNAV',
+		N'Aarnav Fashions Ltd',
+		N'BSE',
+		NULL,
+		N'INE750R01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARON',
+		N'Aaron Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE721Z01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARSHYAM',
+		N'Aar Shyam India Investment Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE512R01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARTECH',
+		N'Aartech Solonics Ltd',
+		N'BSE',
+		NULL,
+		N'INE01C001018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARTIDRUGS',
+		N'AARTI DRUGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE767A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARTIDRUGS',
+		N'Aarti Drugs Limited',
+		N'NSE',
+		N'EQ',
+		N'INE767A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARTIIND',
+		N'AARTI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE769A01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'AARTIIND',
+		N'Aarti Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE769A01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'AARTISURF',
+		N'Aarti Surfactants Ltd',
+		N'BSE',
+		NULL,
+		N'INE09EO01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARTISURF',
+		N'Aarti Surfactants Limited',
+		N'NSE',
+		N'EQ',
+		N'INE09EO01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARVEEDEN',
+		N'AARVEE DENIMS & EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE273D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARVEEDEN',
+		N'Aarvee Denims & Exports Limited',
+		N'NSE',
+		N'EQ',
+		N'INE273D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARVI',
+		N'Aarvi Encon Limited',
+		N'NSE',
+		N'EQ',
+		N'INE754X01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'AARVINFRA',
+		N'AARV Infratel Ltd',
+		N'BSE',
+		NULL,
+		N'INE432N01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'AAVAS',
+		N'AAVAS Financiers Ltd',
+		N'BSE',
+		NULL,
+		N'INE216P01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'AAVAS',
+		N'Aavas Financiers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE216P01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'AAYUSH',
+		N'Aayush Food and Herbs Ltd',
+		N'BSE',
+		NULL,
+		N'INE430R01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABAN',
+		N'ABAN OFFSHORE LTD.',
+		N'BSE',
+		NULL,
+		N'INE421A01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'ABAN',
+		N'Aban Offshore Limited',
+		N'NSE',
+		N'EQ',
+		N'INE421A01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'ABANSENT',
+		N'Abans Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE365O01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABB',
+		N'ABB India Limited',
+		N'BSE',
+		NULL,
+		N'INE117A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'ABB',
+		N'ABB India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE117A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'ABBOTINDIA',
+		N'ABBOTT INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE358A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABBOTINDIA',
+		N'Abbott India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE358A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABCAPITAL',
+		N'Aditya Birla Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE674K01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABCAPITAL',
+		N'Aditya Birla Capital Limited',
+		N'NSE',
+		N'EQ',
+		N'INE674K01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABCINDQ',
+		N'ABC INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE125D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABFRL',
+		N'Aditya Birla Fashion and Retail Ltd',
+		N'BSE',
+		NULL,
+		N'INE647O01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABFRL',
+		N'Aditya Birla Fashion and Retail Limited',
+		N'NSE',
+		N'EQ',
+		N'INE647O01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABHICAP',
+		N'ABHINAV CAPITAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE516F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABHIFIN',
+		N'Abhishek Finlease Ltd',
+		N'BSE',
+		NULL,
+		N'INE723C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABHIINFRA',
+		N'Abhishek Infraventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE281P01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABHIJIT',
+		N'Abhijit Trading Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE994N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABIRAFN',
+		N'ABIRAMI FINANCIAL SERVICES (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE195I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABMINTLTD',
+		N'ABM International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE251C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABMKNO',
+		N'ABM KNOWLEDGEWARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE850B01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'ABSLBANETF',
+		N'ADITYA BIRLA SUN LIFE BANKING ETF',
+		N'BSE',
+		NULL,
+		N'INF209KB1O58',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLBANETF',
+		N'BIRLASLAMC - ABSLBANETF',
+		N'NSE',
+		N'Nifty Bank',
+		N'INF209KB1O58',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLNN50ET',
+		N'Aditya Birla Sun Life Nifty Next 50 ETF',
+		N'BSE',
+		NULL,
+		N'INF209KB1B87',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLNN50ET',
+		N'BIRLASLAMC - ABSLNN50ET',
+		N'NSE',
+		N'Nifty Next 50',
+		N'INF209KB1B87',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF5DD',
+		N'Aditya Birla Sun Life Resurgent India Fund - Series 5 - Direct Plan Dividend Payout',
+		N'BSE',
+		NULL,
+		N'INF209KB1JC7',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF5DG',
+		N'Aditya Birla Sun Life Resurgent India Fund - Series 5 - Direct Plan Growth',
+		N'BSE',
+		NULL,
+		N'INF209KB1JB9',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF5RD',
+		N'Aditya Birla Sun Life Resurgent India Fund - Series 5 - Regular Plan Dividend Payout',
+		N'BSE',
+		NULL,
+		N'INF209KB1JA1',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF5RG',
+		N'Aditya Birla Sun Life Resurgent India Fund - Series 5 - Regular Plan Growth',
+		N'BSE',
+		NULL,
+		N'INF209KB1IZ0',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF6DD',
+		N'ADITYA BIRLA SUN LIFE RESURGENT INDIA FUND - SERIES 6- DIRECT PLAN- DIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF209KB1LO8',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF6DG',
+		N'ADITYA BIRLA SUN LIFE RESURGENT INDIA FUND - SERIES 6- DIRECT PLAN- GROWTH',
+		N'BSE',
+		NULL,
+		N'INF209KB1LN0',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF6RD',
+		N'ADITYA BIRLA SUN LIFE RESURGENT INDIA FUND - SERIES 6- REGULAR PLAN- DIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF209KB1LM2',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF6RG',
+		N'ADITYA BIRLA SUN LIFE RESURGENT INDIA FUND - SERIES 6- REGULAR PLAN- GROWTH',
+		N'BSE',
+		NULL,
+		N'INF209KB1LL4',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF7DD',
+		N'Aditya Birla Sun Life Resurgent India Fund - Series 7 - Direct Plan - Dividend Payout',
+		N'BSE',
+		NULL,
+		N'INF209KB1NS5',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF7DG',
+		N'Aditya Birla Sun Life Resurgent India Fund - Series 7 - Direct Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF209KB1NR7',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF7RD',
+		N'Aditya Birla Sun Life Resurgent India Fund - Series 7 - Regular Plan - Dividend Payout',
+		N'BSE',
+		NULL,
+		N'INF209KB1NQ9',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABSLRIF7RG',
+		N'Aditya Birla Sun Life Resurgent India Fund - Series 7 - Regular Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF209KB1NP1',
+		10,
+		0
+	UNION
+	SELECT
+		N'ABVL',
+		N'Arunjyoti Bio Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE485K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACC',
+		N'ACC LTD.',
+		N'BSE',
+		NULL,
+		N'INE012A01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACC',
+		N'ACC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE012A01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACCEL',
+		N'Accel Ltd',
+		N'BSE',
+		NULL,
+		N'INE258C01038',
+		2,
+		0
+	UNION
+	SELECT
+		N'ACCELYA',
+		N'Accelya Solutions India Ltd',
+		N'BSE',
+		NULL,
+		N'INE793A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACCELYA',
+		N'Accelya Solutions India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE793A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACCURACY',
+		N'Accuracy Shipping Limited',
+		N'NSE',
+		N'EQ',
+		N'INE648Z01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACE',
+		N'ACTION CONSTRUCTION EQUIPMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE731H01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'ACE',
+		N'Action Construction Equipment Limited',
+		N'NSE',
+		N'EQ',
+		N'INE731H01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'ACEMEN',
+		N'Ace Men Engg Works Ltd',
+		N'BSE',
+		NULL,
+		N'INE023R01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACESOFT',
+		N'ACE SOFTWARE EXPORTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE849B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACEWIN',
+		N'Acewin Agriteck Ltd',
+		N'BSE',
+		NULL,
+		N'INE742R01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACFL',
+		N'Apex Capital And Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE758W01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACFSL',
+		N'Amrapali Capital and Finance Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE218P01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACGL',
+		N'AUTOMOBILE CORPORATION OF GOA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE451C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACIIN',
+		N'ACI INFOCOM LTD.',
+		N'BSE',
+		NULL,
+		N'INE167B01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'ACKNIT',
+		N'ACKNIT INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE326C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACME',
+		N'Acme Resources Ltd',
+		N'BSE',
+		NULL,
+		N'INE636B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACML',
+		N'Aditya Consumer Marketing Ltd',
+		N'BSE',
+		NULL,
+		N'INE427V01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACROW',
+		N'ACROW INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE950D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ACRYSIL',
+		N'ACRYSIL LTD.',
+		N'BSE',
+		NULL,
+		N'INE482D01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'ACRYSIL',
+		N'Acrysil Limited',
+		N'NSE',
+		N'EQ',
+		N'INE482D01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'ACTIVE',
+		N'Active Clothing Co Ltd',
+		N'BSE',
+		NULL,
+		N'INE380Z01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADANIENT',
+		N'ADANI ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE423A01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'ADANIENT',
+		N'Adani Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE423A01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'ADANIGREEN',
+		N'Adani Green Energy Ltd',
+		N'BSE',
+		NULL,
+		N'INE364U01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADANIGREEN',
+		N'Adani Green Energy Limited',
+		N'NSE',
+		N'EQ',
+		N'INE364U01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADANIPORTS',
+		N'ADANI PORTS AND SPECIAL ECONOMIC ZONE LTD.',
+		N'BSE',
+		NULL,
+		N'INE742F01042',
+		2,
+		0
+	UNION
+	SELECT
+		N'ADANIPORTS',
+		N'Adani Ports and Special Economic Zone Limited',
+		N'NSE',
+		N'EQ',
+		N'INE742F01042',
+		2,
+		0
+	UNION
+	SELECT
+		N'ADANIPOWER',
+		N'ADANI POWER LTD.',
+		N'BSE',
+		NULL,
+		N'INE814H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADANIPOWER',
+		N'Adani Power Limited',
+		N'NSE',
+		N'EQ',
+		N'INE814H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADANITRANS',
+		N'Adani Transmission Ltd',
+		N'BSE',
+		NULL,
+		N'INE931S01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADANITRANS',
+		N'Adani Transmission Limited',
+		N'NSE',
+		N'EQ',
+		N'INE931S01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADARSH',
+		N'Adarsh Mercantile Ltd',
+		N'BSE',
+		NULL,
+		N'INE673E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADCINDIA',
+		N'ADC India Communications Limited-$',
+		N'BSE',
+		NULL,
+		N'INE833A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADCON',
+		N'Adcon Capital Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE805Q01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADDIND',
+		N'ADDI INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE757C01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'ADFFOODS',
+		N'ADF FOODS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE982B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADFFOODS',
+		N'ADF Foods Limited',
+		N'NSE',
+		N'EQ',
+		N'INE982B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADHARSHILA',
+		N'Adharshila Capital Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE269F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADHIRAJ',
+		N'Adhiraj Distributors Ltd',
+		N'BSE',
+		NULL,
+		N'INE067R01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADHUNIKIND',
+		N'Adhunik Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE452L01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADHUNIKIND',
+		N'Adhunik Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE452L01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADIEXRE',
+		N'ADINATH EXIM RESOURCES LTD.',
+		N'BSE',
+		NULL,
+		N'INE398H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADINATH',
+		N'ADINATH TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE207C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADITRI',
+		N'Aditri Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE636N01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADITYA',
+		N'ADITYA ISPAT LTD.',
+		N'BSE',
+		NULL,
+		N'INE570B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADITYASP',
+		N'ADITYA SPINNERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE122D01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADL',
+		N'Archidply Decor Ltd',
+		N'BSE',
+		NULL,
+		N'INE0CHO01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADL',
+		N'Archidply Decor Limited',
+		N'NSE',
+		N'BE',
+		N'INE0CHO01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADMANUM',
+		N'AD-MANUM FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE556D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADORFO',
+		N'ADOR FONTECH LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE853A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'ADORMUL',
+		N'ADOR MULTIPRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE628D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADORWELD',
+		N'ADOR WELDING LTD.',
+		N'BSE',
+		NULL,
+		N'INE045A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADORWELD',
+		N'Ador Welding Limited',
+		N'NSE',
+		N'EQ',
+		N'INE045A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADROITINFO',
+		N'Adroit Infotech Ltd',
+		N'BSE',
+		NULL,
+		N'INE737B01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADROITINFO',
+		N'Adroit Infotech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE737B01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADSL',
+		N'ALLIED DIGITAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE102I01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'ADSL',
+		N'Allied Digital Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE102I01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'ADVAIT',
+		N'Advait Infratech Ltd',
+		N'BSE',
+		NULL,
+		N'INE0ALI01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADVANIHOTR',
+		N'ADVANI HOTELS & RESORTS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE199C01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'ADVANIHOTR',
+		N'Advani Hotels & Resorts (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE199C01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'ADVENT',
+		N'ADVENT COMPUTER SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE101C01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADVENZYMES',
+		N'Advanced Enzyme Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE837H01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'ADVENZYMES',
+		N'Advanced Enzyme Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE837H01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'ADVIKCA',
+		N'Advik Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE178T01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'ADVIKLA',
+		N'ADVIK LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE537C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADVITIYA',
+		N'Advitiya Trade India Ltd',
+		N'BSE',
+		NULL,
+		N'INE705X01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ADVPETR-B',
+		N'ADVANCE PETROCHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE334N01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AEGISCHEM',
+		N'Aegis Logistics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE208C01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'AEGISLOG',
+		N'AEGIS LOGISTICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE208C01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'AEL',
+		N'Amba Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE829P01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'AFEL',
+		N'A.F. Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE663P01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'AFFLE',
+		N'Affle (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE00WC01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AFFLE',
+		N'Affle (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE00WC01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AFFORDABLE',
+		N'Affordable Robotic & Automation Ltd',
+		N'BSE',
+		NULL,
+		N'INE692Z01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AGARIND',
+		N'AGARWAL INDUSTRIAL CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE204E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'AGARIND',
+		N'Agarwal Industrial Corporation Limited',
+		N'NSE',
+		N'BE',
+		N'INE204E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'AGCNET',
+		N'AGC Networks Limited',
+		N'BSE',
+		NULL,
+		N'INE676A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AGCNET',
+		N'AGC Networks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE676A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AGIIL',
+		N'AGI Infra Ltd',
+		N'BSE',
+		NULL,
+		N'INE976R01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AGIOPAPER',
+		N'AGIO PAPER & INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE112C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AGOL',
+		N'Ashapuri Gold Ornament Ltd',
+		N'BSE',
+		NULL,
+		N'INE05FR01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AGRIMONY',
+		N'Agrimony Commodities Ltd',
+		N'BSE',
+		NULL,
+		N'INE567P01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AGRITECH',
+		N'Agri- Tech (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE449G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AGRITECH',
+		N'Agri-Tech (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE449G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AGROPHOS',
+		N'Agro Phos India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE740V01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AHLADA',
+		N'Ahlada Engineers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE00PV01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AHLEAST',
+		N'ASIAN HOTELS (EAST) LTD.',
+		N'BSE',
+		NULL,
+		N'INE926K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AHLEAST',
+		N'Asian Hotels (East) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE926K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AHLUCONT',
+		N'AHLUWALIA CONTRACTS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE758C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'AHLUCONT',
+		N'Ahluwalia Contracts (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE758C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'AHLWEST',
+		N'ASIAN HOTELS (WEST) LTD.',
+		N'BSE',
+		NULL,
+		N'INE915K01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'AHLWEST',
+		N'Asian Hotels (West) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE915K01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'AHMDSTE',
+		N'AHMEDABAD STEELCRAFT LTD.',
+		N'BSE',
+		NULL,
+		N'INE868C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AIAENG',
+		N'AIA ENGINEERING LTD.',
+		N'BSE',
+		NULL,
+		N'INE212H01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'AIAENG',
+		N'AIA Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE212H01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'AICHAMP',
+		N'AI CHAMPDANY INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE768E01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'AIHL',
+		N'Ambassador Intra Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE342U01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'AIIL',
+		N'Authum Investment & Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE206F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'AIMCOPEST',
+		N'AIMCO PESTICIDES LTD.',
+		N'BSE',
+		NULL,
+		N'INE008B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AINFRA',
+		N'A Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE534E01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'AIRAN',
+		N'Airan Limited',
+		N'NSE',
+		N'EQ',
+		N'INE645W01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'AISHWARYA',
+		N'Aishwarya Technologies And Telecom Ltd',
+		N'BSE',
+		NULL,
+		N'INE778I01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'AJANTPHARM',
+		N'AJANTA PHARMA LTD.',
+		N'BSE',
+		NULL,
+		N'INE031B01049',
+		2,
+		0
+	UNION
+	SELECT
+		N'AJANTPHARM',
+		N'Ajanta Pharma Limited',
+		N'NSE',
+		N'EQ',
+		N'INE031B01049',
+		2,
+		0
+	UNION
+	SELECT
+		N'AJANTSOY',
+		N'AJANTA SOYA LTD.',
+		N'BSE',
+		NULL,
+		N'INE601B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'AJCON',
+		N'AJCON GLOBAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE759C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AJEL',
+		N'AJEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE229B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'AJIL',
+		N'Atlas Jewellery India Limited',
+		N'BSE',
+		NULL,
+		N'INE022N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AJMERA',
+		N'AJMERA REALTY & INFRA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE298G01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'AJMERA',
+		N'Ajmera Realty & Infra India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE298G01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'AJWAFUN',
+		N'AJWA FUN WORLD & RESORT LTD.',
+		N'BSE',
+		NULL,
+		N'INE863E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKASH',
+		N'Akash Infra-Projects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE737W01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKASHDEEP',
+		N'Akashdeep Metal Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE149Q01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKCAPIT',
+		N'A.K.CAPITAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE701G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKG',
+		N'Akg Exim Limited',
+		N'NSE',
+		N'EQ',
+		N'INE00Y801016',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKI',
+		N'AKI India Ltd',
+		N'BSE',
+		NULL,
+		N'INE642Z01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKM',
+		N'AKM Lace and Embrotex Ltd',
+		N'BSE',
+		NULL,
+		N'INE777X01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKSCHEM',
+		N'AKSHARCHEM (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE542B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKSHAR',
+		N'Akshar Spintex Ltd',
+		N'BSE',
+		NULL,
+		N'INE256Z01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKSHARCHEM',
+		N'AksharChem India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE542B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKSHOPTFBR',
+		N'AKSH OPTIFIBRE LTD.',
+		N'BSE',
+		NULL,
+		N'INE523B01011',
+		5,
+		0
+	UNION
+	SELECT
+		N'AKSHOPTFBR',
+		N'Aksh Optifibre Limited',
+		N'NSE',
+		N'EQ',
+		N'INE523B01011',
+		5,
+		0
+	UNION
+	SELECT
+		N'AKSPINTEX',
+		N'A.K. Spintex Ltd',
+		N'BSE',
+		NULL,
+		N'INE671K01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKZOINDIA',
+		N'Akzo Nobel India Limited',
+		N'BSE',
+		NULL,
+		N'INE133A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AKZOINDIA',
+		N'Akzo Nobel India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE133A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALANKIT',
+		N'Alankit Ltd',
+		N'BSE',
+		NULL,
+		N'INE914E01040',
+		1,
+		0
+	UNION
+	SELECT
+		N'ALANKIT',
+		N'Alankit Limited',
+		N'NSE',
+		N'EQ',
+		N'INE914E01040',
+		1,
+		0
+	UNION
+	SELECT
+		N'ALBERTDA',
+		N'ALBERT DAVID LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE155C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALBERTDAVD',
+		N'Albert David Limited',
+		N'NSE',
+		N'EQ',
+		N'INE155C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALCHCORP',
+		N'ALCHEMIST CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE057D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALEMBICLTD',
+		N'ALEMBIC LTD.',
+		N'BSE',
+		NULL,
+		N'INE426A01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'ALEMBICLTD',
+		N'Alembic Limited',
+		N'NSE',
+		N'EQ',
+		N'INE426A01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'ALEXANDER',
+		N'Alexander Stamps And Coin Ltd',
+		N'BSE',
+		NULL,
+		N'INE191N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALFAICA',
+		N'ALFA ICA (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE042C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALFATRAN',
+		N'ALFA TRANSFORMERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE209C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALFAVIO',
+		N'ALFAVISION OVERSEAS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE883B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALFL',
+		N'Abhinav Leasing & Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE211D01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'ALFREDHE',
+		N'ALFRED HERBERT (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE782D01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALICON',
+		N'Alicon Castalloy Limited',
+		N'BSE',
+		NULL,
+		N'INE062D01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'ALICON',
+		N'Alicon Castalloy Limited',
+		N'NSE',
+		N'EQ',
+		N'INE062D01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'ALKA',
+		N'ALKA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE061B01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'ALKALI',
+		N'ALKALI METALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE773I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALKALI',
+		N'Alkali Metals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE773I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALKEM',
+		N'Alkem Laboratories Ltd',
+		N'BSE',
+		NULL,
+		N'INE540L01014',
+		2,
+		0
+	UNION
+	SELECT
+		N'ALKEM',
+		N'Alkem Laboratories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE540L01014',
+		2,
+		0
+	UNION
+	SELECT
+		N'ALKYLAMINE',
+		N'ALKYL AMINES CHEMICALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE150B01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'ALKYLAMINE',
+		N'Alkyl Amines Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE150B01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'ALLCARGO',
+		N'ALLCARGO LOGISTICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE418H01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'ALLCARGO',
+		N'Allcargo Logistics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE418H01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'ALLSEC',
+		N'ALLSEC TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE835G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALLSEC',
+		N'Allsec Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE835G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALMONDZ',
+		N'ALMONDZ GLOBAL SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE326B01027',
+		6,
+		0
+	UNION
+	SELECT
+		N'ALMONDZ',
+		N'Almondz Global Securities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE326B01027',
+		6,
+		0
+	UNION
+	SELECT
+		N'ALNATRD',
+		N'ALNA TRADING & EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE07I701011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALOKINDS',
+		N'Alok Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE270A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'ALOKTEXT',
+		N'ALOK INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE270A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'ALPA',
+		N'ALPA LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE385I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALPA',
+		N'Alpa Laboratories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE385I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALPHAGEO',
+		N'ALPHAGEO (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE137C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALPHAGEO',
+		N'Alphageo (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE137C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALPINEHOU',
+		N'ALPINE HOUSING DEVELOPMENT CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE840D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALPSINDUS',
+		N'ALPS INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE093B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALPSINDUS',
+		N'Alps Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE093B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALSL',
+		N'Alacrity Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE030P01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALSTONE',
+		N'Alstone Textiles (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE184S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ALUFLUOR',
+		N'ALUFLUORIDE LTD.',
+		N'BSE',
+		NULL,
+		N'INE058F01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMAL',
+		N'AMAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE841D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMALGAM',
+		N'AMALGAMATED ELECTRICITY CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE492N01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'AMANITRA',
+		N'AMANI TRADING & EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE886D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMARAJABAT',
+		N'AMARA RAJA BATTERIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE885A01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'AMARAJABAT',
+		N'Amara Raja Batteries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE885A01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'AMARJOTHI',
+		N'AMARJOTHI SPINNING MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE484D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMARNATH',
+		N'Sri Amarnath Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE985Q01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMBALALSA',
+		N'AMBALAL SARABHAI ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE432A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMBARPIL',
+		N'Ambar Protein Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE072V01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMBER',
+		N'Amber Enterprises India Ltd',
+		N'BSE',
+		NULL,
+		N'INE371P01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMBER',
+		N'Amber Enterprises India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE371P01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMBIKCO',
+		N'AMBIKA COTTON MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE540G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMBIKCO',
+		N'Ambika Cotton Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE540G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMBITION',
+		N'Ambition Mica Ltd',
+		N'BSE',
+		NULL,
+		N'INE563S01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMBUJACEM',
+		N'AMBUJA CEMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE079A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'AMBUJACEM',
+		N'Ambuja Cements Limited',
+		N'NSE',
+		N'EQ',
+		N'INE079A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'AMCOIND',
+		N'AMCO INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE924B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMDIND',
+		N'AMD INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE005I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMDIND',
+		N'AMD Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE005I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMFL',
+		N'A & M Febcon Ltd',
+		N'BSE',
+		NULL,
+		N'INE319X01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMFORG',
+		N'AMFORGE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE991A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'AMINTAN',
+		N'Amin Tannery Ltd',
+		N'BSE',
+		NULL,
+		N'INE572Z01017',
+		1,
+		0
+	UNION
+	SELECT
+		N'AMITINT',
+		N'AMIT INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE053D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMJLAND',
+		N'AMJ Land Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE606A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'AMJLAND',
+		N'Amj Land Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE606A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'AML',
+		N'Ashoka Metcast Ltd',
+		N'BSE',
+		NULL,
+		N'INE760Y01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMNPLST',
+		N'AMINES & PLASTICIZERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE275D01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'AMRAAGRI',
+		N'AMRAWORLD AGRICO LTD.',
+		N'BSE',
+		NULL,
+		N'INE735C01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'AMRAFIN',
+		N'Amrapali Fincap Ltd',
+		N'BSE',
+		NULL,
+		N'INE990S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMRAPLIN',
+		N'AMRAPALI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE762C01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'AMRITCORP',
+		N'AMRIT CORP.LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE866E01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMRUTANJAN',
+		N'AMRUTANJAN HEALTH CARE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE098F01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'AMRUTANJAN',
+		N'Amrutanjan Health Care Limited',
+		N'NSE',
+		N'EQ',
+		N'INE098F01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'AMS',
+		N'AMS Polymers Ltd',
+		N'BSE',
+		NULL,
+		N'INE345U01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AMTL',
+		N'ADVANCE METERING TECHNOLOGY LTD.',
+		N'BSE',
+		NULL,
+		N'INE436N01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'ANANDPROJ',
+		N'Anand Projects Ltd',
+		N'BSE',
+		NULL,
+		N'INE134R01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANANTRAJ',
+		N'Anant Raj Limited-$',
+		N'BSE',
+		NULL,
+		N'INE242C01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'ANANTRAJ',
+		N'Anant Raj Limited',
+		N'NSE',
+		N'EQ',
+		N'INE242C01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'ANDHRACEMT',
+		N'ANDHRA CEMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE666E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANDHRACEMT',
+		N'Andhra Cements Limited',
+		N'NSE',
+		N'EQ',
+		N'INE666E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANDHRAPAP',
+		N'Andhra Paper Ltd',
+		N'BSE',
+		NULL,
+		N'INE435A01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANDHRAPAP',
+		N'ANDHRA PAPER LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE435A01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANDHRAPET',
+		N'ANDHRA PETROCHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE714B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANDHRSUGAR',
+		N'ANDHRA SUGARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE715B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANDHRSUGAR',
+		N'The Andhra Sugars Limited',
+		N'NSE',
+		N'EQ',
+		N'INE715B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANDREWYU',
+		N'ANDREW YULE & COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE449C01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'ANERI',
+		N'Aneri Fincap Ltd',
+		N'BSE',
+		NULL,
+		N'INE720D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANG',
+		N'ANG Lifesciences India Ltd',
+		N'BSE',
+		NULL,
+		N'INE236W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANGEL',
+		N'Angel Fibers Ltd',
+		N'BSE',
+		NULL,
+		N'INE339Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANGELBRKG',
+		N'Angel Broking Ltd',
+		N'BSE',
+		NULL,
+		N'INE732I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANGELBRKG',
+		N'Angel Broking Limited',
+		N'NSE',
+		N'EQ',
+		N'INE732I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANIKINDS',
+		N'ANIK INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE087B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANIKINDS',
+		N'Anik Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE087B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANJANI',
+		N'ANJANI SYNTHETICS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE364D01032',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANJANIFIN',
+		N'ANJANI FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE283D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANJANIFOODS',
+		N'Anjani Foods Ltd',
+		N'BSE',
+		NULL,
+		N'INE096I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANKIN',
+		N'ANKA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE067C01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANKITMETAL',
+		N'ANKIT METAL & POWER LTD.',
+		N'BSE',
+		NULL,
+		N'INE106I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANKITMETAL',
+		N'Ankit Metal & Power Limited',
+		N'NSE',
+		N'EQ',
+		N'INE106I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANMOL',
+		N'Anmol India Ltd',
+		N'BSE',
+		NULL,
+		N'INE02AR01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANNAINFRA',
+		N'ANNA INFRASTRUCTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE336D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANSALAPI',
+		N'ANSAL PROPERTIES & INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE436A01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'ANSALAPI',
+		N'Ansal Properties & Infrastructure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE436A01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'ANSALBU',
+		N'ANSAL BUILDWELL LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE030C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANSALHSG',
+		N'Ansal Housing Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE880B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANSALHSG',
+		N'Ansal Housing Limited',
+		N'NSE',
+		N'EQ',
+		N'INE880B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANSHNCO',
+		N'ANSHUNI COMMERCIALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE425H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANSINDUS',
+		N'ANS Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE234J01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANTARIKSH',
+		N'Antariksh Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE825M01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANUBHAV',
+		N'Anubhav Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE891N01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANUHPHR',
+		N'ANUH PHARMA LTD.',
+		N'BSE',
+		NULL,
+		N'INE489G01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'ANUP',
+		N'The Anup Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE294Z01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANUP*',
+		N'The Anup Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE294Z01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANUPAM',
+		N'Anupam Finserv Ltd',
+		N'BSE',
+		NULL,
+		N'INE069B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANUPMAL',
+		N'ANUP MALLEABLE LTD.',
+		N'BSE',
+		NULL,
+		N'INE188O01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ANUROOP',
+		N'Anuroop Packaging Ltd',
+		N'BSE',
+		NULL,
+		N'INE490Z01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'APARINDS',
+		N'APAR INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE372A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'APARINDS',
+		N'Apar Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE372A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'APCL',
+		N'ANJANI PORTLAND CEMENT LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE071F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'APCL',
+		N'Anjani Portland Cement Limited',
+		N'NSE',
+		N'EQ',
+		N'INE071F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'APCOTEXIND',
+		N'APCOTEX INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE116A01032',
+		2,
+		0
+	UNION
+	SELECT
+		N'APCOTEXIND',
+		N'Apcotex Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE116A01032',
+		2,
+		0
+	UNION
+	SELECT
+		N'APEX',
+		N'Apex Frozen Foods Ltd',
+		N'BSE',
+		NULL,
+		N'INE346W01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'APEX',
+		N'Apex Frozen Foods Limited',
+		N'NSE',
+		N'EQ',
+		N'INE346W01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'APIL',
+		N'Avi Products India Ltd',
+		N'BSE',
+		NULL,
+		N'INE316O01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'APIS',
+		N'APIS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE070K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'APLAB',
+		N'APLAB LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE273A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'APLAPOLLO',
+		N'APL APOLLO TUBES LTD.',
+		N'BSE',
+		NULL,
+		N'INE702C01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'APLAPOLLO',
+		N'APL Apollo Tubes Limited',
+		N'NSE',
+		N'EQ',
+		N'INE702C01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'APLLTD',
+		N'ALEMBIC PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE901L01018',
+		2,
+		0
+	UNION
+	SELECT
+		N'APLLTD',
+		N'Alembic Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE901L01018',
+		2,
+		0
+	UNION
+	SELECT
+		N'APMFINVEST',
+		N'APM Finvest Ltd',
+		N'BSE',
+		NULL,
+		N'INE08KJ01012',
+		2,
+		0
+	UNION
+	SELECT
+		N'APMIN',
+		N'APM INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE170D01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'APOLLO',
+		N'Apollo Micro Systems Ltd',
+		N'BSE',
+		NULL,
+		N'INE713T01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'APOLLO',
+		N'Apollo Micro Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE713T01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'APOLLOFI',
+		N'APOLLO FINVEST (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE412D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'APOLLOHOSP',
+		N'APOLLO HOSPITALS ENTERPRISE LTD.',
+		N'BSE',
+		NULL,
+		N'INE437A01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'APOLLOHOSP',
+		N'Apollo Hospitals Enterprise Limited',
+		N'NSE',
+		N'EQ',
+		N'INE437A01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'APOLLOPIPE',
+		N'Apollo Pipes Limited',
+		N'NSE',
+		N'EQ',
+		N'INE126J01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'APOLLOPIPES',
+		N'Apollo Pipes Ltd',
+		N'BSE',
+		NULL,
+		N'INE126J01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'APOLLOTRI',
+		N'Apollo Tricoat Tubes Ltd',
+		N'BSE',
+		NULL,
+		N'INE919P01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'APOLLOTYRE',
+		N'APOLLO TYRES LTD.',
+		N'BSE',
+		NULL,
+		N'INE438A01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'APOLLOTYRE',
+		N'Apollo Tyres Limited',
+		N'NSE',
+		N'EQ',
+		N'INE438A01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'APOLSINHOT',
+		N'Apollo Sindoori Hotels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE451F01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'APOORVA',
+		N'Apoorva Leasing Finance and Investment Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE217S01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'APTECHT',
+		N'APTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE266F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'APTECHT',
+		N'Aptech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE266F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARAMBHAN',
+		N'Arambhan Hospitality Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE800S01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARAVALIS',
+		N'ARAVALI SECURITIES & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE068C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARCEEIN',
+		N'ARCEE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE276D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARCFIN',
+		N'ARC Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE202R01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARCHIDPLY',
+		N'ARCHIDPLY INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE877I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARCHIDPLY',
+		N'Archidply Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE877I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARCHIES',
+		N'ARCHIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE731A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'ARCHIES',
+		N'Archies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE731A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'ARCHITORG',
+		N'ARCHIT ORGANOSYS LTD.',
+		N'BSE',
+		NULL,
+		N'INE078I01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AREALTY',
+		N'ALCHEMIST REALTY LTD.',
+		N'BSE',
+		NULL,
+		N'INE646D01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'ARENTERP',
+		N'RAJDARSHAN INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE610C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARENTERP',
+		N'Rajdarshan Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE610C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'AREXMIS',
+		N'AREX INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE480H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AREYDRG',
+		N'AAREY DRUGS & PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE198H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARFIN',
+		N'Arfin India Ltd',
+		N'BSE',
+		NULL,
+		N'INE784R01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARHNTTO',
+		N'ARIHANT TOURNESOL LTD.',
+		N'BSE',
+		NULL,
+		N'INE00HZ01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARIES',
+		N'ARIES AGRO LTD.',
+		N'BSE',
+		NULL,
+		N'INE298I01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARIES',
+		N'Aries Agro Limited',
+		N'NSE',
+		N'EQ',
+		N'INE298I01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARIHANT',
+		N'ARIHANT FOUNDATIONS & HOUSING LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE413D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARIHANT',
+		N'Arihant Foundations & Housing Limited',
+		N'NSE',
+		N'EQ',
+		N'INE413D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARIHANTINS',
+		N'Arihant Institute Ltd',
+		N'BSE',
+		NULL,
+		N'INE997Z01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARIHANTSUP',
+		N'Arihant Superstructures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE643K01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARIHCAPM',
+		N'ARIHANT CAPITAL MARKETS LTD.',
+		N'BSE',
+		NULL,
+		N'INE420B01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'ARISE',
+		N'ARIHANT&#39;S SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE190D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARISINT',
+		N'ARIS INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE588E01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARL',
+		N'Anand Rayons Ltd',
+		N'BSE',
+		NULL,
+		N'INE02GA01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARMAN',
+		N'Arman Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE510P01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARMANFIN',
+		N'ARMAN FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE109C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARMANFIN',
+		N'Arman Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE109C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARNOLD',
+		N'Arnold Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE185K01036',
+		10,
+		0
+	UNION
+	SELECT
+		N'AROGRANITE',
+		N'ARO GRANITE INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE210C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AROGRANITE',
+		N'Aro Granite Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE210C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AROMAENT',
+		N'AROMA ENTERPRISES (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE371M01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARROWGREEN',
+		N'Arrow Greentech Ltd',
+		N'BSE',
+		NULL,
+		N'INE570D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARROWGREEN',
+		N'Arrow Greentech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE570D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARSHIYA',
+		N'Arshiya Limited',
+		N'BSE',
+		NULL,
+		N'INE968D01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'ARSHIYA',
+		N'Arshiya Limited',
+		N'NSE',
+		N'BE',
+		N'INE968D01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'ARSSINFRA',
+		N'ARSS INFRASTRUCTURE PROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE267I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARSSINFRA',
+		N'ARSS Infrastructure Projects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE267I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARTEFACT',
+		N'ARTEFACT PROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE885B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARTEMISELC',
+		N'Artemis Electricals Ltd',
+		N'BSE',
+		NULL,
+		N'INE757T01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARTEMISMED',
+		N'Artemis Medicare Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE025R01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARTEMISMED',
+		N'Artemis Medicare Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE025R01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARTSONEN',
+		N'ARTSON ENGINEERING LTD.',
+		N'BSE',
+		NULL,
+		N'INE133D01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'ARUNAHTEL',
+		N'ARUNA HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE957C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARUNIS',
+		N'Arunis Abode Ltd',
+		N'BSE',
+		NULL,
+		N'INE377D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARVIND',
+		N'ARVIND LTD.',
+		N'BSE',
+		NULL,
+		N'INE034A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARVIND',
+		N'Arvind Limited',
+		N'NSE',
+		N'EQ',
+		N'INE034A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARVINDFASN',
+		N'Arvind Fashions Ltd',
+		N'BSE',
+		NULL,
+		N'INE955V01021',
+		4,
+		0
+	UNION
+	SELECT
+		N'ARVINDFASN',
+		N'Arvind Fashions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE955V01021',
+		4,
+		0
+	UNION
+	SELECT
+		N'ARVSMART',
+		N'Arvind SmartSpaces Ltd',
+		N'BSE',
+		NULL,
+		N'INE034S01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARVSMART',
+		N'Arvind SmartSpaces Limited',
+		N'NSE',
+		N'EQ',
+		N'INE034S01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARYACAPM',
+		N'Aryaman Capital Markets Ltd',
+		N'BSE',
+		NULL,
+		N'INE229R01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARYAMAN',
+		N'ARYAMAN FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE032E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARYAN',
+		N'Aryan Share and Stock Brokers Ltd',
+		N'BSE',
+		NULL,
+		N'INE016X01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ARYAVAN',
+		N'Aryavan Enterprise Ltd',
+		N'BSE',
+		NULL,
+		N'INE360S01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASAHIIND',
+		N'Asahi Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE745I01015',
+		1,
+		0
+	UNION
+	SELECT
+		N'ASAHIINDIA',
+		N'ASAHI INDIA GLASS LTD.',
+		N'BSE',
+		NULL,
+		N'INE439A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'ASAHIINDIA',
+		N'Asahi India Glass Limited',
+		N'NSE',
+		N'EQ',
+		N'INE439A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'ASAHISONG',
+		N'ASAHI SONGWON COLORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE228I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASAHISONG',
+		N'Asahi Songwon Colors Limited',
+		N'NSE',
+		N'EQ',
+		N'INE228I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASAL',
+		N'AUTOMOTIVE STAMPINGS & ASSEMBLIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE900C01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASAL',
+		N'Automotive Stampings and Assemblies Limited',
+		N'NSE',
+		N'BE',
+		N'INE900C01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASALCBR',
+		N'ASSOCIATED ALCOHOLS & BREWERIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE073G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASALCBR',
+		N'Associated Alcohols & Breweries Ltd.',
+		N'NSE',
+		N'EQ',
+		N'INE073G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHAI',
+		N'ASHIANA AGRO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE709D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHAPURMIN',
+		N'ASHAPURA MINECHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE348A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'ASHAPURMIN',
+		N'Ashapura Minechem Limited',
+		N'NSE',
+		N'EQ',
+		N'INE348A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'ASHCAP',
+		N'ASHIRWAD CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE894A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'ASHFL',
+		N'Akme Star Housing Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE526R01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHIANA',
+		N'ASHIANA HOUSING LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE365D01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'ASHIANA',
+		N'Ashiana Housing Limited',
+		N'NSE',
+		N'EQ',
+		N'INE365D01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'ASHIKACR',
+		N'ASHIKA CREDIT CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE094B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHIMASYN',
+		N'ASHIMA LTD.',
+		N'BSE',
+		NULL,
+		N'INE440A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHIMASYN',
+		N'Ashima Limited',
+		N'NSE',
+		N'EQ',
+		N'INE440A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHIS',
+		N'ASHIANA ISPAT LTD.',
+		N'BSE',
+		NULL,
+		N'INE587D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHISHPO',
+		N'ASHISH POLYPLAST LTD.',
+		N'BSE',
+		NULL,
+		N'INE831C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHNI',
+		N'Ashnisha Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE694W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHNOOR',
+		N'ASHNOOR TEXTILE MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE372I01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHOKA',
+		N'ASHOKA BUILDCON LTD.',
+		N'BSE',
+		NULL,
+		N'INE442H01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'ASHOKA',
+		N'Ashoka Buildcon Limited',
+		N'NSE',
+		N'EQ',
+		N'INE442H01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'ASHOKALC',
+		N'ASHOK ALCO-CHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE994D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHOKLEY',
+		N'ASHOK LEYLAND LTD.',
+		N'BSE',
+		NULL,
+		N'INE208A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'ASHOKLEY',
+		N'Ashok Leyland Limited',
+		N'NSE',
+		N'EQ',
+		N'INE208A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'ASHOKRE',
+		N'ASHOKA REFINERIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE760M01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHRAM',
+		N'ASHRAM ONLINE.COM LTD.',
+		N'BSE',
+		NULL,
+		N'INE293C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASHSI',
+		N'ASHIRWAD STEELS & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE338C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASIACAP',
+		N'Asia Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE131Q01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASIANENE',
+		N'Asian Energy Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE276G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASIANHOTNR',
+		N'Asian Hotels (North) Limited',
+		N'BSE',
+		NULL,
+		N'INE363A01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASIANHOTNR',
+		N'Asian Hotels (North) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE363A01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASIANPAINT',
+		N'ASIAN PAINTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE021A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'ASIANPAINT',
+		N'Asian Paints Limited',
+		N'NSE',
+		N'EQ',
+		N'INE021A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'ASIANTILES',
+		N'ASIAN GRANITO INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE022I01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASIANTILES',
+		N'Asian Granito India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE022I01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASIANTNE',
+		N'ASIAN TEA & EXPORTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE822B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASIAPAK',
+		N'ASIA PACK LTD.',
+		N'BSE',
+		NULL,
+		N'INE784M01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASIIL',
+		N'ASI Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE443A01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'ASINPET',
+		N'ASIAN PETROPRODUCTS & EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE810M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASITCFIN',
+		N'ASIT C.MEHTA FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE041B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASL',
+		N'Arihant Superstructures Limited',
+		N'BSE',
+		NULL,
+		N'INE643K01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASMTEC',
+		N'ASM TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE867C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASPINWALL',
+		N'Aspinwall and Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE991I01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASRL',
+		N'Add-Shop ERetail Ltd',
+		N'BSE',
+		NULL,
+		N'INE01B501018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASSAMENT',
+		N'Assam Entrade Ltd',
+		N'BSE',
+		NULL,
+		N'INE165G01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASTAR',
+		N'ASIAN STAR CO.LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE194D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASTEC',
+		N'ASTEC LIFESCIENCES LIMITED',
+		N'BSE',
+		NULL,
+		N'INE563J01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASTEC',
+		N'Astec LifeSciences Limited',
+		N'NSE',
+		N'EQ',
+		N'INE563J01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASTERDM',
+		N'Aster DM Healthcare Ltd',
+		N'BSE',
+		NULL,
+		N'INE914M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASTERDM',
+		N'Aster DM Healthcare Limited',
+		N'NSE',
+		N'EQ',
+		N'INE914M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASTRAL',
+		N'ASTRAL POLY TECHNIK LTD.',
+		N'BSE',
+		NULL,
+		N'INE006I01046',
+		1,
+		0
+	UNION
+	SELECT
+		N'ASTRAL',
+		N'Astral Poly Technik Limited',
+		N'NSE',
+		N'EQ',
+		N'INE006I01046',
+		1,
+		0
+	UNION
+	SELECT
+		N'ASTRAMICRO',
+		N'ASTRA MICROWAVE PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE386C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'ASTRAMICRO',
+		N'Astra Microwave Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE386C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'ASTRAZEN',
+		N'ASTRAZENECA PHARMA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE203A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'ASTRAZEN',
+		N'AstraZeneca Pharma India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE203A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'ASTRON',
+		N'Astron Paper & Board Mill Ltd',
+		N'BSE',
+		NULL,
+		N'INE646X01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASTRON',
+		N'Astron Paper & Board Mill Limited',
+		N'NSE',
+		N'EQ',
+		N'INE646X01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASUTENT',
+		N'ASUTOSH ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE508W01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASWTR',
+		N'AASWA TRADING & EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE887D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASYAINFO',
+		N'Asya Infosoft Limited',
+		N'BSE',
+		NULL,
+		N'INE520G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ASYL',
+		N'Advance Syntex Ltd',
+		N'BSE',
+		NULL,
+		N'INE184U01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ATAM',
+		N'Atam Valves Ltd',
+		N'BSE',
+		NULL,
+		N'INE09KD01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ATFL',
+		N'AGRO TECH FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE209A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ATFL',
+		N'Agro Tech Foods Limited',
+		N'NSE',
+		N'EQ',
+		N'INE209A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ATGL',
+		N'Adani Total Gas Ltd',
+		N'BSE',
+		NULL,
+		N'INE399L01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'ATGL',
+		N'Adani Total Gas Limited',
+		N'NSE',
+		N'EQ',
+		N'INE399L01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'ATHARVENT',
+		N'ATHARV ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE354E01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'ATHCON',
+		N'Athena Constructions Ltd',
+		N'BSE',
+		NULL,
+		N'INE291R01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ATHENAGLO',
+		N'Athena Global Technologies Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE576B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ATISHAY',
+		N'Atishay Ltd',
+		N'BSE',
+		NULL,
+		N'INE011R01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ATLANTA',
+		N'ATLANTA LTD.',
+		N'BSE',
+		NULL,
+		N'INE285H01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'ATLANTA',
+		N'Atlanta  Limited',
+		N'NSE',
+		N'EQ',
+		N'INE285H01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'ATUL',
+		N'ATUL LTD.',
+		N'BSE',
+		NULL,
+		N'INE100A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ATUL',
+		N'Atul Limited',
+		N'NSE',
+		N'EQ',
+		N'INE100A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ATULAUTO',
+		N'ATUL AUTO LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE951D01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'ATULAUTO',
+		N'Atul Auto Limited',
+		N'NSE',
+		N'EQ',
+		N'INE951D01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'ATVPR',
+		N'ATV PROJECTS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE447A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUBANK',
+		N'AU Small Finance Bank Ltd',
+		N'BSE',
+		NULL,
+		N'INE949L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUBANK',
+		N'AU Small Finance Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE949L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AURIONPRO',
+		N'AURIONPRO SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE132H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AURIONPRO',
+		N'Aurionpro Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE132H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUROCOK',
+		N'AUROMA COKE LTD.',
+		N'BSE',
+		NULL,
+		N'INE662I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUROLAB',
+		N'AURO LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE292C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUROPHARMA',
+		N'AUROBINDO PHARMA LTD.',
+		N'BSE',
+		NULL,
+		N'INE406A01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'AUROPHARMA',
+		N'Aurobindo Pharma Limited',
+		N'NSE',
+		N'EQ',
+		N'INE406A01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'AUSOMENT',
+		N'AuSom Enterprise Limited',
+		N'BSE',
+		NULL,
+		N'INE218C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUSOMENT',
+		N'Ausom Enterprise Limited',
+		N'NSE',
+		N'EQ',
+		N'INE218C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUSTENG',
+		N'AUSTIN ENGINEERING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE759F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUTOAXLES',
+		N'AUTOMOTIVE AXLES LTD.',
+		N'BSE',
+		NULL,
+		N'INE449A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUTOAXLES',
+		N'Automotive Axles Limited',
+		N'NSE',
+		N'EQ',
+		N'INE449A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUTOIND',
+		N'AUTOLINE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE718H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUTOIND',
+		N'Autoline Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE718H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUTOINT',
+		N'AUTORIDERS INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE340U01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUTOLITIND',
+		N'AUTOLITE (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE448A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUTOLITIND',
+		N'Autolite (India) Limited',
+		N'NSE',
+		N'BZ',
+		N'INE448A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'AUTOPINS',
+		N'AUTO PINS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE706C01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'AVADHSUGAR',
+		N'Avadh Sugar & Energy Ltd',
+		N'BSE',
+		NULL,
+		N'INE349W01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AVADHSUGAR',
+		N'Avadh Sugar & Energy Limited',
+		N'NSE',
+		N'EQ',
+		N'INE349W01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'AVAILFC',
+		N'AVAILABLE FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE325G01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'AVANTEL',
+		N'AVANTEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE005B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AVANTI',
+		N'AVANTI FEEDS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE871C01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'AVANTIFEED',
+		N'Avanti Feeds Limited',
+		N'NSE',
+		N'EQ',
+		N'INE871C01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'AVI',
+		N'AVI Polymers Ltd',
+		N'BSE',
+		NULL,
+		N'INE897N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'AVIVA',
+		N'AVIVA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE461H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'AVL',
+		N'Aditya Vision Ltd',
+		N'BSE',
+		NULL,
+		N'INE679V01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'AVONMORE',
+		N'Avonmore Capital & Management Services Limited',
+		N'BSE',
+		NULL,
+		N'INE323B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'AVTIL',
+		N'AVTIL Enterprise Ltd',
+		N'BSE',
+		NULL,
+		N'INE292N01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'AVTNPL',
+		N'AVT NATURAL PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE488D01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'AVTNPL',
+		N'AVT Natural Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE488D01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'AWHCL',
+		N'Antony Waste Handling Cell Ltd',
+		N'BSE',
+		NULL,
+		N'INE01BK01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'AWHCL',
+		N'Antony Waste Handling Cell Limited',
+		N'NSE',
+		N'EQ',
+		N'INE01BK01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'AXELPOLY',
+		N'AXEL POLYMERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE197C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXISAEDGG',
+		N'Axis Equity Advantage Fund- Series 1 Direct Plan- Growth',
+		N'BSE',
+		NULL,
+		N'INF846K01ZJ4',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXISAEGPG',
+		N'Axis Equity Advantage Fund- Series 1 Regular Plan- Growth',
+		N'BSE',
+		NULL,
+		N'INF846K01ZK2',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXISBANK',
+		N'AXIS BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE238A01034',
+		2,
+		0
+	UNION
+	SELECT
+		N'AXISBANK',
+		N'Axis Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE238A01034',
+		2,
+		0
+	UNION
+	SELECT
+		N'AXISCADES',
+		N'Axiscades Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE555B01013',
+		5,
+		0
+	UNION
+	SELECT
+		N'AXISCADES',
+		N'AXISCADES Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE555B01013',
+		5,
+		0
+	UNION
+	SELECT
+		N'AXISCBD1D',
+		N'Axis Capital Builder Fund - Series 1 (1540 Days) - Direct Plan  - Dividend Payout',
+		N'BSE',
+		NULL,
+		N'INF846K01B77',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXISCBDGG',
+		N'Axis Capital Builder Fund - Series 1 (1540 Days) - Direct Plan  - Growth',
+		N'BSE',
+		NULL,
+		N'INF846K01B69',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXISCBDPD',
+		N'Axis Capital Builder Fund - Series 1 (1540 Days) - Regular Plan  - Dividend Payout',
+		N'BSE',
+		NULL,
+		N'INF846K01B93',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXISCBGPG',
+		N'Axis Capital Builder Fund - Series 1 (1540 Days) - Regular Plan  - Growth',
+		N'BSE',
+		NULL,
+		N'INF846K01B85',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXISCCDGG',
+		N'Axis&#160;Capital&#160;Builder&#160;Fund&#160;-&#160;Series&#160;4&#160;(1582&#160;days)&#160;-Direct&#160;Plan&#160;-&#160;Growth&#160;Option',
+		N'BSE',
+		NULL,
+		N'INF846K01K68',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXISCCDID',
+		N'Axis&#160;Capital&#160;Builder&#160;Fund&#160;-&#160;Series&#160;4&#160;(1582&#160;days)&#160;-',
+		N'BSE',
+		NULL,
+		N'INF846K01K76',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXISCCDPD',
+		N'Axis&#160;Capital&#160;Builder&#160;Fund&#160;-&#160;Series&#160;4&#160;(1582&#160;days)&#160;-Regular&#160;Plan&#160;-&#160;Dividend&#160;Payout&#160;Option',
+		N'BSE',
+		NULL,
+		N'INF846K01K92',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXISCCGPG',
+		N'Axis&#160;Capital&#160;Builder&#160;Fund&#160;-&#160;Series&#160;4&#160;(1582&#160;days)&#160;- Regular&#160;Plan&#160;-&#160;Growth&#160;Option',
+		N'BSE',
+		NULL,
+		N'INF846K01K84',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXISGOLD',
+		N'Axis Mutual Fund - Axis Gold ETF',
+		N'NSE',
+		N'Gold',
+		N'INF846K01347',
+		100,
+		0
+	UNION
+	SELECT
+		N'AXISNIFTY',
+		N'AXISAMC - AXISNIFTY',
+		N'NSE',
+		N'NIFTY 50',
+		N'INF846K01ZL0',
+		100,
+		0
+	UNION
+	SELECT
+		N'AXITA',
+		N'Axita Cotton Ltd',
+		N'BSE',
+		NULL,
+		N'INE02EZ01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'AXTEL',
+		N'AXTEL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE767C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'AYMSYNTEX',
+		N'AYM Syntex Ltd',
+		N'BSE',
+		NULL,
+		N'INE193B01039',
+		10,
+		0
+	UNION
+	SELECT
+		N'AYMSYNTEX',
+		N'AYM Syntex Limited',
+		N'NSE',
+		N'EQ',
+		N'INE193B01039',
+		10,
+		0
+	UNION
+	SELECT
+		N'AYOME',
+		N'AYOKI MERCANTILE LTD.',
+		N'BSE',
+		NULL,
+		N'INE048E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'B2BSOFT',
+		N'B2B SOFTWARE TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE151B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BABA',
+		N'BABA ARTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE893A01036',
+		1,
+		0
+	UNION
+	SELECT
+		N'BACPHAR',
+		N'BACIL PHARMA LTD.',
+		N'BSE',
+		NULL,
+		N'INE711D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAFNAPH',
+		N'Bafna Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE878I01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAFNAPHARM',
+		N'BAFNA PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE878I01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAGFILMS',
+		N'B.A.G.FILMS & MEDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE116D01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'BAGFILMS',
+		N'B.A.G Films and Media Limited',
+		N'NSE',
+		N'EQ',
+		N'INE116D01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'BAJAJ-AUTO',
+		N'BAJAJ AUTO LTD.',
+		N'BSE',
+		NULL,
+		N'INE917I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAJAJ-AUTO',
+		N'Bajaj Auto Limited',
+		N'NSE',
+		N'EQ',
+		N'INE917I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAJAJCON',
+		N'Bajaj Consumer Care Ltd',
+		N'BSE',
+		NULL,
+		N'INE933K01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'BAJAJCON',
+		N'Bajaj Consumer Care Limited',
+		N'NSE',
+		N'EQ',
+		N'INE933K01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'BAJAJELEC',
+		N'BAJAJ ELECTRICALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE193E01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'BAJAJELEC',
+		N'Bajaj Electricals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE193E01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'BAJAJFINSV',
+		N'BAJAJ FINSERV LTD.',
+		N'BSE',
+		NULL,
+		N'INE918I01018',
+		5,
+		0
+	UNION
+	SELECT
+		N'BAJAJFINSV',
+		N'Bajaj Finserv Limited',
+		N'NSE',
+		N'EQ',
+		N'INE918I01018',
+		5,
+		0
+	UNION
+	SELECT
+		N'BAJAJHCARE',
+		N'Bajaj Healthcare Ltd',
+		N'BSE',
+		NULL,
+		N'INE411U01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAJAJHIND',
+		N'Bajaj Hindusthan Sugar Limited',
+		N'BSE',
+		NULL,
+		N'INE306A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'BAJAJHIND',
+		N'Bajaj Hindusthan Sugar Limited',
+		N'NSE',
+		N'EQ',
+		N'INE306A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'BAJAJHLDNG',
+		N'BAJAJ HOLDINGS & INVESTMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE118A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAJAJHLDNG',
+		N'Bajaj Holdings & Investment Limited',
+		N'NSE',
+		N'EQ',
+		N'INE118A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAJAJST',
+		N'BAJAJ STEEL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE704G01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'BAJFINANCE',
+		N'Bajaj Finance Limited',
+		N'BSE',
+		NULL,
+		N'INE296A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'BAJFINANCE',
+		N'Bajaj Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE296A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'BAJGLOB',
+		N'BAJAJ GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE553H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAJRFIN',
+		N'BAJRANG FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE507J01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BALAJITELE',
+		N'BALAJI TELEFILMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE794B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'BALAJITELE',
+		N'Balaji Telefilms Limited',
+		N'NSE',
+		N'EQ',
+		N'INE794B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'BALAMINES',
+		N'BALAJI AMINES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE050E01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'BALAMINES',
+		N'Balaji Amines Limited',
+		N'NSE',
+		N'EQ',
+		N'INE050E01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'BALASORE',
+		N'BALASORE ALLOYS LTD.',
+		N'BSE',
+		NULL,
+		N'INE135A01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'BALAXI',
+		N'BALAXI PHARMACEUTICALS LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE618N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BALFC',
+		N'BAID LEASING AND FINANCE CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE020D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BALGOPAL',
+		N'Balgopal Commercial Ltd',
+		N'BSE',
+		NULL,
+		N'INE119R01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BALKRISHNA',
+		N'Balkrishna Paper Mills Ltd',
+		N'BSE',
+		NULL,
+		N'INE875R01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BALKRISHNA',
+		N'Balkrishna Paper Mills Limited',
+		N'NSE',
+		N'BE',
+		N'INE875R01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BALKRISIND',
+		N'BALKRISHNA INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE787D01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'BALKRISIND',
+		N'Balkrishna Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE787D01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'BALLARPUR',
+		N'BALLARPUR INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE294A01037',
+		2,
+		0
+	UNION
+	SELECT
+		N'BALLARPUR',
+		N'Ballarpur Industries Limited',
+		N'NSE',
+		N'BZ',
+		N'INE294A01037',
+		2,
+		0
+	UNION
+	SELECT
+		N'BALMLAWRIE',
+		N'BALMER LAWRIE & CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE164A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BALMLAWRIE',
+		N'Balmer Lawrie & Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE164A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BALPHARMA',
+		N'BAL PHARMA LTD.',
+		N'BSE',
+		NULL,
+		N'INE083D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BALPHARMA',
+		N'Bal Pharma Limited',
+		N'NSE',
+		N'EQ',
+		N'INE083D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BALRAMCHIN',
+		N'BALRAMPUR CHINI MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE119A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'BALRAMCHIN',
+		N'Balrampur Chini Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE119A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'BALTE',
+		N'BALURGHAT TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE654B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BALUFORGE',
+		N'Balu Forge Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE011E01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAMBINO',
+		N'BAMBINO AGRO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE921D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAMPSL',
+		N'BAMPSL SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE802A01037',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANARBEADS',
+		N'BANARAS BEADS LTD.',
+		N'BSE',
+		NULL,
+		N'INE655B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANARBEADS',
+		N'Banaras Beads Limited',
+		N'NSE',
+		N'EQ',
+		N'INE655B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANARISUG',
+		N'BANNARI AMMAN SUGARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE459A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANARISUG',
+		N'Bannari Amman Sugars Limited',
+		N'NSE',
+		N'EQ',
+		N'INE459A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANASFN',
+		N'BANAS FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE521L01030',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANCOINDIA',
+		N'BANCO PRODUCTS (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE213C01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'BANCOINDIA',
+		N'Banco Products (I) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE213C01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'BANDHANBNK',
+		N'Bandhan Bank Ltd',
+		N'BSE',
+		NULL,
+		N'INE545U01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANDHANBNK',
+		N'Bandhan Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE545U01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANG',
+		N'BANG OVERSEAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE863I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANG',
+		N'Bang Overseas Limited',
+		N'NSE',
+		N'EQ',
+		N'INE863I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANKA',
+		N'Banka BioLoo Limited',
+		N'NSE',
+		N'EQ',
+		N'INE862Y01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANKBARODA',
+		N'BANK OF BARODA',
+		N'BSE',
+		NULL,
+		N'INE028A01039',
+		2,
+		0
+	UNION
+	SELECT
+		N'BANKBARODA',
+		N'Bank of Baroda',
+		N'NSE',
+		N'EQ',
+		N'INE028A01039',
+		2,
+		0
+	UNION
+	SELECT
+		N'BANKBEES',
+		N'NIPPON INDIA ETF BANK BEES',
+		N'BSE',
+		NULL,
+		N'INF204KB15I9',
+		1,
+		0
+	UNION
+	SELECT
+		N'BANKBEES',
+		N'R*Shares Bank BeES',
+		N'NSE',
+		N'Nifty Bank',
+		N'INF732E01078',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANKINDIA',
+		N'BANK OF INDIA',
+		N'BSE',
+		NULL,
+		N'INE084A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANKINDIA',
+		N'Bank of India',
+		N'NSE',
+		N'EQ',
+		N'INE084A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANSTEA',
+		N'BANSISONS TEA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE856E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANSWRAS',
+		N'BANSWARA SYNTEX LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE629D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BANSWRAS',
+		N'Banswara Syntex Limited',
+		N'NSE',
+		N'EQ',
+		N'INE629D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAPACK',
+		N'B&A Packaging India Limited',
+		N'BSE',
+		NULL,
+		N'INE00FM01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAROEXT',
+		N'BARODA EXTRUSION LTD.',
+		N'BSE',
+		NULL,
+		N'INE927K01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'BARONINF',
+		N'BARON INFOTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE228B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BARTRONICS',
+		N'BARTRONICS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE855F01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'BARTRONICS',
+		N'Bartronics India Limited',
+		N'NSE',
+		N'BZ',
+		N'INE855F01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'BASANTGL',
+		N'BASANT AGRO TECH (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE473E01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'BASF',
+		N'BASF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE373A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BASF',
+		N'BASF India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE373A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BASML',
+		N'BANNARI AMMAN SPINNING MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE186H01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'BASML',
+		N'Bannari Amman Spinning Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE186H01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'BATAINDIA',
+		N'BATA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE176A01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'BATAINDIA',
+		N'Bata India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE176A01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'BATLIBOI',
+		N'BATLIBOI LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE177C01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'BAYERCROP',
+		N'BAYER CROPSCIENCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE462A01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAYERCROP',
+		N'Bayer Cropscience Limited',
+		N'NSE',
+		N'EQ',
+		N'INE462A01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'BAZELINTER',
+		N'Bazel International Ltd',
+		N'BSE',
+		NULL,
+		N'INE217E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BBL',
+		N'BHARAT BIJLEE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE464A01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'BBL',
+		N'Bharat Bijlee Limited',
+		N'NSE',
+		N'EQ',
+		N'INE464A01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'BBTC',
+		N'BOMBAY BURMAH TRADING CORP.LTD.',
+		N'BSE',
+		NULL,
+		N'INE050A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'BBTC',
+		N'Bombay Burmah Trading Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE050A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'BCCFUBA',
+		N'BCC FUBA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE788D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BCG',
+		N'Brightcom Group Ltd',
+		N'BSE',
+		NULL,
+		N'INE425B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'BCG',
+		N'Brightcom Group Limited',
+		N'NSE',
+		N'EQ',
+		N'INE425B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'BCLENTERPR',
+		N'BCL Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE368E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'BCLIL',
+		N'BCL Industries Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE412G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BCP',
+		N'B.C. Power Controls Ltd',
+		N'BSE',
+		NULL,
+		N'INE905P01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'BCP',
+		N'B.C. Power Controls Ltd',
+		N'NSE',
+		N'EQ',
+		N'INE905P01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'BCPL',
+		N'BCPL Railway Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE00SW01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'BDH',
+		N'BDH INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE278D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'BDL',
+		N'Bharat Dynamics Ltd',
+		N'BSE',
+		NULL,
+		N'INE171Z01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'BDL',
+		N'Bharat Dynamics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE171Z01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'BEARDSELL',
+		N'Beardsell Ltd',
+		N'BSE',
+		NULL,
+		N'INE520H01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'BEARDSELL',
+		N'Beardsell Limited',
+		N'NSE',
+		N'EQ',
+		N'INE520H01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'BECTORFOOD',
+		N'Mrs. Bectors Food Specialities Ltd',
+		N'BSE',
+		NULL,
+		N'INE495P01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BECTORFOOD',
+		N'Mrs. Bectors Food Specialities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE495P01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BEDMUTHA',
+		N'BEDMUTHA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE844K01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BEDMUTHA',
+		N'Bedmutha Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE844K01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BEEKAY',
+		N'Beekay Steel Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE213D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'BEEYU',
+		N'BEEYU OVERSEAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE052B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BEL',
+		N'BHARAT ELECTRONICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE263A01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'BEL',
+		N'Bharat Electronics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE263A01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'BELLACASA',
+		N'Bella Casa Fashion & Retail Ltd',
+		N'BSE',
+		NULL,
+		N'INE344T01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BEMHY',
+		N'BEMCO HYDRAULICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE142E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BEML',
+		N'BEML LTD.',
+		N'BSE',
+		NULL,
+		N'INE258A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BEML',
+		N'BEML Limited',
+		N'NSE',
+		N'EQ',
+		N'INE258A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BENARA',
+		N'Benara Bearings and Pistons Ltd',
+		N'BSE',
+		NULL,
+		N'INE495Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BENARAS',
+		N'BENARES HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE664D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BENGALASM',
+		N'BENGAL & ASSAM COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE083K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BENGALS',
+		N'BENGAL STEEL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE523W01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BENGALT',
+		N'BENGAL TEA & FABRICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE665D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BENTCOM',
+		N'BENTLEY COMMERCIAL ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE496M01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BEPL',
+		N'BHANSALI ENGINEERING POLYMERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE922A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'BEPL',
+		N'Bhansali Engineering Polymers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE922A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'BERGEPAINT',
+		N'BERGER PAINTS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE463A01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'BERGEPAINT',
+		N'Berger Paints (I) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE463A01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'BERLDRG',
+		N'BERYL DRUGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE415H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BERVINL',
+		N'BERVIN INVESTMENT & LEASING LTD.',
+		N'BSE',
+		NULL,
+		N'INE348I01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'BERYLSE',
+		N'BERYL SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE508J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'BESTAGRO',
+		N'Best Agrolife Ltd',
+		N'BSE',
+		NULL,
+		N'INE052T01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BESTAGRO',
+		N'Best Agrolife Limited',
+		N'NSE',
+		N'EQ',
+		N'INE052T01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BESTEAST',
+		N'BEST EASTERN HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE553F01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'BETXIND',
+		N'BETEX INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE765L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BFFL',
+		N'Bangalore Fort Farms Ltd',
+		N'BSE',
+		NULL,
+		N'INE578R01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BFINVEST',
+		N'BF INVESTMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE878K01010',
+		5,
+		0
+	UNION
+	SELECT
+		N'BFINVEST',
+		N'BF Investment Limited',
+		N'NSE',
+		N'EQ',
+		N'INE878K01010',
+		5,
+		0
+	UNION
+	SELECT
+		N'BFLAFL',
+		N'BFL Asset Finvest Ltd',
+		N'BSE',
+		NULL,
+		N'INE948Q01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'BFUTILITIE',
+		N'BF UTILITIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE243D01012',
+		5,
+		0
+	UNION
+	SELECT
+		N'BFUTILITIE',
+		N'BF Utilities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE243D01012',
+		5,
+		0
+	UNION
+	SELECT
+		N'BGJL',
+		N'Bhakti Gems and Jewellery Ltd',
+		N'BSE',
+		NULL,
+		N'INE986W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BGPL',
+		N'Bio Green Papers Ltd',
+		N'BSE',
+		NULL,
+		N'INE958L01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'BGRENERGY',
+		N'BGR ENERGY SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE661I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BGRENERGY',
+		N'BGR Energy Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE661I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BGWTATO',
+		N'BHAGWATI AUTOCAST LTD.',
+		N'BSE',
+		NULL,
+		N'INE106G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHAGCHEM',
+		N'BHAGIRADHA CHEMICALS & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE414D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHAGERIA',
+		N'Bhageria Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE354C01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'BHAGIL',
+		N'Bhageria Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE354C01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'BHAGWOX',
+		N'BHAGWATI OXYGEN LTD.',
+		N'BSE',
+		NULL,
+		N'INE026I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHAGYANGR',
+		N'Bhagyanagar India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE458B01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'BHAGYAPROP',
+		N'Bhagyanagar Properties Ltd',
+		N'BSE',
+		NULL,
+		N'INE363W01018',
+		2,
+		0
+	UNION
+	SELECT
+		N'BHAGYAPROP',
+		N'Bhagyanagar Properties Limited',
+		N'NSE',
+		N'EQ',
+		N'INE363W01018',
+		2,
+		0
+	UNION
+	SELECT
+		N'BHAGYNAGAR',
+		N'BHAGYANAGAR INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE458B01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'BHANDARI',
+		N'Bhandari Hosiery Exports Limited',
+		N'NSE',
+		N'BE',
+		N'INE474E01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'BHANDERI',
+		N'Bhanderi Infracon Ltd',
+		N'BSE',
+		NULL,
+		N'INE336Q01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHANDHOS',
+		N'BHANDARI HOSIERY EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE474E01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'BHARAT',
+		N'BHARAT BHUSHAN SHARE & COMMODITY BROKERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE900A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHARATAGRI',
+		N'BHARAT AGRI FERT & REALTY LTD.',
+		N'BSE',
+		NULL,
+		N'INE842D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHARATFORG',
+		N'BHARAT FORGE LTD.',
+		N'BSE',
+		NULL,
+		N'INE465A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'BHARATFORG',
+		N'Bharat Forge Limited',
+		N'NSE',
+		N'EQ',
+		N'INE465A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'BHARATGEAR',
+		N'BHARAT GEARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE561C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHARATGEAR',
+		N'Bharat Gears Limited',
+		N'NSE',
+		N'EQ',
+		N'INE561C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHARATRAS',
+		N'BHARAT RASAYAN LTD.',
+		N'BSE',
+		NULL,
+		N'INE838B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHARATRAS',
+		N'Bharat Rasayan Limited',
+		N'NSE',
+		N'EQ',
+		N'INE838B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHARATSE',
+		N'BHARAT SEATS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE415D01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'BHARATWIRE',
+		N'Bharat Wire Ropes Ltd',
+		N'BSE',
+		NULL,
+		N'INE316L01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHARATWIRE',
+		N'Bharat Wire Ropes Limited',
+		N'NSE',
+		N'EQ',
+		N'INE316L01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHARTIA',
+		N'Bhartia Bachat Ltd',
+		N'BSE',
+		NULL,
+		N'INE745R01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHARTIARTL',
+		N'BHARTI AIRTEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE397D01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'BHARTIARTL',
+		N'Bharti Airtel Limited',
+		N'NSE',
+		N'EQ',
+		N'INE397D01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'BHASKAGR',
+		N'BHASKAR AGROCHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE972C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHATIA',
+		N'Bhatia Communications & Retail (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE341Z01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BHEL',
+		N'BHARAT HEAVY ELECTRICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE257A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'BHEL',
+		N'Bharat Heavy Electricals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE257A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'BHILSPIN',
+		N'BHILWARA SPINNERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE436C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BI',
+		N'BILCARE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE986A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIBCL',
+		N'BHARAT IMMUNOLOGICALS & BIOLOGICALS CORPORATION LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE994B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIGBLOC',
+		N'Bigbloc Construction Ltd',
+		N'BSE',
+		NULL,
+		N'INE412U01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIGBLOC',
+		N'Bigbloc Construction Limited',
+		N'NSE',
+		N'EQ',
+		N'INE412U01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIJHANS',
+		N'BIJOY HANS LTD.',
+		N'BSE',
+		NULL,
+		N'INE491D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIL',
+		N'BHARTIYA INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE828A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIL',
+		N'Bhartiya International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE828A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BILLWIN',
+		N'Billwin Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE0CRS01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIMETAL',
+		N'BIMETAL BEARINGS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE469A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BINDALAGRO',
+		N'Oswal Greentech Ltd',
+		N'BSE',
+		NULL,
+		N'INE143A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'BINDALAGRO',
+		N'Oswal Chemicals & Fertilizers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE143A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'BINDALEXPO',
+		N'Bindal Exports Ltd',
+		N'BSE',
+		NULL,
+		N'INE564V01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BINNY',
+		N'BINNY LTD.',
+		N'BSE',
+		NULL,
+		N'INE118K01011',
+		5,
+		0
+	UNION
+	SELECT
+		N'BINNYMILLS',
+		N'BINNY MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE160L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIOCON',
+		N'BIOCON LTD.',
+		N'BSE',
+		NULL,
+		N'INE376G01013',
+		5,
+		0
+	UNION
+	SELECT
+		N'BIOCON',
+		N'Biocon Limited',
+		N'NSE',
+		N'EQ',
+		N'INE376G01013',
+		5,
+		0
+	UNION
+	SELECT
+		N'BIOFILCHEM',
+		N'BIOFIL CHEMICALS & PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE829A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIOFILCHEM',
+		N'Biofil Chemicals & Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE829A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIRLACABLE',
+		N'Birla Cable Ltd',
+		N'BSE',
+		NULL,
+		N'INE800A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIRLACABLE',
+		N'Birla Cable Limited',
+		N'NSE',
+		N'EQ',
+		N'INE800A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIRLACORPN',
+		N'BIRLA CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE340A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIRLACORPN',
+		N'Birla Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE340A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIRLAMONEY',
+		N'ADITYA BIRLA MONEY LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE865C01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'BIRLAMONEY',
+		N'Aditya Birla Money Limited',
+		N'NSE',
+		N'EQ',
+		N'INE865C01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'BIRLAPREC',
+		N'BIRLA PRECISION TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE372E01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'BIRLATYRE',
+		N'Birla Tyres Limited',
+		N'NSE',
+		N'EQ',
+		N'INE0AEJ01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BIRLATYRES',
+		N'Birla Tyres Ltd',
+		N'BSE',
+		NULL,
+		N'INE0AEJ01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BKMINDST',
+		N'BKM Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE831Q01016',
+		1,
+		0
+	UNION
+	SELECT
+		N'BKMINDST',
+		N'Bkm Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE831Q01016',
+		1,
+		0
+	UNION
+	SELECT
+		N'BKV',
+		N'BKV INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE356C01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'BLACKROSE',
+		N'BLACK ROSE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE761G01016',
+		1,
+		0
+	UNION
+	SELECT
+		N'BLBLEND',
+		N'Blue Blends (India) Ltd',
+		N'BSE',
+		NULL,
+		N'NA          ',
+		100,
+		0
+	UNION
+	SELECT
+		N'BLBLIMITED',
+		N'BLB LTD.',
+		N'BSE',
+		NULL,
+		N'INE791A01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'BLBLIMITED',
+		N'BLB Limited',
+		N'NSE',
+		N'EQ',
+		N'INE791A01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'BLBLNDS',
+		N'Blue Blends India Ltd',
+		N'BSE',
+		NULL,
+		N'NA          ',
+		100,
+		0
+	UNION
+	SELECT
+		N'BLEBLNI',
+		N'Blue Blends (India) Ltd',
+		N'BSE',
+		NULL,
+		N'NA          ',
+		100,
+		0
+	UNION
+	SELECT
+		N'BLFL',
+		N'Boston Leasing and Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE962P01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BLIL',
+		N'BALMER LAWRIE INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE525F01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BLISSGVS',
+		N'BLISS GVS PHARMA LTD.',
+		N'BSE',
+		NULL,
+		N'INE416D01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'BLISSGVS',
+		N'Bliss GVS Pharma Limited',
+		N'NSE',
+		N'EQ',
+		N'INE416D01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'BLKASHYAP',
+		N'B.L.KASHYAP AND SONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE350H01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'BLKASHYAP',
+		N'B. L. Kashyap and Sons Limited',
+		N'NSE',
+		N'BE',
+		N'INE350H01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'BLOIN',
+		N'BLOOM INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE373E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'BLOOM',
+		N'BLOOM DEKOR LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE253C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BLS',
+		N'BLS International Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE153T01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'BLS',
+		N'BLS International Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE153T01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'BLUECHIPT',
+		N'BLUE CHIP TEX INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE472D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BLUECLOUDS',
+		N'Blue Cloud Softech Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE373T01039',
+		2,
+		0
+	UNION
+	SELECT
+		N'BLUECOAST',
+		N'BLUE COAST HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE472B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BLUECOAST',
+		N'Blue Coast Hotels Limited',
+		N'NSE',
+		N'BE',
+		N'INE472B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BLUEDART',
+		N'BLUE DART EXPRESS LTD.',
+		N'BSE',
+		NULL,
+		N'INE233B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BLUEDART',
+		N'Blue Dart Express Limited',
+		N'NSE',
+		N'EQ',
+		N'INE233B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BLUESTARCO',
+		N'BLUE STAR LTD.',
+		N'BSE',
+		NULL,
+		N'INE472A01039',
+		2,
+		0
+	UNION
+	SELECT
+		N'BLUESTARCO',
+		N'Blue Star Limited',
+		N'NSE',
+		N'EQ',
+		N'INE472A01039',
+		2,
+		0
+	UNION
+	SELECT
+		N'BMAL',
+		N'BOTHRA METALS & ALLOYS LTD.',
+		N'BSE',
+		NULL,
+		N'INE583M01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BMW',
+		N'BMW Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE374E01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'BNALTD',
+		N'B & A LTD.',
+		N'BSE',
+		NULL,
+		N'INE489D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BNKCAP',
+		N'BNK CAPITAL MARKETS LTD.',
+		N'BSE',
+		NULL,
+		N'INE418C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BNL',
+		N'Beekay Niryat Ltd',
+		N'BSE',
+		NULL,
+		N'INE679E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'BNRSEC',
+		N'B.N.RATHI SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE710D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'BNRUDY',
+		N'BNR UDYOG LTD.',
+		N'BSE',
+		NULL,
+		N'INE355C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BODALCHEM',
+		N'BODAL CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE338D01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'BODALCHEM',
+		N'Bodal Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE338D01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'BODHTREE',
+		N'Bodhtree Consulting Ltd',
+		N'BSE',
+		NULL,
+		N'INE104F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BOMBCYC',
+		N'BOMBAY CYCLE & MOTOR AGENCY LTD.',
+		N'BSE',
+		NULL,
+		N'INE691K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BOMBPOT',
+		N'BOMBAY POTTERIES & TILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE06AE01018',
+		100,
+		0
+	UNION
+	SELECT
+		N'BOMBWIR',
+		N'BOMBAY WIRE ROPES LTD.',
+		N'BSE',
+		NULL,
+		N'INE089T01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'BOMDYEING',
+		N'BOMBAY DYEING & MFG.CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE032A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'BOMDYEING',
+		N'Bombay Dyeing & Mfg Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE032A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'BOMOXY-B1',
+		N'Bombay Oxygen Investments Ltd',
+		N'BSE',
+		NULL,
+		N'INE01TL01014',
+		100,
+		0
+	UNION
+	SELECT
+		N'BONLON',
+		N'Bonlon Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE0B9A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'BOROLTD',
+		N'Borosil Ltd',
+		N'BSE',
+		NULL,
+		N'INE02PY01013',
+		1,
+		0
+	UNION
+	SELECT
+		N'BOROLTD',
+		N'Borosil Limited',
+		N'NSE',
+		N'EQ',
+		N'INE02PY01013',
+		1,
+		0
+	UNION
+	SELECT
+		N'BORORENEW',
+		N'Borosil Renewables Ltd',
+		N'BSE',
+		NULL,
+		N'INE666D01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'BORORENEW',
+		N'BOROSIL RENEWABLES LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE666D01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'BOSCHLTD',
+		N'BOSCH LTD.',
+		N'BSE',
+		NULL,
+		N'INE323A01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'BOSCHLTD',
+		N'Bosch Limited',
+		N'NSE',
+		N'EQ',
+		N'INE323A01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'BPCAP',
+		N'B. P. Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE947C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'BPCL',
+		N'BHARAT PETROLEUM CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE029A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BPCL',
+		N'Bharat Petroleum Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE029A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BPL',
+		N'BPL LTD.',
+		N'BSE',
+		NULL,
+		N'INE110A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BPL',
+		N'BPL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE110A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BPLPHARMA',
+		N'Bharat Parenterals Ltd',
+		N'BSE',
+		NULL,
+		N'INE365Y01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BPTEX',
+		N'Blue Pearl Texspin Limited',
+		N'BSE',
+		NULL,
+		N'INE439N01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRADYM',
+		N'BRADY & MORRIS ENGINEERING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE856A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRAHMINFRA',
+		N'BRAHMAPUTRA INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE320I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRANDREAL',
+		N'BRAND REALTY SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE819G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRAWN',
+		N'BRAWN BIOTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE899B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRFL',
+		N'BOMBAY RAYON FASHIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE589G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRFL',
+		N'Bombay Rayon Fashions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE589G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRIDGESE',
+		N'BRIDGE SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE958C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRIGADE',
+		N'BRIGADE ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE791I01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRIGADE',
+		N'Brigade Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE791I01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRIGHTBR',
+		N'BRIGHT BROTHERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE630D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRIJLEAS',
+		N'BRIJLAXMI LEASING & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE957E01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRIPORT',
+		N'Brilliant Portfolios Ltd',
+		N'BSE',
+		NULL,
+		N'INE661F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRITANNIA',
+		N'BRITANNIA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE216A01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'BRITANNIA',
+		N'Britannia Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE216A01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'BRNL',
+		N'Bharat Road Network Ltd',
+		N'BSE',
+		NULL,
+		N'INE727S01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRNL',
+		N'Bharat Road Network Limited',
+		N'NSE',
+		N'EQ',
+		N'INE727S01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BROOKS',
+		N'BROOKS LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE650L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BROOKS',
+		N'Brooks Laboratories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE650L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BRPL',
+		N'Bansal Roofing Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE319Q01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BSE',
+		N'BSE Limited',
+		N'NSE',
+		N'EQ',
+		N'INE118H01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'BSELINFRA',
+		N'BSEL INFRASTRUCTURE REALTY LTD.',
+		N'BSE',
+		NULL,
+		N'INE395A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BSELINFRA',
+		N'BSEL Infrastructure Realty Limited',
+		N'NSE',
+		N'EQ',
+		N'INE395A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'BSHSL',
+		N'Bombay Super Hybrid Seeds Limited',
+		N'NSE',
+		N'BE',
+		N'INE032Z01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BSL',
+		N'BSL LTD.',
+		N'BSE',
+		NULL,
+		N'INE594B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BSL',
+		N'BSL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE594B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'BSLGOLDETF',
+		N'Birla Sun Life Mutual Fund - Birla Sun Life Gold ETF - Growth',
+		N'NSE',
+		N'Gold',
+		N'INF209K01HT2',
+		10,
+		0
+	UNION
+	SELECT
+		N'BSLNIFTY',
+		N'Birla Sun Life Mutual Fund - Birla Sun Life Nifty ETF - Growth',
+		N'NSE',
+		N'Nifty 50',
+		N'INF209K01IR4',
+		10,
+		0
+	UNION
+	SELECT
+		N'BSLSENETFG',
+		N'BIRLA SUN LIFE SENSEX ETF',
+		N'BSE',
+		NULL,
+		N'INF209KB1119',
+		10,
+		0
+	UNION
+	SELECT
+		N'BSOFT',
+		N'Birlasoft Ltd',
+		N'BSE',
+		NULL,
+		N'INE836A01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'BSOFT',
+		N'BIRLASOFT LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE836A01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'BTTL',
+		N'BHILWARA TECHNICAL TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE274K01012',
+		1,
+		0
+	UNION
+	SELECT
+		N'BUDGE BUDGE',
+		N'Budge Budge Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE948C01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'BURGERKING',
+		N'Burger King India Ltd',
+		N'BSE',
+		NULL,
+		N'INE07T201019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BURGERKING',
+		N'Burger King India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE07T201019',
+		10,
+		0
+	UNION
+	SELECT
+		N'BURNPUR',
+		N'BURNPUR CEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE817H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BURNPUR',
+		N'Burnpur Cement Limited',
+		N'NSE',
+		N'BE',
+		N'INE817H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'BUTTERFLY',
+		N'Butterfly Gandhimathi Appliances Ltd',
+		N'BSE',
+		NULL,
+		N'INE295F01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BUTTERFLY',
+		N'Butterfly Gandhimathi Appliances Limited',
+		N'NSE',
+		N'EQ',
+		N'INE295F01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'BVCL',
+		N'BARAK VALLEY CEMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE139I01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BVCL',
+		N'Barak Valley Cements Limited',
+		N'NSE',
+		N'BE',
+		N'INE139I01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'BVL',
+		N'Blueblood Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE562S01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'BYKE',
+		N'The Byke Hospitality Ltd',
+		N'NSE',
+		N'EQ',
+		N'INE319B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CADILAHC',
+		N'CADILA HEALTHCARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE010B01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'CADILAHC',
+		N'Cadila Healthcare Limited',
+		N'NSE',
+		N'EQ',
+		N'INE010B01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'CALCOM',
+		N'CALCOM VISION LTD.',
+		N'BSE',
+		NULL,
+		N'INE216C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CALSOFT',
+		N'CALIFORNIA SOFTWARE CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE526B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CALSOFT',
+		N'California Software Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE526B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAMEXLTD',
+		N'CAMEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE198C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAMLINFINE',
+		N'CAMLIN FINE SCIENCES LTD.',
+		N'BSE',
+		NULL,
+		N'INE052I01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'CAMLINFINE',
+		N'Camlin Fine Sciences Limited',
+		N'NSE',
+		N'EQ',
+		N'INE052I01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'CAMS',
+		N'Computer Age Management Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE596I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAMS',
+		N'Computer Age Management Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE596I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'CANBK',
+		N'CANARA BANK',
+		N'BSE',
+		NULL,
+		N'INE476A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CANBK',
+		N'Canara Bank',
+		N'NSE',
+		N'EQ',
+		N'INE476A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CANDC',
+		N'C & C CONSTRUCTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE874H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'CANDC',
+		N'C & C Constructions Limited',
+		N'NSE',
+		N'BZ',
+		N'INE874H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'CANFINHOME',
+		N'CAN FIN HOMES LTD.',
+		N'BSE',
+		NULL,
+		N'INE477A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'CANFINHOME',
+		N'Can Fin Homes Limited',
+		N'NSE',
+		N'EQ',
+		N'INE477A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'CANOPYFIN',
+		N'Canopy Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE095R01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CANTABIL',
+		N'CANTABIL RETAIL INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE068L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CANTABIL',
+		N'Cantabil Retail India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE068L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAPACITE',
+		N'Capacite Infraprojects Ltd',
+		N'BSE',
+		NULL,
+		N'INE264T01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAPACITE',
+		N'Capacit''e Infraprojects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE264T01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAPFIN',
+		N'Capfin India Ltd',
+		N'BSE',
+		NULL,
+		N'INE960C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAPITALT',
+		N'CAPITAL TRUST LTD.',
+		N'BSE',
+		NULL,
+		N'INE707C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAPLIPOINT',
+		N'Caplin Point Laboratories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE475E01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'CAPPIPES',
+		N'Captain Pipes Ltd',
+		N'BSE',
+		NULL,
+		N'INE513R01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAPPL',
+		N'CAPLIN POINT LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE475E01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'CAPRICORN',
+		N'CAPRICORN SYSTEMS GLOBAL SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE968E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAPRIHANS',
+		N'CAPRIHANS INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE479A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAPRO',
+		N'CAPROLACTAM CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE470N01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAPTRUST',
+		N'Capital Trust Limited',
+		N'NSE',
+		N'EQ',
+		N'INE707C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CARBORUNIV',
+		N'CARBORUNDUM UNIVERSAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE120A01034',
+		1,
+		0
+	UNION
+	SELECT
+		N'CARBORUNIV',
+		N'Carborundum Universal Limited',
+		N'NSE',
+		N'EQ',
+		N'INE120A01034',
+		1,
+		0
+	UNION
+	SELECT
+		N'CAREERP',
+		N'CAREER POINT LTD.',
+		N'BSE',
+		NULL,
+		N'INE521J01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CAREERP',
+		N'Career Point Limited',
+		N'NSE',
+		N'EQ',
+		N'INE521J01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CARERATING',
+		N'CARE Ratings Ltd',
+		N'BSE',
+		NULL,
+		N'INE752H01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CARERATING',
+		N'CARE Ratings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE752H01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CARNATIN',
+		N'CARNATION INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE081B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CASTROLIND',
+		N'CASTROL INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE172A01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'CASTROLIND',
+		N'Castrol India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE172A01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'CATVISION',
+		N'Catvision Limited',
+		N'BSE',
+		NULL,
+		N'INE660B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CBPL',
+		N'Chandra Bhagat Pharma Ltd',
+		N'BSE',
+		NULL,
+		N'INE07QQ01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CCCL',
+		N'CONSOLIDATED CONSTRUCTION CONSORTIUM LTD.',
+		N'BSE',
+		NULL,
+		N'INE429I01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'CCCL',
+		N'Consolidated Construction Consortium Limited',
+		N'NSE',
+		N'BE',
+		N'INE429I01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'CCFCL',
+		N'Classic Global Finance & Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE854P01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'CCHHL',
+		N'Country Club Hospitality & Holidays Ltd',
+		N'BSE',
+		NULL,
+		N'INE652F01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'CCHHL',
+		N'Country Club Hospitality & Holidays Limited',
+		N'NSE',
+		N'EQ',
+		N'INE652F01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'CCL',
+		N'CCL PRODUCTS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE421D01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'CCL',
+		N'CCL Products (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE421D01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'CCLINTER',
+		N'CCL INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE778E01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'CDG',
+		N'CDG Petchem Ltd',
+		N'BSE',
+		NULL,
+		N'INE198N01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CDSL',
+		N'Central Depository Services (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE736A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CEATLTD',
+		N'CEAT LTD.',
+		N'BSE',
+		NULL,
+		N'INE482A01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'CEATLTD',
+		N'CEAT Limited',
+		N'NSE',
+		N'EQ',
+		N'INE482A01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'CEBBCO',
+		N'COMMERCIAL ENGINEERS & BODY BUILDERS CO. LTD.',
+		N'BSE',
+		NULL,
+		N'INE209L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CEBBCO',
+		N'Commercial Engineers & Body Builders Co Limited',
+		N'NSE',
+		N'BE',
+		N'INE209L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CEEJAY',
+		N'CEEJAY FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE358C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CEENIK',
+		N'CEENIK EXPORTS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE418D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CEETAIN',
+		N'CEETA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE760J01012',
+		1,
+		0
+	UNION
+	SELECT
+		N'CEINSYSTECH',
+		N'Ceinsys Tech Ltd',
+		N'BSE',
+		NULL,
+		N'INE016Q01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CELEBRITY',
+		N'CELEBRITY FASHIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE185H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CELEBRITY',
+		N'Celebrity Fashions Limited',
+		N'NSE',
+		N'BE',
+		N'INE185H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CELLA',
+		N'Cella Space Ltd',
+		N'BSE',
+		NULL,
+		N'INE266H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CENLUB',
+		N'CENLUB INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE627F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CENTENKA',
+		N'CENTURY ENKA LTD.',
+		N'BSE',
+		NULL,
+		N'INE485A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'CENTENKA',
+		N'Century Enka Limited',
+		N'NSE',
+		N'EQ',
+		N'INE485A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'CENTERAC',
+		N'CENTERAC TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE157B01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'CENTEXT',
+		N'CENTURY EXTRUSIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE281A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'CENTEXT',
+		N'Century Extrusions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE281A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'CENTRALBK',
+		N'CENTRAL BANK OF INDIA',
+		N'BSE',
+		NULL,
+		N'INE483A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CENTRALBK',
+		N'Central Bank of India',
+		N'NSE',
+		N'EQ',
+		N'INE483A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CENTRUM',
+		N'CENTRUM CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE660C01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'CENTRUM',
+		N'Centrum Capital Limited',
+		N'NSE',
+		N'EQ',
+		N'INE660C01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'CENTUM',
+		N'CENTUM ELECTRONICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE320B01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'CENTUM',
+		N'Centum Electronics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE320B01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'CENTURYPLY',
+		N'CENTURY PLYBOARDS (I) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE348B01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'CENTURYPLY',
+		N'Century Plyboards (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE348B01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'CENTURYTEX',
+		N'CENTURY TEXTILES & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE055A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CENTURYTEX',
+		N'Century Textiles & Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE055A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CERA',
+		N'CERA SANITARYWARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE739E01017',
+		5,
+		0
+	UNION
+	SELECT
+		N'CERA',
+		N'Cera Sanitaryware Limited',
+		N'NSE',
+		N'EQ',
+		N'INE739E01017',
+		5,
+		0
+	UNION
+	SELECT
+		N'CEREBRAINT',
+		N'CEREBRA INTEGRATED TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE345B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'CEREBRAINT',
+		N'Cerebra Integrated Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE345B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'CESC',
+		N'CESC LTD.',
+		N'BSE',
+		NULL,
+		N'INE486A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CESC',
+		N'CESC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE486A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CESL',
+		N'CES Limited',
+		N'BSE',
+		NULL,
+		N'INE396F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CFEL',
+		N'Confidence Futuristic Energetech Ltd',
+		N'BSE',
+		NULL,
+		N'INE700F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CFL',
+		N'Classic Filaments Ltd',
+		N'BSE',
+		NULL,
+		N'INE181U01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CGCL',
+		N'Capri Global Capital Limited',
+		N'BSE',
+		NULL,
+		N'INE180C01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'CGCL',
+		N'Capri Global Capital Limited',
+		N'NSE',
+		N'EQ',
+		N'INE180C01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'CGPOWER',
+		N'CG Power and Industrial Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE067A01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'CGPOWER',
+		N'CG Power and Industrial Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE067A01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'CGVAK',
+		N'CG-VAK SOFTWARE & EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE084D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHADPAP',
+		N'CHADHA PAPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE669W01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHALET',
+		N'Chalet Hotels Ltd',
+		N'BSE',
+		NULL,
+		N'INE427F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHALET',
+		N'Chalet Hotels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE427F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHAMAK',
+		N'Chamak Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE049R01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHAMANSEQ',
+		N'CHAMAN LAL SETIA EXPORTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE419D01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'CHAMBLFERT',
+		N'CHAMBAL FERTILISERS & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE085A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHAMBLFERT',
+		N'Chambal Fertilizers & Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE085A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHANDNI',
+		N'Chandni Textiles Engineering Ind. Ltd',
+		N'BSE',
+		NULL,
+		N'INE713D01055',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHANDNIMACH',
+		N'Chandni Machines Ltd',
+		N'BSE',
+		NULL,
+		N'INE01GZ01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHANDRAP',
+		N'CHANDRA PRABHU INTERNATIONAL LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE368D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHANDRIMA',
+		N'Chandrima Mercantiles Ltd',
+		N'BSE',
+		NULL,
+		N'INE371F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHARMS',
+		N'CHARMS INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE442C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHCL',
+		N'Cian Healthcare Ltd',
+		N'BSE',
+		NULL,
+		N'INE05BN01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHDCHEM',
+		N'CHD Chemicals Ltd',
+		N'BSE',
+		NULL,
+		N'INE043U01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHEMBOND',
+		N'CHEMBOND CHEMICALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE995D01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'CHEMBOND',
+		N'Chembond Chemicals Ltd',
+		N'NSE',
+		N'EQ',
+		N'INE995D01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'CHEMCON',
+		N'Chemcon Speciality Chemicals Ltd',
+		N'BSE',
+		NULL,
+		N'INE03YM01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHEMCON',
+		N'Chemcon Speciality Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE03YM01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHEMCRUX',
+		N'Chemcrux Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE298W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHEMFAB',
+		N'Chemfab Alkalis Limited',
+		N'NSE',
+		N'EQ',
+		N'INE783X01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHEMFABALKA',
+		N'Chemfab Alkalis Ltd',
+		N'BSE',
+		NULL,
+		N'INE783X01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHEMIESYNT',
+		N'Chemiesynth (Vapi) Ltd',
+		N'BSE',
+		NULL,
+		N'INE829R01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHEMOPH',
+		N'CHEMO PHARMA LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE320M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHEMTECH',
+		N'Chemtech Industrial Valves Ltd',
+		N'BSE',
+		NULL,
+		N'INE212P01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHENFERRO',
+		N'Chennai Ferrous Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE777O01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHENNPETRO',
+		N'CHENNAI PETROLEUM CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE178A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHENNPETRO',
+		N'Chennai Petroleum Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE178A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHEVIOT',
+		N'CHEVIOT CO.LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE974B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHITRTX',
+		N'CHITRADURGA SPINTEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE676G01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHLLTD',
+		N'CHL LTD.',
+		N'BSE',
+		NULL,
+		N'INE790D01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'CHLOGIST',
+		N'CHARTERED LOGISTICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE558F01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'CHMBBRW',
+		N'CHAMBAL BREWERIES & DISTILLERIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE417N01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHOICEIN',
+		N'CHOICE INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE102B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHOKSI',
+		N'CHOKSI IMAGING LTD.',
+		N'BSE',
+		NULL,
+		N'INE865B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHOKSILA',
+		N'CHOKSI LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE493D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHOLAFIN',
+		N'Cholamandalam Investment and Finance Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE121A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'CHOLAFIN',
+		N'Cholamandalam Investment and Finance Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE121A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'CHOLAHLDNG',
+		N'Cholamandalam Financial Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE149A01033',
+		1,
+		0
+	UNION
+	SELECT
+		N'CHOLAHLDNG',
+		N'Cholamandalam Financial Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE149A01033',
+		1,
+		0
+	UNION
+	SELECT
+		N'CHORDIA',
+		N'CHORDIA FOOD PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE975C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHOTHANI',
+		N'Chothani Foods Ltd',
+		N'BSE',
+		NULL,
+		N'INE344X01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CHRTEDCA',
+		N'CHARTERED CAPITAL & INVESTMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE953B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CIANAGRO',
+		N'CIAN Agro Industries & Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE052V01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'CIFL',
+		N'Capital India Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE345H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CIGNITI',
+		N'CIGNITI TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE675C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CIGNITITEC',
+		N'Cigniti Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE675C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CIL',
+		N'Citizen Infoline Ltd',
+		N'BSE',
+		NULL,
+		N'INE473L01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CILSEC',
+		N'CIL SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE830A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'CINDHO',
+		N'CINDRELLA HOTELS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE908C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'CINDRELL',
+		N'CINDRELLA FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE897D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'CINELINE',
+		N'Cineline India Limited',
+		N'BSE',
+		NULL,
+		N'INE704H01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'CINELINE',
+		N'Cineline India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE704H01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'CINERAD',
+		N'CINERAD COMMUNICATIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE959B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CINEVISTA',
+		N'CINEVISTA LTD.',
+		N'BSE',
+		NULL,
+		N'INE039B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'CINEVISTA',
+		N'Cinevista Limited',
+		N'NSE',
+		N'EQ',
+		N'INE039B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'CIPLA',
+		N'CIPLA LTD.',
+		N'BSE',
+		NULL,
+		N'INE059A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'CIPLA',
+		N'Cipla Limited',
+		N'NSE',
+		N'EQ',
+		N'INE059A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'CISTRO',
+		N'CISTRO TELELINK LTD.',
+		N'BSE',
+		NULL,
+		N'INE365C01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'CITADEL',
+		N'CITADEL REALTY AND DEVELOPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE906D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CITIPOR',
+		N'CITIPORT FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE494D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CITL',
+		N'Consecutive Investment & Trading Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE187R01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CITYMAN',
+		N'CITYMAN LTD.',
+		N'BSE',
+		NULL,
+		N'INE117C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CITYON',
+		N'Cityon Systems (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE324P01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CITYONLINE',
+		N'City Online Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE158C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CJGEL',
+		N'C.J.GELATINE PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE557D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'CLASELE',
+		N'CLASSIC ELECTRICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE02BR01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CLEDUCATE',
+		N'CL Educate Ltd',
+		N'BSE',
+		NULL,
+		N'INE201M01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CLEDUCATE',
+		N'CL Educate Limited',
+		N'NSE',
+		N'EQ',
+		N'INE201M01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CLFL',
+		N'Classic Leasing & Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE949C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CLIOINFO',
+		N'CLIO INFOTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE011B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CLNINDIA',
+		N'CLARIANT CHEMICALS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE492A01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'CLNINDIA',
+		N'Clariant Chemicals (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE492A01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'CMBL',
+		N'Corporate Merchant Bankers Ltd',
+		N'BSE',
+		NULL,
+		N'INE850R01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CMI',
+		N'CMI LTD.',
+		N'BSE',
+		NULL,
+		N'INE981B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CMICABLES',
+		N'CMI Limited',
+		N'NSE',
+		N'EQ',
+		N'INE981B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CMMHOSP',
+		N'CHENNAI MEENAKSHI MULTISPECIALITY HOSPITAL LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE889F01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CNIRESLTD',
+		N'CNI RESEARCH LTD.',
+		N'BSE',
+		NULL,
+		N'INE135H01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'CNOVAPETRO',
+		N'CIL NOVA PETROCHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE672K01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'CNOVAPETRO',
+		N'CIL Nova Petrochemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE672K01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'COALINDIA',
+		N'COAL INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE522F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'COALINDIA',
+		N'Coal India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE522F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'COARO',
+		N'COASTAL ROADWAYS LTD.',
+		N'BSE',
+		NULL,
+		N'INE229E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'COASTCORP',
+		N'COASTAL CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE377E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'COCHINM',
+		N'COCHIN MINERALS & RUTILE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE105D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'COCHINSHIP',
+		N'Cochin Shipyard Ltd',
+		N'BSE',
+		NULL,
+		N'INE704P01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'COCHINSHIP',
+		N'Cochin Shipyard Limited',
+		N'NSE',
+		N'EQ',
+		N'INE704P01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'COCHMAL',
+		N'COCHIN MALABAR ESTATES & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE788M01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'COCKERILL',
+		N'John Cockerill India Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE515A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'COFORGE',
+		N'Coforge Ltd',
+		N'BSE',
+		NULL,
+		N'INE591G01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'COFORGE',
+		N'Coforge Limited',
+		N'NSE',
+		N'EQ',
+		N'INE591G01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'COLINZ',
+		N'COLINZ LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE923C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'COLORCHIPS',
+		N'Colorchips New Media Ltd',
+		N'BSE',
+		NULL,
+		N'INE621I01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'COLPAL',
+		N'COLGATE-PALMOLIVE (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE259A01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'COLPAL',
+		N'Colgate Palmolive (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE259A01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'COMCL',
+		N'COMFORT COMMOTRADE LTD.',
+		N'BSE',
+		NULL,
+		N'INE456N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'COMFINCAP',
+		N'COMFORT FINCAP LTD.',
+		N'BSE',
+		NULL,
+		N'INE274M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'COMFINTE',
+		N'COMFORT INTECH LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE819A01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'COMPEAU',
+		N'COMPETENT AUTOMOBILES CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE823B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'COMPINFO',
+		N'Compuage Infocom Limited',
+		N'NSE',
+		N'EQ',
+		N'INE070C01037',
+		2,
+		0
+	UNION
+	SELECT
+		N'COMPUAGE',
+		N'COMPUAGE INFOCOM LTD.',
+		N'BSE',
+		NULL,
+		N'INE070C01037',
+		2,
+		0
+	UNION
+	SELECT
+		N'COMPUSOFT',
+		N'COMPUCOM SOFTWARE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE453B01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'COMPUSOFT',
+		N'Compucom Software Limited',
+		N'NSE',
+		N'EQ',
+		N'INE453B01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'COMSYN',
+		N'Commercial Syn Bags Ltd',
+		N'BSE',
+		NULL,
+		N'INE073V01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'CONART',
+		N'CONART ENGINEERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE714D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'CONCOR',
+		N'CONTAINER CORPORATION OF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE111A01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'CONCOR',
+		N'Container Corporation of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE111A01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'CONCORD',
+		N'Concord Drugs Ltd',
+		N'BSE',
+		NULL,
+		N'INE858L01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CONFINT',
+		N'Confidence Finance And Trading Limited',
+		N'BSE',
+		NULL,
+		N'INE180M01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'CONFIPET',
+		N'CONFIDENCE PETROLEUM INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE552D01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'CONFIPET',
+		N'Confidence Petroleum India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE552D01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'CONSOFINVT',
+		N'Consolidated Finvest & Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE025A01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'CONSTRONIC',
+		N'Constronics Infra Ltd',
+		N'BSE',
+		NULL,
+		N'INE537B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CONTCHM',
+		N'CONTINENTAL CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE423K01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'CONTICON',
+		N'CONTINENTAL CONTROLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE545B01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'CONTILI',
+		N'CONTIL INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE080G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CONTPTR',
+		N'CONTINENTAL PETROLEUMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE369D01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'CONTROLPR',
+		N'CONTROL PRINT LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE663B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'CONTROLPR',
+		N'Control Print Limited',
+		N'NSE',
+		N'EQ',
+		N'INE663B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'CORAGRO',
+		N'COROMANDEL AGRO PRODUCTS & OILS LTD.',
+		N'BSE',
+		NULL,
+		N'INE495D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CORALAB',
+		N'CORAL LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE683E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CORALFINAC',
+		N'CORAL INDIA FINANCE & HOUSING LTD.',
+		N'BSE',
+		NULL,
+		N'INE558D01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'CORALFINAC',
+		N'Coral India Finance & Housing Limited',
+		N'NSE',
+		N'EQ',
+		N'INE558D01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'CORDSCABLE',
+		N'CORDS CABLE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE792I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CORDSCABLE',
+		N'Cords Cable Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE792I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CORNE',
+		N'CORAL NEWSPRINTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE715D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'COROENGG',
+		N'COROMANDEL ENGINEERING COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE312J01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'COROMANDEL',
+		N'COROMANDEL INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE169A01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'COROMANDEL',
+		N'Coromandel International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE169A01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'CORPOCO',
+		N'CORPORATE COURIER AND CARGO LTD.',
+		N'BSE',
+		NULL,
+		N'INE871E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'COSCO',
+		N'COSCO (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE949B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'COSMOFE',
+		N'COSMO FERRITES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE124B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'COSMOFILMS',
+		N'COSMO FILMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE757A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'COSMOFILMS',
+		N'Cosmo Films Limited',
+		N'NSE',
+		N'EQ',
+		N'INE757A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'COSPOWER',
+		N'Cospower Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE0CQB01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'COSYN',
+		N'COSYN Ltd',
+		N'BSE',
+		NULL,
+		N'INE029B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'COUNCODOS',
+		N'COUNTRY CONDO&#39;S LTD.',
+		N'BSE',
+		NULL,
+		N'INE695B01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'COUNCODOS',
+		N'Country Condo''s Limited',
+		N'NSE',
+		N'BE',
+		N'INE695B01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'COX&KINGS',
+		N'Cox & Kings Limited',
+		N'BSE',
+		NULL,
+		N'INE008I01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'COX&KINGS',
+		N'Cox & Kings Limited',
+		N'NSE',
+		N'BZ',
+		N'INE008I01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'CPL',
+		N'Captain Polyplast Ltd',
+		N'BSE',
+		NULL,
+		N'INE536P01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'CPML',
+		N'City Pulse Multiplex Ltd',
+		N'BSE',
+		NULL,
+		N'INE056001014',
+		10,
+		0
+	UNION
+	SELECT
+		N'CPSEETF',
+		N'CPSE ETF',
+		N'BSE',
+		NULL,
+		N'INF457M01133',
+		10,
+		0
+	UNION
+	SELECT
+		N'CPSEETF',
+		N'CPSE ETF*',
+		N'NSE',
+		N'Nifty CPSE',
+		N'INF457M01133',
+		10,
+		0
+	UNION
+	SELECT
+		N'CRANEINFRA',
+		N'Crane Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE176L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CRANESSOFT',
+		N'CRANES SOFTWARE INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE234B01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'CRANEX',
+		N'CRANEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE608B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CRAVATEX',
+		N'CRAVATEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE145E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CREATIVE',
+		N'Creative Castings Ltd',
+		N'BSE',
+		NULL,
+		N'INE146E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'CREATIVE',
+		N'Creative Peripherals and Distribution Limited',
+		N'NSE',
+		N'EQ',
+		N'INE985W01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CREATIVEYE',
+		N'CREATIVE EYE LTD.',
+		N'BSE',
+		NULL,
+		N'INE230B01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'CREATIVEYE',
+		N'Creative Eye Limited',
+		N'NSE',
+		N'EQ',
+		N'INE230B01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'CREDITACC',
+		N'CreditAccess Grameen Ltd',
+		N'BSE',
+		NULL,
+		N'INE741K01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CREDITACC',
+		N'CREDITACCESS GRAMEEN LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE741K01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CRESSAN',
+		N'CRESSANDA SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE716D01033',
+		1,
+		0
+	UNION
+	SELECT
+		N'CREST',
+		N'CREST VENTURES LIMITED',
+		N'BSE',
+		NULL,
+		N'INE559D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CREST',
+		N'Crest Ventures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE559D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CRIMSON',
+		N'Crimson Metal Engineering Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE318P01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CRISIL',
+		N'CRISIL LTD.',
+		N'BSE',
+		NULL,
+		N'INE007A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'CRISIL',
+		N'CRISIL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE007A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'CROMPTON',
+		N'Crompton Greaves Consumer Electricals Ltd',
+		N'BSE',
+		NULL,
+		N'INE299U01018',
+		2,
+		0
+	UNION
+	SELECT
+		N'CROMPTON',
+		N'Crompton Greaves Consumer Electricals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE299U01018',
+		2,
+		0
+	UNION
+	SELECT
+		N'CROWNTOURS',
+		N'Crown Tours Ltd',
+		N'BSE',
+		NULL,
+		N'INE969E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CRSTCHM',
+		N'CRESTCHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE293N01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'CSBBANK',
+		N'CSB Bank Ltd',
+		N'BSE',
+		NULL,
+		N'INE679A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CSBBANK',
+		N'CSB Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE679A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'CSL',
+		N'Continental Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE183Q01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'CSLFINANCE',
+		N'CSL Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE718F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CSURGSU',
+		N'CENTENIAL SURGICAL SUTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE405H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'CTCL',
+		N'Captain Technocast Ltd',
+		N'BSE',
+		NULL,
+		N'INE931X01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CTE',
+		N'CAMBRIDGE TECHNOLOGY ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE627H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CTE',
+		N'Cambridge Technology Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE627H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'CTL',
+		N'Capital Trade Links Ltd',
+		N'BSE',
+		NULL,
+		N'INE172D01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'CUB',
+		N'CITY UNION BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE491A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'CUB',
+		N'City Union Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE491A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'CUBEXTUB',
+		N'CUBEX TUBINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE144D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'CUBEXTUB',
+		N'Cubex Tubings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE144D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'CUBIFIN',
+		N'CUBICAL FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE717D01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'CUMMINSIND',
+		N'CUMMINS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE298A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'CUMMINSIND',
+		N'Cummins India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE298A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'CUPID',
+		N'CUPID LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE509F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CUPID',
+		N'Cupid Limited',
+		N'NSE',
+		N'EQ',
+		N'INE509F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'CYBELEIND',
+		N'CYBELE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE183D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'CYBERMAT',
+		N'CYBERMATE INFOTEK LTD.',
+		N'BSE',
+		NULL,
+		N'INE215B01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'CYBERMEDIA',
+		N'CYBER MEDIA (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE278G01037',
+		10,
+		0
+	UNION
+	SELECT
+		N'CYBERMEDIA',
+		N'Cyber Media (India) Limited',
+		N'NSE',
+		N'BE',
+		N'INE278G01037',
+		10,
+		0
+	UNION
+	SELECT
+		N'CYBERTECH',
+		N'CYBERTECH SYSTEMS AND SOFTWARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE214A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'CYBERTECH',
+		N'Cybertech Systems And Software Limited',
+		N'NSE',
+		N'EQ',
+		N'INE214A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'CYIENT',
+		N'Cyient Limited',
+		N'BSE',
+		NULL,
+		N'INE136B01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'CYIENT',
+		N'Cyient Limited',
+		N'NSE',
+		N'EQ',
+		N'INE136B01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'DAAWAT',
+		N'LT FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE818H01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'DAAWAT',
+		N'LT Foods Limited',
+		N'NSE',
+		N'EQ',
+		N'INE818H01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'DABUR',
+		N'DABUR INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE016A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'DABUR',
+		N'Dabur India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE016A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'DACE2DDP',
+		N'DSP BlackRock A C E Fund - Series 2 - Direct Plan - Dividend Payout  Option',
+		N'BSE',
+		NULL,
+		N'INF740KA1EN2',
+		10,
+		0
+	UNION
+	SELECT
+		N'DACE2DG',
+		N'DSP BlackRock A C E Fund - Series 2 - Direct Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF740KA1EM4',
+		10,
+		0
+	UNION
+	SELECT
+		N'DACE2RDP',
+		N'DSP BlackRock A C E Fund - Series 2 - Regular Plan - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF740KA1EL6',
+		10,
+		0
+	UNION
+	SELECT
+		N'DACE2RG',
+		N'DSP BlackRock A C E Fund - Series 2 - Regular Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF740KA1EK8',
+		10,
+		0
+	UNION
+	SELECT
+		N'DAICHI',
+		N'DAI-ICHI KARKARIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE928C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DAIKAFFI',
+		N'DAIKAFFIL CHEMICALS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE789B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DAL',
+		N'Dynamic Archistructures Ltd',
+		N'BSE',
+		NULL,
+		N'INE874E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DALALSTCOM',
+		N'DSJ COMMUNICATIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE055C01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'DALBHARAT',
+		N'Dalmia Bharat Ltd',
+		N'BSE',
+		NULL,
+		N'INE00R701025',
+		2,
+		0
+	UNION
+	SELECT
+		N'DALBHARAT',
+		N'Dalmia Bharat Limited',
+		N'NSE',
+		N'EQ',
+		N'INE00R701025',
+		2,
+		0
+	UNION
+	SELECT
+		N'DALMIASUG',
+		N'Dalmia Bharat Sugar and Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE495A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'DALMIASUG',
+		N'Dalmia Bharat Sugar and Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE495A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'DAMODARIND',
+		N'Damodar Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE497D01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'DAMOINDUS',
+		N'DAMODAR INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE497D01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'DANGEE',
+		N'Dangee Dums Limited',
+		N'NSE',
+		N'EQ',
+		N'INE688Y01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'DANLAW',
+		N'DANLAW TECHNOLOGIES INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE310B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'DANUBE',
+		N'Danube Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE575D01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'DARJEELING',
+		N'Darjeeling Ropeway Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE830S01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'DARSHANORNA',
+		N'Darshan Orna Ltd',
+		N'BSE',
+		NULL,
+		N'INE671T01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DATAMATICS',
+		N'DATAMATICS GLOBAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE365B01017',
+		5,
+		0
+	UNION
+	SELECT
+		N'DATAMATICS',
+		N'Datamatics Global Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE365B01017',
+		5,
+		0
+	UNION
+	SELECT
+		N'DATIWARE',
+		N'Datiware Maritime Infra Ltd',
+		N'BSE',
+		NULL,
+		N'INE673U01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'DAULAT',
+		N'DAULAT SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE108C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'DBCORP',
+		N'D B Corp Ltd',
+		N'BSE',
+		NULL,
+		N'INE950I01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DBCORP',
+		N'D.B.Corp Limited',
+		N'NSE',
+		N'EQ',
+		N'INE950I01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DBL',
+		N'Dilip Buildcon Ltd',
+		N'BSE',
+		NULL,
+		N'INE917M01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DBL',
+		N'Dilip Buildcon Limited',
+		N'NSE',
+		N'EQ',
+		N'INE917M01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DBREALTY',
+		N'D B Realty Ltd',
+		N'BSE',
+		NULL,
+		N'INE879I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DBREALTY',
+		N'D B Realty Limited',
+		N'NSE',
+		N'BE',
+		N'INE879I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DBSTOCKBRO',
+		N'DB (INTERNATIONAL) STOCK BROKERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE921B01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'DBSTOCKBRO',
+		N'DB (International) Stock Brokers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE921B01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'DCAL',
+		N'Dishman Carbogen Amcis Ltd',
+		N'BSE',
+		NULL,
+		N'INE385W01011',
+		2,
+		0
+	UNION
+	SELECT
+		N'DCAL',
+		N'Dishman Carbogen Amcis Limited',
+		N'NSE',
+		N'EQ',
+		N'INE385W01011',
+		2,
+		0
+	UNION
+	SELECT
+		N'DCBBANK',
+		N'DCB Bank Limited',
+		N'BSE',
+		NULL,
+		N'INE503A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'DCBBANK',
+		N'DCB Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE503A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'DCL',
+		N'Devoted Construction Ltd',
+		N'BSE',
+		NULL,
+		N'INE061Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DCM',
+		N'DCM LTD.',
+		N'BSE',
+		NULL,
+		N'INE498A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DCM',
+		N'DCM  Limited',
+		N'NSE',
+		N'EQ',
+		N'INE498A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DCMFINSERV',
+		N'DCM FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE891B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DCMFINSERV',
+		N'DCM Financial Services Limited',
+		N'NSE',
+		N'BE',
+		N'INE891B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DCMNVL',
+		N'DCM Nouvelle Ltd',
+		N'BSE',
+		NULL,
+		N'INE08KP01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'DCMNVL',
+		N'DCM Nouvelle Limited',
+		N'NSE',
+		N'BE',
+		N'INE08KP01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'DCMSHRIRAM',
+		N'DCM Shriram Limited',
+		N'BSE',
+		NULL,
+		N'INE499A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'DCMSHRIRAM',
+		N'DCM Shriram Limited',
+		N'NSE',
+		N'EQ',
+		N'INE499A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'DCMSRMIND',
+		N'DCM SHRIRAM INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE843D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'DCW',
+		N'DCW LTD.',
+		N'BSE',
+		NULL,
+		N'INE500A01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'DCW',
+		N'DCW Limited',
+		N'NSE',
+		N'EQ',
+		N'INE500A01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'DDIL',
+		N'Deep Diamond India Ltd',
+		N'BSE',
+		NULL,
+		N'INE005G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DECANBRG',
+		N'DECCAN BEARINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE498D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DECCAN',
+		N'Deccan Health Care Ltd',
+		N'BSE',
+		NULL,
+		N'INE452W01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'DECCANCE',
+		N'DECCAN CEMENTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE583C01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'DECCANCE',
+		N'Deccan Cements Limited',
+		N'NSE',
+		N'EQ',
+		N'INE583C01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'DECIPHER',
+		N'Decipher Labs Ltd',
+		N'BSE',
+		NULL,
+		N'INE643N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DECNGOLD',
+		N'DECCAN GOLD MINES LTD.',
+		N'BSE',
+		NULL,
+		N'INE945F01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'DECOMIC',
+		N'DECO-MICA LTD.',
+		N'BSE',
+		NULL,
+		N'INE907E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DECPO',
+		N'DECCAN POLYPACKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE132E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEEP',
+		N'Deep Polymers Ltd',
+		N'BSE',
+		NULL,
+		N'INE00IY01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEEPAKFERT',
+		N'DEEPAK FERTILISERS & PETROCHEMICALS CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE501A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEEPAKFERT',
+		N'Deepak Fertilizers and Petrochemicals Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE501A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEEPAKNI',
+		N'DEEPAK NITRITE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE288B01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'DEEPAKNTR',
+		N'Deepak Nitrite Limited',
+		N'NSE',
+		N'EQ',
+		N'INE288B01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'DEEPAKSP',
+		N'DEEPAK SPINNERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE272C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEEPENR',
+		N'Deep Energy Resources Ltd',
+		N'BSE',
+		NULL,
+		N'INE677H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEEPENR',
+		N'DEEP ENERGY RESOURCES LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE677H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEL',
+		N'Dhanashree Electronics Ltd',
+		N'BSE',
+		NULL,
+		N'INE413F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DELTA',
+		N'Delta Industrial Resources Ltd',
+		N'BSE',
+		NULL,
+		N'INE681Q01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'DELTACORP',
+		N'DELTA CORP LTD.',
+		N'BSE',
+		NULL,
+		N'INE124G01033',
+		1,
+		0
+	UNION
+	SELECT
+		N'DELTACORP',
+		N'Delta Corp Limited',
+		N'NSE',
+		N'EQ',
+		N'INE124G01033',
+		1,
+		0
+	UNION
+	SELECT
+		N'DELTAMAGNT',
+		N'Delta Manufacturing Ltd',
+		N'BSE',
+		NULL,
+		N'INE393A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DELTAMAGNT',
+		N'Delta Manufacturing Limited',
+		N'NSE',
+		N'EQ',
+		N'INE393A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEN',
+		N'Den Networks Ltd',
+		N'BSE',
+		NULL,
+		N'INE947J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEN',
+		N'Den Networks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE947J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'DENISCHEM',
+		N'Denis Chem Lab Ltd',
+		N'BSE',
+		NULL,
+		N'INE051G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DENORA',
+		N'DE NORA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE244A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DENORA',
+		N'De Nora India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE244A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DESHRAK',
+		N'DESH RAKSHAK AUSHDHALAYA LTD.',
+		N'BSE',
+		NULL,
+		N'INE971E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEVHARI',
+		N'Devhari Exports (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE553P01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'DEVINE',
+		N'DEVINE IMPEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE455C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEVITRD',
+		N'DEVINSU TRADING LTD.',
+		N'BSE',
+		NULL,
+		N'INE07LH01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DEVKI',
+		N'DEVKI LEASING & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE510B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DFM',
+		N'DFM FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE456C01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'DFMFOODS',
+		N'DFM Foods Limited',
+		N'NSE',
+		N'EQ',
+		N'INE456C01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'DGCONTENT',
+		N'Digicontent Ltd',
+		N'BSE',
+		NULL,
+		N'INE03JI01017',
+		2,
+		0
+	UNION
+	SELECT
+		N'DGCONTENT',
+		N'Digicontent Limited',
+		N'NSE',
+		N'EQ',
+		N'INE03JI01017',
+		2,
+		0
+	UNION
+	SELECT
+		N'DGL',
+		N'Diksha Greens Ltd',
+		N'BSE',
+		NULL,
+		N'INE01GR01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHABRIYA',
+		N'Dhabriya Polywood Ltd',
+		N'BSE',
+		NULL,
+		N'INE260R01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHAMPURE',
+		N'DHAMPURE SPECIALITY SUGARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE956B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHAMPURSUG',
+		N'DHAMPUR SUGAR MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE041A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHAMPURSUG',
+		N'Dhampur Sugar Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE041A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHANADACO',
+		N'DHANADA CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE041F01015',
+		1,
+		0
+	UNION
+	SELECT
+		N'DHANBANK',
+		N'Dhanlaxmi Bank Limited',
+		N'BSE',
+		NULL,
+		N'INE680A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHANBANK',
+		N'Dhanlaxmi Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE680A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHANCOT',
+		N'DHANLAXMI COTEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE977F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHANFAB',
+		N'DHANLAXMI FABRICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE953D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHANI',
+		N'Dhani Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE274G01010',
+		2,
+		0
+	UNION
+	SELECT
+		N'DHANI',
+		N'Dhani Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE274G01010',
+		2,
+		0
+	UNION
+	SELECT
+		N'DHANROTO',
+		N'DHANALAXMI ROTO SPINNERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE220C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHANUKA',
+		N'DHANUKA AGRITECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE435G01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'DHANUKA',
+		N'Dhanuka Agritech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE435G01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'DHANVARSHA',
+		N'Dhanvarsha Finvest Ltd',
+		N'BSE',
+		NULL,
+		N'INE615R01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHARAMSI',
+		N'DHARAMSI MORARJI CHEMICAL CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE505A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHARFIN',
+		N'DHARANI FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE899D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHARSUGAR',
+		N'DHARANI SUGARS & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE988C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHARSUGAR',
+		N'Dharani Sugars & Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE988C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHENUBUILD',
+		N'DHENU BUILDCON INFRA LTD.',
+		N'BSE',
+		NULL,
+		N'INE758D01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'DHFL',
+		N'DEWAN HOUSING FINANCE CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE202B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHFL',
+		N'Dewan Housing Finance Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE202B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHINDIA',
+		N'D&H India Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE589D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHOOTIN',
+		N'DHOOT INDUSTRIAL FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE313G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHPIND',
+		N'DHP INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE590D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHRUV',
+		N'Dhruv Consultancy Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE506Z01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHRUVCA',
+		N'DHRUVA CAPITAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE972E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHRUVES',
+		N'DHRUV ESTATES LTD.',
+		N'BSE',
+		NULL,
+		N'INE780E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHUNINV',
+		N'DHUNSERI INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE320L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHUNINV',
+		N'Dhunseri Investments Limited',
+		N'NSE',
+		N'EQ',
+		N'INE320L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DHUNTEAIND',
+		N'Dhunseri Tea & Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE341R01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'DIAMINESQ',
+		N'DIAMINES & CHEMICALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE591D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'DIAMONDYD',
+		N'Prataap Snacks Ltd',
+		N'BSE',
+		NULL,
+		N'INE393P01035',
+		5,
+		0
+	UNION
+	SELECT
+		N'DIAMONDYD',
+		N'Prataap Snacks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE393P01035',
+		5,
+		0
+	UNION
+	SELECT
+		N'DIANATEA',
+		N'DIANA TEA CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE012E01035',
+		5,
+		0
+	UNION
+	SELECT
+		N'DIAPOWER',
+		N'Diamond Power Infrastructure Limited-$',
+		N'BSE',
+		NULL,
+		N'INE989C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DICIND',
+		N'DIC INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE303A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DICIND',
+		N'DIC India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE303A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DIGISPICE',
+		N'Digispice Technologies Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE927C01020',
+		3,
+		0
+	UNION
+	SELECT
+		N'DIGISPICE',
+		N'DiGiSPICE Technologies Limited',
+		N'NSE',
+		N'BE',
+		N'INE927C01020',
+		3,
+		0
+	UNION
+	SELECT
+		N'DIGJAMLTD',
+		N'Digjam Ltd',
+		N'BSE',
+		NULL,
+		N'INE731U01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DIGJAMLTD',
+		N'Digjam Limited',
+		N'NSE',
+		N'BZ',
+		N'INE731U01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DIKSAT',
+		N'Diksat Transworld Ltd',
+		N'BSE',
+		NULL,
+		N'INE942P01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'DILIGENT',
+		N'DILIGENT INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE650C01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'DISAQ',
+		N'DISA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE131C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DISHTV',
+		N'DISH TV INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE836F01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'DISHTV',
+		N'Dish TV India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE836F01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'DITCO',
+		N'Decorous Investment & Trading Co Ltd',
+		N'BSE',
+		NULL,
+		N'INE183R01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DIVISLAB',
+		N'DIVI&#39;S LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE361B01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'DIVISLAB',
+		N'Divi''s Laboratories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE361B01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'DIVSHKT',
+		N'DIVYASHAKTI GRANITES LTD.',
+		N'BSE',
+		NULL,
+		N'INE410G01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DIXON',
+		N'Dixon Technologies (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE935N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DIXON',
+		N'Dixon Technologies (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE935N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DJML',
+		N'DJ Mediaprint & Logistics Ltd',
+		N'BSE',
+		NULL,
+		N'INE0B1K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'DLCL',
+		N'Dr Lalchandani Labs Ltd',
+		N'BSE',
+		NULL,
+		N'INE871Z01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'DLF',
+		N'DLF LTD.',
+		N'BSE',
+		NULL,
+		N'INE271C01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'DLF',
+		N'DLF Limited',
+		N'NSE',
+		N'EQ',
+		N'INE271C01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'DLINKINDIA',
+		N'D-Link (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE250K01012',
+		2,
+		0
+	UNION
+	SELECT
+		N'DLINKINDIA',
+		N'D-Link (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE250K01012',
+		2,
+		0
+	UNION
+	SELECT
+		N'DLTNCBL',
+		N'DELTON CABLES LTD.',
+		N'BSE',
+		NULL,
+		N'INE872E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DMART',
+		N'Avenue Supermarts Ltd',
+		N'BSE',
+		NULL,
+		N'INE192R01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DMART',
+		N'Avenue Supermarts Limited',
+		N'NSE',
+		N'EQ',
+		N'INE192R01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DML',
+		N'Diggi Multitrade Ltd',
+		N'BSE',
+		NULL,
+		N'INE158R01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DOLAT',
+		N'DOLAT INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE966A01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'DOLAT',
+		N'Dolat Investments Limited',
+		N'NSE',
+		N'EQ',
+		N'INE966A01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'DOLFIN',
+		N'Dolfin Rubbers Ltd',
+		N'BSE',
+		NULL,
+		N'INE666Y01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DOLLAR',
+		N'Dollar Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE325C01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'DOLLAR',
+		N'Dollar Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE325C01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'DOLPHMED',
+		N'DOLPHIN MEDICAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE796B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'DONEAR',
+		N'DONEAR INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE668D01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'DONEAR',
+		N'Donear Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE668D01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'DPABHUSHAN',
+		N'D. P. Abhushan Limited',
+		N'NSE',
+		N'EQ',
+		N'INE266Y01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'DPSCLTD',
+		N'DPSC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE360C01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'DPWIRES',
+		N'D P Wires Limited',
+		N'NSE',
+		N'EQ',
+		N'INE864X01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'DRA',
+		N'DRA Consultants Ltd',
+		N'BSE',
+		NULL,
+		N'INE746V01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'DRAGARWQ',
+		N'DR.AGARWALS EYE HOSPITAL LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE934C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DREDGECORP',
+		N'DREDGING CORPORATION OF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE506A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DREDGECORP',
+		N'Dredging Corporation of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE506A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DRHABEEB',
+		N'Dr Habeebullah Life Sciences Ltd',
+		N'BSE',
+		NULL,
+		N'INE579N01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DRL',
+		N'Disha Resources Ltd',
+		N'BSE',
+		NULL,
+		N'INE193D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'DRREDDY',
+		N'DR.REDDY&#39;S LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE089A01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'DRREDDY',
+		N'Dr. Reddy''s Laboratories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE089A01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'DSINVEST',
+		N'DALAL STREET INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE422D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DSSL',
+		N'DYNACONS SYSTEMS & SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE417B01040',
+		10,
+		0
+	UNION
+	SELECT
+		N'DSSL',
+		N'Dynacons Systems & Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE417B01040',
+		10,
+		0
+	UNION
+	SELECT
+		N'DTIL',
+		N'Dhunseri Tea & Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE341R01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'DUCON',
+		N'Ducon Infratechnologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE741L01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'DUCON',
+		N'Ducon Infratechnologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE741L01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'DUGARHOU',
+		N'DUGAR HOUSING DEVELOPMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE919M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DUKEOFS',
+		N'DUKE OFFSHORE LTD.',
+		N'BSE',
+		NULL,
+		N'INE397G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'DUNCANENG',
+		N'Duncan Engineering Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE340F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DUROPACK',
+		N'DUROPACK LTD.',
+		N'BSE',
+		NULL,
+		N'INE138B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DUROPLY',
+		N'Duroply Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE932D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DUTRON',
+		N'DUTRON POLYMERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE940C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'DVL',
+		N'Dhunseri Ventures Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE477B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DVL',
+		N'Dhunseri Ventures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE477B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DWARKESH',
+		N'DWARIKESH SUGAR INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE366A01041',
+		1,
+		0
+	UNION
+	SELECT
+		N'DWARKESH',
+		N'Dwarikesh Sugar Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE366A01041',
+		1,
+		0
+	UNION
+	SELECT
+		N'DWL',
+		N'Dhruv Wellness Ltd',
+		N'BSE',
+		NULL,
+		N'INE109Y01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'DYNAMATECH',
+		N'DYNAMATIC TECHNOLOGIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE221B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DYNAMATECH',
+		N'Dynamatic Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE221B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'DYNAMIC',
+		N'Dynamic Cables Ltd',
+		N'BSE',
+		NULL,
+		N'INE600Y01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'DYNAMICP',
+		N'DYNAMIC PORTFOLIO MANAGEMENT & SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE118C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'DYNAMIND',
+		N'DYNAMIC INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE457C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DYNAVSN',
+		N'DYNAVISION LTD.',
+		N'BSE',
+		NULL,
+		N'INE083E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'DYNPRO',
+		N'DYNEMIC PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE256H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'DYNPRO',
+		N'Dynemic Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE256H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EARUM',
+		N'Earum Pharmaceuticals Ltd',
+		N'BSE',
+		NULL,
+		N'INE060601015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EASTBUILD',
+		N'EAST BUILDTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE706N01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'EASTRED',
+		N'EASTERN TREADS LTD.',
+		N'BSE',
+		NULL,
+		N'INE500D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EASTWEST',
+		N'East West Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE595R01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EASUN',
+		N'Easun Capital Markets Ltd',
+		N'BSE',
+		NULL,
+		N'INE771C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'EASUNREYRL',
+		N'EASUN REYROLLE LTD.',
+		N'BSE',
+		NULL,
+		N'INE268C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'EASUNREYRL',
+		N'Easun Reyrolle Limited',
+		N'NSE',
+		N'BZ',
+		N'INE268C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'EBANK',
+		N'Edelweiss ETF - Nifty Bank ',
+		N'NSE',
+		N'Nifty Bank',
+		N'INF754K01EL1',
+		10,
+		0
+	UNION
+	SELECT
+		N'EBBETF0423',
+		N'EDELAMC - EBBETF0423',
+		N'NSE',
+		N'Nifty BHARAT Bond',
+		N'INF754K01KN4',
+		1000,
+		0
+	UNION
+	SELECT
+		N'EBBETF0430',
+		N'EDELAMC - EBBETF0430',
+		N'NSE',
+		N'Nifty BHARAT Bond',
+		N'INF754K01KO2',
+		1000,
+		0
+	UNION
+	SELECT
+		N'EBIXFOREX',
+		N'Ebixcash World Money India Ltd',
+		N'BSE',
+		NULL,
+		N'INE726L01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'EBIXFOREX',
+		N'EBIXCASH WORLD MONEY INDIA LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE726L01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ECLERX',
+		N'ECLERX SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE738I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ECLERX',
+		N'eClerx Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE738I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ECOBOAR',
+		N'ECOBOARD INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE866A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ECOM',
+		N'E.COM INFOTECH (I) LTD.',
+		N'BSE',
+		NULL,
+		N'INE578B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ECOPLAST',
+		N'ECOPLAST LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE423D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ECORECO',
+		N'ECO RECYCLING LTD.',
+		N'BSE',
+		NULL,
+		N'INE316A01038',
+		10,
+		0
+	UNION
+	SELECT
+		N'ECSTSTL',
+		N'EAST COAST STEEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE315F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'EDELWEISS',
+		N'Edelweiss Financial Services Ltd.',
+		N'BSE',
+		NULL,
+		N'INE532F01054',
+		1,
+		0
+	UNION
+	SELECT
+		N'EDELWEISS',
+		N'Edelweiss Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE532F01054',
+		1,
+		0
+	UNION
+	SELECT
+		N'EDUCOMP',
+		N'EDUCOMP SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE216H01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'EDUCOMP',
+		N'Educomp Solutions Limited',
+		N'NSE',
+		N'BZ',
+		N'INE216H01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'EICHERMOT',
+		N'EICHER MOTORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE066A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'EICHERMOT',
+		N'Eicher Motors Limited',
+		N'NSE',
+		N'EQ',
+		N'INE066A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'EIDPARRY',
+		N'E.I.D.-PARRY (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE126A01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'EIDPARRY',
+		N'EID Parry India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE126A01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'EIHAHOTELS',
+		N'EIH ASSOCIATED HOTELS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE276C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'EIHAHOTELS',
+		N'EIH Associated Hotels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE276C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'EIHOTEL',
+		N'EIH LTD.',
+		N'BSE',
+		NULL,
+		N'INE230A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'EIHOTEL',
+		N'EIH Limited',
+		N'NSE',
+		N'EQ',
+		N'INE230A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'EIMCOELECO',
+		N'EIMCO ELECON (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE158B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'EIMCOELECO',
+		N'Eimco Elecon (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE158B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'EIS',
+		N'East India Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE482Z01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'EKAMLEA',
+		N'EKAM LEASING & FINANCE CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE906L01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'EKC',
+		N'EVEREST KANTO CYLINDER LTD.',
+		N'BSE',
+		NULL,
+		N'INE184H01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'EKC',
+		N'Everest Kanto Cylinder Limited',
+		N'NSE',
+		N'EQ',
+		N'INE184H01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'ELAND',
+		N'E-Land Apparel Limited',
+		N'BSE',
+		NULL,
+		N'INE311H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELANGO',
+		N'ELANGO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE594D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELANTAS',
+		N'ELANTAS BECK INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE280B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELCIDIN',
+		N'ELCID INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE927X01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELDEHSG',
+		N'ELDECO HOUSING & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE668G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELECON',
+		N'ELECON ENGINEERING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE205B01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'ELECON',
+		N'Elecon Engineering Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE205B01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'ELECTCAST',
+		N'ELECTROSTEEL CASTINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE086A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'ELECTCAST',
+		N'Electrosteel Castings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE086A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'ELECTHERM',
+		N'ELECTROTHERM (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE822G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELECTHERM',
+		N'Electrotherm (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE822G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELEFLOR',
+		N'ELEGANT FLORICULTURE & AGROTECH (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE152E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELEMARB',
+		N'ELEGANT MARBLES & GRANI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE095B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELGIEQUIP',
+		N'ELGI EQUIPMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE285A01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'ELGIEQUIP',
+		N'Elgi Equipments Limited',
+		N'NSE',
+		N'EQ',
+		N'INE285A01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'ELGIRUBCO',
+		N'Elgi Rubber Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE819L01012',
+		1,
+		0
+	UNION
+	SELECT
+		N'ELITECON',
+		N'Elitecon International Ltd',
+		N'BSE',
+		NULL,
+		N'INE669R01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELIXIR',
+		N'Elixir Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE785D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELLORATRAD',
+		N'Ellora Trading Ltd',
+		N'BSE',
+		NULL,
+		N'INE560T01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELNET',
+		N'ELNET TECHNOLOGIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE033C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ELPROINTL',
+		N'ELPRO INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE579B01039',
+		1,
+		0
+	UNION
+	SELECT
+		N'EMAINDIA',
+		N'EMA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE279D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'EMAMILTD',
+		N'EMAMI LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE548C01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'EMAMILTD',
+		N'Emami Limited',
+		N'NSE',
+		N'EQ',
+		N'INE548C01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'EMAMIPAP',
+		N'EMAMI PAPER MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE830C01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'EMAMIPAP',
+		N'Emami Paper Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE830C01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'EMAMIREAL',
+		N'Emami Realty Ltd',
+		N'BSE',
+		NULL,
+		N'INE778K01012',
+		2,
+		0
+	UNION
+	SELECT
+		N'EMAMIREAL',
+		N'Emami Realty Limited',
+		N'NSE',
+		N'EQ',
+		N'INE778K01012',
+		2,
+		0
+	UNION
+	SELECT
+		N'EMCO',
+		N'EMCO LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE078A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'EMCO',
+		N'Emco Limited',
+		N'NSE',
+		N'BZ',
+		N'INE078A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'EMERALD',
+		N'Emerald Leasing Finance & Investment Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE030Q01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EMERALL',
+		N'Emerald Leisures Ltd',
+		N'BSE',
+		NULL,
+		N'INE044N01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'EMERGENT',
+		N'Emergent Industrial Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE668L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'EMKAY',
+		N'EMKAY GLOBAL FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE296H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'EMKAY',
+		N'Emkay Global Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE296H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'EML',
+		N'Ejecta Marketing Ltd',
+		N'BSE',
+		NULL,
+		N'INE649L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'EMMBI',
+		N'Emmbi Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE753K01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EMMBI',
+		N'Emmbi Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE753K01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EMMESSA',
+		N'EMMESSAR BIOTECH & NUTRITION LTD.',
+		N'BSE',
+		NULL,
+		N'INE634B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'EMMSONS',
+		N'EMMSONS INTERNATIONAL LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE073C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EMPIND',
+		N'EMPIRE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE515H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ENBETRD',
+		N'ENBEE TRADE & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE993I01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ENDURANCE',
+		N'Endurance Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE913H01037',
+		10,
+		0
+	UNION
+	SELECT
+		N'ENDURANCE',
+		N'Endurance Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE913H01037',
+		10,
+		0
+	UNION
+	SELECT
+		N'ENERGYDEV',
+		N'ENERGY DEVELOPMENT COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE306C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ENERGYDEV',
+		N'Energy Development Company Limited',
+		N'NSE',
+		N'BE',
+		N'INE306C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ENGINERSIN',
+		N'ENGINEERS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE510A01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'ENGINERSIN',
+		N'Engineers India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE510A01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'ENIL',
+		N'ENTERTAINMENT NETWORK (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE265F01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'ENIL',
+		N'Entertainment Network (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE265F01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'ENKEIWHEL',
+		N'ENKEI WHEELS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE130L01014',
+		5,
+		0
+	UNION
+	SELECT
+		N'ENTRINT',
+		N'ENTERPRISE INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE439G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ENVAIREL',
+		N'ENVAIR ELECTRODYNE LTD.',
+		N'BSE',
+		NULL,
+		N'INE601C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'EPIC',
+		N'EPIC ENERGY LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE932F01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EPL',
+		N'EPL Ltd',
+		N'BSE',
+		NULL,
+		N'INE255A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'EPL',
+		N'EPL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE255A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'EPSOMPRO',
+		N'EPSOM PROPERTIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE601F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'EQ30',
+		N'Edel ETF Nifty 100 Qual30',
+		N'NSE',
+		N'Nifty Quality 30',
+		N'INF754K01EM9',
+		10,
+		0
+	UNION
+	SELECT
+		N'EQUITAS',
+		N'Equitas Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE988K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'EQUITAS',
+		N'Equitas Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE988K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'EQUITASBNK',
+		N'Equitas Small Finance Bank Ltd',
+		N'BSE',
+		NULL,
+		N'INE063P01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'EQUITASBNK',
+		N'Equitas Small Finance Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE063P01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ERIS',
+		N'Eris Lifesciences Ltd',
+		N'BSE',
+		NULL,
+		N'INE406M01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'ERIS',
+		N'Eris Lifesciences Limited',
+		N'NSE',
+		N'EQ',
+		N'INE406M01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'EROSMEDIA',
+		N'EROS INTERNATIONAL MEDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE416L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'EROSMEDIA',
+		N'Eros International Media Limited',
+		N'NSE',
+		N'EQ',
+		N'INE416L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ERPSOFT',
+		N'ERP SOFT SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE308B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ESABINDIA',
+		N'ESAB INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE284A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ESABINDIA',
+		N'Esab India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE284A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ESARIND',
+		N'ESAAR (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE404L01039',
+		10,
+		0
+	UNION
+	SELECT
+		N'ESCORP',
+		N'Escorp Asset Management Ltd',
+		N'BSE',
+		NULL,
+		N'INE953W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ESCORTS',
+		N'ESCORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE042A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ESCORTS',
+		N'Escorts Limited',
+		N'NSE',
+		N'EQ',
+		N'INE042A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ESCORTSFIN',
+		N'ESCORTS FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE359A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ESHAMEDIA',
+		N'Esha Media Research Limited',
+		N'BSE',
+		NULL,
+		N'INE328F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ESSARSHPNG',
+		N'ESSAR SHIPPING LTD.',
+		N'BSE',
+		NULL,
+		N'INE122M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ESSARSHPNG',
+		N'Essar Shipping Limited',
+		N'NSE',
+		N'EQ',
+		N'INE122M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ESTER',
+		N'ESTER INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE778B01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'ESTER',
+		N'Ester Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE778B01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'ETIL',
+		N'Econo Trade (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE937K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ETT',
+		N'ETT Ltd',
+		N'BSE',
+		NULL,
+		N'INE546I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'EUREKAI',
+		N'EUREKA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE958A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'EUROASIA',
+		N'EURO ASIA EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE535P01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EUROCERA',
+		N'EURO CERAMICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE649H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'EUROTEXIND',
+		N'EUROTEX INDUSTRIES & EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE022C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'EUROTEXIND',
+		N'Eurotex Industries and Exports Limited',
+		N'NSE',
+		N'EQ',
+		N'INE022C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'EVANS',
+		N'Evans Electric Ltd',
+		N'BSE',
+		NULL,
+		N'INE06TD01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'EVEREADY',
+		N'EVEREADY INDUSTRIES INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE128A01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'EVEREADY',
+		N'Eveready Industries India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE128A01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'EVERESTIND',
+		N'EVEREST INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE295A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'EVERESTIND',
+		N'Everest Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE295A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'EVERESTO',
+		N'EVEREST ORGANICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE334C01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'EVERLON',
+		N'EVERLON SYNTHETICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE339D01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'EVERTEX',
+		N'Evergreen Textiles Limited',
+		N'BSE',
+		NULL,
+		N'INE229N01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'EVEXIA',
+		N'Evexia Lifecare Ltd',
+		N'BSE',
+		NULL,
+		N'INE313M01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'EXCEL',
+		N'Excel Realty N Infra Ltd',
+		N'BSE',
+		NULL,
+		N'INE688J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EXCEL',
+		N'Excel Realty N Infra Limited',
+		N'NSE',
+		N'EQ',
+		N'INE688J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EXCELINDUS',
+		N'EXCEL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE369A01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'EXCELINDUS',
+		N'Excel Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE369A01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'EXIDEIND',
+		N'EXIDE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE302A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'EXIDEIND',
+		N'Exide Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE302A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'EXPLEOSOL',
+		N'Expleo Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE201K01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EXPLEOSOL',
+		N'Expleo Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE201K01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'EXPLICITFIN',
+		N'EXPLICIT FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE335G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'EXPOGAS',
+		N'EXPO GAS CONTAINERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE561D01025',
+		4,
+		0
+	UNION
+	SELECT
+		N'FACORALL',
+		N'FACOR ALLOYS LTD.',
+		N'BSE',
+		NULL,
+		N'INE828G01013',
+		1,
+		0
+	UNION
+	SELECT
+		N'FACT',
+		N'FERTILIZERS & CHEMICALS TRAVANCORE LTD.',
+		N'BSE',
+		NULL,
+		N'INE188A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'FACT',
+		N'Fertilizers and Chemicals Travancore Limited',
+		N'NSE',
+		N'EQ',
+		N'INE188A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'FAIRCHEMOR',
+		N'Fairchem Organics Ltd',
+		N'BSE',
+		NULL,
+		N'INE0DNW01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'FAIRCHEMOR',
+		N'Fairchem Organics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE0DNW01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'FAZE3AUTO',
+		N'Faze Three Autofab Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE207D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'FAZE3Q',
+		N'FAZE THREE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE963C01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'FCL',
+		N'FINEOTEX CHEMICAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE045J01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'FCL',
+		N'Fineotex Chemical Limited',
+		N'NSE',
+		N'EQ',
+		N'INE045J01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'FCONSUMER',
+		N'Future Consumer Ltd',
+		N'BSE',
+		NULL,
+		N'INE220J01025',
+		6,
+		0
+	UNION
+	SELECT
+		N'FCONSUMER',
+		N'Future Consumer Limited',
+		N'NSE',
+		N'EQ',
+		N'INE220J01025',
+		6,
+		0
+	UNION
+	SELECT
+		N'FCSSOFT',
+		N'FCS SOFTWARE SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE512B01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'FCSSOFT',
+		N'FCS Software Solutions Limited',
+		N'NSE',
+		N'BE',
+		N'INE512B01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'FDC',
+		N'FDC LTD.',
+		N'BSE',
+		NULL,
+		N'INE258B01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'FDC',
+		N'FDC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE258B01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'FEDERALBNK',
+		N'FEDERAL BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE171A01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'FEDERALBNK',
+		N'The Federal Bank  Limited',
+		N'NSE',
+		N'EQ',
+		N'INE171A01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'FEL',
+		N'Future Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE623B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'FEL',
+		N'Future Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE623B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'FELDVR',
+		N'Future Enterprises Ltd_DVR',
+		N'BSE',
+		NULL,
+		N'IN9623B01058',
+		2,
+		0
+	UNION
+	SELECT
+		N'FELDVR',
+		N'Future Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'IN9623B01058',
+		2,
+		0
+	UNION
+	SELECT
+		N'FERMENTA',
+		N'Fermenta Biotech Ltd',
+		N'BSE',
+		NULL,
+		N'INE225B01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'FERVENTSYN',
+		N'FERVENT SYNERGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE258M01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'FFPL',
+		N'FOUNDRY FUEL PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE617C01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'FIBERWEB',
+		N'FIBERWEB (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE296C01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'FIEMIND',
+		N'FIEM INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE737H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'FIEMIND',
+		N'Fiem Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE737H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'FILATEX',
+		N'FILATEX INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE816B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'FILATEX',
+		N'Filatex India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE816B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'FILATFASH',
+		N'FILATEX FASHIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE185E01013',
+		5,
+		0
+	UNION
+	SELECT
+		N'FILTRA',
+		N'Filtra Consultants and Engineers Ltd',
+		N'BSE',
+		NULL,
+		N'INE541R01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'FINCABLES',
+		N'FINOLEX CABLES LTD.',
+		N'BSE',
+		NULL,
+		N'INE235A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'FINCABLES',
+		N'Finolex Cables Limited',
+		N'NSE',
+		N'EQ',
+		N'INE235A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'FINELINE',
+		N'FINE-LINE CIRCUITS LTD.',
+		N'BSE',
+		NULL,
+		N'INE087E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'FINEORG',
+		N'Fine Organic Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE686Y01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'FINEORG',
+		N'Fine Organic Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE686Y01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'FINKURVE',
+		N'Finkurve Financial Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE734I01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'FINOLEXIND',
+		N'FINOLEX INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE183A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'FINPIPE',
+		N'Finolex Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE183A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'FIRSTOBJ',
+		N'FIRSTOBJECT TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE683B01047',
+		10,
+		0
+	UNION
+	SELECT
+		N'FISCHER',
+		N'FISCHER CHEMIC LTD.',
+		N'BSE',
+		NULL,
+		N'INE771F01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'FIVEXTRADE',
+		N'Five X Tradecom Ltd',
+		N'BSE',
+		NULL,
+		N'INE750L01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'FLEXFO',
+		N'FLEX FOODS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE954B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'FLEXITUFF',
+		N'Flexituff Ventures International Ltd',
+		N'BSE',
+		NULL,
+		N'INE060J01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'FLEXITUFF',
+		N'Flexituff Ventures International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE060J01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'FLFL',
+		N'Future Lifestyle Fashions Ltd',
+		N'BSE',
+		NULL,
+		N'INE452O01016',
+		2,
+		0
+	UNION
+	SELECT
+		N'FLFL',
+		N'Future Lifestyle Fashions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE452O01016',
+		2,
+		0
+	UNION
+	SELECT
+		N'FLOMIC',
+		N'Flomic Global Logistics Ltd',
+		N'BSE',
+		NULL,
+		N'INE952M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'FLORATX',
+		N'FLORA TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE161F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'FLUIDOM',
+		N'FLUIDOMAT LTD.',
+		N'BSE',
+		NULL,
+		N'INE459C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'FLUOROCHEM',
+		N'Gujarat Fluorochemicals Ltd',
+		N'BSE',
+		NULL,
+		N'INE09N301011',
+		1,
+		0
+	UNION
+	SELECT
+		N'FLUOROCHEM',
+		N'Gujarat Fluorochemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE09N301011',
+		1,
+		0
+	UNION
+	SELECT
+		N'FMEC',
+		N'F Mec International Financial Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE108T01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'FMGOETZE',
+		N'FEDERAL-MOGUL GOETZE (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE529A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'FMGOETZE',
+		N'Federal-Mogul Goetze (India) Limited.',
+		N'NSE',
+		N'EQ',
+		N'INE529A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'FMNL',
+		N'FUTURE MARKET NETWORKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE360L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'FMNL',
+		N'Future Market Networks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE360L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'FOODSIN',
+		N'FOODS & INNS LTD.',
+		N'BSE',
+		NULL,
+		N'INE976E01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'FORBESCO',
+		N'FORBES & COMPANY LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE518A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'FORCEMOT',
+		N'FORCE MOTORS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE451A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'FORCEMOT',
+		N'FORCE MOTORS LTD',
+		N'NSE',
+		N'EQ',
+		N'INE451A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'FORINTL',
+		N'FORTUNE INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE501D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'FORTIS',
+		N'FORTIS HEALTHCARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE061F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'FORTIS',
+		N'Fortis Healthcare Limited',
+		N'NSE',
+		N'EQ',
+		N'INE061F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'FORTISMLR',
+		N'Fortis Malar Hospitals Limited',
+		N'BSE',
+		NULL,
+		N'INE842B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'FOSECOIND',
+		N'FOSECO INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE519A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'FOSECOIND',
+		N'Foseco India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE519A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'FRANKLIN',
+		N'Franklin Leasing and Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE399S01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'FRASER',
+		N'Fraser and Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE184Q01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'FREDUN',
+		N'Fredun Pharmaceuticals Ltd',
+		N'BSE',
+		NULL,
+		N'INE194R01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'FRETAIL',
+		N'Future Retail Ltd',
+		N'BSE',
+		NULL,
+		N'INE752P01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'FRETAIL',
+		N'Future Retail Limited',
+		N'NSE',
+		N'EQ',
+		N'INE752P01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'FRONTCAP',
+		N'Frontier Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE977E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'FRONTCORP',
+		N'FRONTLINE CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE092D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'FRONTSP',
+		N'FRONTIER SPRINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE572D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'FRSHTRP*',
+		N'FRESHTROP FRUITS LTD.',
+		N'BSE',
+		NULL,
+		N'INE795D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'FRUTION',
+		N'Fruition Venture Ltd',
+		N'BSE',
+		NULL,
+		N'INE836C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'FSC',
+		N'Future Supply Chain Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE935Q01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'FSC',
+		N'Future Supply Chain Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE935Q01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'FSL',
+		N'FIRSTSOURCE SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE684F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'FSL',
+		N'Firstsource Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE684F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'FUNDVISER',
+		N'Fundviser Capital (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE365H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'FUTSOL',
+		N'FUTURISTIC SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE241F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'FUTURSEC',
+		N'FUTURISTIC SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE425D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GABRIEL',
+		N'GABRIEL INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE524A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'GABRIEL',
+		N'Gabriel India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE524A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'GAEL',
+		N'GUJARAT AMBUJA EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE036B01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'GAEL',
+		N'Gujarat Ambuja Exports Limited',
+		N'NSE',
+		N'EQ',
+		N'INE036B01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'GAGAN',
+		N'GAGAN GASES LTD.',
+		N'BSE',
+		NULL,
+		N'INE076D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GAGANPO',
+		N'GAGAN POLYCOT INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE297L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GAIL',
+		N'GAIL (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE129A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GAIL',
+		N'GAIL (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE129A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GAJANANSEC',
+		N'Gajanan Securities Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE868G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GAJRA',
+		N'GAJRA BEVEL GEARS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE282D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GAL',
+		N'GYSCOAL ALLOYS LTD.',
+		N'BSE',
+		NULL,
+		N'INE482J01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'GAL',
+		N'Gyscoal Alloys Limited',
+		N'NSE',
+		N'EQ',
+		N'INE482J01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'GALACTICO',
+		N'Galactico Corporate Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE906Y01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GALADA',
+		N'GALADA POWER & TELECOMMUNICATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE255C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GALADAFIN',
+		N'Galada Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE243E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GALAGEX',
+		N'GALAXY AGRICO EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE803L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GALAXYSURF',
+		N'Galaxy Surfactants Ltd',
+		N'BSE',
+		NULL,
+		N'INE600K01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GALAXYSURF',
+		N'Galaxy Surfactants Limited',
+		N'NSE',
+		N'EQ',
+		N'INE600K01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GALLANTT',
+		N'GALLANTT METAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE297H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GALLANTT',
+		N'Gallantt Metal Limited',
+		N'NSE',
+		N'EQ',
+		N'INE297H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GALLISPAT',
+		N'GALLANTT ISPAT LTD.',
+		N'BSE',
+		NULL,
+		N'INE528K01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'GALLISPAT',
+		N'Gallantt Ispat Limited',
+		N'NSE',
+		N'EQ',
+		N'INE528K01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'GALLOPENT',
+		N'GALLOPS ENTERPRISE LTD.',
+		N'BSE',
+		NULL,
+		N'INE755J01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GALXBRG',
+		N'GALAXY BEARINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE020S01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GAMMNINFRA',
+		N'GAMMON INFRASTRUCTURE PROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE181G01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'GAMMNINFRA',
+		N'Gammon Infrastructure Projects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE181G01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'GANDHITUBE',
+		N'GANDHI SPECIAL TUBES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE524B01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'GANDHITUBE',
+		N'Gandhi Special Tubes Limited',
+		N'NSE',
+		N'EQ',
+		N'INE524B01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'GANECOS',
+		N'GANESHA ECOSPHERE LTD.',
+		N'BSE',
+		NULL,
+		N'INE845D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GANECOS',
+		N'Ganesha Ecosphere Limited',
+		N'NSE',
+		N'EQ',
+		N'INE845D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GANESHBE',
+		N'GANESH BENZOPLAST LTD.',
+		N'BSE',
+		NULL,
+		N'INE388A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'GANESHHOUC',
+		N'GANESH HOUSING CORPORATION LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE460C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GANESHHOUC',
+		N'Ganesh Housing Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE460C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GANGAPA',
+		N'GANGA PAPERS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE278O01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GANGAPHARM',
+		N'Ganga Pharmaceuticals Ltd',
+		N'BSE',
+		NULL,
+		N'INE615T01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GANGESSEC',
+		N'Ganges Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE335W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GANGESSECU',
+		N'Ganges Securities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE335W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GANHOLD',
+		N'GANESH HOLDINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE932M01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GANONPRO',
+		N'Ganon Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE162L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GARBIFIN',
+		N'Garbi Finvest Ltd',
+		N'BSE',
+		NULL,
+		N'INE721C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GARFIBRES',
+		N'Garware Technical Fibres Ltd',
+		N'BSE',
+		NULL,
+		N'INE276A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GARFIBRES',
+		N'Garware Technical Fibres Limited',
+		N'NSE',
+		N'EQ',
+		N'INE276A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GARGFUR',
+		N'GARG FURNACE LTD.',
+		N'BSE',
+		NULL,
+		N'INE194E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GARMNTMNTR',
+		N'Garment Mantra Lifestyle Ltd',
+		N'BSE',
+		NULL,
+		N'INE653S01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GARNET',
+		N'GARNET CONSTRUCTION LTD.',
+		N'BSE',
+		NULL,
+		N'INE797D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GARNETINT',
+		N'GARNET INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE590B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GARODCH',
+		N'GARODIA CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE236P01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GARWAMAR',
+		N'GARWARE MARINE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE925D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GARWARPOLY',
+		N'GARWARE POLYESTER LTD.',
+		N'BSE',
+		NULL,
+		N'INE291A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GARWSYN',
+		N'GARWARE SYNTHETICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE340D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GATI',
+		N'GATI LTD.',
+		N'BSE',
+		NULL,
+		N'INE152B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'GATI',
+		N'GATI Limited',
+		N'NSE',
+		N'EQ',
+		N'INE152B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'GAYAHWS',
+		N'Gayatri Highways Ltd',
+		N'BSE',
+		NULL,
+		N'INE287Z01012',
+		2,
+		0
+	UNION
+	SELECT
+		N'GAYAHWS',
+		N'Gayatri Highways Limited',
+		N'NSE',
+		N'BE',
+		N'INE287Z01012',
+		2,
+		0
+	UNION
+	SELECT
+		N'GAYAPROJ',
+		N'GAYATRI PROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE336H01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'GAYAPROJ',
+		N'Gayatri Projects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE336H01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'GAYATRI',
+		N'GAYATRI SUGARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE622E01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'GAYATRIBI',
+		N'GAYATRI BIOORGANICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE052E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GBFL',
+		N'Goenka Business & Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE997C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GBGLOBAL',
+		N'GB Global Ltd',
+		N'BSE',
+		NULL,
+		N'INE087J01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'GBGLOBAL',
+		N'GB Global Limited',
+		N'NSE',
+		N'EQ',
+		N'INE087J01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'GBLIL',
+		N'GBL Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE003Q01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GCKL',
+		N'Galaxy Cloud Kitchens Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE403B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GCMCAPI',
+		N'GCM Capital Advisors Ltd',
+		N'BSE',
+		NULL,
+		N'INE191P01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GCMCOMM',
+		N'GCM Commodity & Derivatives Ltd',
+		N'BSE',
+		NULL,
+		N'INE200P01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GCMSECU',
+		N'GCM Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE168O01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'GDL',
+		N'GATEWAY DISTRIPARKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE852F01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GDL',
+		N'Gateway Distriparks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE852F01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GDLLEAS',
+		N'GDL LEASING & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE545E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GDTRAGN',
+		N'G.D.TRADING & AGENCIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE713N01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GEE',
+		N'GEE LTD.',
+		N'BSE',
+		NULL,
+		N'INE064H01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'GEECEE',
+		N'GeeCee Ventures Limited',
+		N'BSE',
+		NULL,
+		N'INE916G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GEECEE',
+		N'GeeCee Ventures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE916G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GEEKAYWIRE',
+		N'Geekay Wires Limited',
+		N'NSE',
+		N'EQ',
+		N'INE669X01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GEL',
+		N'Gautam Exim Ltd',
+		N'BSE',
+		NULL,
+		N'INE721X01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GEMSI',
+		N'GEMSTONE INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE503D01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'GEMSPIN',
+		N'GEM SPINNERS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE165F01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'GENCON',
+		N'Generic Engineering Construction and Projects Ltd',
+		N'BSE',
+		NULL,
+		N'INE854S01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'GENCON',
+		N'Generic Engineering Construction and Projects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE854S01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'GENERAAGRI',
+		N'Genera Agri Corp Ltd',
+		N'BSE',
+		NULL,
+		N'INE993L01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GENESIS',
+		N'Genesis Ibrc India Ltd',
+		N'BSE',
+		NULL,
+		N'INE194N01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GENESYS',
+		N'GENESYS INTERNATIONAL CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE727B01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'GENESYS',
+		N'Genesys International Corporation Limited',
+		N'NSE',
+		N'BE',
+		N'INE727B01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'GENNEX',
+		N'GENNEX LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE509C01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'GENPHARMA',
+		N'Generic Pharmasec Ltd',
+		N'BSE',
+		NULL,
+		N'INE861N01036',
+		1,
+		0
+	UNION
+	SELECT
+		N'GENSOL',
+		N'Gensol Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE06H201014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GENUSPAPER',
+		N'Genus Paper & Boards Ltd',
+		N'BSE',
+		NULL,
+		N'INE949P01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'GENUSPAPER',
+		N'Genus Paper & Boards Limited',
+		N'NSE',
+		N'EQ',
+		N'INE949P01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'GENUSPOWER',
+		N'GENUS POWER INFRASTRUCTURES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE955D01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'GENUSPOWER',
+		N'Genus Power Infrastructures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE955D01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'GENUSPRIME',
+		N'Genus Prime Infra Ltd',
+		N'BSE',
+		NULL,
+		N'INE256D01014',
+		2,
+		0
+	UNION
+	SELECT
+		N'GEOJITFSL',
+		N'Geojit Financial Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE007B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'GEOJITFSL',
+		N'Geojit Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE007B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'GEPIL',
+		N'GE Power India Ltd',
+		N'BSE',
+		NULL,
+		N'INE878A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GEPIL',
+		N'GE Power India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE878A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GESHIP',
+		N'GREAT EASTERN SHIPPING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE017A01032',
+		10,
+		0
+	UNION
+	SELECT
+		N'GESHIP',
+		N'The Great Eastern Shipping Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE017A01032',
+		10,
+		0
+	UNION
+	SELECT
+		N'GET&D',
+		N'GE T&D India Ltd',
+		N'BSE',
+		NULL,
+		N'INE200A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'GET&D',
+		N'GE T&D India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE200A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'GFIL',
+		N'Ganesh Films India Ltd',
+		N'BSE',
+		NULL,
+		N'INE00WY01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GFLLIMITED',
+		N'GFL Ltd',
+		N'BSE',
+		NULL,
+		N'INE538A01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'GFLLIMITED',
+		N'GFL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE538A01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'GFSTEELS',
+		N'Grand Foundry Limited',
+		N'NSE',
+		N'EQ',
+		N'INE534A01028',
+		4,
+		0
+	UNION
+	SELECT
+		N'GGDANDE',
+		N'G.G.DANDEKAR MACHINE WORKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE631D01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'GGENG',
+		N'G G Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE694X01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GGL',
+		N'Gautam Gems Ltd',
+		N'BSE',
+		NULL,
+		N'INE063Z01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GGPL',
+		N'Gala Global Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE480S01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'GHCL',
+		N'GHCL LTD.',
+		N'BSE',
+		NULL,
+		N'INE539A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GHCL',
+		N'GHCL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE539A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GIANLIFE',
+		N'Gian Life Care Ltd',
+		N'BSE',
+		NULL,
+		N'INE063601012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GICHSGFIN',
+		N'GIC HOUSING FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE289B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GICHSGFIN',
+		N'GIC Housing Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE289B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GICRE',
+		N'General Insurance Corporation of India',
+		N'BSE',
+		NULL,
+		N'INE481Y01014',
+		5,
+		0
+	UNION
+	SELECT
+		N'GICRE',
+		N'General Insurance Corporation of India',
+		N'NSE',
+		N'EQ',
+		N'INE481Y01014',
+		5,
+		0
+	UNION
+	SELECT
+		N'GILADAFINS',
+		N'Gilada Finance & Investments Ltd',
+		N'BSE',
+		NULL,
+		N'INE918C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GILLANDERS',
+		N'GILLANDERS ARBUTHNOT & CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE047B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GILLANDERS',
+		N'Gillanders Arbuthnot & Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE047B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GILLETTE',
+		N'GILLETTE INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE322A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GILLETTE',
+		N'Gillette India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE322A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GINISILK',
+		N'GINI SILK MILLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE548B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GINNIFILA',
+		N'GINNI FILAMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE424C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GINNIFILA',
+		N'Ginni Filaments Limited',
+		N'NSE',
+		N'EQ',
+		N'INE424C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GIPCL',
+		N'GUJARAT INDUSTRIES POWER CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE162A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GIPCL',
+		N'Gujarat Industries Power Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE162A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GISOLUTION',
+		N'GI ENGINEERING SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE065J01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GISOLUTION',
+		N'GI Engineering Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE065J01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GITARENEW',
+		N'Gita Renewable Energy Ltd',
+		N'BSE',
+		NULL,
+		N'INE776O01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GKB',
+		N'GKB OPHTHALMICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE265D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GKCONS',
+		N'G.K.CONSULTANTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE131D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GKP',
+		N'G. K. P. Printing & Packaging Ltd',
+		N'BSE',
+		NULL,
+		N'INE05QJ01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GKWLIMITED',
+		N'GKW Limited',
+		N'NSE',
+		N'EQ',
+		N'INE528A01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLANCE',
+		N'GLANCE FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE580D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLAND',
+		N'Gland Pharma Ltd',
+		N'BSE',
+		NULL,
+		N'INE068V01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'GLAND',
+		N'Gland Pharma Limited',
+		N'NSE',
+		N'EQ',
+		N'INE068V01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'GLAXO',
+		N'GLAXOSMITHKLINE PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE159A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLAXO',
+		N'GlaxoSmithKline Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE159A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLCL',
+		N'Globe Commercials Ltd',
+		N'BSE',
+		NULL,
+		N'INE804Q01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLEAM',
+		N'Gleam Fabmat Ltd',
+		N'BSE',
+		NULL,
+		N'INE03CM01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLENMARK',
+		N'GLENMARK PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE935A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'GLENMARK',
+		N'Glenmark Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE935A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'GLFL',
+		N'GUJARAT LEASE FINANCING LTD.',
+		N'BSE',
+		NULL,
+		N'INE540A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLFL',
+		N'Gujarat Lease Financing Limited',
+		N'NSE',
+		N'EQ',
+		N'INE540A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLITTEKG',
+		N'GLITTEK GRANITES LTD.',
+		N'BSE',
+		NULL,
+		N'INE741B01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'GLOBAL',
+		N'Global Education Limited',
+		N'NSE',
+		N'EQ',
+		N'INE291W01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLOBALCA',
+		N'GLOBAL CAPITAL MARKETS LTD.',
+		N'BSE',
+		NULL,
+		N'INE062C01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLOBALVECT',
+		N'GLOBAL VECTRA HELICORP LTD.',
+		N'BSE',
+		NULL,
+		N'INE792H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLOBALVECT',
+		N'Global Vectra Helicorp Limited',
+		N'NSE',
+		N'BZ',
+		N'INE792H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLOBE',
+		N'Globe Textiles (India) Limited',
+		N'NSE',
+		N'BE',
+		N'INE581X01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLOBOFFS',
+		N'GLOBAL OFFSHORE SERVICES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE446C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLOBOFFS',
+		N'Global Offshore Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE446C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLOBUSCON',
+		N'Globus Constructors & Developers Limited',
+		N'BSE',
+		NULL,
+		N'INE064L01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLOBUSSPR',
+		N'GLOBUS SPIRITS LTD.',
+		N'BSE',
+		NULL,
+		N'INE615I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLOBUSSPR',
+		N'Globus Spirits Limited',
+		N'NSE',
+		N'EQ',
+		N'INE615I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GLOSTERLTD',
+		N'Gloster Ltd',
+		N'BSE',
+		NULL,
+		N'INE350Z01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GMBREW',
+		N'G.M.BREWERIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE075D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GMBREW',
+		N'GM Breweries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE075D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GMDCLTD',
+		N'GUJARAT MINERAL DEVELOPMENT CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE131A01031',
+		2,
+		0
+	UNION
+	SELECT
+		N'GMDCLTD',
+		N'Gujarat Mineral Development Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE131A01031',
+		2,
+		0
+	UNION
+	SELECT
+		N'GMETCOAL',
+		N'GUJARAT METALLIC COAL & COKE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE146F01020',
+		100,
+		0
+	UNION
+	SELECT
+		N'GMM',
+		N'GMM PFAUDLER LTD.',
+		N'BSE',
+		NULL,
+		N'INE541A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'GMMPFAUDLR',
+		N'GMM Pfaudler Limited',
+		N'NSE',
+		N'EQ',
+		N'INE541A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'GMPL',
+		N'G M Polyplast Ltd',
+		N'BSE',
+		NULL,
+		N'INE0E2801015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GMRINFRA',
+		N'GMR INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE776C01039',
+		1,
+		0
+	UNION
+	SELECT
+		N'GMRINFRA',
+		N'GMR Infrastructure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE776C01039',
+		1,
+		0
+	UNION
+	SELECT
+		N'GNA',
+		N'G N A Axles Ltd',
+		N'BSE',
+		NULL,
+		N'INE934S01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GNA',
+		N'GNA Axles Limited',
+		N'NSE',
+		N'EQ',
+		N'INE934S01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GNFC',
+		N'GUJARAT NARMADA VALLEY FERTILIZERS & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE113A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GNFC',
+		N'Gujarat Narmada Valley Fertilizers and Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE113A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GNRL',
+		N'Gujarat Natural Resources Limited',
+		N'BSE',
+		NULL,
+		N'INE207H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOACARBON',
+		N'GOA CARBON LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE426D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOACARBON',
+		N'Goa Carbon Limited',
+		N'NSE',
+		N'EQ',
+		N'INE426D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOBLIN',
+		N'Goblin India Ltd',
+		N'BSE',
+		NULL,
+		N'INE492Z01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOCLCORP',
+		N'GOCL Corporation Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE077F01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'GOCLCORP',
+		N'GOCL Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE077F01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'GODAVARI',
+		N'GODAVARI DRUGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE362C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GODFRYPHLP',
+		N'GODFREY PHILLIPS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE260B01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'GODFRYPHLP',
+		N'Godfrey Phillips India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE260B01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'GODHA',
+		N'Godha Cabcon & Insulation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE925Y01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GODREJAGRO',
+		N'Godrej Agrovet Ltd',
+		N'BSE',
+		NULL,
+		N'INE850D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GODREJAGRO',
+		N'Godrej Agrovet Limited',
+		N'NSE',
+		N'EQ',
+		N'INE850D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GODREJCP',
+		N'GODREJ CONSUMER PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE102D01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'GODREJCP',
+		N'Godrej Consumer Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE102D01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'GODREJIND',
+		N'GODREJ INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE233A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'GODREJIND',
+		N'Godrej Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE233A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'GODREJPROP',
+		N'Godrej Properties Ltd',
+		N'BSE',
+		NULL,
+		N'INE484J01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'GODREJPROP',
+		N'Godrej Properties Limited',
+		N'NSE',
+		N'EQ',
+		N'INE484J01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'GOENKA',
+		N'GOENKA DIAMOND & JEWELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE516K01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'GOENKA',
+		N'Goenka Diamond and Jewels Limited',
+		N'NSE',
+		N'BZ',
+		N'INE516K01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'GOGIACAP',
+		N'Gogia Capital Services Limited',
+		N'BSE',
+		NULL,
+		N'INE832C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOKAKTEX',
+		N'GOKAK TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE642I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOKEX',
+		N'GOKALDAS EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE887G01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'GOKEX',
+		N'Gokaldas Exports Limited',
+		N'NSE',
+		N'EQ',
+		N'INE887G01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'GOKUL',
+		N'GOKUL REFOILS & SOLVENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE020J01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'GOKUL',
+		N'Gokul Refoils and Solvent Limited',
+		N'NSE',
+		N'EQ',
+		N'INE020J01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'GOKULAGRO',
+		N'Gokul Agro Resources Ltd',
+		N'BSE',
+		NULL,
+		N'INE314T01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'GOKULAGRO',
+		N'Gokul Agro Resources Limited',
+		N'NSE',
+		N'EQ',
+		N'INE314T01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'GOLCA',
+		N'GOLDEN CARPETS LTD.',
+		N'BSE',
+		NULL,
+		N'INE595D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLDBEES',
+		N'R*Shares Gold BeES',
+		N'NSE',
+		N'Gold',
+		N'INF732E01102',
+		100,
+		0
+	UNION
+	SELECT
+		N'GOLDCOINHF',
+		N'Gold Coin Health Foods Ltd',
+		N'BSE',
+		NULL,
+		N'INE634J01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLDCORP',
+		N'Goldcrest Corporation Limited',
+		N'BSE',
+		NULL,
+		N'INE505D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLDENCREST',
+		N'Golden Crest Education & Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE222U01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLDENTOBC',
+		N'GOLDEN TOBACCO LTD.',
+		N'BSE',
+		NULL,
+		N'INE973A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLDENTOBC',
+		N'Golden Tobacco Limited',
+		N'NSE',
+		N'EQ',
+		N'INE973A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLDIAM',
+		N'GOLDIAM INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE025B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLDIAM',
+		N'Goldiam International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE025B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLDSHARE',
+		N'UTI Mutual Fund - UTI Gold Exchange Traded Fund',
+		N'NSE',
+		N'Gold',
+		N'INF789F01059',
+		100,
+		0
+	UNION
+	SELECT
+		N'GOLDTECH',
+		N'GOLDSTONE TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE805A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLDTECH',
+		N'Goldstone Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE805A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLECHA',
+		N'GOLECHHA GLOBAL FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE427D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLKONDA',
+		N'Golkonda Aluminium Extrusions Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE327C01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOLKUNDIA',
+		N'GOLKUNDA DIAMONDS & JEWELLERY LTD.',
+		N'BSE',
+		NULL,
+		N'INE798D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOODLUCK',
+		N'Goodluck India Ltd',
+		N'BSE',
+		NULL,
+		N'INE127I01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'GOODLUCK',
+		N'Goodluck India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE127I01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'GOODRICKE',
+		N'GOODRICKE GROUP LTD.',
+		N'BSE',
+		NULL,
+		N'INE300A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOODYEAR',
+		N'GOODYEAR INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE533A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOODYEAR',
+		N'Goodyear India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE533A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOPAIST',
+		N'GOPAL IRON & STEELS CO.(GUJARAT) LTD.',
+		N'BSE',
+		NULL,
+		N'INE641H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GORANIN',
+		N'GORANI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE792J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOTHIPL',
+		N'GOTHI PLASCON (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE538G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOVINDRU',
+		N'GOVIND RUBBER LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE011C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOVNOW',
+		N'SAB Events & Governance Now Media Ltd',
+		N'BSE',
+		NULL,
+		N'INE860T01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOWRALE',
+		N'GOWRA LEASING & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE225G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GOYALASS',
+		N'GOYAL ASSOCIATES LTD.',
+		N'BSE',
+		NULL,
+		N'INE912B01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'GPIL',
+		N'GODAWARI POWER & ISPAT LTD.',
+		N'BSE',
+		NULL,
+		N'INE177H01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GPIL',
+		N'Godawari Power And Ispat limited',
+		N'NSE',
+		N'EQ',
+		N'INE177H01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GPL',
+		N'Grandeur Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE545R01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GPPL',
+		N'GUJARAT PIPAVAV PORT LTD.',
+		N'BSE',
+		NULL,
+		N'INE517F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GPPL',
+		N'Gujarat Pipavav Port Limited',
+		N'NSE',
+		N'EQ',
+		N'INE517F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GPTINFRA',
+		N'GPT INFRAPROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE390G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GPTINFRA',
+		N'GPT Infraprojects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE390G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GRANDFONRY',
+		N'GRAND FOUNDRY LTD.',
+		N'BSE',
+		NULL,
+		N'INE534A01028',
+		4,
+		0
+	UNION
+	SELECT
+		N'GRANULES',
+		N'GRANULES INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE101D01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'GRANULES',
+		N'Granules India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE101D01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'GRAPHITE',
+		N'GRAPHITE INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE371A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'GRAPHITE',
+		N'Graphite India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE371A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'GRASIM',
+		N'GRASIM INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE047A01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'GRASIM',
+		N'Grasim Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE047A01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'GRATEXI',
+		N'GRATEX INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE915E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GRAUWEIL',
+		N'GRAUER & WEIL (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE266D01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'GRAVISSHO',
+		N'GRAVISS HOSPITALITY LTD.',
+		N'BSE',
+		NULL,
+		N'INE214F01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'GRAVITA',
+		N'GRAVITA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE024L01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'GRAVITA',
+		N'Gravita India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE024L01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'GRAVITY',
+		N'GRAVITY (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE995A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GREAVESCOT',
+		N'GREAVES COTTON LTD.',
+		N'BSE',
+		NULL,
+		N'INE224A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'GREAVESCOT',
+		N'Greaves Cotton Limited',
+		N'NSE',
+		N'EQ',
+		N'INE224A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'GREENCREST',
+		N'Greencrest Financial Services Limited',
+		N'BSE',
+		NULL,
+		N'INE414C01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'GREENLAM',
+		N'Greenlam Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE544R01013',
+		5,
+		0
+	UNION
+	SELECT
+		N'GREENPANEL',
+		N'Greenpanel Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE08ZM01014',
+		1,
+		0
+	UNION
+	SELECT
+		N'GREENPANEL',
+		N'Greenpanel Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE08ZM01014',
+		1,
+		0
+	UNION
+	SELECT
+		N'GREENPLY',
+		N'GREENPLY INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE461C01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'GREENPLY',
+		N'Greenply Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE461C01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'GREENPOWER',
+		N'ORIENT GREEN POWER COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE999K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GREENPOWER',
+		N'Orient Green Power Company Limited',
+		N'NSE',
+		N'BE',
+		N'INE999K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'GREYCELLS',
+		N'Greycells Education Limited',
+		N'BSE',
+		NULL,
+		N'INE791H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GRINDWELL',
+		N'GRINDWELL NORTON LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE536A01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'GRINDWELL',
+		N'Grindwell Norton Limited',
+		N'NSE',
+		N'EQ',
+		N'INE536A01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'GRMOVER',
+		N'GRM OVERSEAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE192H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GRNLAMIND',
+		N'Greenlam Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE544R01013',
+		5,
+		0
+	UNION
+	SELECT
+		N'GROBTEA',
+		N'The Grob Tea Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE646C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GROVY',
+		N'Grovy India Ltd',
+		N'BSE',
+		NULL,
+		N'INE343C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GRPLTD',
+		N'GRP LTD.',
+		N'BSE',
+		NULL,
+		N'INE137I01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GRPLTD',
+		N'GRP Limited',
+		N'NSE',
+		N'EQ',
+		N'INE137I01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GRSE',
+		N'Garden Reach Shipbuilders & Engineers Ltd',
+		N'BSE',
+		NULL,
+		N'INE382Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GRSE',
+		N'Garden Reach Shipbuilders & Engineers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE382Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GSAUTO',
+		N'G.S.AUTO INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE736H01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'GSBFIN',
+		N'GSB FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE777C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GSCLCEMENT',
+		N'GUJARAT SIDHEE CEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE542A01039',
+		10,
+		0
+	UNION
+	SELECT
+		N'GSCLCEMENT',
+		N'Gujarat Sidhee Cement Limited',
+		N'NSE',
+		N'EQ',
+		N'INE542A01039',
+		10,
+		0
+	UNION
+	SELECT
+		N'GSFC',
+		N'GUJARAT STATE FERTILIZERS & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE026A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'GSFC',
+		N'Gujarat State Fertilizers & Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE026A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'GSLSEC',
+		N'GSL SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE721D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GSPL',
+		N'GUJARAT STATE PETRONET LTD.',
+		N'BSE',
+		NULL,
+		N'INE246F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GSPL',
+		N'Gujarat State Petronet Limited',
+		N'NSE',
+		N'EQ',
+		N'INE246F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GSS',
+		N'GSS INFOTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE871H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GSS',
+		N'GSS Infotech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE871H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GSTL',
+		N'Globalspace Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE632W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GTL',
+		N'GTL LTD.',
+		N'BSE',
+		NULL,
+		N'INE043A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GTL',
+		N'GTL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE043A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'GTLINFRA',
+		N'GTL INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE221H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GTLINFRA',
+		N'GTL Infrastructure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE221H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GTNIND',
+		N'GTN Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE537A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GTNINDS',
+		N'GTN INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE537A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GTNTEX',
+		N'GTN TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE302H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GTNTEX',
+		N'GTN Textiles Limited',
+		N'NSE',
+		N'EQ',
+		N'INE302H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GTPL',
+		N'GTPL Hathway Ltd',
+		N'BSE',
+		NULL,
+		N'INE869I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GTPL',
+		N'GTPL Hathway Limited',
+		N'NSE',
+		N'EQ',
+		N'INE869I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GTV',
+		N'GTV Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE910R01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUFICBIO',
+		N'GUFIC BIOSCIENCES LTD.',
+		N'BSE',
+		NULL,
+		N'INE742B01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'GUFICBIO',
+		N'Gufic Biosciences Limited',
+		N'NSE',
+		N'EQ',
+		N'INE742B01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'GUJALKALI',
+		N'GUJARAT ALKALIES & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE186A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJALKALI',
+		N'Gujarat Alkalies and Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE186A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJAPOLLO',
+		N'GUJARAT APOLLO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE826C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJAPOLLO',
+		N'Gujarat Apollo Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE826C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJARATPOLY',
+		N'Gujarat Poly Electronics Ltd',
+		N'BSE',
+		NULL,
+		N'INE541F01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJCMDS',
+		N'GUJCHEM DISTILLERS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE218N01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJCONT',
+		N'GUJARAT CONTAINERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE276I01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJCOTEX',
+		N'GUJARAT COTEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE004C01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'GUJCRAFT',
+		N'GUJARAT CRAFT INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE372D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJCRED',
+		N'GUJARAT CREDIT CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE034B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJGAS',
+		N'Gujarat Gas Ltd',
+		N'BSE',
+		NULL,
+		N'INE844O01030',
+		2,
+		0
+	UNION
+	SELECT
+		N'GUJGASLTD',
+		N'Gujarat Gas Limited',
+		N'NSE',
+		N'EQ',
+		N'INE844O01030',
+		2,
+		0
+	UNION
+	SELECT
+		N'GUJHOTE',
+		N'GUJARAT HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE621C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJHYSPIN',
+		N'Gujarat Hy-Spin Ltd',
+		N'BSE',
+		NULL,
+		N'INE578V01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJINTRX',
+		N'GUJARAT INTRUX LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE877E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJINV',
+		N'GUJARAT INVESTA LTD.',
+		N'BSE',
+		NULL,
+		N'INE373D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJPETR',
+		N'GUJARAT PETROSYNTHESE LTD.',
+		N'BSE',
+		NULL,
+		N'INE636P01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJRAFFIA',
+		N'Gujarat Raffia Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE610B01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJRAFIA',
+		N'GUJARAT RAFFIA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE610B01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJSTATFIN',
+		N'Gujarat State Financial Corporation',
+		N'BSE',
+		NULL,
+		N'INE944A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJTERC',
+		N'GUJARAT TERCE LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE499G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'GUJTHEM',
+		N'GUJARAT THEMIS BIOSYN LTD.',
+		N'BSE',
+		NULL,
+		N'INE942C01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'GUJTLRM',
+		N'GUJARAT TOOLROOM LTD.',
+		N'BSE',
+		NULL,
+		N'INE145J01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'GULFOILLUB',
+		N'Gulf Oil Lubricants India Ltd',
+		N'BSE',
+		NULL,
+		N'INE635Q01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'GULFOILLUB',
+		N'Gulf Oil Lubricants India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE635Q01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'GULFPETRO',
+		N'GP Petroleums Limited',
+		N'BSE',
+		NULL,
+		N'INE586G01017',
+		5,
+		0
+	UNION
+	SELECT
+		N'GULFPETRO',
+		N'GP Petroleums Limited',
+		N'NSE',
+		N'EQ',
+		N'INE586G01017',
+		5,
+		0
+	UNION
+	SELECT
+		N'GULPOLY',
+		N'GULSHAN POLYOLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE255D01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'GULPOLY',
+		N'Gulshan Polyols Limited',
+		N'NSE',
+		N'EQ',
+		N'INE255D01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'GVBL',
+		N'Genomic Valley Biotech Ltd',
+		N'BSE',
+		NULL,
+		N'INE574D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'GVFILM',
+		N'GV FILMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE395B01048',
+		1,
+		0
+	UNION
+	SELECT
+		N'GYANDEV',
+		N'GYAN DEVELOPERS & BUILDERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE487G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'GYTRIPA',
+		N'GAYATRI TISSUE & PAPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE661K01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HAL',
+		N'Hindustan Aeronautics Ltd',
+		N'BSE',
+		NULL,
+		N'INE066F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'HAL',
+		N'Hindustan Aeronautics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE066F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'HALDER',
+		N'Halder Venture Ltd',
+		N'BSE',
+		NULL,
+		N'INE115S01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HALDYNGL',
+		N'Haldyn Glass Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE506D01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'HANMAN',
+		N'Hanman Fit Ltd',
+		N'BSE',
+		NULL,
+		N'INE982Q01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HAPPSTMNDS',
+		N'Happiest Minds Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE419U01012',
+		2,
+		0
+	UNION
+	SELECT
+		N'HAPPSTMNDS',
+		N'Happiest Minds Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE419U01012',
+		2,
+		0
+	UNION
+	SELECT
+		N'HARDCAS',
+		N'HARDCASTLE & WAUD MFG.CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE722D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'HARDWYN',
+		N'Hardwyn India Ltd',
+		N'BSE',
+		NULL,
+		N'INE626Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HARIAAPL',
+		N'Haria Apparels Ltd',
+		N'BSE',
+		NULL,
+		N'INE493N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'HARIAEXPO',
+		N'HARIA EXPORTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE772B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'HARIGOV',
+		N'HARI GOVIND INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE167F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'HARISH',
+		N'Harish Textile Engineers Ltd',
+		N'BSE',
+		NULL,
+		N'INE01K301012',
+		10,
+		0
+	UNION
+	SELECT
+		N'HARITASEAT',
+		N'HARITA SEATING SYSTEMS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE939D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'HARITASEAT',
+		N'Harita Seating Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE939D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'HARLETH',
+		N'HARYANA LEATHER CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE681F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'HARRMALAYA',
+		N'HARRISONS MALAYALAM LTD.',
+		N'BSE',
+		NULL,
+		N'INE544A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'HARRMALAYA',
+		N'Harrisons  Malayalam Limited',
+		N'NSE',
+		N'EQ',
+		N'INE544A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'HARYNACAP',
+		N'HARYANA CAPFIN LTD.',
+		N'BSE',
+		NULL,
+		N'INE928H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'HASJUICE',
+		N'Has Lifestyle Ltd',
+		N'BSE',
+		NULL,
+		N'INE888Q01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HASTIFIN',
+		N'HASTI FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE671D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'HATHWAY',
+		N'Hathway Cable & Datacom Ltd',
+		N'BSE',
+		NULL,
+		N'INE982F01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'HATHWAY',
+		N'Hathway Cable & Datacom Limited',
+		N'NSE',
+		N'EQ',
+		N'INE982F01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'HATHWAYB',
+		N'HATHWAY BHAWANI CABLETEL & DATACOM LTD.',
+		N'BSE',
+		NULL,
+		N'INE525B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HATSUN',
+		N'HATSUN AGRO PRODUCT LTD.',
+		N'BSE',
+		NULL,
+		N'INE473B01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'HATSUN',
+		N'Hatsun Agro Product Limited',
+		N'NSE',
+		N'EQ',
+		N'INE473B01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'HAVELLS',
+		N'HAVELLS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE176B01034',
+		1,
+		0
+	UNION
+	SELECT
+		N'HAVELLS',
+		N'Havells India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE176B01034',
+		1,
+		0
+	UNION
+	SELECT
+		N'HAVISHA',
+		N'Sri Havisha Hospitality And Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE293B01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'HAVISHA',
+		N'Sri Havisha Hospitality and Infrastructure Limited',
+		N'NSE',
+		N'BE',
+		N'INE293B01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'HAWAENG',
+		N'Hawa Engineers Ltd',
+		N'BSE',
+		NULL,
+		N'INE230I01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'HAWKINCOOK',
+		N'HAWKINS COOKERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE979B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'HBANKETF',
+		N'HDFC Banking ETF',
+		N'BSE',
+		NULL,
+		N'INF179KC1AN8',
+		223.31,
+		0
+	UNION
+	SELECT
+		N'HBEL',
+		N'Humming Bird Education Ltd',
+		N'BSE',
+		NULL,
+		N'INE02PC01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'HBESD',
+		N'HB ESTATE DEVELOPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE640B01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'HBLEAS',
+		N'HB LEASING & FINANCE CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE549B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HBLPOWER',
+		N'HBL POWER SYSTEMS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE292B01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'HBLPOWER',
+		N'HBL Power Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE292B01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'HBPOR',
+		N'HB PORTFOLIO LTD.',
+		N'BSE',
+		NULL,
+		N'INE638B01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'HBSL',
+		N'HB Stockholdings Limited',
+		N'NSE',
+		N'BE',
+		N'INE550B01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'HBSTOCK',
+		N'HB STOCKHOLDINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE550B01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'HCC',
+		N'HINDUSTAN CONSTRUCTION CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE549A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'HCC',
+		N'Hindustan Construction Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE549A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'HCG',
+		N'HealthCare Global Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE075I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HCG',
+		N'Healthcare Global Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE075I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HCKKVENTURE',
+		N'HCKK Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE345Q01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HCL-INSYS',
+		N'HCL INFOSYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE236A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'HCL-INSYS',
+		N'HCL Infosystems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE236A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'HCLTD',
+		N'Hind Commerce Ltd',
+		N'BSE',
+		NULL,
+		N'INE691J01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'HCLTECH',
+		N'HCL TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE860A01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'HCLTECH',
+		N'HCL Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE860A01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'HDFC',
+		N'HOUSING DEVELOPMENT FINANCE CORP.LTD.',
+		N'BSE',
+		NULL,
+		N'INE001A01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'HDFC',
+		N'Housing Development Finance Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE001A01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'HDFCAMC',
+		N'HDFC Asset Management Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE127D01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'HDFCAMC',
+		N'HDFC Asset Management Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE127D01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'HDFCBANK',
+		N'HDFC Bank Ltd',
+		N'BSE',
+		NULL,
+		N'INE040A01034',
+		1,
+		0
+	UNION
+	SELECT
+		N'HDFCBANK',
+		N'HDFC Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE040A01034',
+		1,
+		0
+	UNION
+	SELECT
+		N'HDFCLIFE',
+		N'HDFC Life Insurance Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE795G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'HDFCLIFE',
+		N'HDFC Life Insurance Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE795G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'HDFCMFGETF',
+		N'HDFC Mutual Fund-HDFC Gold Exchange Traded Fund',
+		N'NSE',
+		N'Gold',
+		N'INF179K01CN1',
+		100,
+		0
+	UNION
+	SELECT
+		N'HDFCNIFETF',
+		N'HDFC Nifty ETF',
+		N'BSE',
+		NULL,
+		N'INF179KC1965',
+		76.13,
+		0
+	UNION
+	SELECT
+		N'HDFCNIFETF',
+		N'HDFCAMC - HDFCNIFETF',
+		N'NSE',
+		N'Nifty 50',
+		N'INF179KB1KP3',
+		761.25,
+		0
+	UNION
+	SELECT
+		N'HDFCSENETF',
+		N'HDFCAMC - HDFCSENETF',
+		N'NSE',
+		N'SENSEX',
+		N'INF179KB1KQ1',
+		2503.61,
+		0
+	UNION
+	SELECT
+		N'HDIL',
+		N'HOUSING DEVELOPMENT & INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE191I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'HDIL',
+		N'Housing Development and Infrastructure Limited',
+		N'NSE',
+		N'BZ',
+		N'INE191I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEALINV',
+		N'HEALTHY INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE160N01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEERAISP',
+		N'HEERA ISPAT LTD.',
+		N'BSE',
+		NULL,
+		N'INE025D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEG',
+		N'HEG LTD.',
+		N'BSE',
+		NULL,
+		N'INE545A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEG',
+		N'HEG Limited',
+		N'NSE',
+		N'EQ',
+		N'INE545A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEIDELBERG',
+		N'HEIDELBERGCEMENT INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE578A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEIDELBERG',
+		N'HeidelbergCement India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE578A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HELPAGE',
+		N'Helpage Finlease Ltd',
+		N'BSE',
+		NULL,
+		N'INE738P01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEMANG',
+		N'Hemang Resources Ltd',
+		N'BSE',
+		NULL,
+		N'INE930A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEMIPROP',
+		N'Hemisphere Properties India Ltd',
+		N'BSE',
+		NULL,
+		N'INE0AJG01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEMIPROP',
+		N'Hemisphere Properties India Limited',
+		N'NSE',
+		N'BE',
+		N'INE0AJG01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEMORGANIC',
+		N'Hemo Organic Limited',
+		N'BSE',
+		NULL,
+		N'INE422G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEOFDD1100',
+		N'HDFC EQUITY OPPORTUNITIES FUND-II-1100D JUNE 2017(1) SERIES 2-DIRECT OPTION-DIVIDEND PAYOUT OPTION',
+		N'BSE',
+		NULL,
+		N'INF179KC1AK4',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEOFDD1126',
+		N'HDFC EOF - II - 1126D May 2017(1)  plan under HDFC Equity Opportunities Fund - Series 2 - Direct',
+		N'BSE',
+		NULL,
+		N'INF179KC1AG2',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEOFDG1100',
+		N'HDFC EQUITY OPPORTUNITIES FUND-II-1100D JUNE 2017(1) SERIES 2-DIRECT OPTION-GROWTH OPTION',
+		N'BSE',
+		NULL,
+		N'INF179KC1AJ6',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEOFDG1126',
+		N'HDFC EOF- II- 1126D May 2017(1)  plan under HDFC Equity Opportunities Fund- Series 2- Direct',
+		N'BSE',
+		NULL,
+		N'INF179KC1AF4',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEOFRD1100',
+		N'HDFC EQUITY OPPORTUNITIES FUND-II-1100D JUNE 2017(1) SERIES 2-REGULAR OPTION-DIVIDEND PAYOUT OPTION',
+		N'BSE',
+		NULL,
+		N'INF179KC1AM0',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEOFRD1126',
+		N'HDFC EOF - II - 1126D May 2017(1)  plan under HDFC Equity Opportunities Fund - Series 2 - Regular',
+		N'BSE',
+		NULL,
+		N'INF179KC1AI8',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEOFRG1100',
+		N'HDFC EQUITY OPPORTUNITIES FUND-II-1100D JUNE 2017(1) SERIES 2-REGULAR OPTION-GROWTH OPTION',
+		N'BSE',
+		NULL,
+		N'INF179KC1AL2',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEOFRG1126',
+		N'HDFC EOF- II - 1126D May 2017(1) plan under HDFC Equity Opportunities Fund - Series2 - Regular',
+		N'BSE',
+		NULL,
+		N'INF179KC1AH0',
+		10,
+		0
+	UNION
+	SELECT
+		N'HERCULES',
+		N'HERCULES HOISTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE688E01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'HERCULES',
+		N'Hercules Hoists Limited',
+		N'NSE',
+		N'EQ',
+		N'INE688E01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'HERITGFOOD',
+		N'Heritage Foods Limited',
+		N'BSE',
+		NULL,
+		N'INE978A01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'HERITGFOOD',
+		N'Heritage Foods Limited',
+		N'NSE',
+		N'EQ',
+		N'INE978A01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'HEROMOTOCO',
+		N'HERO MOTOCORP LTD.',
+		N'BSE',
+		NULL,
+		N'INE158A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'HEROMOTOCO',
+		N'Hero MotoCorp Limited',
+		N'NSE',
+		N'EQ',
+		N'INE158A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'HESTERBIO',
+		N'HESTER BIOSCIENCES LTD.',
+		N'BSE',
+		NULL,
+		N'INE782E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HESTERBIO',
+		N'Hester Biosciences Limited',
+		N'NSE',
+		N'EQ',
+		N'INE782E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HEXATRADEX',
+		N'HEXA TRADEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE750M01017',
+		2,
+		0
+	UNION
+	SELECT
+		N'HEXATRADEX',
+		N'Hexa Tradex Limited',
+		N'NSE',
+		N'EQ',
+		N'INE750M01017',
+		2,
+		0
+	UNION
+	SELECT
+		N'HFCL',
+		N'HFCL Ltd',
+		N'BSE',
+		NULL,
+		N'INE548A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'HFCL',
+		N'HFCL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE548A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'HFIL',
+		N'Himalaya Food International Ltd',
+		N'BSE',
+		NULL,
+		N'INE552B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HGINFRA',
+		N'H.G. Infra Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE926X01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HGINFRA',
+		N'H.G. Infra Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE926X01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HGS',
+		N'HINDUJA GLOBAL SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE170I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HGS',
+		N'Hinduja Global Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE170I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HIGHENE',
+		N'HIGH ENERGY BATTERIES (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE783E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'HIGHSTREE',
+		N'HIGH STREET FILATEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE319M01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HIKAL',
+		N'HIKAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE475B01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'HIKAL',
+		N'Hikal Limited',
+		N'NSE',
+		N'EQ',
+		N'INE475B01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'HIKLASS',
+		N'Hi-Klass Trading and Investment Ltd',
+		N'BSE',
+		NULL,
+		N'INE302R01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HIL',
+		N'HIL LTD.',
+		N'BSE',
+		NULL,
+		N'INE557A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HIL',
+		N'HIL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE557A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HILIKS',
+		N'Hiliks Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE966Q01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HILTON',
+		N'HILTON METAL FORGING LTD.',
+		N'BSE',
+		NULL,
+		N'INE788H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HILTON',
+		N'Hilton Metal Forging Limited',
+		N'NSE',
+		N'EQ',
+		N'INE788H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HIMATSEIDE',
+		N'HIMATSINGKA SEIDE LTD.',
+		N'BSE',
+		NULL,
+		N'INE049A01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'HIMATSEIDE',
+		N'Himatsingka Seide Limited',
+		N'NSE',
+		N'EQ',
+		N'INE049A01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'HIMFIBP',
+		N'HIMACHAL FIBRES LTD.',
+		N'BSE',
+		NULL,
+		N'INE723D01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'HIMGRANI',
+		N'HIMALAYA GRANITES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE464C01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'HIMTEK',
+		N'Him Teknoforge Ltd',
+		N'BSE',
+		NULL,
+		N'INE705G01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'HINDADH',
+		N'HINDUSTAN ADHESIVES LTD.',
+		N'BSE',
+		NULL,
+		N'INE074C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDALCO',
+		N'HINDALCO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE038A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'HINDALCO',
+		N'Hindalco Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE038A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'HINDALUMI',
+		N'HIND ALUMINIUM INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE227B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDAPL',
+		N'HINDUSTAN APPLIANCES LTD.',
+		N'BSE',
+		NULL,
+		N'INE02XD01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDBIO',
+		N'HINDUSTAN BIO SCIENCES LTD.',
+		N'BSE',
+		NULL,
+		N'INE597C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDCOMPOS',
+		N'HINDUSTAN COMPOSITES LTD.',
+		N'BSE',
+		NULL,
+		N'INE310C01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'HINDCOMPOS',
+		N'Hindustan Composites Limited',
+		N'NSE',
+		N'EQ',
+		N'INE310C01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'HINDCOPPER',
+		N'HINDUSTAN COPPER LTD.',
+		N'BSE',
+		NULL,
+		N'INE531E01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'HINDCOPPER',
+		N'Hindustan Copper Limited',
+		N'NSE',
+		N'EQ',
+		N'INE531E01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'HINDEVER',
+		N'HINDUSTAN EVEREST TOOLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE598D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDHARD',
+		N'Hindustan Hardy Ltd',
+		N'BSE',
+		NULL,
+		N'INE724D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDMILL',
+		N'HINDOOSTAN MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE832D01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDMOTORS',
+		N'HINDUSTAN MOTORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE253A01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'HINDMOTORS',
+		N'Hindustan Motors Limited',
+		N'NSE',
+		N'EQ',
+		N'INE253A01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'HINDNATGLS',
+		N'HINDUSTHAN NATIONAL GLASS & INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE952A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'HINDNATGLS',
+		N'Hindusthan National Glass & Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE952A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'HINDOILEXP',
+		N'HINDUSTAN OIL EXPLORATION CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE345A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDOILEXP',
+		N'Hindustan Oil Exploration Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE345A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDPETRO',
+		N'Hindustan Petroleum Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE094A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDPETRO*',
+		N'HINDUSTAN PETROLEUM CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE094A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDSECR',
+		N'Hind Securities & Credits Ltd',
+		N'BSE',
+		NULL,
+		N'INE727Q01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDTIN',
+		N'HINDUSTAN TIN WORKS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE428D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'HINDUNILVR',
+		N'HINDUSTAN UNILEVER LTD.',
+		N'BSE',
+		NULL,
+		N'INE030A01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'HINDUNILVR',
+		N'Hindustan Unilever Limited',
+		N'NSE',
+		N'EQ',
+		N'INE030A01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'HINDZINC',
+		N'HINDUSTAN ZINC LTD.',
+		N'BSE',
+		NULL,
+		N'INE267A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'HINDZINC',
+		N'Hindustan Zinc Limited',
+		N'NSE',
+		N'EQ',
+		N'INE267A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'HINFLUR',
+		N'HINDUSTAN FLUOROCARBONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE806J01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'HIPOLIN',
+		N'HIPOLIN LTD.',
+		N'BSE',
+		NULL,
+		N'INE963A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HIRAUTO',
+		N'HIRA AUTOMOBILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE258Z01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'HIRECT',
+		N'HIND RECTIFIERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE835D01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'HIRECT',
+		N'Hind Rectifiers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE835D01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'HISARMET',
+		N'HISAR METAL INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE598C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HISARMETAL',
+		N'Hisar Metal Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE598C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HISARSP',
+		N'HISAR SPINNING MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE689E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'HITECH',
+		N'Hi-Tech Pipes Limited',
+		N'NSE',
+		N'EQ',
+		N'INE106T01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HITECHCORP',
+		N'Hitech Corporation Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE120D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'HITECHCORP',
+		N'Hitech Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE120D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'HITECHGEAR',
+		N'The Hi-Tech Gears Ltd',
+		N'BSE',
+		NULL,
+		N'INE127B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HITECHGEAR',
+		N'The Hi-Tech Gears Limited',
+		N'NSE',
+		N'EQ',
+		N'INE127B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HITECHWIND',
+		N'Hi-Tech Winding Systems Ltd',
+		N'BSE',
+		NULL,
+		N'INE173V01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'HITKITGLO',
+		N'HIT KIT GLOBAL SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE309B01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'HITTCO',
+		N'HITTCO TOOLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE863C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'HKG',
+		N'HKG Ltd',
+		N'BSE',
+		NULL,
+		N'INE904R01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'HLEGLAS',
+		N'HLE Glascoat Ltd',
+		N'BSE',
+		NULL,
+		N'INE461D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HLEGLAS',
+		N'HLE Glascoat Limited',
+		N'NSE',
+		N'EQ',
+		N'INE461D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HLVLTD',
+		N'HLV Ltd',
+		N'BSE',
+		NULL,
+		N'INE102A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'HLVLTD',
+		N'HLV LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE102A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'HMT',
+		N'HMT LTD.',
+		N'BSE',
+		NULL,
+		N'INE262A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'HMT',
+		N'HMT Limited',
+		N'NSE',
+		N'BZ',
+		N'INE262A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'HMVL',
+		N'HINDUSTAN MEDIA VENTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE871K01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'HMVL',
+		N'Hindustan Media Ventures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE871K01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'HNDFDS',
+		N'HINDUSTAN FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE254N01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'HNDFDS',
+		N'Hindustan Foods Limited',
+		N'NSE',
+		N'EQ',
+		N'INE254N01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'HNGSNGBEES',
+		N'R*Shares Hang Seng BeES',
+		N'NSE',
+		N'Hang Seng Index',
+		N'INF732E01227',
+		10,
+		0
+	UNION
+	SELECT
+		N'HOCL',
+		N'HINDUSTAN ORGANIC CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE048A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HOMEFIRST',
+		N'Home First Finance Company India Ltd',
+		N'BSE',
+		NULL,
+		N'INE481N01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'HOMEFIRST',
+		N'Home First Finance Company India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE481N01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'HONAUT',
+		N'HONEYWELL AUTOMATION INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE671A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HONAUT',
+		N'Honeywell Automation India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE671A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HONDAPOWER',
+		N'Honda India Power Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE634A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'HONDAPOWER',
+		N'Honda India Power Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE634A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'HOTELRUGBY',
+		N'HOTEL RUGBY LTD.',
+		N'BSE',
+		NULL,
+		N'INE275F01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'HOTELRUGBY',
+		N'Hotel Rugby Limited',
+		N'NSE',
+		N'EQ',
+		N'INE275F01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'HOTLSILV',
+		N'H.S.INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE731B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'HOVS',
+		N'HOV SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE596H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'HOVS',
+		N'HOV Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE596H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'HOWARHO',
+		N'HOWARD HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE931B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HPCOTTON',
+		N'H.P.COTTON TEXTILE MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE950C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'HPL',
+		N'HPL Electric & Power Ltd',
+		N'BSE',
+		NULL,
+		N'INE495S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HPL',
+		N'HPL Electric & Power Limited',
+		N'NSE',
+		N'EQ',
+		N'INE495S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HRMNYCP',
+		N'HARMONY CAPITAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE264N01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HRYNSHP',
+		N'HARIYANA SHIP BREAKERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE400G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'HSCL',
+		N'Himadri Speciality Chemical Ltd',
+		N'BSE',
+		NULL,
+		N'INE019C01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'HSCL',
+		N'Himadri Speciality Chemical Limited',
+		N'NSE',
+		N'EQ',
+		N'INE019C01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'HSIL',
+		N'HSIL LTD.',
+		N'BSE',
+		NULL,
+		N'INE415A01038',
+		2,
+		0
+	UNION
+	SELECT
+		N'HSIL',
+		N'HSIL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE415A01038',
+		2,
+		0
+	UNION
+	SELECT
+		N'HTMEDIA',
+		N'HT MEDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE501G01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'HTMEDIA',
+		N'HT Media Limited',
+		N'NSE',
+		N'EQ',
+		N'INE501G01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'HUBTOWN',
+		N'HUBTOWN LTD.',
+		N'BSE',
+		NULL,
+		N'INE703H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HUBTOWN',
+		N'Hubtown Limited',
+		N'NSE',
+		N'BE',
+		N'INE703H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'HUDCO',
+		N'Housing & Urban Development Corporation Ltd',
+		N'BSE',
+		NULL,
+		N'INE031A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HUDCO',
+		N'Housing & Urban Development Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE031A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HUHTAMAKI',
+		N'Huhtamaki India Ltd',
+		N'BSE',
+		NULL,
+		N'INE275B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'HUHTAMAKI',
+		N'Huhtamaki India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE275B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'HUIL',
+		N'Hindusthan Urban Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE799B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'HVL',
+		N'Hariyana Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE219D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'HYPERSOFT',
+		N'Hypersoft Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE039D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IBINFO',
+		N'IB INFOTECH ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE678B01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'IBMFNIFTY',
+		N'IBULLSAMC - IBMFNIFTY',
+		N'NSE',
+		N'Nifty 50',
+		N'INF666M01FS5',
+		10,
+		0
+	UNION
+	SELECT
+		N'IBREALEST',
+		N'INDIABULLS REAL ESTATE LTD.',
+		N'BSE',
+		NULL,
+		N'INE069I01010',
+		2,
+		0
+	UNION
+	SELECT
+		N'IBREALEST',
+		N'Indiabulls Real Estate Limited',
+		N'NSE',
+		N'EQ',
+		N'INE069I01010',
+		2,
+		0
+	UNION
+	SELECT
+		N'IBRIGST',
+		N'INDIAN BRIGHT STEEL CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE566M01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'IBULHSGFIN',
+		N'Indiabulls Housing Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE148I01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'IBULHSGFIN',
+		N'Indiabulls Housing Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE148I01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'ICEMAKE',
+		N'Ice Make Refrigeration Limited',
+		N'NSE',
+		N'EQ',
+		N'INE520Y01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICI500',
+		N'ICICI Prudential S&P BSE 500 ETF',
+		N'BSE',
+		NULL,
+		N'INF109KC1CZ3',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICI500',
+		N'ICICIPRAMC - ICICI500',
+		N'NSE',
+		N'S&P BSE 500 index',
+		N'INF109KC1CZ3',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIALPLV',
+		N'&#160;ICICI Prudential Alpha Low Vol 30 ETF&#160;',
+		N'BSE',
+		NULL,
+		N'INF109KC1N59',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIB22',
+		N'BHARAT 22 ETF - ICICI Prudential AMC',
+		N'BSE',
+		NULL,
+		N'INF109KB15Y7',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIB22',
+		N'ICICIPRAMC - BHARATIWIN',
+		N'NSE',
+		N'S&P BSE BHARAT 22 index',
+		N'INF109KB15Y7',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIBANK',
+		N'ICICI BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE090A01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'ICICIBANK',
+		N'ICICI Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE090A01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'ICICIBANKN',
+		N'ICICI Prudential Bank ETF',
+		N'BSE',
+		NULL,
+		N'INF109KC1E27',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIBANKN',
+		N'ICICIPRAMC - IPRU5008',
+		N'NSE',
+		N'Nifty Bank Index',
+		N'INF109KC1E27',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIBANKP',
+		N'ICICI Prudential Private Banks ETF',
+		N'BSE',
+		NULL,
+		N'INF109KC1E35',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIBANKP',
+		N'ICICIPRAMC - ICICIBANKP',
+		N'NSE',
+		N'Nifty Private Bank Index',
+		N'INF109KC1E35',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIGI',
+		N'ICICI Lombard General Insurance Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE765G01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIGI',
+		N'ICICI Lombard General Insurance Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE765G01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIGOLD',
+		N'ICICI Prudential Gold ETF',
+		N'NSE',
+		N'Gold',
+		N'INF109KB1WF4',
+		100,
+		0
+	UNION
+	SELECT
+		N'ICICILIQ',
+		N'ICICIPRAMC - ICICILIQ',
+		N'NSE',
+		N'S&P BSE Liquid Rate Index.',
+		N'INF109KC1KT9',
+		1000,
+		0
+	UNION
+	SELECT
+		N'ICICILOVOL',
+		N'ICICI Prudential Nifty Low Vol 30 ETF',
+		N'BSE',
+		NULL,
+		N'INF109KB10T8',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICILOVOL',
+		N'ICICI Pr Nif Lw Vl 30 ETF',
+		N'NSE',
+		N'Nifty 100 Low Volatility 30 Index',
+		N'INF109KB10T8',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIM150',
+		N'ICICI Prudential Midcap 150 ETF',
+		N'BSE',
+		NULL,
+		N'INF109KC1G82',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIM150',
+		N'ICICIPRAMC - ICICIM150',
+		N'NSE',
+		N'Nifty Midcap 150',
+		N'INF109KC1G82',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIMCAP',
+		N'ICICI Prudential Midcap Select ETF',
+		N'BSE',
+		NULL,
+		N'INF109KB1XT3',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIMCAP',
+		N'ICICI Prud Midcap Sel ETF',
+		N'NSE',
+		N'S&P BSE Midcap Select Index',
+		N'INF109KB1XT3',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICINF100',
+		N'ICICI Prudential Nifty 100 ETF',
+		N'BSE',
+		NULL,
+		N'INF109KA1962',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICINF100',
+		N'ICICI Prud Nifty 100 ETF',
+		N'NSE',
+		N'Nifty 100',
+		N'INF109KA1962',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICINIFTY',
+		N'ICICI Prudential Nifty ETF',
+		N'BSE',
+		NULL,
+		N'INF109K012R6',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICINIFTY',
+		N'ICICI Prud Nifty ETF',
+		N'NSE',
+		N'Nifty 50',
+		N'INF109K012R6',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICINV20',
+		N'ICICI Prudential NV20 ETF',
+		N'BSE',
+		NULL,
+		N'INF109KB1WY5',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICINV20',
+		N'ICICI Prudential NV20 ETF',
+		N'NSE',
+		N'Nifty50 Value 20',
+		N'INF109KB1WY5',
+		36.3,
+		0
+	UNION
+	SELECT
+		N'ICICINXT50',
+		N'ICICI Prudential Nifty Next 50 ETF',
+		N'BSE',
+		NULL,
+		N'INF109KC1NS5',
+		1,
+		0
+	UNION
+	SELECT
+		N'ICICINXT50',
+		N'ICICIPRAMC - ICICINXT50',
+		N'NSE',
+		N'Nifty Next 50',
+		N'INF109KC1JI4',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIPRULI',
+		N'ICICI Prudential Life Insurance Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE726G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICIPRULI',
+		N'ICICI Prudential Life Insurance Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE726G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICISENSX',
+		N'ICICI Prudential Sensex ETF',
+		N'BSE',
+		NULL,
+		N'INF346A01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICISENSX',
+		N'ICICI Prud Sensex ETF',
+		N'NSE',
+		N'SENSEX',
+		N'INF346A01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICICITECH',
+		N'ICICI Prudential IT ETF',
+		N'BSE',
+		NULL,
+		N'INF109KC1N67',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICIL',
+		N'INDO COUNT INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE483B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'ICIL',
+		N'Indo Count Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE483B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'ICL',
+		N'Indo Cotspin Ltd',
+		N'BSE',
+		NULL,
+		N'INE407P01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICLORGANIC',
+		N'ICL Organic Dairy Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE0AU701018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICRA',
+		N'ICRA LTD.',
+		N'BSE',
+		NULL,
+		N'INE725G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICRA',
+		N'ICRA Limited',
+		N'NSE',
+		N'EQ',
+		N'INE725G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ICSL',
+		N'Integrated Capital Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE682B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'IDBI',
+		N'IDBI BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE008A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDBI',
+		N'IDBI Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE008A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDBIGOLD',
+		N'IDBI Mutual Fund - IDBI Gold Exchange Traded Fund',
+		N'NSE',
+		N'Gold',
+		N'INF397L01554',
+		100,
+		0
+	UNION
+	SELECT
+		N'IDEA',
+		N'Vodafone Idea Ltd',
+		N'BSE',
+		NULL,
+		N'INE669E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDEA',
+		N'Vodafone Idea Limited',
+		N'NSE',
+		N'EQ',
+		N'INE669E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDFC',
+		N'IDFC LIMITED',
+		N'BSE',
+		NULL,
+		N'INE043D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDFC',
+		N'IDFC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE043D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDFCEOS6DD',
+		N'IDFC Equity Opportunity - Series 6 - Direct Plan - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF194KA18U3',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDFCEOS6DG',
+		N'IDFC Equity Opportunity - Series 6 - Direct Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF194KA17U5',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDFCEOS6RD',
+		N'IDFC Equity Opportunity - Series 6 - Regular Plan - Dividend Payout  Option',
+		N'BSE',
+		NULL,
+		N'INF194KA15U9',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDFCEOS6RG',
+		N'IDFC Equity Opportunity - Series 6 - Regular Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF194KA14U2',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDFCFIRSTB',
+		N'IDFC First Bank Ltd',
+		N'BSE',
+		NULL,
+		N'INE092T01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDFCFIRSTB',
+		N'IDFC First Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE092T01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDFNIFTYET',
+		N'IDFCAMC - IDFNIFTYET',
+		N'NSE',
+		N'NIFTY 50',
+		N'INF194KA1U07',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDFSENSEXE',
+		N'IDFC SENSEX ETF',
+		N'BSE',
+		NULL,
+		N'INF194KA1T91',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDINFO',
+		N'ID Info Business Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE088P01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'IDM',
+		N'INTERNATIONAL DATA MANAGEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE649R01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IEX',
+		N'Indian Energy Exchange Ltd',
+		N'BSE',
+		NULL,
+		N'INE022Q01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'IEX',
+		N'Indian Energy Exchange Limited',
+		N'NSE',
+		N'EQ',
+		N'INE022Q01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'IFBAGRO',
+		N'IFB AGRO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE076C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'IFBAGRO',
+		N'IFB Agro Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE076C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'IFBIND',
+		N'IFB INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE559A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'IFBIND',
+		N'IFB Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE559A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'IFCI',
+		N'IFCI LTD.',
+		N'BSE',
+		NULL,
+		N'INE039A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IFCI',
+		N'IFCI Limited',
+		N'NSE',
+		N'EQ',
+		N'INE039A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IFGLEXPOR',
+		N'IFGL Refractories Ltd',
+		N'BSE',
+		NULL,
+		N'INE133Y01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'IFGLEXPOR',
+		N'IFGL Refractories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE133Y01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'IFINSEC',
+		N'INDIA FINSEC LTD.',
+		N'BSE',
+		NULL,
+		N'INE474O01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IFINSER',
+		N'Interactive Financial Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE064T01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'IFL',
+		N'IFL Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE714U01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'IFSL',
+		N'INTEGRATED FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE898B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'IGARASHI',
+		N'IGARASHI MOTORS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE188B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'IGARASHI',
+		N'Igarashi Motors India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE188B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'IGCIL',
+		N'IGC Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE099S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'IGL',
+		N'INDRAPRASTHA GAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE203G01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'IGL',
+		N'Indraprastha Gas Limited',
+		N'NSE',
+		N'EQ',
+		N'INE203G01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'IGLFXPL-B',
+		N'INDO GULF INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE684U01011',
+		1,
+		0
+	UNION
+	SELECT
+		N'IGPL',
+		N'I G PETROCHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE204A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IGPL',
+		N'IG Petrochemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE204A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IGRL',
+		N'India Green Reality Ltd',
+		N'BSE',
+		NULL,
+		N'INE373V01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'IIFL',
+		N'IIFL Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE530B01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'IIFL',
+		N'IIFL Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE530B01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'IIFLSEC',
+		N'IIFL Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE489L01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'IIFLSEC',
+		N'IIFL Securities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE489L01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'IIFLWAM',
+		N'IIFL Wealth Management Ltd',
+		N'BSE',
+		NULL,
+		N'INE466L01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'IIFLWAM',
+		N'Iifl Wealth Management Limited',
+		N'NSE',
+		N'EQ',
+		N'INE466L01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'IISL',
+		N'Ishaan Infrastructures and Shelters Ltd',
+		N'BSE',
+		NULL,
+		N'INE818R01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'IITL',
+		N'INDUSTRIAL INVESTMENT TRUST LTD.',
+		N'BSE',
+		NULL,
+		N'INE886A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IITL',
+		N'Industrial Investment Trust Limited',
+		N'NSE',
+		N'EQ',
+		N'INE886A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IITLPROJ',
+		N'IITL PROJECTS LIMITED',
+		N'BSE',
+		NULL,
+		N'INE786E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'IKAB',
+		N'IKAB SECURITIES & INVESTMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE874A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IL&FSENGG',
+		N'IL&FS ENGINEERING AND CONSTRUCTION COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE369I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IL&FSENGG',
+		N'IL&FS Engineering and Construction Company Limited',
+		N'NSE',
+		N'BZ',
+		N'INE369I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IL&FSTRANS',
+		N'IL&FS Transportation Networks Ltd',
+		N'BSE',
+		NULL,
+		N'INE975G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'IL&FSTRANS',
+		N'IL&FS Transportation Networks Limited',
+		N'NSE',
+		N'BZ',
+		N'INE975G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'IMAGICAA',
+		N'Imagicaaworld Entertainment Ltd',
+		N'BSE',
+		NULL,
+		N'INE172N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'IMAGICAA',
+		N'Imagicaaworld Entertainment Limited',
+		N'NSE',
+		N'EQ',
+		N'INE172N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'IMCAP',
+		N'IM+ Capitals Limited',
+		N'BSE',
+		NULL,
+		N'INE417D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'IMEC',
+		N'Imec Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE611C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'IMFA',
+		N'INDIAN METALS & FERRO ALLOYS LTD.',
+		N'BSE',
+		NULL,
+		N'INE919H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'IMFA',
+		N'Indian Metals & Ferro Alloys Limited',
+		N'NSE',
+		N'EQ',
+		N'INE919H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'IMPAL',
+		N'INDIA MOTOR PARTS & ACCESSORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE547E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IMPAL',
+		N'India Motor Parts and Accessories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE547E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IMPEXFERRO',
+		N'IMPEX FERRO TECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE691G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'IMPEXFERRO',
+		N'Impex Ferro Tech Limited',
+		N'NSE',
+		N'BE',
+		N'INE691G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'INANI',
+		N'INANI MARBLES & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE635D01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'INANISEC',
+		N'INANI SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE224C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'INCAP',
+		N'INCAP LTD.',
+		N'BSE',
+		NULL,
+		N'INE437C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INCON',
+		N'INCON ENGINEERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE507D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDAG',
+		N'INDAG RUBBER LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE802D01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'INDAGIV',
+		N'IND-AGIV COMMERCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE115E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDBANK',
+		N'INDBANK MERCHANT BANKING SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE841B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDBANK',
+		N'Indbank Merchant Banking Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE841B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDBNK',
+		N'IND BANK HOUSING LTD.',
+		N'BSE',
+		NULL,
+		N'INE969D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDCEMCAP',
+		N'INDIA CEMENTS CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE429D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDCTST',
+		N'INDUCTO STEEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE146H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDERGR',
+		N'INDERGIRI FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE628F01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDGELA',
+		N'INDIA GELATINE & CHEMICALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE342D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDHOTEL',
+		N'INDIAN HOTELS CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE053A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'INDHOTEL',
+		N'The Indian Hotels Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE053A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'INDIACEM',
+		N'INDIA CEMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE383A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIACEM',
+		N'The India Cements Limited',
+		N'NSE',
+		N'EQ',
+		N'INE383A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIAGLYCO',
+		N'INDIA GLYCOLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE560A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIAGLYCO',
+		N'India Glycols Limited',
+		N'NSE',
+		N'EQ',
+		N'INE560A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIAHOME',
+		N'INDIA HOME LOAN LTD.',
+		N'BSE',
+		NULL,
+		N'INE274E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIAMART',
+		N'IndiaMART InterMESH Ltd',
+		N'BSE',
+		NULL,
+		N'INE933S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIAMART',
+		N'Indiamart Intermesh Limited',
+		N'NSE',
+		N'EQ',
+		N'INE933S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIANACRY',
+		N'INDIAN ACRYLICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE862B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIANB',
+		N'INDIAN BANK',
+		N'BSE',
+		NULL,
+		N'INE562A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIANB',
+		N'Indian Bank',
+		N'NSE',
+		N'EQ',
+		N'INE562A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIANCARD',
+		N'INDIAN CARD CLOTHING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE061A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIANCARD',
+		N'Indian Card Clothing Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE061A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIANHUME',
+		N'INDIAN HUME PIPE CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE323C01030',
+		2,
+		0
+	UNION
+	SELECT
+		N'INDIANHUME',
+		N'Indian Hume Pipe Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE323C01030',
+		2,
+		0
+	UNION
+	SELECT
+		N'INDIANVSH',
+		N'INDIANIVESH LTD.',
+		N'BSE',
+		NULL,
+		N'INE131H01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'INDICAP',
+		N'Inditrade Capital Limited',
+		N'BSE',
+		NULL,
+		N'INE347H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIGO',
+		N'InterGlobe Aviation Ltd',
+		N'BSE',
+		NULL,
+		N'INE646L01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIGO',
+		N'InterGlobe Aviation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE646L01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIGOPNTS',
+		N'Indigo Paints Ltd',
+		N'BSE',
+		NULL,
+		N'INE09VQ01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDIGOPNTS',
+		N'Indigo Paints Limited',
+		N'NSE',
+		N'EQ',
+		N'INE09VQ01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDINFO',
+		N'INDIAN INFOTECH & SOFTWARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE300B01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'INDINFRA',
+		N'INDIA INFRASPACE LTD.',
+		N'BSE',
+		NULL,
+		N'INE954M01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDLEASE',
+		N'INDIA LEASE DEVELOPMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE333C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDLMETER',
+		N'IMP POWERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE065B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDLMETER',
+		N'IMP Powers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE065B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDNIPPON',
+		N'INDIA NIPPON ELECTRICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE092B01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'INDNIPPON',
+		N'India Nippon Electricals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE092B01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'INDOAMIN',
+		N'INDO AMINES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE760F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOASIAF',
+		N'INDO ASIAN FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE807A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOBORAX',
+		N'INDO BORAX & CHEMICALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE803D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOCITY',
+		N'INDO-CITY INFOTECH LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE456B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOCO',
+		N'INDOCO REMEDIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE873D01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'INDOCO',
+		N'Indoco Remedies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE873D01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'INDOCRED',
+		N'INDO CREDIT CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE147D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOEURO',
+		N'INDO EURO INDCHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE319N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOGLOBAL',
+		N'Indo-Global Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE400S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOKEM',
+		N'INDOKEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE716F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDORAMA',
+		N'INDO RAMA SYNTHETICS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE156A01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDORAMA',
+		N'Indo Rama Synthetics (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE156A01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOSOLAR',
+		N'INDOSOLAR LTD.',
+		N'BSE',
+		NULL,
+		N'INE866K01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOSOLAR',
+		N'Indosolar Limited',
+		N'NSE',
+		N'BZ',
+		N'INE866K01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOSTAR',
+		N'Indostar Capital Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE896L01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOSTAR',
+		N'IndoStar Capital Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE896L01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOTECH',
+		N'INDO TECH TRANSFORMERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE332H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOTECH',
+		N'Indo Tech Transformers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE332H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOTHAI',
+		N'INDO THAI SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE337M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOTHAI',
+		N'Indo Thai Securities Limited',
+		N'NSE',
+		N'BE',
+		N'INE337M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOUS',
+		N'Indo Us Bio-Tech Ltd',
+		N'BSE',
+		NULL,
+		N'INE250Z01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOWIND',
+		N'INDOWIND ENERGY LTD.',
+		N'BSE',
+		NULL,
+		N'INE227G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDOWIND',
+		N'Indowind Energy Limited',
+		N'NSE',
+		N'BE',
+		N'INE227G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDPRUD',
+		N'INDUSTRIAL & PRUDENTIAL INVESTMENTS CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE620D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDRAIND',
+		N'Indra Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE924N01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDRAMEDCO',
+		N'INDRAPRASTHA MEDICAL CORP.LTD.',
+		N'BSE',
+		NULL,
+		N'INE681B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDRAMEDCO',
+		N'Indraprastha Medical Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE681B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDRANIB',
+		N'INDRAYANI BIOTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE007C01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDRENEW',
+		N'IND Renewable Energy Ltd',
+		N'BSE',
+		NULL,
+		N'INE138O01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDSILHYD',
+		N'INDSIL HYDRO POWER AND MANGANESE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE867D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDSOYA',
+		N'INDSOYA LTD.',
+		N'BSE',
+		NULL,
+		N'INE314N01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDSUCR',
+		N'INDIAN SUCROSE LTD.',
+		N'BSE',
+		NULL,
+		N'INE557C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDSWFTLAB',
+		N'IND-SWIFT LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE915B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDSWFTLAB',
+		N'Ind-Swift Laboratories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE915B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDTERRAIN',
+		N'INDIAN TERRAIN FASHIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE611L01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'INDTERRAIN',
+		N'Indian Terrain Fashions Limited',
+		N'NSE',
+		N'BE',
+		N'INE611L01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'INDTONER',
+		N'INDIAN TONERS & DEVELOPERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE826B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDUSFINL',
+		N'Indus Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE935D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDUSINDBK',
+		N'INDUSIND BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE095A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDUSINDBK',
+		N'IndusInd Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE095A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDUSTOWER',
+		N'Indus Towers Ltd',
+		N'BSE',
+		NULL,
+		N'INE121J01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INDUSTOWER',
+		N'Indus Towers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE121J01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INEOSSTYRO',
+		N'INEOS Styrolution India Ltd',
+		N'BSE',
+		NULL,
+		N'INE189B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'INEOSSTYRO',
+		N'INEOS Styrolution India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE189B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'INERTIAST',
+		N'INERTIA STEEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE767M01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'INFIBEAM',
+		N'Infibeam Avenues Ltd',
+		N'BSE',
+		NULL,
+		N'INE483S01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'INFIBEAM',
+		N'Infibeam Avenues Limited',
+		N'NSE',
+		N'EQ',
+		N'INE483S01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'INFLAME',
+		N'Inflame Appliances Ltd',
+		N'BSE',
+		NULL,
+		N'INE464Z01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INFOBEAN',
+		N'InfoBeans Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE344S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'INFOMEDIA',
+		N'INFOMEDIA PRESS LTD.',
+		N'BSE',
+		NULL,
+		N'INE669A01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'INFOMEDIA',
+		N'Infomedia Press Limited',
+		N'NSE',
+		N'EQ',
+		N'INE669A01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'INFORTEC',
+		N'INFORMED TECHNOLOGIES INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE123E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'INFRABEES',
+		N'NIPPON INDIA ETF INFRA BeES',
+		N'BSE',
+		NULL,
+		N'INF732E01268',
+		10,
+		0
+	UNION
+	SELECT
+		N'INFRABEES',
+		N'R*Shares Infra BeES',
+		N'NSE',
+		N'Nifty Infra',
+		N'INF732E01268',
+		10,
+		0
+	UNION
+	SELECT
+		N'INFRAIND',
+		N'INFRA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE287D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'INFY',
+		N'INFOSYS LTD.',
+		N'BSE',
+		NULL,
+		N'INE009A01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'INFY',
+		N'Infosys Limited',
+		N'NSE',
+		N'EQ',
+		N'INE009A01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'INGERRAND',
+		N'INGERSOLL-RAND (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE177A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'INGERRAND',
+		N'Ingersoll Rand (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE177A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'INLANPR',
+		N'INLAND PRINTERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE055O01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'INLCM',
+		N'INDIAN LINK CHAIN MANUFACTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE359D01016',
+		100,
+		0
+	UNION
+	SELECT
+		N'INNOCORP',
+		N'INNOCORP LTD.',
+		N'BSE',
+		NULL,
+		N'INE214B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INNOVATIVE',
+		N'Innovative Ideals and Services (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE492Y01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'INNOVATORS',
+		N'Innovators Facade Systems Ltd',
+		N'BSE',
+		NULL,
+		N'INE870Z01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'INNOVTEC',
+		N'INNOVATIVE TECH PACK LTD.',
+		N'BSE',
+		NULL,
+		N'INE965C01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'INOVSYNTH',
+		N'INNOVASSYNTH INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE690J01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'INOXLEISUR',
+		N'INOX LEISURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE312H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'INOXLEISUR',
+		N'INOX Leisure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE312H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'INOXWIND',
+		N'Inox Wind Ltd',
+		N'BSE',
+		NULL,
+		N'INE066P01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'INOXWIND',
+		N'Inox Wind Limited',
+		N'NSE',
+		N'EQ',
+		N'INE066P01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'INSECTICID',
+		N'INSECTICIDES (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE070I01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'INSECTICID',
+		N'Insecticides (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE070I01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'INSILCO',
+		N'INSILCO LTD.',
+		N'BSE',
+		NULL,
+		N'INE901A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'INSPIRISYS',
+		N'Inspirisys Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE020G01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INSPIRISYS',
+		N'Inspirisys Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE020G01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'INTCAPM',
+		N'INTEGRA CAPITAL MANAGEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE366H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'INTECCAP',
+		N'INTEC CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE017E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'INTEGFD',
+		N'INTEGRATED PROTEINS LTD.',
+		N'BSE',
+		NULL,
+		N'INE177M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'INTEGRA',
+		N'Integra Garments And Textiles Ltd',
+		N'BSE',
+		NULL,
+		N'INE418N01027',
+		3,
+		0
+	UNION
+	SELECT
+		N'INTEGRA',
+		N'Integra Garments and Textiles Limited',
+		N'NSE',
+		N'EQ',
+		N'INE418N01027',
+		3,
+		0
+	UNION
+	SELECT
+		N'INTEGRAEN',
+		N'INTEGRA ENGINEERING INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE984B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'INTELLADV',
+		N'INTELLIVATE CAPITAL ADVISORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE176N01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'INTELLCAP',
+		N'INTELLIVATE CAPITAL VENTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE512D01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'INTELLECT',
+		N'Intellect Design Arena Ltd',
+		N'BSE',
+		NULL,
+		N'INE306R01017',
+		5,
+		0
+	UNION
+	SELECT
+		N'INTELLECT',
+		N'Intellect Design Arena Limited',
+		N'NSE',
+		N'EQ',
+		N'INE306R01017',
+		5,
+		0
+	UNION
+	SELECT
+		N'INTELSOFT',
+		N'Integra Telecommunication & Software Ltd',
+		N'BSE',
+		NULL,
+		N'INE256F01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'INTENTECH',
+		N'INTENSE TECHNOLOGIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE781A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'INTENTECH',
+		N'Intense Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE781A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'INTLCOMBQ',
+		N'INTERNATIONAL COMBUSTION (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE403C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'INTLCONV',
+		N'INTERNATIONAL CONVEYORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE575C01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'INTRGLB',
+		N'INTER GLOBE FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE661M01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'INTSTOIL',
+		N'INTER STATE OIL CARRIER LTD.',
+		N'BSE',
+		NULL,
+		N'INE003B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'INVENTURE',
+		N'INVENTURE GROWTH & SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE878H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'INVENTURE',
+		N'Inventure Growth & Securities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE878H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'INVPRECQ',
+		N'INVESTMENT & PRECISION CASTINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE155E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'IOB',
+		N'INDIAN OVERSEAS BANK',
+		N'BSE',
+		NULL,
+		N'INE565A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IOB',
+		N'Indian Overseas Bank',
+		N'NSE',
+		N'EQ',
+		N'INE565A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IOC',
+		N'INDIAN OIL CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE242A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IOC',
+		N'Indian Oil Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE242A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IOLCP',
+		N'IOL CHEMICALS & PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE485C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'IOLCP',
+		N'IOL Chemicals and Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE485C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'IONEXCHANG',
+		N'ION EXCHANGE (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE570A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IOSYSTEM',
+		N'IO SYSTEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE502D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPCALAB',
+		N'IPCA LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE571A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'IPCALAB',
+		N'IPCA Laboratories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE571A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'IPRINGLTD',
+		N'IP RINGS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE558A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU2511',
+		N'ICICI Prudential Growth Fund Series 3 (Regular Plan - Dividend Payout Option)',
+		N'BSE',
+		NULL,
+		N'INF109KC1CO7',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU2991',
+		N'ICICI Prudential Value Fund - Series 16 - Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KB15T7',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU2992',
+		N'ICICI Prudential Value Fund - Series 16 - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF109KB16T5',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3003',
+		N'ICICI PRUDENTIAL VALUE FUND SERIES 17 - CUMULATIVE OPTION',
+		N'BSE',
+		NULL,
+		N'INF109KB11W0',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3004',
+		N'ICICI PRUDENTIAL VALUE FUND SERIES 17 - DIVIDEND OPTION',
+		N'BSE',
+		NULL,
+		N'INF109KB12W8',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3013',
+		N'ICICI Prudential Value Fund Series 18 - Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KB11Y6',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3014',
+		N'ICICI Prudential Value Fund Series 18 - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF109KB12Y4',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3018',
+		N'ICICI PRUDENTIAL VALUE FUND - SERIES 19 - CUMULATIVE OPTION',
+		N'BSE',
+		NULL,
+		N'INF109KB16Z2',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3019',
+		N'ICICI PRUDENTIAL VALUE FUND - SERIES 19  - DIVIDEND PAYOUT OPTION',
+		N'BSE',
+		NULL,
+		N'INF109KB17Z0',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3034',
+		N'ICICI Prudential Value Fund - Series 20 - Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1333',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3035',
+		N'ICICI Prudential Value Fund - Series 20 - Dividend Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1341',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3095',
+		N'ICICI Prudential Bharat Consumption Fund - Series 2 - Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1CV2',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3096',
+		N'ICICI Prudential Bharat Consumption Fund - Series 2 - Dividend Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1CW0',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3143',
+		N'ICICI Prudential Bharat Consumption Fund  - Series 3 - Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1GQ3',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3144',
+		N'ICICI Prudential Bharat Consumption Fund  - Series 3 - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1GR1',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3168',
+		N'ICICI PRU Bharat Consumption Fund - Sr 4 - Cumulative',
+		N'BSE',
+		NULL,
+		N'INF109KC1IU1',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3169',
+		N'ICICI PRU Bharat Consumption Fund - Sr 4 - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1IV9',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3218',
+		N'ICICI Prudential Bharat Consumption Fund - Series 5 - Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1NO4',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU3219',
+		N'ICICI Prudential Bharat Consumption Fund - Series 5 - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1NP1',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU8711',
+		N'ICICI Prudential Growth Fund Series 3 (Direct Plan - Dividend Payout Option)',
+		N'BSE',
+		NULL,
+		N'INF109KC1CN9',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9193',
+		N'ICICI Prudential Value Fund - Series 16 - Direct Plan Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KB17T3',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9194',
+		N'ICICI Prudential Value Fund - Series 16 - Direct Plan Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF109KB18T1',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9205',
+		N'ICICI PRUDENTIAL VALUE FUND SERIES 17 - DIRECT PLAN CUMULATIVE OPTION',
+		N'BSE',
+		NULL,
+		N'INF109KB19V5',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9206',
+		N'ICICI PRUDENTIAL VALUE FUND SERIES 17 - DIRECT PLAN DIVIDEND OPTION',
+		N'BSE',
+		NULL,
+		N'INF109KB10W2',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9215',
+		N'ICICI Prudential Value Fund Series 18 - Direct Plan Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KB13Y2',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9216',
+		N'ICICI Prudential Value Fund Series 18 - Direct Plan Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF109KB14Y0',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9220',
+		N'ICICI PRUDENTIAL VALUE FUND - SERIES 19  - DIRECT PLAN CUMULATIVE OPTION',
+		N'BSE',
+		NULL,
+		N'INF109KB18Z8',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9221',
+		N'ICICI PRUDENTIAL VALUE FUND - SERIES 19  -DIRECT PLAN DIVIDEND PAYOUT OPTION',
+		N'BSE',
+		NULL,
+		N'INF109KB19Z6',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9236',
+		N'ICICI Prudential Value Fund - Series 20 - Direct Plan Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1358',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9237',
+		N'ICICI Prudential Value Fund - Series 20 - Direct Plan Dividend Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1366',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9297',
+		N'ICICI Prudential Bharat Consumption Fund - Series 2 - Direct Plan Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1CX8',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9298',
+		N'ICICI Prudential Bharat Consumption Fund - Series 2 - Direct Plan Dividend Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1CY6',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9345',
+		N'ICICI Prudential Bharat Consumption Fund  - Series 3 -  Direct Plan - Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1GS9',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9346',
+		N'ICICI Prudential Bharat Consumption Fund  - Series 3 - Direct Plan - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1GT7',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9370',
+		N'ICICI PRU Bharat Consumption Fund - Sr 4 - Direct Plan Cumulative',
+		N'BSE',
+		NULL,
+		N'INF109KC1IW7',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9371',
+		N'ICICI PRU Bharat Consumption Fund - Sr 4 - Direct Plan Dividend Payout',
+		N'BSE',
+		NULL,
+		N'INF109KC1IX5',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9420',
+		N'ICICI Prudential Bharat Consumption Fund - Series 5 -  Direct Plan - Cumulative Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1NQ9',
+		10,
+		0
+	UNION
+	SELECT
+		N'IPRU9421',
+		N'ICICI Prudential Bharat Consumption Fund - Series 5 -  Direct Plan - Dividend Payout  Option',
+		N'BSE',
+		NULL,
+		N'INF109KC1NR7',
+		10,
+		0
+	UNION
+	SELECT
+		N'IRB',
+		N'IRB INFRASTRUCTURE DEVELOPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE821I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IRB',
+		N'IRB Infrastructure Developers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE821I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IRCON',
+		N'IRCON International Ltd',
+		N'BSE',
+		NULL,
+		N'INE962Y01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'IRCON',
+		N'Ircon International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE962Y01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'IRCTC',
+		N'Indian Railway Catering and Tourism Corporation Ltd',
+		N'BSE',
+		NULL,
+		N'INE335Y01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'IRCTC',
+		N'Indian Railway Catering And Tourism Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE335Y01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'IRFC',
+		N'Indian Railway Finance Corporation Ltd',
+		N'BSE',
+		NULL,
+		N'INE053F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IRFC',
+		N'Indian Railway Finance Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE053F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IRIS',
+		N'IRIS Business Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE864K01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'IRISDOREME',
+		N'Iris Clothings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE01GN01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ISEC',
+		N'ICICI Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE763G01038',
+		5,
+		0
+	UNION
+	SELECT
+		N'ISEC',
+		N'ICICI Securities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE763G01038',
+		5,
+		0
+	UNION
+	SELECT
+		N'ISFL',
+		N'ISF LIMITED',
+		N'BSE',
+		NULL,
+		N'INE973B01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'ISFT',
+		N'INTRASOFT TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE566K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ISFT',
+		N'Intrasoft Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE566K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ISGEC',
+		N'ISGEC Heavy Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE858B01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'ISHANCH',
+		N'ISHAN DYES & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE561M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ISHITADR',
+		N'ISHITA DRUGS & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE806D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ISHWATR',
+		N'ISHWARSHAKTI HOLDINGS & TRADERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE073I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ISLCONSUL',
+		N'ISL CONSULTING LTD.',
+		N'BSE',
+		NULL,
+		N'INE569B01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'ISMTLTD',
+		N'ISMT LTD.',
+		N'BSE',
+		NULL,
+		N'INE732F01019',
+		5,
+		0
+	UNION
+	SELECT
+		N'ISMTLTD',
+		N'ISMT Limited',
+		N'NSE',
+		N'EQ',
+		N'INE732F01019',
+		5,
+		0
+	UNION
+	SELECT
+		N'ISTLTD',
+		N'IST LTD.',
+		N'BSE',
+		NULL,
+		N'INE684B01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'ISTRNETWK',
+		N'iStreet Network Limited',
+		N'BSE',
+		NULL,
+		N'INE532B01020',
+		4,
+		0
+	UNION
+	SELECT
+		N'ISWL',
+		N'INDIA STEEL WORKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE072A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'ITC',
+		N'ITC LTD.',
+		N'BSE',
+		NULL,
+		N'INE154A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'ITC',
+		N'ITC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE154A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'ITDC',
+		N'INDIA TOURISM DEVELOPMENT CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE353K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ITDC',
+		N'India Tourism Development Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE353K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ITDCEM',
+		N'ITD CEMENTATION INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE686A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'ITDCEM',
+		N'ITD Cementation India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE686A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'ITHL',
+		N'INTERNATIONAL TRAVEL HOUSE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE262B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ITI',
+		N'ITI LTD.',
+		N'BSE',
+		NULL,
+		N'INE248A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ITI',
+		N'ITI Limited',
+		N'NSE',
+		N'EQ',
+		N'INE248A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ITL',
+		N'ITL INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE478D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IVC',
+		N'IL&FS INVESTMENT MANAGERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE050B01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'IVC',
+		N'IL&FS Investment Managers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE050B01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'IVP',
+		N'IVP LTD.',
+		N'BSE',
+		NULL,
+		N'INE043C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'IVP',
+		N'IVP Limited',
+		N'NSE',
+		N'EQ',
+		N'INE043C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'IVZINGOLD',
+		N'Invesco India Gold Exchange Traded Fund',
+		N'NSE',
+		N'Gold',
+		N'INF205K01361',
+		100,
+		0
+	UNION
+	SELECT
+		N'IVZINNIFTY',
+		N'Invesco India Nifty Exchange Traded Fund',
+		N'NSE',
+		N'Nifty 50',
+		N'INF205K01DA9',
+		10,
+		0
+	UNION
+	SELECT
+		N'IWP',
+		N'The Indian Wood Products Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE586E01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'IYKOTHITE',
+		N'IYKOT HITECH TOOLROOM LTD.',
+		N'BSE',
+		NULL,
+		N'INE079L01013',
+		5,
+		0
+	UNION
+	SELECT
+		N'IZMO',
+		N'IZMO Limited-$',
+		N'BSE',
+		NULL,
+		N'INE848A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'IZMO',
+		N'IZMO Limited',
+		N'NSE',
+		N'EQ',
+		N'INE848A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'J&KBANK',
+		N'JAMMU & KASHMIR BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE168A01041',
+		1,
+		0
+	UNION
+	SELECT
+		N'J&KBANK',
+		N'The Jammu & Kashmir Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE168A01041',
+		1,
+		0
+	UNION
+	SELECT
+		N'JAGAJITIND',
+		N'JAGATJIT INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE574A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAGANLAM',
+		N'JAGAN LAMPS LTD.',
+		N'BSE',
+		NULL,
+		N'INE144C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAGJANANI',
+		N'JAGJANANI TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE702H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAGRAN',
+		N'JAGRAN PRAKASHAN LTD.',
+		N'BSE',
+		NULL,
+		N'INE199G01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'JAGRAN',
+		N'Jagran Prakashan Limited',
+		N'NSE',
+		N'EQ',
+		N'INE199G01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'JAGSNPHARM',
+		N'JAGSONPAL PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE048B01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'JAGSNPHARM',
+		N'Jagsonpal Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE048B01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'JAGSONFI',
+		N'JAGSONPAL FINANCE & LEASING LTD.',
+		N'BSE',
+		NULL,
+		N'INE582C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAIBALAJI',
+		N'JAI BALAJI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE091G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAIBALAJI',
+		N'Jai Balaji Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE091G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAICORPLTD',
+		N'JAI CORP LTD.',
+		N'BSE',
+		NULL,
+		N'INE070D01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'JAICORPLTD',
+		N'Jai Corp Limited',
+		N'NSE',
+		N'EQ',
+		N'INE070D01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'JAIHINDS',
+		N'JAIHIND SYNTHETICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE156E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAINCO',
+		N'JAINCO PROJECTS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE966C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAINEX',
+		N'JAINEX AAMCOL LTD.',
+		N'BSE',
+		NULL,
+		N'INE280F01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAINMARMO',
+		N'Jain Marmo Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE780Q01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAINSTUDIO',
+		N'JAIN STUDIOS LTD.',
+		N'BSE',
+		NULL,
+		N'INE486B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAINSTUDIO',
+		N'Jain Studios Limited',
+		N'NSE',
+		N'BZ',
+		N'INE486B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAIPAN',
+		N'JAIPAN INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE058D01030',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAMESWARREN',
+		N'James Warren Tea Ltd',
+		N'BSE',
+		NULL,
+		N'INE718P01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAMNAAUTO',
+		N'JAMNA AUTO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE039C01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'JAMNAAUTO',
+		N'Jamna Auto Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE039C01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'JAMSHRI',
+		N'Jamshri Realty Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE462D01026',
+		1000,
+		0
+	UNION
+	SELECT
+		N'JANUSCORP',
+		N'Janus Corporation Ltd',
+		N'BSE',
+		NULL,
+		N'INE04OV01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JASCH',
+		N'JASCH INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE711C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'JASH',
+		N'Jash Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE039O01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'JATALIA',
+		N'Jatalia Global Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE847M01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'JATTAINDUS',
+		N'JATTASHANKAR INDUSTIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE722N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAUSPOL',
+		N'JAUSS POLYMERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE593O01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAYAGROGN',
+		N'JAYANT AGRO-ORGANICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE785A01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'JAYAGROGN',
+		N'Jayant Agro Organics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE785A01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'JAYATMA',
+		N'Jayatma Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE246D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAYBARMARU',
+		N'JAY BHARAT MARUTI LTD.',
+		N'BSE',
+		NULL,
+		N'INE571B01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'JAYBARMARU',
+		N'Jay Bharat Maruti Limited',
+		N'NSE',
+		N'EQ',
+		N'INE571B01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'JAYBHCR',
+		N'JAYABHARAT CREDIT LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE998D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAYCH',
+		N'JAYSHREE CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE693E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAYIND',
+		N'Jayatma Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE250D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAYKAY',
+		N'JAYKAY ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE903A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'JAYNECOIND',
+		N'JAYASWAL NECO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE854B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAYNECOIND',
+		N'Jayaswal Neco Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE854B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'JAYSHREETEA',
+		N'JAY SHREE TEA & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE364A01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'JAYSREETEA',
+		N'Jayshree Tea & Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE364A01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'JAYSYN',
+		N'JAYSYNTH DYESTUFF (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE703C01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'JAYUSH',
+		N'JAY USHIN LTD.',
+		N'BSE',
+		NULL,
+		N'INE289D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'JBCHEPHARM',
+		N'J.B.CHEMICALS & PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE572A01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'JBCHEPHARM',
+		N'JB Chemicals & Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE572A01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'JBFIND',
+		N'JBF INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE187A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'JBFIND',
+		N'JBF Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE187A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'JBMA',
+		N'JBM AUTO LTD.',
+		N'BSE',
+		NULL,
+		N'INE927D01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'JBMA',
+		N'JBM Auto Limited',
+		N'NSE',
+		N'EQ',
+		N'INE927D01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'JCHAC',
+		N'Johnson Controls-Hitachi Air Conditioning India Ltd',
+		N'BSE',
+		NULL,
+		N'INE782A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'JCHAC',
+		N'Johnson Controls - Hitachi Air Conditioning India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE782A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'JCTLTD',
+		N'JCT LTD.',
+		N'BSE',
+		NULL,
+		N'INE945A01026',
+		2.5,
+		0
+	UNION
+	SELECT
+		N'JDORGOCHEM',
+		N'JD ORGOCHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE263B01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'JEL',
+		N'Jyotirgamya Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE805R01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JENBURPH',
+		N'JENBURKT PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE354A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'JETAIRWAYS',
+		N'JET AIRWAYS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE802G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JETAIRWAYS',
+		N'Jet Airways (India) Limited',
+		N'NSE',
+		N'BZ',
+		N'INE802G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JETINFRA',
+		N'Jet Infraventure Ltd',
+		N'BSE',
+		NULL,
+		N'INE155R01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JETKINGQ',
+		N'JETKING INFOTRAIN LTD.',
+		N'BSE',
+		NULL,
+		N'INE919C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'JFL',
+		N'Jhandewalas Foods Ltd',
+		N'BSE',
+		NULL,
+		N'INE841Y01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'JHACC',
+		N'JHAVERI CREDITS & CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE865D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'JHS',
+		N'JHS SVENDGAARD LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE544H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'JHS',
+		N'JHS Svendgaard Laboratories Limited',
+		N'NSE',
+		N'BE',
+		N'INE544H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'JIGAR',
+		N'Jigar Cables Ltd',
+		N'BSE',
+		NULL,
+		N'INE943X01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'JIKIND',
+		N'JIK INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE026B01049',
+		10,
+		0
+	UNION
+	SELECT
+		N'JIKIND',
+		N'JIK Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE026B01049',
+		10,
+		0
+	UNION
+	SELECT
+		N'JINAAM',
+		N'Jinaams Dress Ltd',
+		N'BSE',
+		NULL,
+		N'INE011201014',
+		10,
+		0
+	UNION
+	SELECT
+		N'JINDALPHOT',
+		N'JINDAL PHOTO LTD.',
+		N'BSE',
+		NULL,
+		N'INE796G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'JINDALPHOT',
+		N'Jindal Photo Limited',
+		N'NSE',
+		N'EQ',
+		N'INE796G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'JINDALPOLY',
+		N'JINDAL POLY FILMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE197D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'JINDALPOLY',
+		N'Jindal Poly Films Limited',
+		N'NSE',
+		N'EQ',
+		N'INE197D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'JINDALSAW',
+		N'JINDAL SAW LTD.',
+		N'BSE',
+		NULL,
+		N'INE324A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'JINDALSAW',
+		N'Jindal Saw Limited',
+		N'NSE',
+		N'EQ',
+		N'INE324A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'JINDALSTEL',
+		N'JINDAL STEEL & POWER LTD.',
+		N'BSE',
+		NULL,
+		N'INE749A01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'JINDALSTEL',
+		N'Jindal Steel & Power Limited',
+		N'NSE',
+		N'EQ',
+		N'INE749A01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'JINDCAP',
+		N'JINDAL CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE356F01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'JINDHOT',
+		N'JINDAL HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE726D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'JINDRILL',
+		N'JINDAL DRILLING & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE742C01031',
+		5,
+		0
+	UNION
+	SELECT
+		N'JINDRILL',
+		N'Jindal Drilling And Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE742C01031',
+		5,
+		0
+	UNION
+	SELECT
+		N'JINDWORLD',
+		N'JINDAL WORLDWIDE LTD.',
+		N'BSE',
+		NULL,
+		N'INE247D01039',
+		1,
+		0
+	UNION
+	SELECT
+		N'JINDWORLD',
+		N'Jindal Worldwide Limited',
+		N'NSE',
+		N'EQ',
+		N'INE247D01039',
+		1,
+		0
+	UNION
+	SELECT
+		N'JISLDVREQS',
+		N'JAIN IRRIGATION SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'IN9175A01010',
+		2,
+		0
+	UNION
+	SELECT
+		N'JISLDVREQS',
+		N'Jain Irrigation Systems Limited',
+		N'NSE',
+		N'BE',
+		N'IN9175A01010',
+		2,
+		0
+	UNION
+	SELECT
+		N'JISLJALEQS',
+		N'JAIN IRRIGATION SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE175A01038',
+		2,
+		0
+	UNION
+	SELECT
+		N'JISLJALEQS',
+		N'Jain Irrigation Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE175A01038',
+		2,
+		0
+	UNION
+	SELECT
+		N'JITFINFRA',
+		N'JITF Infralogistics Ltd',
+		N'BSE',
+		NULL,
+		N'INE863T01013',
+		2,
+		0
+	UNION
+	SELECT
+		N'JITFINFRA',
+		N'JITF Infralogistics Limited',
+		N'NSE',
+		N'BE',
+		N'INE863T01013',
+		2,
+		0
+	UNION
+	SELECT
+		N'JIYAECO',
+		N'Jiya Eco-Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE023S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'JIYAECO',
+		N'Jiya Eco-Products Limited',
+		N'NSE',
+		N'BE',
+		N'INE023S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'JJFINCOR',
+		N'J.J.FINANCE CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE584C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'JK AGRI',
+		N'JK Agri Genetics Ltd',
+		N'BSE',
+		NULL,
+		N'INE690O01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'JKCEMENT',
+		N'J.K.CEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE823G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'JKCEMENT',
+		N'JK Cement Limited',
+		N'NSE',
+		N'EQ',
+		N'INE823G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'JKIL',
+		N'J.KUMAR INFRAPROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE576I01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'JKIL',
+		N'J.Kumar Infraprojects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE576I01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'JKLAKSHMI',
+		N'JK LAKSHMI CEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE786A01032',
+		5,
+		0
+	UNION
+	SELECT
+		N'JKLAKSHMI',
+		N'JK Lakshmi Cement Limited',
+		N'NSE',
+		N'EQ',
+		N'INE786A01032',
+		5,
+		0
+	UNION
+	SELECT
+		N'JKPAPER',
+		N'JK PAPER LTD.',
+		N'BSE',
+		NULL,
+		N'INE789E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'JKPAPER',
+		N'JK Paper Limited',
+		N'NSE',
+		N'EQ',
+		N'INE789E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'JKTYRE',
+		N'JK TYRE & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE573A01042',
+		2,
+		0
+	UNION
+	SELECT
+		N'JKTYRE',
+		N'JK Tyre & Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE573A01042',
+		2,
+		0
+	UNION
+	SELECT
+		N'JLL',
+		N'Jindal Leasefin Ltd',
+		N'BSE',
+		NULL,
+		N'INE919T01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'JLMORI',
+		N'J.L.MORISON (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE430D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'JMA',
+		N'Jullundur Motor Agency (Delhi) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE412C01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'JMCPROJECT',
+		N'JMC PROJECTS (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE890A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'JMCPROJECT',
+		N'JMC Projects (India)  Limited',
+		N'NSE',
+		N'EQ',
+		N'INE890A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'JMFINANCIL',
+		N'JM FINANCIAL LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE780C01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'JMFINANCIL',
+		N'JM Financial Limited',
+		N'NSE',
+		N'EQ',
+		N'INE780C01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'JMGCORP',
+		N'JMG CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE745F01011',
+		2.5,
+		0
+	UNION
+	SELECT
+		N'JMTAUTOLTD',
+		N'JMT AUTO LTD.',
+		N'BSE',
+		NULL,
+		N'INE988E01036',
+		1,
+		0
+	UNION
+	SELECT
+		N'JMTAUTOLTD',
+		N'JMT Auto Limited',
+		N'NSE',
+		N'BE',
+		N'INE988E01036',
+		1,
+		0
+	UNION
+	SELECT
+		N'JOCIL',
+		N'Jocil Limited',
+		N'NSE',
+		N'EQ',
+		N'INE839G01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'JOINDRE',
+		N'JOINDRE CAPITAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE024B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'JOINTECAED',
+		N'JOINTECA EDUCATION SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE131N01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JONJUA',
+		N'Jonjua Overseas Ltd',
+		N'BSE',
+		NULL,
+		N'INE793Z01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'JOONKTOLL',
+		N'Joonktollee Tea & Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE574G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'JOSTS',
+		N'JOST&#39;S ENGINEERING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE636D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'JOYREALTY',
+		N'Joy Realty Limited',
+		N'BSE',
+		NULL,
+		N'INE433O01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'JPASSOCIAT',
+		N'JAIPRAKASH ASSOCIATES LTD.',
+		N'BSE',
+		NULL,
+		N'INE455F01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'JPASSOCIAT',
+		N'Jaiprakash Associates Limited',
+		N'NSE',
+		N'EQ',
+		N'INE455F01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'JPINFRATEC',
+		N'Jaypee Infratech Ltd',
+		N'BSE',
+		NULL,
+		N'INE099J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'JPINFRATEC',
+		N'Jaypee Infratech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE099J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'JPPOWER',
+		N'Jaiprakash Power Ventures Limited',
+		N'BSE',
+		NULL,
+		N'INE351F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JPPOWER',
+		N'Jaiprakash Power Ventures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE351F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JPTRLES',
+		N'JUPITER INDUSTRIES & LEASING LTD.',
+		N'BSE',
+		NULL,
+		N'INE990E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'JPTSEC',
+		N'JPT SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE630C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'JRELTD',
+		N'Justride Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE432F01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'JRFOODS',
+		N'J.R.FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE989E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JSGLEASING',
+		N'JSG Leasing Ltd',
+		N'BSE',
+		NULL,
+		N'INE317W01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'JSHL',
+		N'JLA Infraville Shoppers Ltd',
+		N'BSE',
+		NULL,
+		N'INE401Q01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JSL',
+		N'JINDAL STAINLESS LTD.',
+		N'BSE',
+		NULL,
+		N'INE220G01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'JSL',
+		N'Jindal Stainless Limited',
+		N'NSE',
+		N'EQ',
+		N'INE220G01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'JSLHISAR',
+		N'Jindal Stainless (Hisar) Ltd',
+		N'BSE',
+		NULL,
+		N'INE455T01018',
+		2,
+		0
+	UNION
+	SELECT
+		N'JSLHISAR',
+		N'Jindal Stainless (Hisar) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE455T01018',
+		2,
+		0
+	UNION
+	SELECT
+		N'JSLINDL',
+		N'JSL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE581L01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JSTL',
+		N'Jeevan Scientific Technology Ltd',
+		N'BSE',
+		NULL,
+		N'INE237B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JSWENERGY',
+		N'JSW Energy Ltd',
+		N'BSE',
+		NULL,
+		N'INE121E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JSWENERGY',
+		N'JSW Energy Limited',
+		N'NSE',
+		N'EQ',
+		N'INE121E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JSWHL',
+		N'JSW Holdings Limited',
+		N'BSE',
+		NULL,
+		N'INE824G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'JSWHL',
+		N'JSW Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE824G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'JSWISPL',
+		N'JSW Ispat Special Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE743C01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'JSWISPL',
+		N'JSW Ispat Special Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE743C01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'JSWSTEEL',
+		N'JSW STEEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE019A01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'JSWSTEEL',
+		N'JSW Steel Limited',
+		N'NSE',
+		N'EQ',
+		N'INE019A01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'JTAPARIA',
+		N'J. Taparia Projects Ltd',
+		N'BSE',
+		NULL,
+		N'INE075K01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'JTEKTINDIA',
+		N'Jtekt India Ltd',
+		N'BSE',
+		NULL,
+		N'INE643A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'JTEKTINDIA',
+		N'Jtekt India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE643A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'JTLINFRA',
+		N'JTL INFRA LTD.',
+		N'BSE',
+		NULL,
+		N'INE391J01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'JUBLFOOD',
+		N'Jubilant FoodWorks Ltd',
+		N'BSE',
+		NULL,
+		N'INE797F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'JUBLFOOD',
+		N'Jubilant Foodworks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE797F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'JUBLINDS',
+		N'JUBILANT INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE645L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'JUBLINDS',
+		N'Jubilant Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE645L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'JUBLPHARMA',
+		N'Jubilant Pharmova Ltd',
+		N'BSE',
+		NULL,
+		N'INE700A01033',
+		1,
+		0
+	UNION
+	SELECT
+		N'JUBLPHARMA',
+		N'Jubilant Pharmova Limited',
+		N'NSE',
+		N'EQ',
+		N'INE700A01033',
+		1,
+		0
+	UNION
+	SELECT
+		N'JUMBFNL',
+		N'JUMBO FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE122N01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'JUMBO',
+		N'JUMBO BAG LTD.',
+		N'BSE',
+		NULL,
+		N'INE699D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'JUMPNET',
+		N'Jump Networks Ltd',
+		N'BSE',
+		NULL,
+		N'INE974C01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'JUMPNET',
+		N'Jump Networks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE974C01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'JUNIORBEES',
+		N'NIPPON INDIA ETF JUNIOR BEES',
+		N'BSE',
+		NULL,
+		N'INF732E01045',
+		1.25,
+		0
+	UNION
+	SELECT
+		N'JUNIORBEES',
+		N'R*Shares Junior BeES',
+		N'NSE',
+		N'Nifty Next 50',
+		N'INF732E01045',
+		1.25,
+		0
+	UNION
+	SELECT
+		N'JUPITERIN',
+		N'JUPITER INFOMEDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE524N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'JUSTDIAL',
+		N'JUST DIAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE599M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JUSTDIAL',
+		N'Just Dial Limited',
+		N'NSE',
+		N'EQ',
+		N'INE599M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'JYOTHYLAB',
+		N'Jyothy Labs Ltd',
+		N'BSE',
+		NULL,
+		N'INE668F01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'JYOTHYLAB',
+		N'Jyothy Labs Limited',
+		N'NSE',
+		N'EQ',
+		N'INE668F01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'JYOTI',
+		N'JYOTI LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE511D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'JYOTIN',
+		N'Jyot International Marketing Ltd',
+		N'BSE',
+		NULL,
+		N'INE043R01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'JYOTIRES',
+		N'JYOTI RESINS & ADHESIVES LTD.',
+		N'BSE',
+		NULL,
+		N'INE577D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'JYOTISTRUC',
+		N'JYOTI STRUCTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE197A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'KAARYAFSL',
+		N'Kaarya Facilities and Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE282Y01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'KABRAEXTRU',
+		N'KABRA EXTRUSIONTECHNIK LTD.',
+		N'BSE',
+		NULL,
+		N'INE900B01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'KABRAEXTRU',
+		N'Kabra Extrusion Technik Limited',
+		N'NSE',
+		N'EQ',
+		N'INE900B01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'KABSON',
+		N'KABSONS INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE645C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KACHCHH',
+		N'KACHCHH MINERALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE059E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KACL',
+		N'Kaiser Corporation Limited',
+		N'BSE',
+		NULL,
+		N'INE229G01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'KAIRA',
+		N'KAIRA CAN CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE375D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAJARIACER',
+		N'KAJARIA CERAMICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE217B01036',
+		1,
+		0
+	UNION
+	SELECT
+		N'KAJARIACER',
+		N'Kajaria Ceramics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE217B01036',
+		1,
+		0
+	UNION
+	SELECT
+		N'KAJARIR',
+		N'KIC METALIKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE434C01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'KAKATCEM',
+		N'KAKATIYA CEMENT SUGAR & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE437B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAKATCEM',
+		N'Kakatiya Cement Sugar & Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE437B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAKTEX',
+		N'KAKATIYA TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE092E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'KALLAM',
+		N'Kallam Textiles Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE629F01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'KALPATPOWR',
+		N'KALPATARU POWER TRANSMISSION LTD.',
+		N'BSE',
+		NULL,
+		N'INE220B01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'KALPATPOWR',
+		N'Kalpataru Power Transmission Limited',
+		N'NSE',
+		N'EQ',
+		N'INE220B01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'KALYANI',
+		N'Kalyani Commercials Limited',
+		N'NSE',
+		N'BE',
+		N'INE610E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KALYANIFRG',
+		N'KALYANI FORGE LTD.',
+		N'BSE',
+		NULL,
+		N'INE314G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KALYANIFRG',
+		N'Kalyani Forge Limited',
+		N'NSE',
+		N'BE',
+		N'INE314G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAMADGIRI',
+		N'KAMADGIRI FASHION LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE535C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAMAHOLD',
+		N'Kama Holdings Limited-$',
+		N'BSE',
+		NULL,
+		N'INE411F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAMANWALA',
+		N'KAMANWALA HOUSING CONSTRUCTION LTD.',
+		N'BSE',
+		NULL,
+		N'INE344D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAMATHOTEL',
+		N'KAMAT HOTELS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE967C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAMATHOTEL',
+		N'Kamat Hotels (I) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE967C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAMDHENU',
+		N'Kamdhenu Ltd',
+		N'BSE',
+		NULL,
+		N'INE390H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAMDHENU',
+		N'Kamdhenu Limited',
+		N'NSE',
+		N'EQ',
+		N'INE390H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAMRLAB',
+		N'KAMRON LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE276T01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KANANIIND',
+		N'KANANI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE879E01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'KANANIIND',
+		N'Kanani Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE879E01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'KANCHI',
+		N'Kanchi Karpooram Ltd',
+		N'BSE',
+		NULL,
+		N'INE081G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KANCOTEA',
+		N'Kanco Tea & Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE398L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KANDAGIRI',
+		N'KANDAGIRI SPINNING MILLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE292D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KANELIND',
+		N'Kanel Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE252C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KANORICHEM',
+		N'KANORIA CHEMICALS & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE138C01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'KANORICHEM',
+		N'Kanoria Chemicals & Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE138C01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'KANPRPLA',
+		N'KANPUR PLASTIPACK LTD.',
+		N'BSE',
+		NULL,
+		N'INE694E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KANPRPLA',
+		N'Kanpur Plastipack Limited',
+		N'NSE',
+		N'EQ',
+		N'INE694E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KANSAFB',
+		N'KANSAL FIBRES LTD.',
+		N'BSE',
+		NULL,
+		N'INE179O01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KANSAINER',
+		N'KANSAI NEROLAC PAINTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE531A01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'KANSAINER',
+		N'Kansai Nerolac Paints Limited',
+		N'NSE',
+		N'EQ',
+		N'INE531A01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'KANSHST',
+		N'KANISHK STEEL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE791E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KANUNGO',
+		N'Kanungo Financiers Ltd',
+		N'BSE',
+		NULL,
+		N'INE453S01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAPILCO',
+		N'KAPIL COTEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE393H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAPILRAJ',
+		N'Kapil Raj Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE332Q01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAPSTON',
+		N'Kapston Facilities Management Limited',
+		N'NSE',
+		N'BE',
+		N'INE542Z01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KARANWO',
+		N'KARAN WOO-SIN LTD.',
+		N'BSE',
+		NULL,
+		N'INE327D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'KARDA',
+		N'Karda Constructions Ltd',
+		N'BSE',
+		NULL,
+		N'INE278R01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'KARDA',
+		N'Karda Constructions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE278R01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'KARMAENG',
+		N'KARMA ENERGY LTD.',
+		N'BSE',
+		NULL,
+		N'INE725L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'KARMAENG',
+		N'Karma Energy Limited',
+		N'NSE',
+		N'BE',
+		N'INE725L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'KARNAVATI',
+		N'Karnavati Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE554R01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'KARURVYSYA',
+		N'KARUR VYSYA BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE036D01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'KARURVYSYA',
+		N'Karur Vysya Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE036D01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'KATRSPG',
+		N'KATARE SPINNING MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE498G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAUSHALYA',
+		N'KAUSHALYA INFRASTRUCTURE DEVELOPMENT CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE234I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAUSHALYA',
+		N'Kaushalya Infrastructure Development Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE234I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAYA',
+		N'Kaya Ltd',
+		N'BSE',
+		NULL,
+		N'INE587G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAYA',
+		N'Kaya Limited',
+		N'NSE',
+		N'EQ',
+		N'INE587G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KAYCEEI',
+		N'KAYCEE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE813G01015',
+		100,
+		0
+	UNION
+	SELECT
+		N'KBSINDIA',
+		N'KBS INDIA LIMITED',
+		N'BSE',
+		NULL,
+		N'INE883D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KCDGROUP',
+		N'KCD Industries India Ltd',
+		N'BSE',
+		NULL,
+		N'INE185U01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'KCL',
+		N'Kabra Commercial Ltd',
+		N'BSE',
+		NULL,
+		N'INE926E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KCLINFRA',
+		N'KCL Infra Projects Ltd',
+		N'BSE',
+		NULL,
+		N'INE469F01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'KCP',
+		N'K.C.P.LTD.',
+		N'BSE',
+		NULL,
+		N'INE805C01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'KCP',
+		N'KCP Limited',
+		N'NSE',
+		N'EQ',
+		N'INE805C01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'KCPSUGIND',
+		N'KCP SUGAR & INDUSTRIES CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE790B01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'KCPSUGIND',
+		N'KCP Sugar and Industries Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE790B01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'KCSL',
+		N'Karnimata Cold Storage Ltd',
+		N'BSE',
+		NULL,
+		N'INE576P01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KDDL',
+		N'KDDL LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE291D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'KDDL',
+		N'KDDL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE291D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'KDLL',
+		N'KD Leisures Ltd',
+		N'BSE',
+		NULL,
+		N'INE081R01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'KDML',
+		N'Khemani Distributors & Marketing Ltd',
+		N'BSE',
+		NULL,
+		N'INE030U01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'KEC',
+		N'KEC INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE389H01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'KEC',
+		N'KEC International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE389H01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'KECL',
+		N'Kirloskar Electric Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE134B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KECL',
+		N'Kirloskar Electric Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE134B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KEDIACN',
+		N'KEDIA CONSTRUCTION CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE511J01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'KEERTI',
+		N'Keerti Knowledge and Skills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE586X01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'KEI',
+		N'KEI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE878B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'KEI',
+		N'KEI Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE878B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'KEL',
+		N'Kotia Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE079C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'KELENRG',
+		N'KELTECH ENERGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE881E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KELLTONTEC',
+		N'Kellton Tech Solutions Ltd.',
+		N'BSE',
+		NULL,
+		N'INE164B01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'KELLTONTEC',
+		N'Kellton Tech Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE164B01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'KEMISTAR',
+		N'Kemistar Corporation Limited',
+		N'BSE',
+		NULL,
+		N'INE971L01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'KEMP',
+		N'KEMP & COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE060E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KENNAMET',
+		N'KENNAMETAL INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE717A01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'KENNAMET',
+		N'Kennametal India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE717A01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'KENVI',
+		N'Kenvi Jewels Ltd',
+		N'BSE',
+		NULL,
+		N'INE923Y01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KERALAYUR',
+		N'KERALA AYURVEDA LTD.',
+		N'BSE',
+		NULL,
+		N'INE817B01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'KERNEX',
+		N'KERNEX MICROSYSTEMS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE202H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KERNEX',
+		N'Kernex Microsystems (India) Limited',
+		N'NSE',
+		N'BE',
+		N'INE202H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KESARENT',
+		N'KESAR ENTERPRISES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE133B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KESARPE',
+		N'KESAR PETROPRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE133C01033',
+		1,
+		0
+	UNION
+	SELECT
+		N'KESORAMIND',
+		N'KESORAM INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE087A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KESORAMIND',
+		N'Kesoram Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE087A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KEYCORP',
+		N'KEY CORP LTD.',
+		N'BSE',
+		NULL,
+		N'INE130F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'KEYFINSER',
+		N'Keynote Financial Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE681C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KEYFINSERV',
+		N'Keynote Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE681C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KFBL',
+		N'KOTHARI FERMENTATION & BIOCHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE991B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KGDENIM',
+		N'KG DENIM LTD.',
+		N'BSE',
+		NULL,
+		N'INE104A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'KGL',
+		N'KARUTURI GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE299C01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'KGL',
+		N'Karuturi Global Limited',
+		N'NSE',
+		N'BZ',
+		N'INE299C01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'KGPETRO',
+		N'KG PETROCHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE902G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'KHADIM',
+		N'Khadim India Ltd',
+		N'BSE',
+		NULL,
+		N'INE834I01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'KHADIM',
+		N'Khadim India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE834I01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'KHAICHEM',
+		N'KHAITAN CHEMICALS & FERTILIZERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE745B01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'KHAICHEM',
+		N'Khaitan Chemicals & Fertilizers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE745B01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'KHANDSE',
+		N'KHANDWALA SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE060B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KHANDSE',
+		N'Khandwala Securities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE060B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KHODAY',
+		N'KHODAY INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE687B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KHOOBSURAT',
+		N'Khoobsurat Ltd',
+		N'BSE',
+		NULL,
+		N'INE731G01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'KHYATI',
+		N'KHYATI MULTIMEDIA-ENTERTAINMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE593B01030',
+		10,
+		0
+	UNION
+	SELECT
+		N'KICL',
+		N'KALYANI INVESTMENT COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE029L01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KICL',
+		N'Kalyani Investment Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE029L01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIDUJA',
+		N'KIDUJA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE845A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIFS',
+		N'KIFS FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE902D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'KILITCH',
+		N'KILITCH DRUGS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE729D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KILITCH',
+		N'Kilitch Drugs (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE729D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KILPEST',
+		N'KILPEST INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE994E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIMIABL',
+		N'Kimia Biosciences Ltd',
+		N'BSE',
+		NULL,
+		N'INE285U01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'KINETICENG',
+		N'KINETIC ENGINEERING LTD.',
+		N'BSE',
+		NULL,
+		N'INE266B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KINETRU',
+		N'KINETIC TRUST LTD.',
+		N'BSE',
+		NULL,
+		N'INE674M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KINGFA',
+		N'Kingfa Science & Technology (India) Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE473D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KINGFA',
+		N'Kingfa Science & Technology (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE473D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KINGSINFR',
+		N'Kings Infra Ventures Limited',
+		N'BSE',
+		NULL,
+		N'INE050N01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIOCL',
+		N'KIOCL Ltd',
+		N'BSE',
+		NULL,
+		N'INE880L01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIOCL',
+		N'KIOCL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE880L01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIRANPR',
+		N'KIRAN PRINT-PACK LTD.',
+		N'BSE',
+		NULL,
+		N'INE516D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIRANVYPAR',
+		N'Kiran Vyapar Ltd',
+		N'BSE',
+		NULL,
+		N'INE555P01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIRIINDUS',
+		N'KIRI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE415I01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIRIINDUS',
+		N'Kiri Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE415I01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIRLFER',
+		N'KIRLOSKAR FERROUS INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE884B01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'KIRLFER',
+		N'Kirloskar Ferrous Industries Ltd',
+		N'NSE',
+		N'EQ',
+		N'INE884B01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'KIRLOSBROS',
+		N'KIRLOSKAR BROTHERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE732A01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'KIRLOSBROS',
+		N'Kirloskar Brothers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE732A01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'KIRLOSENG',
+		N'KIRLOSKAR OIL ENGINES LTD.',
+		N'BSE',
+		NULL,
+		N'INE146L01010',
+		2,
+		0
+	UNION
+	SELECT
+		N'KIRLOSENG',
+		N'Kirloskar Oil Engines Limited',
+		N'NSE',
+		N'EQ',
+		N'INE146L01010',
+		2,
+		0
+	UNION
+	SELECT
+		N'KIRLOSIND',
+		N'Kirloskar Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE250A01039',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIRLOSIND',
+		N'Kirloskar Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE250A01039',
+		10,
+		0
+	UNION
+	SELECT
+		N'KIRLPNU',
+		N'KIRLOSKAR PNEUMATIC CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE811A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'KISAN',
+		N'KISAN MOULDINGS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE017C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'KITEX',
+		N'KITEX GARMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE602G01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'KITEX',
+		N'Kitex Garments Limited',
+		N'NSE',
+		N'EQ',
+		N'INE602G01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'KJMCCORP',
+		N'KJMC Corporate Advisors (India) Ltd.',
+		N'BSE',
+		NULL,
+		N'INE602C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'KJMCFIN',
+		N'KJMC FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE533C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KKALPANAIND',
+		N'Kkalpana Industries (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE301C01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'KKCL',
+		N'KEWAL KIRAN CLOTHING LTD.',
+		N'BSE',
+		NULL,
+		N'INE401H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KKCL',
+		N'Kewal Kiran Clothing Limited',
+		N'NSE',
+		N'EQ',
+		N'INE401H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KKFIN',
+		N'K K Fincorp Limited',
+		N'BSE',
+		NULL,
+		N'INE509J01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'KKPLASTICK',
+		N'Kkalpana Plastick Limited',
+		N'BSE',
+		NULL,
+		N'INE465K01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'KLBRENG-B',
+		N'KILBURN ENGINEERING LTD.',
+		N'BSE',
+		NULL,
+		N'INE338F01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KLGCAP',
+		N'KLG CAPITAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE929C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KLKELEC',
+		N'KLK Electrical Ltd',
+		N'BSE',
+		NULL,
+		N'INE125G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KLRFM',
+		N'Kovilpatti Lakshmi Roller Flour Mills Ltd',
+		N'BSE',
+		NULL,
+		N'INE014E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KMCSHIL',
+		N'KMC SPECIALITY HOSPITALS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE879K01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'KMFBLDR',
+		N'KMF BUILDERS & DEVELOPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE580H01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'KMGMILK',
+		N'KMG MILK FOOD LTD.',
+		N'BSE',
+		NULL,
+		N'INE873N01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KMSMEDI',
+		N'KMS Medisurgi Ltd',
+		N'BSE',
+		NULL,
+		N'INE870V01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KMSUGAR',
+		N'K.M.SUGAR MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE157H01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'KMSUGAR',
+		N'K.M.Sugar Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE157H01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'KNRCON',
+		N'KNR CONSTRUCTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE634I01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'KNRCON',
+		N'KNR Constructions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE634I01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'KOBO',
+		N'Kobo Biotech Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE881A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOCL',
+		N'Kome-On Communication Ltd',
+		N'BSE',
+		NULL,
+		N'INE833C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOKUYOCMLN',
+		N'KOKUYO CAMLIN LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE760A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'KOKUYOCMLN',
+		N'Kokuyo Camlin Limited',
+		N'NSE',
+		N'EQ',
+		N'INE760A01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'KOLTEPATIL',
+		N'KOLTE-PATIL DEVELOPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE094I01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOLTEPATIL',
+		N'Kolte - Patil Developers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE094I01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KONARKSY',
+		N'KONARK SYNTHETIC LTD.',
+		N'BSE',
+		NULL,
+		N'INE517D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOPRAN',
+		N'KOPRAN LTD.',
+		N'BSE',
+		NULL,
+		N'INE082A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOPRAN',
+		N'Kopran Limited',
+		N'NSE',
+		N'EQ',
+		N'INE082A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KORE',
+		N'Kore Foods Ltd',
+		N'BSE',
+		NULL,
+		N'INE601A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOTAKBANK',
+		N'KOTAK MAHINDRA BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE237A01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'KOTAKBANK',
+		N'Kotak Mahindra Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE237A01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'KOTAKBKETF',
+		N'Kotak Mahindra MF - Kotak Banking ETF - Dividend Payout Option',
+		N'NSE',
+		N'Nifty Bank',
+		N'INF174K01F59',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOTAKGOLD',
+		N'Kotak Mutual Fund - Gold Exchange Traded Fund',
+		N'NSE',
+		N'Gold',
+		N'INF373I01049',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOTAKNIFTY',
+		N'Kotak Mahindra Mutual Fund - Kotak Nifty ETF',
+		N'BSE',
+		NULL,
+		N'INF174K014P6',
+		1,
+		0
+	UNION
+	SELECT
+		N'KOTAKNIFTY',
+		N'Kotak Mahindra Mutual Fund-Kotak Nifty ETF',
+		N'NSE',
+		N'Nifty 50',
+		N'INF174K014P6',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOTAKNV20',
+		N'KOTAKMAMC - KTKNV20ETF',
+		N'NSE',
+		N'Nifty50 Value 20',
+		N'INF174K01Z71',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOTAKPSUBK',
+		N'KOTAK MAHINDRA MUTUAL FUND - KOTAK PSU BANK ETF',
+		N'BSE',
+		NULL,
+		N'INF373I01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOTAKPSUBK',
+		N'Kotak Mahindra Mutual Fund',
+		N'NSE',
+		N'Nifty PSU Bank',
+		N'INF373I01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOTARISUG',
+		N'Kothari Sugars And Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE419A01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOTHARIPET',
+		N'Kothari Petrochemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE720A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOTHARIPRO',
+		N'KOTHARI PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE823A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOTHARIPRO',
+		N'Kothari Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE823A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KOVAI',
+		N'KOVAI MEDICAL CENTER & HOSPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE177F01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KPEL',
+		N'K.P. Energy Ltd',
+		N'BSE',
+		NULL,
+		N'INE127T01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'KPIGLOBAL',
+		N'K.P.I. Global Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE542W01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KPITTECH',
+		N'KPIT Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE04I401011',
+		10,
+		0
+	UNION
+	SELECT
+		N'KPITTECH',
+		N'KPIT Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE04I401011',
+		10,
+		0
+	UNION
+	SELECT
+		N'KPL',
+		N'Kwality Pharmaceuticals Ltd',
+		N'BSE',
+		NULL,
+		N'INE552U01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KPRMILL',
+		N'K.P.R. Mill Limited',
+		N'BSE',
+		NULL,
+		N'INE930H01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'KPRMILL',
+		N'K.P.R. Mill Limited',
+		N'NSE',
+		N'EQ',
+		N'INE930H01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'KPT',
+		N'KPT Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE731D01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'KRANTI',
+		N'Kranti Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE911T01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KRATOSENER',
+		N'KRATOS ENERGY & INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE567L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'KRBL',
+		N'KRBL LTD.',
+		N'BSE',
+		NULL,
+		N'INE001B01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'KRBL',
+		N'KRBL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE001B01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'KREBSBIO',
+		N'KREBS BIOCHEMICALS & INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE268B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'KREBSBIO',
+		N'Krebs Biochemicals and Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE268B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'KRETTOSYS',
+		N'Kretto Syscon Ltd',
+		N'BSE',
+		NULL,
+		N'INE128R01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KRIDHANINF',
+		N'Kridhan Infra Limited',
+		N'NSE',
+		N'EQ',
+		N'INE524L01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'KRIFILIND',
+		N'Krishna Filament Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE073A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KRIINFRA',
+		N'Kridhan Infra Limited',
+		N'BSE',
+		NULL,
+		N'INE524L01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'KRISHANA',
+		N'Krishana Phoschem Limited',
+		N'NSE',
+		N'EQ',
+		N'INE506W01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'KRISHNA',
+		N'Krishna Ventures Limited',
+		N'BSE',
+		NULL,
+		N'INE537L01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KRISHNACAP',
+		N'Krishna Capital and Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE897B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KRITIIND',
+		N'KRITI INDUSTRIES (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE479D01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'KRITINUT',
+		N'Kriti Nutrients Ltd',
+		N'BSE',
+		NULL,
+		N'INE798K01010',
+		1,
+		0
+	UNION
+	SELECT
+		N'KRL',
+		N'Kintech Renewables Ltd',
+		N'BSE',
+		NULL,
+		N'INE385F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'KRRAIL',
+		N'K&R Rail Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE078T01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'KRYPTONQ',
+		N'KRYPTON INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE951B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KSB',
+		N'KSB Ltd',
+		N'BSE',
+		NULL,
+		N'INE999A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KSB',
+		N'Ksb Limited',
+		N'NSE',
+		N'EQ',
+		N'INE999A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'KSCL',
+		N'KAVERI SEED COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE455I01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'KSCL',
+		N'Kaveri Seed Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE455I01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'KSE',
+		N'KSE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE953E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'KSL',
+		N'KALYANI STEELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE907A01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'KSL',
+		N'Kalyani Steels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE907A01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'KTIL',
+		N'KESAR TERMINALS & INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE096L01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'KTKBANK',
+		N'KARNATAKA BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE614B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KTKBANK',
+		N'The Karnataka Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE614B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KTKIND5DD',
+		N'Kotak India Growth Fund Series 5 - Direct Plan - Dividend Option',
+		N'BSE',
+		NULL,
+		N'INF174K014X0',
+		10,
+		0
+	UNION
+	SELECT
+		N'KTKIND5DG',
+		N'Kotak India Growth Fund Series 5 - Direct Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF174K013X2',
+		10,
+		0
+	UNION
+	SELECT
+		N'KTKIND5RD',
+		N'Kotak India Growth Fund Series 5 - Regular Plan - Dividend Option',
+		N'BSE',
+		NULL,
+		N'INF174K012X4',
+		10,
+		0
+	UNION
+	SELECT
+		N'KTKIND5RG',
+		N'Kotak India Growth Fund Series 5 - Regular Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF174K011X6',
+		10,
+		0
+	UNION
+	SELECT
+		N'KTKIND7DD',
+		N'Kotak India Growth Fund Series 7 - Direct Plan - Dividend Option',
+		N'BSE',
+		NULL,
+		N'INF174KA1533',
+		10,
+		0
+	UNION
+	SELECT
+		N'KTKIND7DG',
+		N'Kotak India Growth Fund Series 7 - Direct Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF174KA1525',
+		10,
+		0
+	UNION
+	SELECT
+		N'KTKIND7RD',
+		N'Kotak India Growth Fund Series 7 - Regular Plan - Dividend Option',
+		N'BSE',
+		NULL,
+		N'INF174KA1517',
+		10,
+		0
+	UNION
+	SELECT
+		N'KTKIND7RG',
+		N'Kotak India Growth Fund Series 7 - Regular Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF174KA1509',
+		10,
+		0
+	UNION
+	SELECT
+		N'KTKSENSEX',
+		N'KOTAK SENSEX ETF',
+		N'BSE',
+		NULL,
+		N'INF373I01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'KUANTUM',
+		N'KUANTUM PAPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE529I01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'KUANTUM',
+		N'Kuantum Papers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE529I01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'KUBERJI',
+		N'Kuber Udyog Ltd',
+		N'BSE',
+		NULL,
+		N'INE594R01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KUMPFIN',
+		N'KUMBHAT FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE795E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'KUNSTOFF',
+		N'KUNSTSTOFFE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE638D01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'KUSHAL',
+		N'Kushal Ltd',
+		N'BSE',
+		NULL,
+		N'INE647N01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'KUSHIND',
+		N'Kush Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE979D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'KUSUMEL',
+		N'KUSAM ELECTRICAL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE175Q01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'KUWERIN',
+		N'KUWER INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE430F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'KZLFIN',
+		N'K.Z.LEASING & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE006C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'L&TFH',
+		N'L&T FINANCE HOLDINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE498L01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'L&TFH',
+		N'L&T Finance Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE498L01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'LACTOSE',
+		N'LACTOSE (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE058I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'LADDERUP',
+		N'LADDERUP FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE519D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'LADIAMO',
+		N'LASER DIAMONDS LTD.',
+		N'BSE',
+		NULL,
+		N'INE995E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'LAFFANSQ',
+		N'LAFFANS PETROCHEMICALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE919B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'LAHL',
+		N'Ladam Affordable Housing Ltd',
+		N'BSE',
+		NULL,
+		N'INE213U01019',
+		5,
+		0
+	UNION
+	SELECT
+		N'LAHOTIOV',
+		N'LAHOTI OVERSEAS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE515C01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'LAKHOTIA',
+		N'LAKHOTIA POLYESTERS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE191O01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'LAKPRE',
+		N'LAKSHMI PRECISION SCREWS LTD.',
+		N'BSE',
+		NULL,
+		N'INE651C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'LAKPRE',
+		N'Lakshmi Precision Screws Limited',
+		N'NSE',
+		N'BZ',
+		N'INE651C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'LAKSELEC',
+		N'LAKSHMI ELECTRICAL CONTROL SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE284C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'LAKSHMIMIL',
+		N'LAKSHMI MILLS COMPANY LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE938C01019',
+		100,
+		0
+	UNION
+	SELECT
+		N'LAL',
+		N'Lorenzini Apparels Ltd',
+		N'BSE',
+		NULL,
+		N'INE740X01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'LALPATHLAB',
+		N'Dr. Lal PathLabs Ltd',
+		N'BSE',
+		NULL,
+		N'INE600L01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'LALPATHLAB',
+		N'Dr. Lal Path Labs Ltd.',
+		N'NSE',
+		N'EQ',
+		N'INE600L01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'LAMBODHARA',
+		N'LAMBODHARA TEXTILES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE112F01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'LAMBODHARA',
+		N'Lambodhara Textiles Limited',
+		N'NSE',
+		N'EQ',
+		N'INE112F01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'LANCER',
+		N'Lancer Container Lines Ltd',
+		N'BSE',
+		NULL,
+		N'INE359U01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'LANCORHOL',
+		N'LANCOR HOLDINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE572G01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'LAOPALA',
+		N'LA OPALA RG LTD.',
+		N'BSE',
+		NULL,
+		N'INE059D01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'LAOPALA',
+		N'La Opala RG Limited',
+		N'NSE',
+		N'EQ',
+		N'INE059D01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'LASA',
+		N'Lasa Supergenerics Ltd',
+		N'BSE',
+		NULL,
+		N'INE670X01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'LASA',
+		N'Lasa Supergenerics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE670X01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'LATENT',
+		N'Latent Light Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE515K01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'LATIMMETAL',
+		N'La Tim Metal & Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE501N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'LAURUSLABS',
+		N'Laurus Labs Ltd',
+		N'BSE',
+		NULL,
+		N'INE947Q01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'LAURUSLABS',
+		N'Laurus Labs Limited',
+		N'NSE',
+		N'EQ',
+		N'INE947Q01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'LAXMIMACH',
+		N'LAKSHMI MACHINE WORKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE269B01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'LAXMIMACH',
+		N'Lakshmi Machine Works Limited',
+		N'NSE',
+		N'EQ',
+		N'INE269B01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'LAXMIPATI',
+		N'Laxmipati Engineering Works Ltd',
+		N'BSE',
+		NULL,
+		N'INE920P01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'LEADFIN',
+		N'LEAD FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE531D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'LEDOTEA',
+		N'LEDO TEA CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE643B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'LEENEE',
+		N'LEE & NEE SOFTWARES (EXPORTS) LTD.',
+		N'BSE',
+		NULL,
+		N'INE791B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'LEHAR',
+		N'Lehar Footwears Ltd',
+		N'BSE',
+		NULL,
+		N'INE976H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'LEHIL',
+		N'Lotus Eye Hospital And Institute Ltd',
+		N'BSE',
+		NULL,
+		N'INE947I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'LEMONTREE',
+		N'Lemon Tree Hotels Ltd',
+		N'BSE',
+		NULL,
+		N'INE970X01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'LEMONTREE',
+		N'Lemon Tree Hotels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE970X01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'LERTHAI',
+		N'Lerthai Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE347D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'LESHAIND',
+		N'LESHA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE050L01048',
+		1,
+		0
+	UNION
+	SELECT
+		N'LEX',
+		N'Lex Nimble Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE860Y01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'LFIC',
+		N'Lakshmi Finance & Industrial Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE850E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'LGBBROSLTD',
+		N'L.G.BALAKRISHNAN & BROS.LTD.',
+		N'BSE',
+		NULL,
+		N'INE337A01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'LGBBROSLTD',
+		N'LG Balakrishnan & Bros Limited',
+		N'NSE',
+		N'EQ',
+		N'INE337A01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'LGBFORGE',
+		N'LGB FORGE LTD.',
+		N'BSE',
+		NULL,
+		N'INE201J01017',
+		1,
+		0
+	UNION
+	SELECT
+		N'LGBFORGE',
+		N'LGB Forge Limited',
+		N'NSE',
+		N'EQ',
+		N'INE201J01017',
+		1,
+		0
+	UNION
+	SELECT
+		N'LIBAS',
+		N'Libas Consumer Products Limited',
+		N'NSE',
+		N'BE',
+		N'INE908V01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'LIBERTSHOE',
+		N'LIBERTY SHOES LTD.',
+		N'BSE',
+		NULL,
+		N'INE557B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'LIBERTSHOE',
+		N'Liberty Shoes Limited',
+		N'NSE',
+		N'EQ',
+		N'INE557B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'LIBORD',
+		N'LIBORD SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE267E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'LIBORDFIN',
+		N'Libord Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE212B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'LICHSGFIN',
+		N'LIC HOUSING FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE115A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'LICHSGFIN',
+		N'LIC Housing Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE115A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'LICNETFGSC',
+		N'LIC NOMURA MF - LIC NOMURA MF G-sec LT ETF - GO',
+		N'NSE',
+		N'GSEC10 NSE Index',
+		N'INF767K01MV5',
+		10,
+		0
+	UNION
+	SELECT
+		N'LICNETFN50',
+		N'LIC MF EXCHANGE TRADED FUND- NIFTY 50',
+		N'BSE',
+		NULL,
+		N'INF767K01OS7',
+		10,
+		0
+	UNION
+	SELECT
+		N'LICNETFN50',
+		N'LICNAMC - LICNFENGP',
+		N'NSE',
+		N'Nifty 50',
+		N'INF767K01OS7',
+		10,
+		0
+	UNION
+	SELECT
+		N'LICNETFSEN',
+		N'LIC MF EXCHANGE TRADED FUND- SENSEX',
+		N'BSE',
+		NULL,
+		N'INF767K01OT5',
+		10,
+		0
+	UNION
+	SELECT
+		N'LICNETFSEN',
+		N'LICNAMC - LICNFESGP',
+		N'NSE',
+		N'SENSEX',
+		N'INF767K01OT5',
+		10,
+		0
+	UNION
+	SELECT
+		N'LICNFNHGP',
+		N'LIC MF Exchange Traded Fund- NIFTY 100',
+		N'BSE',
+		NULL,
+		N'INF767K01PC8',
+		10,
+		0
+	UNION
+	SELECT
+		N'LICNFNHGP',
+		N'LICNAMC - LICNFNHGP',
+		N'NSE',
+		N'Nifty 100',
+		N'INF767K01PC8',
+		10,
+		0
+	UNION
+	SELECT
+		N'LIKHAMI',
+		N'Likhami Consulting Ltd',
+		N'BSE',
+		NULL,
+		N'INE920T01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'LIKHITHA',
+		N'Likhitha Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE060901019',
+		10,
+		0
+	UNION
+	SELECT
+		N'LIKHITHA',
+		N'Likhitha Infrastructure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE060901019',
+		10,
+		0
+	UNION
+	SELECT
+		N'LIMECHM',
+		N'LIME CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE891G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'LINCOLN',
+		N'Lincoln Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE405C01035',
+		10,
+		0
+	UNION
+	SELECT
+		N'LINCOPH',
+		N'LINCOLN PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE405C01035',
+		10,
+		0
+	UNION
+	SELECT
+		N'LINCPEN',
+		N'Linc Pen & Plastics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE802B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'LINCPENQ',
+		N'LINC PEN & PLASTICS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE802B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'LINDEINDIA',
+		N'Linde India Limited',
+		N'BSE',
+		NULL,
+		N'INE473A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'LINDEINDIA',
+		N'Linde India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE473A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'LINKPH',
+		N'LINK PHARMA CHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE302F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'LIPPISYS',
+		N'LIPPI SYSTEMS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE845B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'LIQUIDBEES',
+		N'R*Shares Liquid BeES',
+		N'NSE',
+		N'Government Securities',
+		N'INF732E01037',
+		1000,
+		0
+	UNION
+	SELECT
+		N'LIQUIDETF',
+		N'DSP BLACKROCK LIQUID ETF',
+		N'NSE',
+		N'Nifty1D rate index',
+		N'INF740KA1EU7',
+		1000,
+		0
+	UNION
+	SELECT
+		N'LKPFIN',
+		N'LKP Finance Limited',
+		N'BSE',
+		NULL,
+		N'INE724A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'LKPSEC',
+		N'LKP Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE341H01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'LLFICL',
+		N'Leading Leasing Finance And Investment Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE715Q01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'LLOYDSME',
+		N'LLOYDS METALS AND ENERGY LTD.',
+		N'BSE',
+		NULL,
+		N'INE281B01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'LLOYDSTEEL',
+		N'Lloyds Steels Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE093R01011',
+		1,
+		0
+	UNION
+	SELECT
+		N'LOHIASEC',
+		N'LOHIA SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE803B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'LOKESHMACH',
+		N'LOKESH MACHINES LTD.',
+		N'BSE',
+		NULL,
+		N'INE397H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'LOKESHMACH',
+		N'Lokesh Machines Limited',
+		N'NSE',
+		N'BE',
+		N'INE397H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'LONTE',
+		N'LONGVIEW TEA COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE696E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'LOOKS',
+		N'Looks Health Services Limited',
+		N'BSE',
+		NULL,
+		N'INE204N01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'LORDSCHLO',
+		N'LORDS CHLORO ALKALI LTD.',
+		N'BSE',
+		NULL,
+		N'INE846D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'LORDSHOTL',
+		N'Lords Ishwar Hotels Limited',
+		N'BSE',
+		NULL,
+		N'INE689J01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'LOTUSCHO',
+		N'LOTUS CHOCOLATE CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE026D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'LOTUSEYE',
+		N'Lotus Eye Hospital and Institute Limited',
+		N'NSE',
+		N'EQ',
+		N'INE947I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'LOVABLE',
+		N'LOVABLE LINGERIE LTD.',
+		N'BSE',
+		NULL,
+		N'INE597L01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'LOVABLE',
+		N'Lovable Lingerie Limited',
+		N'NSE',
+		N'EQ',
+		N'INE597L01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'LOYAL',
+		N'Loyal Equipments Ltd',
+		N'BSE',
+		NULL,
+		N'INE876S01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'LOYALTEX',
+		N'LOYAL TEXTILE MILLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE970D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'LPDC',
+		N'LANDMARK PROPERTY DEVELOPMENT COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE197J01017',
+		1,
+		0
+	UNION
+	SELECT
+		N'LPDC',
+		N'Landmark Property Development Company Limited',
+		N'NSE',
+		N'BE',
+		N'INE197J01017',
+		1,
+		0
+	UNION
+	SELECT
+		N'LSIL',
+		N'Lloyds Steels Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE093R01011',
+		1,
+		0
+	UNION
+	SELECT
+		N'LT',
+		N'LARSEN & TOUBRO LTD.',
+		N'BSE',
+		NULL,
+		N'INE018A01030',
+		2,
+		0
+	UNION
+	SELECT
+		N'LT',
+		N'Larsen & Toubro Limited',
+		N'NSE',
+		N'EQ',
+		N'INE018A01030',
+		2,
+		0
+	UNION
+	SELECT
+		N'LTI',
+		N'Larsen & Toubro Infotech Ltd',
+		N'BSE',
+		NULL,
+		N'INE214T01019',
+		1,
+		0
+	UNION
+	SELECT
+		N'LTI',
+		N'Larsen & Toubro Infotech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE214T01019',
+		1,
+		0
+	UNION
+	SELECT
+		N'LTTS',
+		N'L&T Technology Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE010V01017',
+		2,
+		0
+	UNION
+	SELECT
+		N'LTTS',
+		N'L&T Technology Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE010V01017',
+		2,
+		0
+	UNION
+	SELECT
+		N'LUDLOWJUT',
+		N'LUDLOW JUTE & SPECIALITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE983C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'LUHARUKA',
+		N'Luharuka Media & Infra Ltd',
+		N'BSE',
+		NULL,
+		N'INE195E01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'LUMAXIND',
+		N'LUMAX INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE162B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'LUMAXIND',
+		N'Lumax Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE162B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'LUMAXTECH',
+		N'LUMAX AUTO TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE872H01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'LUMAXTECH',
+		N'Lumax Auto Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE872H01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'LUPIN',
+		N'LUPIN LTD.',
+		N'BSE',
+		NULL,
+		N'INE326A01037',
+		2,
+		0
+	UNION
+	SELECT
+		N'LUPIN',
+		N'Lupin Limited',
+		N'NSE',
+		N'EQ',
+		N'INE326A01037',
+		2,
+		0
+	UNION
+	SELECT
+		N'LUXIND',
+		N'Lux Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE150G01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'LUXIND',
+		N'Lux Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE150G01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'LWSKNIT',
+		N'LWS KNITWEAR LTD.',
+		N'BSE',
+		NULL,
+		N'INE281M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'LXMIATO',
+		N'LAKSHMI AUTOMATIC LOOM WORKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE718M01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'LYKALABS',
+		N'LYKA LABS LTD.',
+		N'BSE',
+		NULL,
+		N'INE933A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'LYKALABS',
+		N'Lyka Labs Limited',
+		N'NSE',
+		N'BE',
+		N'INE933A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'LYKISLTD',
+		N'Lykis Limited',
+		N'BSE',
+		NULL,
+		N'INE624M01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'LYNMC',
+		N'LYNX MACHINERY & COMMERCIALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE732D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'LYPSAGEMS',
+		N'Lypsa Gems & Jewellery Ltd',
+		N'BSE',
+		NULL,
+		N'INE142K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'LYPSAGEMS',
+		N'Lypsa Gems & Jewellery Limited',
+		N'NSE',
+		N'EQ',
+		N'INE142K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'M&M',
+		N'MAHINDRA & MAHINDRA LTD.',
+		N'BSE',
+		NULL,
+		N'INE101A01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'M&M',
+		N'Mahindra & Mahindra Limited',
+		N'NSE',
+		N'EQ',
+		N'INE101A01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'M&MFIN',
+		N'MAHINDRA & MAHINDRA FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE774D01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'M&MFIN',
+		N'Mahindra & Mahindra Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE774D01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'M100',
+		N'Motilal Oswal Mutual Fund - Motilal Oswal MOSt Shares Midcap 100 ETF- Growth option',
+		N'BSE',
+		NULL,
+		N'INF247L01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'M100',
+		N'Motilal Oswal Mutual Fund - Motilal Oswal MOSt Shares M100 ETF GO',
+		N'NSE',
+		N'Nifty Midcap 100',
+		N'INF247L01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'M50',
+		N'Motilal Oswal MOSt Shares M50 ETF',
+		N'BSE',
+		NULL,
+		N'INF247L01536',
+		7,
+		0
+	UNION
+	SELECT
+		N'M50',
+		N'Motilal Oswal Mutual Fund - Motilal Oswal MOSt Shares M50 ETF',
+		N'NSE',
+		N'Nifty 50',
+		N'INF247L01536',
+		7,
+		0
+	UNION
+	SELECT
+		N'MAANALU',
+		N'MAAN ALUMINIUM LTD.',
+		N'BSE',
+		NULL,
+		N'INE215I01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAANALU',
+		N'Maan Aluminium Limited',
+		N'NSE',
+		N'EQ',
+		N'INE215I01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MACH',
+		N'Mac Hotels Ltd',
+		N'BSE',
+		NULL,
+		N'INE004Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MACINTR',
+		N'MACRO (INTERNATIONAL) EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE307N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MACPLASQ',
+		N'MACHINO PLASTICS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE082B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MACPOWER',
+		N'Macpower CNC Machines Limited',
+		N'NSE',
+		N'BE',
+		N'INE155Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MADHAV',
+		N'MADHAV MARBLES & GRANITES LTD.',
+		N'BSE',
+		NULL,
+		N'INE925C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MADHAV',
+		N'Madhav Marbles and Granites Limited',
+		N'NSE',
+		N'EQ',
+		N'INE925C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MADHAVIPL',
+		N'Madhav Infra Projects Ltd',
+		N'BSE',
+		NULL,
+		N'INE631R01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'MADHUCON',
+		N'MADHUCON PROJECTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE378D01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'MADHUCON',
+		N'Madhucon Projects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE378D01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'MADHUDIN',
+		N'MADHUSUDAN INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE469C01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'MADHURIND',
+		N'MADHUR INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE110C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MADHUSE',
+		N'MADHUSUDAN SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE856D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MADHUVEER',
+		N'Madhuveer Com 18 Network Ltd',
+		N'BSE',
+		NULL,
+		N'INE312M01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MADRASFERT',
+		N'Madras Fertilizers Ltd',
+		N'BSE',
+		NULL,
+		N'INE414A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MADRASFERT',
+		N'Madras Fertilizers Limited',
+		N'NSE',
+		N'BE',
+		N'INE414A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAESGETF',
+		N'Mirae Asset ESG Sector Leaders ETF',
+		N'BSE',
+		NULL,
+		N'INF769K01GS9',
+		17.5,
+		0
+	UNION
+	SELECT
+		N'MAFATIND',
+		N'MAFATLAL INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE270B01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAGADHSUGAR',
+		N'Magadh Sugar & Energy Ltd',
+		N'BSE',
+		NULL,
+		N'INE347W01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAGADSUGAR',
+		N'Magadh Sugar & Energy Limited',
+		N'NSE',
+		N'EQ',
+		N'INE347W01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAGANTR',
+		N'MAGNANIMOUS TRADE & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE664N01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAGMA',
+		N'MAGMA FINCORP LTD.',
+		N'BSE',
+		NULL,
+		N'INE511C01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'MAGMA',
+		N'Magma Fincorp Limited',
+		N'NSE',
+		N'EQ',
+		N'INE511C01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'MAGNAELQ',
+		N'MAGNA ELECTRO CASTINGS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE437D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAGNUM',
+		N'MAGNUM VENTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE387I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAGNUM',
+		N'Magnum Ventures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE387I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHAANF',
+		N'MAHAAN FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE734D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHABANK',
+		N'BANK OF MAHARASHTRA',
+		N'BSE',
+		NULL,
+		N'INE457A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHABANK',
+		N'Bank of Maharashtra',
+		N'NSE',
+		N'EQ',
+		N'INE457A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHACORP',
+		N'MAHARASHTRA CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE272E01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'MAHALXSE',
+		N'MAHALAXMI SEAMLESS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE257F01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHANIN',
+		N'MAHAN INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE735D01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHAPEXLTD',
+		N'MAHA RASHTRA APEX CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE843B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHAPEXLTD',
+		N'Maha Rashtra Apex Corporation Limited',
+		N'NSE',
+		N'BE',
+		N'INE843B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHASTEEL',
+		N'MAHAMAYA STEEL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE451L01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHASTEEL',
+		N'Mahamaya Steel Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE451L01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHAVIRIND',
+		N'Mahavir Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE987M01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'MAHEPC',
+		N'Mahindra EPC Irrigation Ltd',
+		N'BSE',
+		NULL,
+		N'INE215D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHEPC',
+		N'Mahindra EPC Irrigation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE215D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHESH',
+		N'Mahesh Developers Ltd',
+		N'BSE',
+		NULL,
+		N'INE01MO01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHESHWARI',
+		N'Maheshwari Logistics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE263W01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHINDCIE',
+		N'Mahindra CIE Automotive Limited',
+		N'BSE',
+		NULL,
+		N'INE536H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHINDCIE',
+		N'Mahindra CIE Automotive Limited',
+		N'NSE',
+		N'EQ',
+		N'INE536H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHLIFE',
+		N'MAHINDRA LIFESPACE DEVELOPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE813A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHLIFE',
+		N'Mahindra Lifespace Developers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE813A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHLOG',
+		N'Mahindra Logistics Ltd',
+		N'BSE',
+		NULL,
+		N'INE766P01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHLOG',
+		N'Mahindra Logistics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE766P01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHSCOOTER',
+		N'MAHARASHTRA SCOOTERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE288A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHSCOOTER',
+		N'Maharashtra Scooters Limited',
+		N'NSE',
+		N'EQ',
+		N'INE288A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAHSEAMLES',
+		N'MAHARASHTRA SEAMLESS LTD.',
+		N'BSE',
+		NULL,
+		N'INE271B01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'MAHSEAMLES',
+		N'Maharashtra Seamless Limited',
+		N'NSE',
+		N'EQ',
+		N'INE271B01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'MAHSHRE',
+		N'MAHASHREE TRADING LTD.',
+		N'BSE',
+		NULL,
+		N'INE924T01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAINFRA',
+		N'MARUTI INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE392G01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAITHANALL',
+		N'MAITHAN ALLOYS LTD.',
+		N'BSE',
+		NULL,
+		N'INE683C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAITHANALL',
+		N'Maithan Alloys Limited',
+		N'NSE',
+		N'EQ',
+		N'INE683C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAITRI',
+		N'Maitri Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE501L01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAJESAUT',
+		N'MAJESTIC AUTO LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE201B01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAJESCO',
+		N'Majesco Limited',
+		N'NSE',
+		N'BE',
+		N'INE898S01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'MAKERSL',
+		N'MAKERS LABORATORIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE987A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAL',
+		N'Meyer Apparel Ltd',
+		N'BSE',
+		NULL,
+		N'INE100C01024',
+		3,
+		0
+	UNION
+	SELECT
+		N'MALLCOM',
+		N'Mallcom (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE389C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MALUPAPER',
+		N'MALU PAPER MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE383H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MALUPAPER',
+		N'Malu Paper Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE383H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAN50ETF',
+		N'MIRAE ASSET NIFTY 50 ETF (MAN50ETF)',
+		N'BSE',
+		NULL,
+		N'INF769K01EG9',
+		100,
+		0
+	UNION
+	SELECT
+		N'MAN50ETF',
+		N'MIRAEAMC - MAN50ETF',
+		N'NSE',
+		N'Nifty 50',
+		N'INF769K01EG9',
+		100,
+		0
+	UNION
+	SELECT
+		N'MANAKALUCO',
+		N'Manaksia Aluminium Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE859Q01017',
+		1,
+		0
+	UNION
+	SELECT
+		N'MANAKCOAT',
+		N'Manaksia Coated Metals & Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE830Q01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'MANAKSIA',
+		N'MANAKSIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE015D01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'MANAKSIA',
+		N'Manaksia Limited',
+		N'NSE',
+		N'EQ',
+		N'INE015D01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'MANAKSTEEL',
+		N'Manaksia Steels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE824Q01011',
+		1,
+		0
+	UNION
+	SELECT
+		N'MANAKSTELTD',
+		N'Manaksia Steels Ltd',
+		N'BSE',
+		NULL,
+		N'INE824Q01011',
+		1,
+		0
+	UNION
+	SELECT
+		N'MANALIPETC',
+		N'MANALI PETROCHEMICAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE201A01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'MANALIPETC',
+		N'Manali Petrochemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE201A01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'MANAPPURAM',
+		N'MANAPPURAM FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE522D01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'MANAPPURAM',
+		N'Manappuram Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE522D01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'MANAS',
+		N'Manas Properties Ltd',
+		N'BSE',
+		NULL,
+		N'INE800W01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANCREDIT',
+		N'MANGAL CREDIT AND FINCORP LTD.',
+		N'BSE',
+		NULL,
+		N'INE545L01039',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANGALAM',
+		N'MANGALAM DRUGS & ORGANICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE584F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANGALAM',
+		N'Mangalam Drugs And Organics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE584F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANGCHEFER',
+		N'MANGALORE CHEMICALS & FERTILIZERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE558B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANGCHEFER',
+		N'Mangalore Chemicals & Fertilizers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE558B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANGIND',
+		N'Mangalam Industrial Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE717C01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'MANGLMCEM',
+		N'MANGALAM CEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE347A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANGLMCEM',
+		N'Mangalam Cement Limited',
+		N'NSE',
+		N'EQ',
+		N'INE347A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANGTIMBER',
+		N'MANGALAM TIMBER PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE805B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANGTIMBER',
+		N'Mangalam Timber Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE805B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANINDS',
+		N'MAN INDUSTRIES (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE993A01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'MANINDS',
+		N'Man Industries (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE993A01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'MANINFRA',
+		N'MAN INFRACONSTRUCTION LTD.',
+		N'BSE',
+		NULL,
+		N'INE949H01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'MANINFRA',
+		N'Man Infraconstruction Limited',
+		N'NSE',
+		N'EQ',
+		N'INE949H01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'MANJEERA',
+		N'MANJEERA CONSTRUCTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE320D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANOMAY',
+		N'Manomay Tex India Ltd',
+		N'BSE',
+		NULL,
+		N'INE784W01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANORAMA',
+		N'Manorama Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE00VM01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANORG',
+		N'Mangalam Organics Limited',
+		N'BSE',
+		NULL,
+		N'INE370D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANRAJH',
+		N'MANRAJ HOUSING FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE948I01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANSIFIN',
+		N'MANSI FINANCE (CHENNAI) LTD.',
+		N'BSE',
+		NULL,
+		N'INE094E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MANUGRAPH',
+		N'MANUGRAPH INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE867A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'MANUGRAPH',
+		N'Manugraph India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE867A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'MANXT50',
+		N'MIRAEAMC - MANXT50',
+		N'NSE',
+		N'Nifty Next 50',
+		N'INF769K01FN2',
+		275,
+		0
+	UNION
+	SELECT
+		N'MANXT50ETF',
+		N'Mirae Asset Nifty Next 50 ETF (MANXT50ETF)',
+		N'BSE',
+		NULL,
+		N'INF769K01FN2',
+		275,
+		0
+	UNION
+	SELECT
+		N'MARALOVER',
+		N'MARAL OVERSEAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE882A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MARALOVER',
+		N'Maral Overseas Limited',
+		N'NSE',
+		N'BE',
+		N'INE882A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MARATHON',
+		N'MARATHON NEXTGEN REALTY LTD.',
+		N'BSE',
+		NULL,
+		N'INE182D01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'MARATHON',
+		N'Marathon Nextgen Realty Limited',
+		N'NSE',
+		N'EQ',
+		N'INE182D01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'MARBU',
+		N'MARTIN BURN LTD.',
+		N'BSE',
+		NULL,
+		N'INE199D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MARG',
+		N'MARG LTD.',
+		N'BSE',
+		NULL,
+		N'INE941E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MARGOFIN',
+		N'Margo Finance Limited',
+		N'BSE',
+		NULL,
+		N'INE680B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MARICO',
+		N'MARICO LTD.',
+		N'BSE',
+		NULL,
+		N'INE196A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'MARICO',
+		N'Marico Limited',
+		N'NSE',
+		N'EQ',
+		N'INE196A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'MARINE',
+		N'Marine Electricals (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE01JE01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'MARIS',
+		N'MARIS SPINNERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE866D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MARKSANS',
+		N'MARKSANS PHARMA LTD.',
+		N'BSE',
+		NULL,
+		N'INE750C01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'MARKSANS',
+		N'Marksans Pharma Limited',
+		N'NSE',
+		N'EQ',
+		N'INE750C01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'MARSONS',
+		N'MARSONS LIMITED',
+		N'BSE',
+		NULL,
+		N'INE415B01044',
+		1,
+		0
+	UNION
+	SELECT
+		N'MARUTI',
+		N'MARUTI SUZUKI INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE585B01010',
+		5,
+		0
+	UNION
+	SELECT
+		N'MARUTI',
+		N'Maruti Suzuki India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE585B01010',
+		5,
+		0
+	UNION
+	SELECT
+		N'MARUTISE',
+		N'MARUTI SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE368C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MASCH',
+		N'MASTER CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE523D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MASFIN',
+		N'MAS Financial Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE348L01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MASFIN',
+		N'MAS Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE348L01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MASKINVEST',
+		N'Mask Investments Limited',
+		N'NSE',
+		N'BE',
+		N'INE885F01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MASL',
+		N'MAX ALERT SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE253N01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MASTEK',
+		N'MASTEK LTD.',
+		N'BSE',
+		NULL,
+		N'INE759A01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'MASTEK',
+		N'Mastek Limited',
+		N'NSE',
+		N'EQ',
+		N'INE759A01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'MASTERTR',
+		N'MASTER TRUST LTD.',
+		N'BSE',
+		NULL,
+		N'INE677D01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'MATHEWE',
+		N'MATHEW EASOW RESEARCH SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE963B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MATRIMONY',
+		N'Matrimony.com Ltd',
+		N'BSE',
+		NULL,
+		N'INE866R01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'MATRIMONY',
+		N'Matrimony.Com Limited',
+		N'NSE',
+		N'EQ',
+		N'INE866R01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'MAWANASUG',
+		N'MAWANA SUGARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE636A01039',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAWANASUG',
+		N'Mawana Sugars Limited',
+		N'NSE',
+		N'EQ',
+		N'INE636A01039',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAXHEALTH',
+		N'Max Healthcare Institute Ltd',
+		N'BSE',
+		NULL,
+		N'INE027H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAXHEALTH',
+		N'Max Healthcare Institute Limited',
+		N'NSE',
+		N'EQ',
+		N'INE027H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAXHEIGHTS',
+		N'MAXHEIGHTS INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE393F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAXIMUS',
+		N'Maximus International Ltd',
+		N'BSE',
+		NULL,
+		N'INE544W01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAXIND',
+		N'Max India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE0CG601016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAXINDIA',
+		N'Max India Ltd',
+		N'BSE',
+		NULL,
+		N'INE0CG601016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAXVIL',
+		N'Max Ventures and Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE154U01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAXVIL',
+		N'Max Ventures and Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE154U01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAYUKH',
+		N'Mayukh Dealtrade Ltd',
+		N'BSE',
+		NULL,
+		N'INE280E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAYUR',
+		N'MAYUR LEATHER PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE799E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAYURFL',
+		N'MAYUR FLOORINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE262W01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAYURUNIQ',
+		N'MAYUR UNIQUOTERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE040D01038',
+		5,
+		0
+	UNION
+	SELECT
+		N'MAYURUNIQ',
+		N'Mayur Uniquoters Ltd',
+		N'NSE',
+		N'EQ',
+		N'INE040D01038',
+		5,
+		0
+	UNION
+	SELECT
+		N'MAZDA',
+		N'Mazda Limited',
+		N'NSE',
+		N'EQ',
+		N'INE885E01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAZDALTD',
+		N'MAZDA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE885E01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAZDOCK',
+		N'Mazagon Dock Shipbuilders Ltd',
+		N'BSE',
+		NULL,
+		N'INE249Z01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MAZDOCK',
+		N'Mazagon Dock Shipbuilders Limited',
+		N'NSE',
+		N'EQ',
+		N'INE249Z01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MBAPL',
+		N'Madhya Bharat Agro Products Limited',
+		N'NSE',
+		N'BE',
+		N'INE900L01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MBECL',
+		N'MCNALLY BHARAT ENGINEERING COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE748A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MBECL',
+		N'Mcnally Bharat Engineering Company Limited',
+		N'NSE',
+		N'BE',
+		N'INE748A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MBLINFRA',
+		N'MBL Infrastructures Ltd',
+		N'BSE',
+		NULL,
+		N'INE912H01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MBLINFRA',
+		N'MBL Infrastructures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE912H01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MCCHRLS-B',
+		N'MAC CHARLES (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE435D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MCDHOLDING',
+		N'MCDOWELL HOLDINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE836H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MCDHOLDING',
+		N'McDowell Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE836H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MCDOWELL-N',
+		N'United Spirits Limited',
+		N'NSE',
+		N'EQ',
+		N'INE854D01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'MCL',
+		N'Madhav Copper Limited',
+		N'NSE',
+		N'EQ',
+		N'INE813V01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'MCLEODRUSS',
+		N'MCLEOD RUSSEL INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE942G01012',
+		5,
+		0
+	UNION
+	SELECT
+		N'MCLEODRUSS',
+		N'Mcleod Russel India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE942G01012',
+		5,
+		0
+	UNION
+	SELECT
+		N'MCLOUD',
+		N'Magellanic Cloud Ltd',
+		N'BSE',
+		NULL,
+		N'INE613C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MCLTD',
+		N'Munoth Communication Ltd',
+		N'BSE',
+		NULL,
+		N'INE410E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MCX',
+		N'MULTI COMMODITY EXCHANGE OF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE745G01035',
+		10,
+		0
+	UNION
+	SELECT
+		N'MCX',
+		N'Multi Commodity Exchange of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE745G01035',
+		10,
+		0
+	UNION
+	SELECT
+		N'MDRNSTL',
+		N'MODERN STEELS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE001F01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEDICAMEQ',
+		N'MEDICAMEN BIOTECH LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE646B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEDICAPQ',
+		N'MEDI-CAPS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE442D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEDICO',
+		N'Medico Remedies Ltd',
+		N'BSE',
+		NULL,
+		N'INE630Y01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEDINOV',
+		N'MEDINOVA DIAGNOSTIC SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE047C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEERA',
+		N'Meera Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE343X01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEFCOMCAP',
+		N'MEFCOM CAPITAL MARKETS LTD.',
+		N'BSE',
+		NULL,
+		N'INE186C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEGACOR',
+		N'MEGA CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE804B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'MEGASOFT',
+		N'MEGASOFT LTD.',
+		N'BSE',
+		NULL,
+		N'INE933B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEGASOFT',
+		N'Megasoft Limited',
+		N'NSE',
+		N'EQ',
+		N'INE933B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEGASTAR',
+		N'Megastar Foods Ltd',
+		N'BSE',
+		NULL,
+		N'INE00EM01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEGFI',
+		N'MEGA FIN (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE524D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEGH',
+		N'MEGHMANI ORGANICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE974H01013',
+		1,
+		0
+	UNION
+	SELECT
+		N'MEGH',
+		N'Meghmani Organics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE974H01013',
+		1,
+		0
+	UNION
+	SELECT
+		N'MEGLON',
+		N'MEGLON INFRA-REAL (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE218B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEGRISOFT',
+		N'Megri Soft Ltd',
+		N'BSE',
+		NULL,
+		N'INE756R01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEHAI',
+		N'Mehai Technology Ltd',
+		N'BSE',
+		NULL,
+		N'INE062Y01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEHIF',
+		N'MEHTA INTEGRATED FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE240B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEHSECU',
+		N'MEHTA SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE241B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEL',
+		N'Meenakshi Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE242Q01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MELSTAR',
+		N'MELSTAR INFORMATION TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE817A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MELSTAR',
+		N'Melstar Information Technologies Limited',
+		N'NSE',
+		N'BZ',
+		N'INE817A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MENAMANI',
+		N'Mena Mani Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE148B01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'MENNPIS',
+		N'MENON PISTONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE650G01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'MENONBE',
+		N'MENON BEARINGS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE071D01033',
+		1,
+		0
+	UNION
+	SELECT
+		N'MENONBE',
+		N'Menon Bearings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE071D01033',
+		1,
+		0
+	UNION
+	SELECT
+		N'MEP',
+		N'MEP Infrastructure Developers Ltd',
+		N'BSE',
+		NULL,
+		N'INE776I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEP',
+		N'MEP Infrastructure Developers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE776I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MERCANTILE',
+		N'Mercantile Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE689O01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MERCATOR',
+		N'MERCATOR LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE934B01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'MERCATOR',
+		N'Mercator Limited',
+		N'NSE',
+		N'BE',
+		N'INE934B01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'MERCTRD',
+		N'MERCURY TRADE LINKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE319T01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MERCURYLAB',
+		N'Mercury Laboratories Ltd',
+		N'BSE',
+		NULL,
+		N'INE947G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MESCON',
+		N'Mideast Integrated Steels Ltd',
+		N'BSE',
+		NULL,
+		N'INE170N01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MESPHAR-B',
+		N'MESCO PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE839X01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'METALCO',
+		N'METAL COATINGS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE161E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'METALFORGE',
+		N'Metalyst Forgings Limited',
+		N'BSE',
+		NULL,
+		N'INE425A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'METALFORGE',
+		N'Metalyst Forgings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE425A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'METROGLOBL',
+		N'Metroglobal Limited',
+		N'BSE',
+		NULL,
+		N'INE085D01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'METROPOLIS',
+		N'Metropolis Healthcare Ltd',
+		N'BSE',
+		NULL,
+		N'INE112L01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'METROPOLIS',
+		N'Metropolis Healthcare Limited',
+		N'NSE',
+		N'EQ',
+		N'INE112L01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'METSL',
+		N'Maestros Electronics & Telecommunications Systems Ltd',
+		N'BSE',
+		NULL,
+		N'INE318N01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MEWATZI',
+		N'MEWAT ZINC LTD.',
+		N'BSE',
+		NULL,
+		N'INE235U01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MFLINDIA',
+		N'MFL INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE244C01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'MFSL',
+		N'Max Financial Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE180A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'MFSL',
+		N'Max Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE180A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'MGEL',
+		N'Mangalam Global Enterprise Limited',
+		N'NSE',
+		N'EQ',
+		N'INE0APB01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MGL',
+		N'Mahanagar Gas Ltd',
+		N'BSE',
+		NULL,
+		N'INE002S01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MGL',
+		N'Mahanagar Gas Limited',
+		N'NSE',
+		N'EQ',
+		N'INE002S01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MHEL',
+		N'Mewar Hi-Tech Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE957U01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MHLXMIRU',
+		N'MAHALAXMI RUBTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE112D01035',
+		10,
+		0
+	UNION
+	SELECT
+		N'MHRIL',
+		N'MAHINDRA HOLIDAYS & RESORTS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE998I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MHRIL',
+		N'Mahindra Holidays & Resorts India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE998I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MHSGRMS',
+		N'MAHASAGAR TRAVELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE007G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MIC',
+		N'MIC ELECTRONICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE287C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'MIC',
+		N'MIC Electronics Limited',
+		N'NSE',
+		N'BE',
+		N'INE287C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'MICROSE',
+		N'MICROSE INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE809F01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MIDEASTP',
+		N'MID EAST PORTFOLIO MANAGEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE033E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MIDHANI',
+		N'Mishra Dhatu Nigam Ltd',
+		N'BSE',
+		NULL,
+		N'INE099Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MIDHANI',
+		N'Mishra Dhatu Nigam Limited',
+		N'NSE',
+		N'EQ',
+		N'INE099Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MIDINDIA',
+		N'MID INDIA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE401C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MIDINFRA',
+		N'Midas Infra Trade Limited',
+		N'BSE',
+		NULL,
+		N'INE290M01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'MIDWEST',
+		N'MIDWEST GOLD LTD.',
+		N'BSE',
+		NULL,
+		N'INE519N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MIHIKA',
+		N'Mihika Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE779Q01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MIL',
+		N'Medico Intercontinental Ltd',
+		N'BSE',
+		NULL,
+		N'INE858Q01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MILEFUR',
+		N'Milestone Furniture Ltd',
+		N'BSE',
+		NULL,
+		N'INE424Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MILESTONE',
+		N'MILESTONE GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE151H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MILLENNIUM',
+		N'Millennium Online Solutions ( India ) Ltd',
+		N'BSE',
+		NULL,
+		N'INE570N01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'MINAXI',
+		N'MINAXI TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE952C01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'MINDACORP',
+		N'Minda Corporation Ltd',
+		N'BSE',
+		NULL,
+		N'INE842C01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'MINDACORP',
+		N'Minda Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE842C01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'MINDAIND',
+		N'MINDA INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE405E01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'MINDAIND',
+		N'Minda Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE405E01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'MINDTECK',
+		N'MINDTECK (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE110B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MINDTECK',
+		N'Mindteck (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE110B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MINDTREE',
+		N'MINDTREE LTD.',
+		N'BSE',
+		NULL,
+		N'INE018I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MINDTREE',
+		N'MindTree Limited',
+		N'NSE',
+		N'EQ',
+		N'INE018I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MINFY',
+		N'Mahaveer Infoway Ltd',
+		N'BSE',
+		NULL,
+		N'INE019D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MINID',
+		N'MINI DIAMONDS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE281E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MINOLTAF',
+		N'MINOLTA FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE514C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MIRCELECTR',
+		N'MIRC ELECTRONICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE831A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'MIRCELECTR',
+		N'MIRC Electronics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE831A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'MIRCH',
+		N'Mirch Technologies (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE098E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MIRZAINT',
+		N'MIRZA INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE771A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'MIRZAINT',
+		N'Mirza International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE771A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'MISHKA',
+		N'Mishka Exim Ltd',
+		N'BSE',
+		NULL,
+		N'INE540S01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MISHTANN',
+		N'Mishtann Foods Ltd',
+		N'BSE',
+		NULL,
+		N'INE094S01041',
+		1,
+		0
+	UNION
+	SELECT
+		N'MISQUITA',
+		N'Misquita Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE957W01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'MITSHI',
+		N'Mitshi India Ltd',
+		N'BSE',
+		NULL,
+		N'INE844D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MITSU',
+		N'Mitsu Chem Plast Ltd',
+		N'BSE',
+		NULL,
+		N'INE317V01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MITTAL',
+		N'Mittal Life Style Limited',
+		N'NSE',
+		N'EQ',
+		N'INE997Y01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MIVENMACH',
+		N'MIVEN MACHINE TOOLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE338P01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MJCO',
+		N'Majesco Ltd',
+		N'BSE',
+		NULL,
+		N'INE898S01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'MKEXIM',
+		N'M.K. Exim (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE227F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MKTCREAT',
+		N'MARKET CREATORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE944C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MLKFOOD',
+		N'MILKFOOD LTD.',
+		N'BSE',
+		NULL,
+		N'INE588G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MMFL',
+		N'M.M.FORGINGS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE227C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MMFL',
+		N'MM Forgings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE227C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MMLF',
+		N'Money Masters Leasing & Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE340O01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MMP',
+		N'MMP Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE511Y01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MMRUBBR-B',
+		N'MM RUBBER COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE159E01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'MMTC',
+		N'MMTC LTD.',
+		N'BSE',
+		NULL,
+		N'INE123F01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'MMTC',
+		N'MMTC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE123F01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'MMWL',
+		N'MEDIA MATRIX WORLDWIDE LTD.',
+		N'BSE',
+		NULL,
+		N'INE200D01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'MNIL',
+		N'Mega Nirman and Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE216Q01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'MNKALCOLTD',
+		N'Manaksia Aluminium Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE859Q01017',
+		1,
+		0
+	UNION
+	SELECT
+		N'MNKCMILTD',
+		N'Manaksia Coated Metals & Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE830Q01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'MNPLFIN',
+		N'MANIPAL FINANCE CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE798E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MODAIRY',
+		N'MODERN DAIRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE617B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MODCL',
+		N'Modern Converters Ltd',
+		N'BSE',
+		NULL,
+		N'INE250S01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MODERN',
+		N'MODERN INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE251D01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'MODINATUR',
+		N'Modi Naturals Limited',
+		N'BSE',
+		NULL,
+		N'INE537F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MODINSU',
+		N'MODERN INSULATORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE219W01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MODIPON',
+		N'MODIPON LTD.',
+		N'BSE',
+		NULL,
+		N'INE170C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MODIRUBBER',
+		N'MODI RUBBER LTD.',
+		N'BSE',
+		NULL,
+		N'INE832A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MODIRUBBER',
+		N'Modi Rubber Limited',
+		N'NSE',
+		N'BE',
+		N'INE832A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MODISNME',
+		N'MODISON METALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE737D01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'MODRNSH',
+		N'MODERN SHARES & STOCKBROKERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE370A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MODULEX',
+		N'Modulex Construction Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE064R01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOHITE',
+		N'Mohite Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE154B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOHITIND',
+		N'MOHIT INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE954E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOHITIND',
+		N'Mohit Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE954E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOHITPPR',
+		N'MOHIT PAPER MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE388C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOHOTAIND',
+		N'Mohota Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE313D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOHOTAIND',
+		N'Mohota Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE313D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOIL',
+		N'MOIL LTD.',
+		N'BSE',
+		NULL,
+		N'INE490G01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOIL',
+		N'MOIL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE490G01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOLDTECH',
+		N'Mold-Tek Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE835B01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'MOLDTEK',
+		N'MOLD-TEK TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE835B01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'MOLDTKPAC',
+		N'Mold-Tek Packaging Limited',
+		N'BSE',
+		NULL,
+		N'INE893J01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'MOLDTKPAC',
+		N'Mold-Tek Packaging Limited',
+		N'NSE',
+		N'EQ',
+		N'INE893J01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'MONARCH',
+		N'Monarch Networth Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE903D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MONEYBOXX',
+		N'Moneyboxx Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE296Q01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MONGIPA',
+		N'MOONGIPA CAPITAL FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE153K01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MONIND',
+		N'Monind Ltd',
+		N'BSE',
+		NULL,
+		N'INE407E01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'MONTECARLO',
+		N'Monte Carlo Fashions Ltd',
+		N'BSE',
+		NULL,
+		N'INE950M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MONTECARLO',
+		N'Monte Carlo Fashions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE950M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOONGIPASEC',
+		N'Moongipa Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE618R01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MORARJEE',
+		N'MORARJEE TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE161G01027',
+		7,
+		0
+	UNION
+	SELECT
+		N'MORARJEE',
+		N'Morarjee Textiles Limited',
+		N'NSE',
+		N'EQ',
+		N'INE161G01027',
+		7,
+		0
+	UNION
+	SELECT
+		N'MORARKFI',
+		N'MORARKA FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE367A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOREPENLAB',
+		N'MOREPEN LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE083A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'MOREPENLAB',
+		N'Morepen Laboratories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE083A01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'MORGAN',
+		N'MORGAN VENTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE902C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MORGANITE',
+		N'MORGANITE CRUCIBLE (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE599F01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'MOSCHIP',
+		N'Moschip Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE935B01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'MOTHERSUMI',
+		N'MOTHERSON SUMI SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE775A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'MOTHERSUMI',
+		N'Motherson Sumi Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE775A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'MOTILALOFS',
+		N'MOTILAL OSWAL FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE338I01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'MOTILALOFS',
+		N'Motilal Oswal Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE338I01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'MOTOGENFIN',
+		N'MOTOR & GENERAL FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE861B01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'MOTOGENFIN',
+		N'The Motor & General Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE861B01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'MOUNT',
+		N'Mount Housing and Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE444X01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MOUNTSHIQ',
+		N'MOUNT SHIVALIK INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE410C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MPDL',
+		N'MPDL Ltd',
+		N'BSE',
+		NULL,
+		N'INE493H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MPHASIS',
+		N'MPHASIS LTD.',
+		N'BSE',
+		NULL,
+		N'INE356A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MPHASIS',
+		N'MphasiS Limited',
+		N'NSE',
+		N'EQ',
+		N'INE356A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MPILCORPL',
+		N'MPIL CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE844C01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'MPL',
+		N'MPL Plastics Limited',
+		N'BSE',
+		NULL,
+		N'INE343A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MPSLTD',
+		N'MPS LTD.',
+		N'BSE',
+		NULL,
+		N'INE943D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MPSLTD',
+		N'MPS Limited',
+		N'NSE',
+		N'EQ',
+		N'INE943D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MRCEXIM',
+		N'MRC Exim Ltd',
+		N'BSE',
+		NULL,
+		N'INE333Y01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MRF',
+		N'MRF LTD.',
+		N'BSE',
+		NULL,
+		N'INE883A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MRF',
+		N'MRF Limited',
+		N'NSE',
+		N'EQ',
+		N'INE883A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MRO-TEK',
+		N'MRO-TEK Realty Ltd',
+		N'BSE',
+		NULL,
+		N'INE398B01018',
+		5,
+		0
+	UNION
+	SELECT
+		N'MRO-TEK',
+		N'MRO-TEK Realty Limited',
+		N'NSE',
+		N'EQ',
+		N'INE398B01018',
+		5,
+		0
+	UNION
+	SELECT
+		N'MRP',
+		N'MRP Agro Ltd',
+		N'BSE',
+		NULL,
+		N'INE0D7801012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MRPL',
+		N'MANGALORE REFINERY & PETROCHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE103A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MRPL',
+		N'Mangalore Refinery and Petrochemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE103A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MRSS',
+		N'Majestic Research Services and Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE196R01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MRUTR',
+		N'MRUGESH TRADING LTD.',
+		N'BSE',
+		NULL,
+		N'INE738D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MSL',
+		N'Mangalam Seeds Ltd',
+		N'BSE',
+		NULL,
+		N'INE829S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MSPL',
+		N'MSP STEEL & POWER LTD.',
+		N'BSE',
+		NULL,
+		N'INE752G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MSPL',
+		N'MSP Steel & Power Limited',
+		N'NSE',
+		N'EQ',
+		N'INE752G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MSRINDIA',
+		N'MSR INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE331L01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'MSTC',
+		N'MSTC Ltd',
+		N'BSE',
+		NULL,
+		N'INE255X01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MSTCLTD',
+		N'Mstc Limited',
+		N'NSE',
+		N'EQ',
+		N'INE255X01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MTEDUCARE',
+		N'MT EDUCARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE472M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MTEDUCARE',
+		N'MT Educare Limited',
+		N'NSE',
+		N'EQ',
+		N'INE472M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MTNL',
+		N'MAHANAGAR TELEPHONE NIGAM LTD.',
+		N'BSE',
+		NULL,
+		N'INE153A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MTNL',
+		N'Mahanagar Telephone Nigam Limited',
+		N'NSE',
+		N'EQ',
+		N'INE153A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MTPL',
+		N'Marg Techno Projects Ltd',
+		N'BSE',
+		NULL,
+		N'INE245H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUDRA',
+		N'Mudra Financial Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE967S01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUKANDENGG',
+		N'MUKAND ENGINEERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE022B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUKANDENGG',
+		N'Mukand Engineers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE022B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUKANDLTD',
+		N'MUKAND LTD.',
+		N'BSE',
+		NULL,
+		N'INE304A01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUKANDLTD',
+		N'Mukand Limited',
+		N'NSE',
+		N'EQ',
+		N'INE304A01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUKATPIP',
+		N'MUKAT PIPES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE862C01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'MUKESHB',
+		N'MUKESH BABU FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE596B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUKTA',
+		N'Mukta Agriculture Ltd',
+		N'BSE',
+		NULL,
+		N'INE160O01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUKTAARTS',
+		N'MUKTA ARTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE374B01019',
+		5,
+		0
+	UNION
+	SELECT
+		N'MUKTAARTS',
+		N'Mukta Arts Limited',
+		N'NSE',
+		N'EQ',
+		N'INE374B01019',
+		5,
+		0
+	UNION
+	SELECT
+		N'MUL',
+		N'Mauria Udyog Ltd',
+		N'BSE',
+		NULL,
+		N'INE150D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MULLER',
+		N'MULLER & PHIPPS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE003F01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'MULTIBASE',
+		N'MULTIBASE INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE678F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MULTIIN',
+		N'MULTIPLUS HOLDINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE886E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUNCAPM',
+		N'MUNOTH CAPITAL MARKET LTD.',
+		N'BSE',
+		NULL,
+		N'INE910G01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'MUNJALAU',
+		N'MUNJAL AUTO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE672B01032',
+		2,
+		0
+	UNION
+	SELECT
+		N'MUNJALAU',
+		N'Munjal Auto Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE672B01032',
+		2,
+		0
+	UNION
+	SELECT
+		N'MUNJALSHOW',
+		N'MUNJAL SHOWA LTD.',
+		N'BSE',
+		NULL,
+		N'INE577A01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'MUNJALSHOW',
+		N'Munjal Showa Limited',
+		N'NSE',
+		N'EQ',
+		N'INE577A01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'MUNOTHFI',
+		N'MUNOTH FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE348D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'MURUDCERA',
+		N'MURUDESHWAR CERAMICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE692B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MURUDCERA',
+		N'Murudeshwar Ceramics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE692B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUTHOOTCAP',
+		N'Muthoot Capital Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE296G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUTHOOTFIN',
+		N'MUTHOOT FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE414G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUTHOOTFIN',
+		N'Muthoot Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE414G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUTHTFN',
+		N'MUTHOOT CAPITAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE296G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'MUZALI',
+		N'Muzali Arts Ltd',
+		N'BSE',
+		NULL,
+		N'INE873S01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'MYMONEY',
+		N'My Money Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE232L01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'MYSORPETRO',
+		N'MYSORE PETRO CHEMICALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE741A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'MYSTICELE',
+		N'Mystic Electronics Ltd',
+		N'BSE',
+		NULL,
+		N'INE159O01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'N100',
+		N'Motilal Oswal Mutual Fund-Motilal Oswal MOSt Shares NASDAQ 100 ETF -GO',
+		N'NSE',
+		N'Nasdaq100',
+		N'INF247L01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'NACLIND',
+		N'NACL Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE295D01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'NACLIND',
+		N'NACL Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE295D01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'NAGAFERT',
+		N'Nagarjuna Fertilizers and Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE454M01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'NAGARFERT',
+		N'Nagarjuna Fertilizers and Chemicals Ltd',
+		N'BSE',
+		NULL,
+		N'INE454M01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'NAGPI',
+		N'NAGPUR POWER & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE099E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAGREEKCAP',
+		N'NAGREEKA CAPITAL & INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE245I01016',
+		5,
+		0
+	UNION
+	SELECT
+		N'NAGREEKCAP',
+		N'Nagreeka Capital & Infrastructure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE245I01016',
+		5,
+		0
+	UNION
+	SELECT
+		N'NAGREEKEXP',
+		N'NAGREEKA EXPORTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE123B01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'NAGREEKEXP',
+		N'Nagreeka Exports Limited',
+		N'NSE',
+		N'EQ',
+		N'INE123B01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'NAGTECH',
+		N'NAGARJUNA AGRI TECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE793H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAHARCAP',
+		N'NAHAR CAPITAL & FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE049I01012',
+		5,
+		0
+	UNION
+	SELECT
+		N'NAHARCAP',
+		N'Nahar Capital and Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE049I01012',
+		5,
+		0
+	UNION
+	SELECT
+		N'NAHARINDUS',
+		N'NAHAR INDUSTRIAL ENTERPRISES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE289A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAHARINDUS',
+		N'Nahar Industrial Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE289A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAHARPOLY',
+		N'NAHAR POLYFILMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE308A01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'NAHARPOLY',
+		N'Nahar Poly Films Limited',
+		N'NSE',
+		N'EQ',
+		N'INE308A01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'NAHARSPING',
+		N'NAHAR SPINNING MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE290A01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'NAHARSPING',
+		N'Nahar Spinning Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE290A01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'NALINLEA',
+		N'NALIN LEASE FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE606C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAM',
+		N'Nam Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE792G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAM-INDIA',
+		N'Nippon Life India Asset Management Ltd',
+		N'BSE',
+		NULL,
+		N'INE298J01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAM-INDIA',
+		N'Nippon Life India Asset Management Limited',
+		N'NSE',
+		N'EQ',
+		N'INE298J01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAPL',
+		N'Naturite Agro Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE223R01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'NARAYANI',
+		N'Narayani Steels Ltd',
+		N'BSE',
+		NULL,
+		N'INE715T01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NARBADA',
+		N'NARBADA GEMS AND JEWELLERY LTD.',
+		N'BSE',
+		NULL,
+		N'INE540C01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'NARPROP',
+		N'NARENDRA PROPERTIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE603F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATCAPSUQ',
+		N'NATURAL CAPSULES LTD.',
+		N'BSE',
+		NULL,
+		N'INE936B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATCOPHARM',
+		N'NATCO PHARMA LTD.',
+		N'BSE',
+		NULL,
+		N'INE987B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'NATCOPHARM',
+		N'Natco Pharma Limited',
+		N'NSE',
+		N'EQ',
+		N'INE987B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'NATFIT',
+		N'National Fittings Limited',
+		N'BSE',
+		NULL,
+		N'INE643C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATGENI',
+		N'NATIONAL GENERAL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE654H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATHBIOGEN',
+		N'Nath Bio-Genes (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE448G01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATHBIOGEN',
+		N'Nath Bio-Genes (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE448G01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATHIND',
+		N'Nath Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE777A01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATHUEC',
+		N'NATURA HUE CHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE487B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATIONALUM',
+		N'NATIONAL ALUMINIUM CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE139A01034',
+		5,
+		0
+	UNION
+	SELECT
+		N'NATIONALUM',
+		N'National Aluminium Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE139A01034',
+		5,
+		0
+	UNION
+	SELECT
+		N'NATIONSTD',
+		N'NATIONAL STANDARD (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE166R01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATNLSTEEL',
+		N'NATIONAL STEEL & AGRO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE088B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATNLSTEEL',
+		N'National Steel And Agro Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE088B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATPEROX',
+		N'NATIONAL PEROXIDE LTD.',
+		N'BSE',
+		NULL,
+		N'INE585A01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATPLAS',
+		N'NATIONAL PLASTIC INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE233D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATPLASTI',
+		N'NATIONAL PLASTIC TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE896D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATPLY',
+		N'NATIONAL PLYWOOD INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE497C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATRAJPR',
+		N'NATRAJ PROTEINS LTD.',
+		N'BSE',
+		NULL,
+		N'INE444D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NATURAL',
+		N'Natural Biocon (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE06MM01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAUKRI',
+		N'INFO EDGE (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE663F01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAUKRI',
+		N'Info Edge (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE663F01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAVBLDR',
+		N'NAVKAR BUILDERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE268H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAVIGANT',
+		N'Navigant Corporate Advisors Ltd',
+		N'BSE',
+		NULL,
+		N'INE364T01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAVINFLUOR',
+		N'Navin Fluorine International Limited-$',
+		N'BSE',
+		NULL,
+		N'INE048G01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'NAVINFLUOR',
+		N'Navin Fluorine International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE048G01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'NAVKARCORP',
+		N'Navkar Corporation Ltd',
+		N'BSE',
+		NULL,
+		N'INE278M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAVKARCORP',
+		N'Navkar Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE278M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAVKETAN',
+		N'Navketan Merchants Ltd',
+		N'BSE',
+		NULL,
+		N'INE365G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NAVNETEDUL',
+		N'Navneet Education Limited',
+		N'BSE',
+		NULL,
+		N'INE060A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'NAVNETEDUL',
+		N'Navneet Education Limited',
+		N'NSE',
+		N'EQ',
+		N'INE060A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'NAYSAA',
+		N'Naysaa Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE898Q01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NBCC',
+		N'NBCC (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE095N01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'NBCC',
+		N'NBCC (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE095N01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'NBFOOT',
+		N'NB FOOTWEAR LTD.',
+		N'BSE',
+		NULL,
+		N'INE006F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'NBIFIN',
+		N'N. B. I. Industrial Finance Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE365I01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'NBVENTURES',
+		N'NAVA BHARAT VENTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE725A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'NBVENTURES',
+		N'Nava Bharat Ventures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE725A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'NCBFIVBCD',
+		N'NIPPON INDIA MUTUAL FUND  CAPITAL BUILDER FD IV SR C DR DVP 20MR21',
+		N'BSE',
+		NULL,
+		N'INF204KB1ST7',
+		10,
+		0
+	UNION
+	SELECT
+		N'NCBFIVBCG',
+		N'NIPPON INDIA MUTUAL FUND  CAPITAL BUILDER FD IV SR C DR GWTH 20MR21',
+		N'BSE',
+		NULL,
+		N'INF204KB1SS9',
+		10,
+		0
+	UNION
+	SELECT
+		N'NCBFIVCD',
+		N'NIPPON INDIA MUTUAL FUND  CAPITAL BUILDER FD IV SR C RG DVP 20MR21',
+		N'BSE',
+		NULL,
+		N'INF204KB1SR1',
+		10,
+		0
+	UNION
+	SELECT
+		N'NCBFIVCG',
+		N'NIPPON INDIA MUTUAL FUND  CAPITAL BUILDER FD IV SR C RG GWTH 20MR21',
+		N'BSE',
+		NULL,
+		N'INF204KB1SQ3',
+		10,
+		0
+	UNION
+	SELECT
+		N'NCC',
+		N'NCC Limited',
+		N'BSE',
+		NULL,
+		N'INE868B01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'NCC',
+		N'NCC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE868B01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'NCCBLUE',
+		N'NCC BLUE WATER PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE630N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'NCLIND',
+		N'NCL INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE732C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NCLIND',
+		N'NCL Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE732C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NCLRESE',
+		N'NCL RESEARCH & FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE132F01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'NDASEC',
+		N'NDA SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE026C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'NDGL',
+		N'Naga Dhunseri Group Limited',
+		N'NSE',
+		N'EQ',
+		N'INE756C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NDL',
+		N'Nandan Denim Limited',
+		N'BSE',
+		NULL,
+		N'INE875G01030',
+		10,
+		0
+	UNION
+	SELECT
+		N'NDL',
+		N'Nandan Denim Limited',
+		N'NSE',
+		N'EQ',
+		N'INE875G01030',
+		10,
+		0
+	UNION
+	SELECT
+		N'NDMETAL',
+		N'N.D.METAL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE643D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'NDRAUTO',
+		N'NDR Auto Components Ltd',
+		N'BSE',
+		NULL,
+		N'INE07OG01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NDRAUTO',
+		N'Ndr Auto Components Limited',
+		N'NSE',
+		N'EQ',
+		N'INE07OG01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NDTV',
+		N'NEW DELHI TELEVISION LTD.',
+		N'BSE',
+		NULL,
+		N'INE155G01029',
+		4,
+		0
+	UNION
+	SELECT
+		N'NDTV',
+		N'New Delhi Television Limited',
+		N'NSE',
+		N'EQ',
+		N'INE155G01029',
+		4,
+		0
+	UNION
+	SELECT
+		N'NEAGI',
+		N'NEELAMALAI AGRO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE605D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NECCLTD',
+		N'NORTH EASTERN CARRYING CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE553C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NECCLTD',
+		N'North Eastern Carrying Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE553C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NECLIFE',
+		N'NECTAR LIFESCIENCES LTD.',
+		N'BSE',
+		NULL,
+		N'INE023H01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'NECLIFE',
+		N'Nectar Lifesciences Limited',
+		N'NSE',
+		N'EQ',
+		N'INE023H01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'NEELKAN',
+		N'NEELKANTH ROCKMINERALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE741D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEERAJ',
+		N'Neeraj Paper Marketing Ltd',
+		N'BSE',
+		NULL,
+		N'INE894J01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEH',
+		N'Nel Holdings South Ltd',
+		N'BSE',
+		NULL,
+		N'INE639K01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEIL',
+		N'Neil Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE396C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NELCAST',
+		N'NELCAST LTD.',
+		N'BSE',
+		NULL,
+		N'INE189I01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'NELCAST',
+		N'Nelcast Limited',
+		N'NSE',
+		N'EQ',
+		N'INE189I01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'NELCO',
+		N'NELCO LTD.',
+		N'BSE',
+		NULL,
+		N'INE045B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NELCO',
+		N'NELCO Limited',
+		N'NSE',
+		N'EQ',
+		N'INE045B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEOGEN',
+		N'Neogen Chemicals Ltd',
+		N'BSE',
+		NULL,
+		N'INE136S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEOGEN',
+		N'Neogen Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE136S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEOINFRA',
+		N'NEO INFRACON LTD.',
+		N'BSE',
+		NULL,
+		N'INE216I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEPTEXP',
+		N'NEPTUNE EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE066X01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NESCO',
+		N'NESCO LTD.',
+		N'BSE',
+		NULL,
+		N'INE317F01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'NESCO',
+		N'Nesco Limited',
+		N'NSE',
+		N'EQ',
+		N'INE317F01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'NESTLEIND',
+		N'NESTLE INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE239A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NESTLEIND',
+		N'Nestle India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE239A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETF',
+		N'TATAAML - NETF',
+		N'NSE',
+		N'Nifty 50',
+		N'INF277K015R5',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETFCONSUM',
+		N'NIPPO IND ETF CONSUMPTION',
+		N'NSE',
+		N'Nifty Consumption',
+		N'INF204KA1LD7',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETFDIVOPP',
+		N'NIP ETF DIV OPPORTUNITIES',
+		N'NSE',
+		N'Nifty Div Opps 50',
+		N'INF204KA1MS3',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETFIT',
+		N'RELCAPAMC NETFIT',
+		N'NSE',
+		N'Nifty IT',
+		N'INF204KB15V2',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETFLTGILT',
+		N'NI IND ETF LONG TERM GILT',
+		N'NSE',
+		N'Nifty GS 8 13Yr',
+		N'INF204KB1882',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETFMID150',
+		N'NI I ETF NIFTY MIDCAP 150',
+		N'NSE',
+		N'Nifty Midcap 150',
+		N'INF204KB1V68',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETFNIF100',
+		N'NIPPON INDIA ETF NIFTY 100',
+		N'BSE',
+		NULL,
+		N'INF204K014N5',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETFNIF100',
+		N'NIPP INDIA ETF NIFTY 100',
+		N'NSE',
+		N'Nifty 100',
+		N'INF204K014N5',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETFNV20',
+		N'NIPPON INDIA ETF NV20',
+		N'NSE',
+		N'Nifty50 Value 20',
+		N'INF204KA17D8',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETFSENSEX',
+		N'NIPPON INDIA ETF SENSEX',
+		N'BSE',
+		NULL,
+		N'INF204KA1UN7',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETFSNX150',
+		N'NIPPON INDIA ETF SENSEX NEXT 50',
+		N'BSE',
+		NULL,
+		N'INF204KB15D0',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETLINK',
+		N'NETLINK SOLUTIONS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE040F01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETRIPPLES',
+		N'Netripples Software Ltd',
+		N'BSE',
+		NULL,
+		N'INE478B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETTLINX',
+		N'NETTLINX LTD.',
+		N'BSE',
+		NULL,
+		N'INE027D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'NETWORK18',
+		N'NETWORK18 MEDIA & INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE870H01013',
+		5,
+		0
+	UNION
+	SELECT
+		N'NETWORK18',
+		N'Network18 Media & Investments Limited',
+		N'NSE',
+		N'EQ',
+		N'INE870H01013',
+		5,
+		0
+	UNION
+	SELECT
+		N'NEULANDLAB',
+		N'NEULAND LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE794A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEULANDLAB',
+		N'Neuland Laboratories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE794A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEWGEN',
+		N'Newgen Software Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE619B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEWGEN',
+		N'Newgen Software Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE619B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEWLIGHT',
+		N'New Light Apparels Ltd',
+		N'BSE',
+		NULL,
+		N'INE835U01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEWMKTADV',
+		N'NEW MARKETS ADVISORY LTD.',
+		N'BSE',
+		NULL,
+		N'INE800K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEXTMEDIA',
+		N'NEXT MEDIAWORKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE747B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEXTMEDIA',
+		N'Next Mediaworks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE747B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NEXUSSURGL',
+		N'Nexus Surgical And Medicare Ltd',
+		N'BSE',
+		NULL,
+		N'INE370Q01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NFL',
+		N'NATIONAL FERTILIZERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE870D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NFL',
+		N'National Fertilizers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE870D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NGIL',
+		N'Nakoda Group of Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE236Y01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NGIND',
+		N'N.G.INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE825C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'NGLFINE',
+		N'NGL FINE-CHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE887E01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'NH',
+		N'Narayana Hrudayalaya Ltd',
+		N'BSE',
+		NULL,
+		N'INE410P01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'NH',
+		N'Narayana Hrudayalaya Ltd.',
+		N'NSE',
+		N'EQ',
+		N'INE410P01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'NHCFOODS',
+		N'NHC FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE141C01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'NHPC',
+		N'NHPC LTD.',
+		N'BSE',
+		NULL,
+		N'INE848E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NHPC',
+		N'NHPC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE848E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIACL',
+		N'The New India Assurance Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE470Y01017',
+		5,
+		0
+	UNION
+	SELECT
+		N'NIACL',
+		N'The New India Assurance Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE470Y01017',
+		5,
+		0
+	UNION
+	SELECT
+		N'NIBE',
+		N'NIBE Ltd',
+		N'BSE',
+		NULL,
+		N'INE149O01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIBL',
+		N'NRB INDUSTRIAL BEARINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE047O01014',
+		2,
+		0
+	UNION
+	SELECT
+		N'NIBL',
+		N'NRB Industrial Bearings Limited',
+		N'NSE',
+		N'BE',
+		N'INE047O01014',
+		2,
+		0
+	UNION
+	SELECT
+		N'NICCOPAR',
+		N'NICCO PARKS & RESORTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE653C01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'NIDL',
+		N'Narendra Investments (Delhi) Ltd',
+		N'BSE',
+		NULL,
+		N'INE666Q01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPA',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1- DIRECT DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB10G4',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPB',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - DIRECT MONTHLY DIVIDEND PLAN DIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB11G2',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPC',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - DIRECT MONTHLY DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB12G0',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPD',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - GROWTH PLAN GROWTH',
+		N'BSE',
+		NULL,
+		N'INF204KB13G8',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPE',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - QUARTERLY DIVIDEND PLAN DIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB14G6',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPF',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - QUARTERLY DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB15G3',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPG',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - DIRECT GROWTH PLAN GROWTH',
+		N'BSE',
+		NULL,
+		N'INF204KB16F3',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPH',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - DIVIDEND PLAN DIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB16G1',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPI',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - DIRECT QUARTERLY DIVIDEND PLAN DIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB17F1',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPJ',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB17G9',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPK',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - DIRECT QUARTERLY DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB18F9',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPL',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - MONTHLY DIVIDEND PLAN DIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB18G7',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPM',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - DIRECT DIVIDEND PLAN DIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB19F7',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIEHSPN',
+		N'NIPPON INDIA EQUITY HYBRID FUND -&#160;SEGREGATED PORTFOLIO 1 - MONTHLY DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB19G5',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPA',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - BONUS PLANBONUS',
+		N'BSE',
+		NULL,
+		N'INF204KB18E2',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPB',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - DIRECT BONUS PLAN BONUS',
+		N'BSE',
+		NULL,
+		N'INF204KB10E9',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPC',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - DIRECT DIVIDEND PLAN DIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB14E1',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPD',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - DIRECT DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB15E8',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPE',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - DIRECT GROWTH PLAN GROWTH',
+		N'BSE',
+		NULL,
+		N'INF204KB11E7',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPF',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - DIRECT MONTHLY DIVIDEND PLAN DIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB16E6',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPG',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - DIRECT MONTHLY DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB17E4',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPH',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - DIRECT QUARTERLY DIVIDEND PLAN DIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB12E5',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPI',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - DIRECT QUARTERLY DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB13E3',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPJ',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - DIVIDEND PLANDIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB12F2',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPK',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB13F0',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPL',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - GROWTH PLAN GROWTH',
+		N'BSE',
+		NULL,
+		N'INF204KB19E0',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPM',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - MONTHLY DIVIDEND PLANDIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB14F8',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPN',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - MONTHLY DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB15F5',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPO',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - QUARTERLY DIVIDEND PLANDIVIDEND PAYOUT',
+		N'BSE',
+		NULL,
+		N'INF204KB10F6',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIESSPP',
+		N'NIPPON INDIA EQUITY SAVINGS FUND - SEGREGATED PORTFOLIO 1 - QUARTERLY DIVIDEND PLAN REINVESTMENT',
+		N'BSE',
+		NULL,
+		N'INF204KB11F4',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIFTYBEES',
+		N'NIPPON INDIA ETF NIFTY BEES',
+		N'BSE',
+		NULL,
+		N'INF204KB14I2',
+		1,
+		0
+	UNION
+	SELECT
+		N'NIFTYBEES',
+		N'R*Shares Nifty BeES',
+		N'NSE',
+		N'Nifty 50',
+		N'INF732E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIFTYEES',
+		N'Edelweiss Mutual Fund - Edelweiss Exchange Traded Scheme - Nifty ( Nifty EES )',
+		N'BSE',
+		NULL,
+		N'INF754K01EK3',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIFTYEES',
+		N'Edelweiss ETF - Nifty 50 ',
+		N'NSE',
+		N'Nifty 50',
+		N'INF754K01EK3',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIHARINF',
+		N'NIHAR INFO GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE876E01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIITLTD',
+		N'NIIT LTD.',
+		N'BSE',
+		NULL,
+		N'INE161A01038',
+		2,
+		0
+	UNION
+	SELECT
+		N'NIITLTD',
+		N'NIIT Limited',
+		N'NSE',
+		N'EQ',
+		N'INE161A01038',
+		2,
+		0
+	UNION
+	SELECT
+		N'NIKHILAD',
+		N'NIKHIL ADHESIVES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE926C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIKKIGL',
+		N'NIKKI GLOBAL FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE526C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NILA',
+		N'NILA INFRASTRUCTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE937C01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'NILACHAL',
+		N'NILACHAL REFRACTORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE416N01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'NILAINFRA',
+		N'Nila Infrastructures Limited',
+		N'NSE',
+		N'BE',
+		N'INE937C01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'NILASPACES',
+		N'Nila Spaces Ltd',
+		N'BSE',
+		NULL,
+		N'INE00S901012',
+		1,
+		0
+	UNION
+	SELECT
+		N'NILASPACES',
+		N'Nila Spaces Limited',
+		N'NSE',
+		N'BE',
+		N'INE00S901012',
+		1,
+		0
+	UNION
+	SELECT
+		N'NILE',
+		N'NILE LTD.',
+		N'BSE',
+		NULL,
+		N'INE445D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'NILKAMAL',
+		N'NILKAMAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE310A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NILKAMAL',
+		N'Nilkamal Limited',
+		N'NSE',
+		N'EQ',
+		N'INE310A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIMBSPROJ',
+		N'NIMBUS PROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE875B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NINSYS',
+		N'NINtec Systems Ltd',
+		N'BSE',
+		NULL,
+		N'INE395U01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIOSAD',
+		N'NIPPON INDIA MUTUAL FUND  INDIA OPPT FD  SR A RG DVP31JN22',
+		N'BSE',
+		NULL,
+		N'INF204KB1I32',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIOSADD',
+		N'NIPPON INDIA MUTUAL FUND  INDIA OPPT FD  SR A DR DVP31JN22',
+		N'BSE',
+		NULL,
+		N'INF204KB1I57',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIOSADG',
+		N'NIPPON INDIA MUTUAL FUND  INDIA OPPT FD  SR A DR GWTH31JN22',
+		N'BSE',
+		NULL,
+		N'INF204KB1I40',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIOSAG',
+		N'NIPPON INDIA MUTUAL FUND  INDIA OPPT FD  SR A RG GWTH31JN22',
+		N'BSE',
+		NULL,
+		N'INF204KB1I24',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIPPOBATRY',
+		N'INDO-NATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE567A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIPPOBATRY',
+		N'Indo-National Limited',
+		N'NSE',
+		N'EQ',
+		N'INE567A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIRAJ',
+		N'NIRAJ CEMENT STRUCTURALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE368I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIRAJ',
+		N'Niraj Cement Structurals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE368I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIRAJISPAT',
+		N'Niraj Ispat Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE326T01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIRAVCOM',
+		N'NIRAV COMMERCIALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE242B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIRLON',
+		N'NIRLON LTD.',
+		N'BSE',
+		NULL,
+		N'INE910A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NITCO',
+		N'NITCO LTD.',
+		N'BSE',
+		NULL,
+		N'INE858F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NITCO',
+		N'Nitco Limited',
+		N'NSE',
+		N'EQ',
+		N'INE858F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NITINCAST',
+		N'Nitin Castings Ltd',
+		N'BSE',
+		NULL,
+		N'INE861H01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'NITINFIRE',
+		N'NITIN FIRE PROTECTION INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE489H01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'NITINFIRE',
+		N'Nitin Fire Protection Industries Limited',
+		N'NSE',
+		N'BZ',
+		N'INE489H01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'NITINSPIN',
+		N'NITIN SPINNERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE229H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NITINSPIN',
+		N'Nitin Spinners Limited',
+		N'NSE',
+		N'EQ',
+		N'INE229H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NITTAGELA',
+		N'NITTA GELATIN INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE265B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIVAKA',
+		N'Nivaka Fashions Ltd',
+		N'BSE',
+		NULL,
+		N'INE139E01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'NIVBDDP',
+		N'NIPPON INDIA MUTUAL FUND  CAPITAL BUILDER FD SR B DR DVP 06JN21',
+		N'BSE',
+		NULL,
+		N'INF204KB12Y3',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIVBDGP',
+		N'NIPPON INDIA MUTUAL FUND  CAPITAL BUILDER FD SR B DR GWTH 06JN21',
+		N'BSE',
+		NULL,
+		N'INF204KB11Y5',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIVBDP',
+		N'NIPPON INDIA MUTUAL FUND  CAPITAL BUILDER FD SR B RG DVP 06JN21',
+		N'BSE',
+		NULL,
+		N'INF204KB10Y7',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIVBGP',
+		N'NIPPON INDIA MUTUAL FUND  CAPITAL BUILDER FD SR B RG GWTH 06JN21',
+		N'BSE',
+		NULL,
+		N'INF204KB19X0',
+		10,
+		0
+	UNION
+	SELECT
+		N'NIYOGIN',
+		N'Niyogin Fintech Ltd',
+		N'BSE',
+		NULL,
+		N'INE480D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NKIND',
+		N'N.K.INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE542C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'NKIND',
+		N'NK Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE542C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'NLCINDIA',
+		N'NLC India Ltd',
+		N'BSE',
+		NULL,
+		N'INE589A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'NLCINDIA',
+		N'NLC India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE589A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'NMDC',
+		N'NMDC LTD.',
+		N'BSE',
+		NULL,
+		N'INE584A01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'NMDC',
+		N'NMDC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE584A01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'NMSRESRC',
+		N'NMS Resources Global Ltd',
+		N'BSE',
+		NULL,
+		N'INE169F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'NNTL',
+		N'N2N Technologies Limited',
+		N'BSE',
+		NULL,
+		N'INE043F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'NOCIL',
+		N'NOCIL LTD.',
+		N'BSE',
+		NULL,
+		N'INE163A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'NOCIL',
+		N'NOCIL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE163A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'NOGMIND',
+		N'NEOGEM INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE552E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'NOIDATOLL',
+		N'NOIDA TOLL BRIDGE COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE781B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NOIDATOLL',
+		N'Noida Toll Bridge Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE781B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'NOL',
+		N'NATIONAL OXYGEN LTD.',
+		N'BSE',
+		NULL,
+		N'INE296D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NORBTEAEXP',
+		N'Norben Tea & Exports Limited',
+		N'NSE',
+		N'EQ',
+		N'INE369C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'NORRIS',
+		N'NORRIS MEDICINES LTD.',
+		N'BSE',
+		NULL,
+		N'INE744C01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'NORTHLINK',
+		N'Northlink Fiscal and Capital Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE736P01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'NORTHPR',
+		N'NORTHERN PROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE01CZ01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NOUVEAU',
+		N'NOUVEAU GLOBAL VENTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE317B01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'NOVAPUB',
+		N'Nova Publications India Ltd',
+		N'BSE',
+		NULL,
+		N'INE900O01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'NOVARTIND',
+		N'NOVARTIS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE234A01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'NOVARTIND',
+		N'Novartis India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE234A01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'NOVATEOR',
+		N'Novateor Research Laboratories Ltd',
+		N'BSE',
+		NULL,
+		N'INE08JY01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'NOVIS',
+		N'NOVA IRON & STEEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE608C01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'NPBET',
+		N'TATAAML - NPBET',
+		N'NSE',
+		N'Nifty Private Bank Index',
+		N'INF277K010X4',
+		10,
+		0
+	UNION
+	SELECT
+		N'NPRFIN',
+		N'NPR FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE446D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'NRAGRINDQ',
+		N'N.R.AGARWAL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE740D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'NRAIL',
+		N'N R Agarwal Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE740D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'NRBBEARING',
+		N'NRB BEARINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE349A01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'NRBBEARING',
+		N'NRB Bearing Limited',
+		N'NSE',
+		N'EQ',
+		N'INE349A01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'NSIL',
+		N'NALWA SONS INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE023A01030',
+		10,
+		0
+	UNION
+	SELECT
+		N'NSIL',
+		N'Nalwa Sons Investments Limited',
+		N'NSE',
+		N'EQ',
+		N'INE023A01030',
+		10,
+		0
+	UNION
+	SELECT
+		N'NSL',
+		N'Northern Spirits Ltd',
+		N'BSE',
+		NULL,
+		N'INE01BL01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NTCIND',
+		N'NTC INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE920C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'NTL',
+		N'Neueon Towers Ltd',
+		N'BSE',
+		NULL,
+		N'INE333I01036',
+		10,
+		0
+	UNION
+	SELECT
+		N'NTL',
+		N'Neueon Towers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE333I01036',
+		10,
+		0
+	UNION
+	SELECT
+		N'NTPC',
+		N'NTPC LTD.',
+		N'BSE',
+		NULL,
+		N'INE733E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NTPC',
+		N'NTPC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE733E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'NUCLEUS',
+		N'NUCLEUS SOFTWARE EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE096B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'NUCLEUS',
+		N'Nucleus Software Exports Limited',
+		N'NSE',
+		N'EQ',
+		N'INE096B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'NUTECGLOB',
+		N'NUTECH GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE960H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NUTRICIRCLE',
+		N'Nutricircle Ltd',
+		N'BSE',
+		NULL,
+		N'INE536C01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'NUWAY',
+		N'NUWAY ORGANIC NATURALS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE414L01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'NXTDIGITAL',
+		N'Nxtdigital Ltd',
+		N'BSE',
+		NULL,
+		N'INE353A01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'NXTDIGITAL',
+		N'NXTDIGITAL LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE353A01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'NYSSACORP',
+		N'Nyssa Corporation Limited',
+		N'BSE',
+		NULL,
+		N'INE812K01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'OAL',
+		N'Oriental Aromatics Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE959C01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'OAL',
+		N'Oriental Aromatics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE959C01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'OASISEC',
+		N'OASIS SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE876A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'OBCL',
+		N'Orissa Bengal Carrier Ltd',
+		N'BSE',
+		NULL,
+		N'INE426Z01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'OBEROIRLTY',
+		N'OBEROI REALTY LTD.',
+		N'BSE',
+		NULL,
+		N'INE093I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'OBEROIRLTY',
+		N'Oberoi Realty Limited',
+		N'NSE',
+		N'EQ',
+		N'INE093I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'OBIL',
+		N'Oceanaa Biotek Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE732P01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'OCCL',
+		N'Oriental Carbon & Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE321D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'OCEANIC',
+		N'Oceanic Foods Ltd',
+		N'BSE',
+		NULL,
+		N'INE711V01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'OCTAL',
+		N'Octal Credit Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE513C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'OCTAVE',
+		N'Perfect-Octave Media Projects Ltd',
+		N'BSE',
+		NULL,
+		N'INE814L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'OCTAVIUSPL',
+		N'Octavius Plantations Ltd',
+		N'BSE',
+		NULL,
+		N'INE117S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'OCTAWARE',
+		N'Octaware Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE208U01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ODYCORP',
+		N'ODYSSEY CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE839E01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'ODYSSEY',
+		N'ODYSSEY TECHNOLOGIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE213B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'OFSS',
+		N'ORACLE FINANCIAL SERVICES SOFTWARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE881D01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'OFSS',
+		N'Oracle Financial Services Software Limited',
+		N'NSE',
+		N'EQ',
+		N'INE881D01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'OIL',
+		N'OIL INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE274J01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'OIL',
+		N'Oil India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE274J01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'OILCOUNTUB',
+		N'OIL COUNTRY TUBULAR LTD.',
+		N'BSE',
+		NULL,
+		N'INE591A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'OILCOUNTUB',
+		N'Oil Country Tubular Limited',
+		N'NSE',
+		N'BE',
+		N'INE591A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'OIVL',
+		N'Onesource Ideas Venture Ltd',
+		N'BSE',
+		NULL,
+		N'INE125F01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'OKPLA',
+		N'OK PLAY INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE870B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'OLECTRA',
+		N'Olectra Greentech Ltd',
+		N'BSE',
+		NULL,
+		N'INE260D01016',
+		4,
+		0
+	UNION
+	SELECT
+		N'OLECTRA',
+		N'Olectra Greentech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE260D01016',
+		4,
+		0
+	UNION
+	SELECT
+		N'OLPCL',
+		N'OLYMPIC CARDS LTD.',
+		N'BSE',
+		NULL,
+		N'INE550L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'OLYMPTX',
+		N'OLYMPIA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE482O01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'OLYOI',
+		N'OLYMPIC OIL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE286E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'OMANSH',
+		N'Omansh Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE378P01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'OMAXAUTO',
+		N'OMAX AUTOS LTD.',
+		N'BSE',
+		NULL,
+		N'INE090B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'OMAXAUTO',
+		N'Omax Autos Limited',
+		N'NSE',
+		N'EQ',
+		N'INE090B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'OMAXE',
+		N'OMAXE LTD.',
+		N'BSE',
+		NULL,
+		N'INE800H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'OMAXE',
+		N'Omaxe Limited',
+		N'NSE',
+		N'EQ',
+		N'INE800H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'OMINFRAL',
+		N'OM Infra Ltd',
+		N'BSE',
+		NULL,
+		N'INE239D01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'OMINFRAL',
+		N'OM INFRA LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE239D01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'OMKAR',
+		N'OMKAR OVERSEAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE680D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'OMKARCHEM',
+		N'OMKAR SPECIALITY CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE474L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'OMKARCHEM',
+		N'Omkar Speciality Chemicals Limited',
+		N'NSE',
+		N'BE',
+		N'INE474L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'OMNIAX',
+		N'OMNI AXS SOFTWARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE369B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'OMNITEX',
+		N'OMNITEX INDUSTRIES (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE814D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ONEGLOBAL',
+		N'One Global Service Provider Ltd',
+		N'BSE',
+		NULL,
+		N'INE670O01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ONELIFECAP',
+		N'ONELIFE CAPITAL ADVISORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE912L01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ONELIFECAP',
+		N'Onelife Capital Advisors Limited',
+		N'NSE',
+		N'BE',
+		N'INE912L01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ONEPOINT',
+		N'One Point One Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE840Y01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ONGC',
+		N'Oil and Natural Gas Corporation Ltd',
+		N'BSE',
+		NULL,
+		N'INE213A01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'ONGC',
+		N'Oil & Natural Gas Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE213A01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'ONMOBILE',
+		N'OnMobile Global Ltd.',
+		N'BSE',
+		NULL,
+		N'INE809I01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ONMOBILE',
+		N'OnMobile Global Limited',
+		N'NSE',
+		N'EQ',
+		N'INE809I01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ONTIC',
+		N'Ontic Finserve Ltd',
+		N'BSE',
+		NULL,
+		N'INE989S01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'ONWARDTEC',
+		N'ONWARD TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE229A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ONWARDTEC',
+		N'Onward Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE229A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'OONE',
+		N'OBJECTONE INFORMATION SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE860E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'OPCHAINS',
+		N'O. P. Chains Ltd',
+		N'BSE',
+		NULL,
+		N'INE118Q01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'OPTIEMUS',
+		N'Optiemus Infracom Ltd',
+		N'BSE',
+		NULL,
+		N'INE350C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'OPTIEMUS',
+		N'Optiemus Infracom Limited',
+		N'NSE',
+		N'EQ',
+		N'INE350C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'OPTIFIN',
+		N'Optimus Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE031G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'OPTOCIRCUI',
+		N'OPTO CIRCUITS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE808B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'OPTOCIRCUI',
+		N'Opto Circuits (India) Limited',
+		N'NSE',
+		N'BE',
+		N'INE808B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORACLECR',
+		N'Oracle Credit Ltd',
+		N'BSE',
+		NULL,
+		N'INE727C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORBTEXP',
+		N'ORBIT EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE231G01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORBTEXP',
+		N'Orbit Exports Limited',
+		N'NSE',
+		N'EQ',
+		N'INE231G01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORCHIDPHAR',
+		N'Orchid Pharma Ltd',
+		N'BSE',
+		NULL,
+		N'INE191A01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORCHPHARMA',
+		N'Orchid Pharma Limited',
+		N'NSE',
+		N'BE',
+		N'INE191A01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORGCOAT',
+		N'ORGANIC COATINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE412E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORIBEVER',
+		N'ORIENT BEVERAGES LTD.',
+		N'BSE',
+		NULL,
+		N'INE247F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORICON',
+		N'ORICON ENTERPRISES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE730A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'ORICONENT',
+		N'Oricon Enterprises Limited',
+		N'NSE',
+		N'BE',
+		N'INE730A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'ORIENTABRA',
+		N'ORIENT ABRASIVES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE569C01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORIENTABRA',
+		N'Orient Abrasives Limited',
+		N'NSE',
+		N'EQ',
+		N'INE569C01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORIENTALTL',
+		N'ORIENTAL TRIMEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE998H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORIENTALTL',
+		N'Oriental Trimex Limited',
+		N'NSE',
+		N'EQ',
+		N'INE998H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORIENTBELL',
+		N'ORIENT BELL LIMITED-$',
+		N'BSE',
+		NULL,
+		N'INE607D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORIENTBELL',
+		N'Orient Bell Limited',
+		N'NSE',
+		N'EQ',
+		N'INE607D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORIENTCEM',
+		N'Orient Cement Ltd',
+		N'BSE',
+		NULL,
+		N'INE876N01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORIENTCEM',
+		N'Orient Cement Limited',
+		N'NSE',
+		N'EQ',
+		N'INE876N01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORIENTCQ',
+		N'ORIENTAL CARBON & CHEMICALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE321D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORIENTELEC',
+		N'Orient Electric Ltd',
+		N'BSE',
+		NULL,
+		N'INE142Z01019',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORIENTELEC',
+		N'Orient Electric Limited',
+		N'NSE',
+		N'EQ',
+		N'INE142Z01019',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORIENTHOT',
+		N'ORIENTAL HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE750A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORIENTHOT',
+		N'Oriental Hotels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE750A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORIENTLTD',
+		N'ORIENT PRESS LTD.',
+		N'BSE',
+		NULL,
+		N'INE609C01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORIENTLTD',
+		N'Orient Press Limited',
+		N'NSE',
+		N'EQ',
+		N'INE609C01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORIENTPPR',
+		N'ORIENT PAPER & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE592A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORIENTPPR',
+		N'Orient Paper & Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE592A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORIENTREF',
+		N'ORIENT REFRACTORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE743M01012',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORIENTREF',
+		N'Orient Refractories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE743M01012',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORISSAMINE',
+		N'ORISSA MINERALS DEVELOPMENT COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE725E01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORISSAMINE',
+		N'The Orissa Minerals Development Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE725E01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'OROSMITHS',
+		N'OROSIL SMITHS INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE628B01034',
+		1,
+		0
+	UNION
+	SELECT
+		N'ORTEL',
+		N'Ortel Communications Ltd',
+		N'BSE',
+		NULL,
+		N'INE849L01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORTEL',
+		N'Ortel Communications Limited',
+		N'NSE',
+		N'BZ',
+		N'INE849L01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ORVENPR',
+		N'ORIENTAL VENEER PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE457G01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'OSCARGLO',
+		N'OSCAR GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE473F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'OSEASPR',
+		N'OSEASPRE CONSULTANTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE880P01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'OSIAJEE',
+		N'Osiajee Texfab Ltd',
+		N'BSE',
+		NULL,
+		N'INE186R01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'OSWALAGRO',
+		N'OSWAL AGRO MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE142A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'OSWALAGRO',
+		N'Oswal Agro Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE142A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'OSWALEA',
+		N'OSWAL LEASING LTD.',
+		N'BSE',
+		NULL,
+		N'INE811Q01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'OSWALOR',
+		N'OSWAL OVERSEAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE906K01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'OSWAYRN',
+		N'OSWAL YARNS LTD.',
+		N'BSE',
+		NULL,
+		N'INE670H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'OTCO',
+		N'OTCO INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE910B01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'OVOBELE',
+		N'OVOBEL FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE812S01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'OZONEWORLD',
+		N'Ozone World Ltd',
+		N'BSE',
+		NULL,
+		N'INE583K01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PACIFICI',
+		N'PACIFIC INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE883C01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'PACL',
+		N'PUNJAB ALKALIES & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE607A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PADAMCO',
+		N'PADAM COTTON YARNS LTD.',
+		N'BSE',
+		NULL,
+		N'INE448D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'PADMAIND',
+		N'Padmanabh Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE743D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PADMALAYAT',
+		N'PADMALAYA TELEFILMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE243B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PAEL',
+		N'PAE LTD.',
+		N'BSE',
+		NULL,
+		N'INE766A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PAEL',
+		N'PAE Limited',
+		N'NSE',
+		N'BZ',
+		N'INE766A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PAGEIND',
+		N'PAGE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE761H01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'PAGEIND',
+		N'Page Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE761H01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'PAISALO',
+		N'Paisalo Digital Ltd',
+		N'BSE',
+		NULL,
+		N'INE420C01042',
+		10,
+		0
+	UNION
+	SELECT
+		N'PAISALO',
+		N'Paisalo Digital Limited',
+		N'NSE',
+		N'EQ',
+		N'INE420C01042',
+		10,
+		0
+	UNION
+	SELECT
+		N'PALASHSEC',
+		N'Palash Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE471W01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PALASHSECU',
+		N'Palash Securities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE471W01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PALCO',
+		N'Palco Metals Ltd',
+		N'BSE',
+		NULL,
+		N'INE239L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PALMJEWELS',
+		N'Palm Jewels Ltd',
+		N'BSE',
+		NULL,
+		N'INE838Z01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PALRED',
+		N'Palred Technologies Limited',
+		N'BSE',
+		NULL,
+		N'INE218G01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'PALREDTEC',
+		N'Palred Technologies Limited',
+		N'NSE',
+		N'BE',
+		N'INE218G01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'PALSOFT',
+		N'PALSOFT INFOSYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE969B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANACEABIO',
+		N'PANACEA BIOTEC LTD.',
+		N'BSE',
+		NULL,
+		N'INE922B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'PANACEABIO',
+		N'Panacea Biotec Limited',
+		N'NSE',
+		N'EQ',
+		N'INE922B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'PANACHE',
+		N'Panache Innovations Ltd',
+		N'BSE',
+		NULL,
+		N'INE516E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANACHE',
+		N'Panache Digilife Limited',
+		N'NSE',
+		N'EQ',
+		N'INE895W01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANAENERG',
+		N'PANASONIC ENERGY INDIA COMPANY LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE795A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANAFIC',
+		N'Panafic Industrials Ltd',
+		N'BSE',
+		NULL,
+		N'INE655P01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'PANAMAPET',
+		N'PANAMA PETROCHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE305C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'PANAMAPET',
+		N'Panama Petrochem Limited',
+		N'NSE',
+		N'EQ',
+		N'INE305C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'PANCARBON',
+		N'PANASONIC CARBON INDIA CO.LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE013E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANCHMAHQ',
+		N'PANCHMAHAL STEEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE798F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANCHSHEEL',
+		N'PANCHSHEEL ORGANICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE316G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANELEC',
+		N'PAN ELECTRONICS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE648E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANINDIAC',
+		N'PAN INDIA CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE376A01032',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANKAJPIYUS',
+		N'Pankaj Piyush Trade & Investment Ltd',
+		N'BSE',
+		NULL,
+		N'INE820M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANKAJPO',
+		N'PANKAJ POLYMERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE698B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANORAMA',
+		N'Panorama Studios International Ltd',
+		N'BSE',
+		NULL,
+		N'INE258R01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PANTH',
+		N'Panth Infinity Ltd',
+		N'BSE',
+		NULL,
+		N'INE945O01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PAOS',
+		N'Paos Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE791C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARACABLES',
+		N'PARAMOUNT COMMUNICATIONS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE074B01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'PARACABLES',
+		N'Paramount Communications Limited',
+		N'NSE',
+		N'EQ',
+		N'INE074B01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'PARAGMILK',
+		N'Parag Milk Foods Ltd',
+		N'BSE',
+		NULL,
+		N'INE883N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARAGMILK',
+		N'Parag Milk Foods Limited',
+		N'NSE',
+		N'EQ',
+		N'INE883N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARAGONF',
+		N'PARAGON FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE015E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARAMONE',
+		N'Paramone Concepts Ltd',
+		N'BSE',
+		NULL,
+		N'INE005E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARIKSHA',
+		N'Pariksha Fin- Invest- Lease Ltd',
+		N'BSE',
+		NULL,
+		N'INE270F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARKERAC',
+		N'PARKER AGROCHEM EXPORTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE750B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARLEIND',
+		N'Parle Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE272G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARMAX',
+		N'Parmax Pharma Ltd',
+		N'BSE',
+		NULL,
+		N'INE240T01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARMCOS-B',
+		N'PARAMOUNT COSMETICS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE143I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARMSILK',
+		N'Parmeshwari Silk Mills Ltd',
+		N'BSE',
+		NULL,
+		N'INE808R01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARNAXLAB',
+		N'PARNAX LAB LTD.',
+		N'BSE',
+		NULL,
+		N'INE383L01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARSHINV',
+		N'PARSHARTI INVESTMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE290E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARSHVA',
+		N'Parshva Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE05MV01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARSHWANA',
+		N'PARSHWANATH CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE635I01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARSVNATH',
+		N'PARSVNATH DEVELOPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE561H01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'PARSVNATH',
+		N'Parsvnath Developers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE561H01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'PARTIND',
+		N'Parth Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE218T01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PARVATI',
+		N'Parvati Sweetners and Power Ltd',
+		N'BSE',
+		NULL,
+		N'INE295Z01015',
+		5,
+		0
+	UNION
+	SELECT
+		N'PASARI',
+		N'PASARI SPINNING MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE604F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PASUPTAC',
+		N'PASUPATI ACRYLON LTD.',
+		N'BSE',
+		NULL,
+		N'INE818B01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'PASUSPG',
+		N'PASUPATI SPG.& WVG.MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE909B01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'PATELENG',
+		N'PATEL ENGINEERING LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE244B01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'PATELENG',
+		N'Patel Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE244B01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'PATELSAI',
+		N'PATELS AIRTEMP (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE082C01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'PATIDAR',
+		N'Patidar Buildcon Limited',
+		N'BSE',
+		NULL,
+		N'INE637N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PATINTLOG',
+		N'PATEL INTEGRATED LOGISTICS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE529D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PATINTLOG',
+		N'Patel Integrated Logistics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE529D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PATSPINLTD',
+		N'PATSPIN INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE790C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PATSPINLTD',
+		N'Patspin India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE790C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PAUSHAKLTD',
+		N'PAUSHAK LTD.',
+		N'BSE',
+		NULL,
+		N'INE111F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PAZEL',
+		N'Pazel International Ltd',
+		N'BSE',
+		NULL,
+		N'INE040N01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'PBMPOLY',
+		N'PBM POLYTEX LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE501F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PCCOSMA',
+		N'PEE CEE COSMA SOPE LTD.',
+		N'BSE',
+		NULL,
+		N'INE417E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PCJEWELLER',
+		N'PC JEWELLER LTD.',
+		N'BSE',
+		NULL,
+		N'INE785M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PCJEWELLER',
+		N'PC Jeweller Limited',
+		N'NSE',
+		N'EQ',
+		N'INE785M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PCS',
+		N'PCS TECHNOLOGY LTD.',
+		N'BSE',
+		NULL,
+		N'INE834B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PDMJEPAPER',
+		N'Pudumjee Paper Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE865T01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'PDMJEPAPER',
+		N'Pudumjee Paper Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE865T01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'PDSMFL',
+		N'PDS Multinational Fashions Ltd',
+		N'BSE',
+		NULL,
+		N'INE111Q01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PDSMFL',
+		N'PDS Multinational Fashions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE111Q01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PEARLPOLY',
+		N'PEARL POLYMERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE844A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PEARLPOLY',
+		N'Pearl Polymers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE844A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PECOS',
+		N'Pecos Hotels and Pubs Ltd',
+		N'BSE',
+		NULL,
+		N'INE484S01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PEETISEC',
+		N'PEETI SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE328D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PEL',
+		N'PIRAMAL ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE140A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'PEL',
+		N'Piramal Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE140A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'PENIND',
+		N'PENNAR INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE932A01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'PENIND',
+		N'Pennar Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE932A01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'PENINLAND',
+		N'PENINSULA LAND LTD.',
+		N'BSE',
+		NULL,
+		N'INE138A01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'PENINLAND',
+		N'Peninsula Land Limited',
+		N'NSE',
+		N'EQ',
+		N'INE138A01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'PEOPLIN',
+		N'PEOPLES INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE644U01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'PERFEPA',
+		N'PERFECTPAC LTD.',
+		N'BSE',
+		NULL,
+		N'INE759I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PERMAGN',
+		N'PERMANENT MAGNETS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE418E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PERSISTENT',
+		N'PERSISTENT SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE262H01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PERSISTENT',
+		N'Persistent Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE262H01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PERVASIVE',
+		N'Pervasive Commodities Ltd',
+		N'BSE',
+		NULL,
+		N'INE443P01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'PETRONET',
+		N'PETRONET LNG LTD.',
+		N'BSE',
+		NULL,
+		N'INE347G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PETRONET',
+		N'Petronet LNG Limited',
+		N'NSE',
+		N'EQ',
+		N'INE347G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PFC',
+		N'POWER FINANCE CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE134E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PFC',
+		N'Power Finance Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE134E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PFIZER',
+		N'PFIZER LTD.',
+		N'BSE',
+		NULL,
+		N'INE182A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PFIZER',
+		N'Pfizer Limited',
+		N'NSE',
+		N'EQ',
+		N'INE182A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PFOCUS',
+		N'PRIME FOCUS LTD.',
+		N'BSE',
+		NULL,
+		N'INE367G01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'PFOCUS',
+		N'Prime Focus Limited',
+		N'NSE',
+		N'EQ',
+		N'INE367G01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'PFS',
+		N'PTC INDIA FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE560K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PFS',
+		N'PTC India Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE560K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PGEL',
+		N'PG ELECTROPLAST LTD.',
+		N'BSE',
+		NULL,
+		N'INE457L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PGEL',
+		N'PG Electroplast Limited',
+		N'NSE',
+		N'BE',
+		N'INE457L01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PGFOILQ',
+		N'PG FOILS LTD.',
+		N'BSE',
+		NULL,
+		N'INE078D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PGHH',
+		N'PROCTER & GAMBLE HYGIENE & HEALTH CARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE179A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PGHH',
+		N'Procter & Gamble Hygiene and Health Care Limited',
+		N'NSE',
+		N'EQ',
+		N'INE179A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PGHL',
+		N'Procter & Gamble Health Ltd',
+		N'BSE',
+		NULL,
+		N'INE199A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PGHL',
+		N'Procter & Gamble Health Limited',
+		N'NSE',
+		N'EQ',
+		N'INE199A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PGIL',
+		N'Pearl Global Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE940H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PGIL',
+		N'Pearl Global Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE940H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PGINDST',
+		N'PG INDUSTRY LTD.',
+		N'BSE',
+		NULL,
+		N'INE807H01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'PHARMAID',
+		N'PHARMAIDS PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE117D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PHCAP',
+		N'PH CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE160F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PHILIPCARB',
+		N'PHILLIPS CARBON BLACK LTD.',
+		N'BSE',
+		NULL,
+		N'INE602A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'PHILIPCARB',
+		N'Phillips Carbon Black Limited',
+		N'NSE',
+		N'EQ',
+		N'INE602A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'PHOENIXLTD',
+		N'The Phoenix Mills Ltd',
+		N'BSE',
+		NULL,
+		N'INE211B01039',
+		2,
+		0
+	UNION
+	SELECT
+		N'PHOENIXLTD',
+		N'The Phoenix Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE211B01039',
+		2,
+		0
+	UNION
+	SELECT
+		N'PHOENIXTN',
+		N'Phoenix Township Ltd',
+		N'BSE',
+		NULL,
+		N'INE977M01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'PHOENXINTL',
+		N'PHOENIX INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE245B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PHOSPHATE',
+		N'The Phosphate Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE398C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PHOTON',
+		N'PHOTON CAPITAL ADVISORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE107J01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PHOTOQUP',
+		N'PHOTOQUIP INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE813B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PHRMASI',
+		N'PHAARMASIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE486I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PHTRADING',
+		N'PH TRADING LTD.',
+		N'BSE',
+		NULL,
+		N'INE603D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'PHYTO',
+		N'PHYTO CHEM (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE037C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PICCADIL',
+		N'PICCADILY AGRO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE546C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PICCASUG',
+		N'PICCADILY SUGAR & ALLIED INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE544C01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'PICTUREHS',
+		N'PICTUREHOUSE MEDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE448B01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'PIDILITIND',
+		N'PIDILITE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE318A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'PIDILITIND',
+		N'Pidilite Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE318A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'PIFL',
+		N'Pacheli Industrial Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE926B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PIIND',
+		N'PI Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE603J01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'PIIND',
+		N'PI Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE603J01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'PILANIINVS',
+		N'Pilani Investment and Industries Corporation Ltd',
+		N'BSE',
+		NULL,
+		N'INE417C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PILANIINVS',
+		N'Pilani Investment and Industries Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE417C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PILITA',
+		N'Pil Italica Lifestyle Ltd',
+		N'BSE',
+		NULL,
+		N'INE600A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'PILITA',
+		N'PIL ITALICA LIFESTYLE LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE600A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'PIONAGR',
+		N'PIONEER AGRO EXTRACTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE062E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PIONDIST',
+		N'PIONEER DISTILLERIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE889E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PIONDIST',
+		N'Pioneer Distilleries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE889E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PIONEEREMB',
+		N'PIONEER EMBROIDERIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE156C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PIONEEREMB',
+		N'Pioneer Embroideries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE156C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PIONRINV',
+		N'PIONEER INVESTCORP LTD.',
+		N'BSE',
+		NULL,
+		N'INE746D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PITHP',
+		N'PITHAMPUR POLY PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE747D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PITTIENG',
+		N'Pitti Engineering Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE450D01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'PITTIENG',
+		N'Pitti Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE450D01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'PIXTRANS',
+		N'PIX TRANSMISSIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE751B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PJL',
+		N'Patdiam Jewellery Ltd',
+		N'BSE',
+		NULL,
+		N'INE473T01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PKTEA',
+		N'The Peria Karamalai Tea & Produce Company Limited',
+		N'NSE',
+		N'BE',
+		N'INE431F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PLASTIBLEN',
+		N'PLASTIBLENDS INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE083C01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'PLASTIBLEN',
+		N'Plastiblends India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE083C01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'PMCFIN',
+		N'PMC Fincorp Limited',
+		N'BSE',
+		NULL,
+		N'INE793G01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'PML',
+		N'Paul Merchants Ltd',
+		N'BSE',
+		NULL,
+		N'INE291E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PMTELELIN',
+		N'P.M.TELELINNKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE092C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'PNB',
+		N'PUNJAB NATIONAL BANK',
+		N'BSE',
+		NULL,
+		N'INE160A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'PNB',
+		N'Punjab National Bank',
+		N'NSE',
+		N'EQ',
+		N'INE160A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'PNBGILTS',
+		N'PNB GILTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE859A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PNBGILTS',
+		N'PNB Gilts Limited',
+		N'NSE',
+		N'EQ',
+		N'INE859A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PNBHOUSING',
+		N'PNB Housing Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE572E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PNBHOUSING',
+		N'PNB Housing Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE572E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PNC',
+		N'PRITISH NANDY COMMUNICATIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE392B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PNC',
+		N'Pritish Nandy Communications Limited',
+		N'NSE',
+		N'EQ',
+		N'INE392B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PNCINFRA',
+		N'PNC Infratech Ltd',
+		N'BSE',
+		NULL,
+		N'INE195J01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'PNCINFRA',
+		N'PNC Infratech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE195J01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'PNTKYOR',
+		N'PENTOKEY ORGANY (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE702E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'PODARPIGQ',
+		N'PODDAR PIGMENTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE371C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PODDAR',
+		N'Poddar Housing and Development Ltd',
+		N'BSE',
+		NULL,
+		N'INE888B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PODDARHOUS',
+		N'Poddar Housing and Development Limited',
+		N'NSE',
+		N'BE',
+		N'INE888B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PODDARMENT',
+		N'Poddar Pigments Limited',
+		N'NSE',
+		N'EQ',
+		N'INE371C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'POEL',
+		N'POCL Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE035S01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'POKARNA',
+		N'POKARNA LTD.',
+		N'BSE',
+		NULL,
+		N'INE637C01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'POKARNA',
+		N'Pokarna Limited',
+		N'NSE',
+		N'EQ',
+		N'INE637C01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'POLOHOT',
+		N'POLO HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE084C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'POLSON',
+		N'POLSON LTD.',
+		N'BSE',
+		NULL,
+		N'INE339F01021',
+		50,
+		0
+	UNION
+	SELECT
+		N'POLYCAB',
+		N'Polycab India Ltd',
+		N'BSE',
+		NULL,
+		N'INE455K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'POLYCAB',
+		N'Polycab India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE455K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'POLYCHEM',
+		N'POLYCHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE752B01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'POLYCHMP',
+		N'POLYMECHPLAST MACHINES LTD.',
+		N'BSE',
+		NULL,
+		N'INE809B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'POLYCON',
+		N'POLYCON INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE262C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'POLYLINK',
+		N'POLYLINK POLYMERS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE323D01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'POLYMAC',
+		N'Polymac Thermoformers Ltd',
+		N'BSE',
+		NULL,
+		N'INE826P01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'POLYMED',
+		N'POLY MEDICURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE205C01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'POLYMED',
+		N'Poly Medicure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE205C01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'POLYPLEX',
+		N'POLYPLEX CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE633B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'POLYPLEX',
+		N'Polyplex Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE633B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'POLYSPIN',
+		N'Polyspin Exports Ltd',
+		N'BSE',
+		NULL,
+		N'INE914G01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'POLYTEX',
+		N'POLYTEX INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE012F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PONDYOXIDE',
+		N'PONDY OXIDES & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE063E01046',
+		10,
+		0
+	UNION
+	SELECT
+		N'PONNIERODE',
+		N'PONNI SUGARS (ERODE) LTD.',
+		N'BSE',
+		NULL,
+		N'INE838E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'PONNIERODE',
+		N'Ponni Sugars (Erode) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE838E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'POOJA',
+		N'Poojawestern Metaliks Ltd',
+		N'BSE',
+		NULL,
+		N'INE973X01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'POOJAENT',
+		N'POOJA ENTERTAINMENT AND FILMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE147C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'POONADAL',
+		N'POONA DAL & OIL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE809E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'POPULARES',
+		N'POPULAR ESTATE MANAGEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE370C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'PORWAL',
+		N'PORWAL AUTO COMPONENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE386I01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'POWERGRID',
+		N'POWER GRID CORPORATION OF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE752E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'POWERGRID',
+		N'Power Grid Corporation of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE752E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'POWERINDIA',
+		N'ABB Power Products and Systems India Ltd',
+		N'BSE',
+		NULL,
+		N'INE07Y701011',
+		2,
+		0
+	UNION
+	SELECT
+		N'POWERINDIA',
+		N'ABB Power Products and Systems India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE07Y701011',
+		2,
+		0
+	UNION
+	SELECT
+		N'POWERMECH',
+		N'Power Mech Projects Ltd',
+		N'BSE',
+		NULL,
+		N'INE211R01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'POWERMECH',
+		N'Power Mech Projects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE211R01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PPAP',
+		N'PPAP Automotive Limited',
+		N'BSE',
+		NULL,
+		N'INE095I01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'PPAP',
+		N'PPAP Automotive Limited',
+		N'NSE',
+		N'EQ',
+		N'INE095I01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'PPL',
+		N'Prakash Pipes Ltd',
+		N'BSE',
+		NULL,
+		N'INE050001010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PPL',
+		N'Prakash Pipes Limited',
+		N'NSE',
+		N'EQ',
+		N'INE050001010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PQIF',
+		N'Polo Queen Industrial and Fintech Ltd',
+		N'BSE',
+		NULL,
+		N'INE689M01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRABHAT',
+		N'Prabhat Dairy Ltd',
+		N'BSE',
+		NULL,
+		N'INE302M01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRABHAT',
+		N'Prabhat Dairy Limited',
+		N'NSE',
+		N'EQ',
+		N'INE302M01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRADHIN',
+		N'Pradhin Ltd',
+		N'BSE',
+		NULL,
+		N'INE656B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRADPME',
+		N'PRADEEP METALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE770A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRAENG',
+		N'PRAJAY ENGINEERS SYNDICATE LTD.',
+		N'BSE',
+		NULL,
+		N'INE505C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRAENG',
+		N'Prajay Engineers Syndicate Limited',
+		N'NSE',
+		N'EQ',
+		N'INE505C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRAGBOS',
+		N'PRAG BOSIMI SYNTHETICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE962B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRAJIND',
+		N'PRAJ INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE074A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'PRAJIND',
+		N'Praj Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE074A01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'PRAKASH',
+		N'PRAKASH INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE603A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRAKASH',
+		N'Prakash Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE603A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRAKASHSTL',
+		N'PRAKASH STEELAGE LTD.',
+		N'BSE',
+		NULL,
+		N'INE696K01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'PRAKASHSTL',
+		N'Prakash Steelage Limited',
+		N'NSE',
+		N'EQ',
+		N'INE696K01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'PRANAVSP',
+		N'PRANAVADITYA SPINNING MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE569D01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRATIK',
+		N'PRATIK PANELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE206C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRATIKSH',
+		N'PRATIKSHA CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE530D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRAVEG',
+		N'Praveg Communications (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE722B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRAXIS',
+		N'Praxis Home Retail Ltd',
+		N'BSE',
+		NULL,
+		N'INE546Y01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'PRAXIS',
+		N'Praxis Home Retail Limited',
+		N'NSE',
+		N'BE',
+		N'INE546Y01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'PRECAM',
+		N'Precision Camshafts Ltd',
+		N'BSE',
+		NULL,
+		N'INE484I01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRECAM',
+		N'Precision Camshafts Limited',
+		N'NSE',
+		N'EQ',
+		N'INE484I01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRECISIO',
+		N'PRECISION ELECTRONICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE143C01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRECISION',
+		N'PRECISION CONTAINEURS LTD.',
+		N'BSE',
+		NULL,
+		N'INE191C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRECOT',
+		N'Precot Limited',
+		N'NSE',
+		N'EQ',
+		N'INE283A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRECTRA',
+		N'PRECIOUS TRADING & INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE629R01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRECWIRE',
+		N'PRECISION WIRES INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE372C01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'PRECWIRE',
+		N'Precision Wires India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE372C01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'PREMCO',
+		N'PREMCO GLOBAL LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE001E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PREMEXPLN',
+		N'Premier Explosives Limited',
+		N'NSE',
+		N'EQ',
+		N'INE863B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PREMEXPLQ',
+		N'PREMIER EXPLOSIVES LTD.',
+		N'BSE',
+		NULL,
+		N'INE863B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PREMIER',
+		N'PREMIER LTD.',
+		N'BSE',
+		NULL,
+		N'INE342A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PREMIER',
+		N'Premier Limited',
+		N'NSE',
+		N'BE',
+		N'INE342A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PREMIERPOL',
+		N'PREMIER POLYFILM LTD.',
+		N'BSE',
+		NULL,
+		N'INE309M01012',
+		5,
+		0
+	UNION
+	SELECT
+		N'PREMIERPOL',
+		N'Premier Polyfilm Limited',
+		N'NSE',
+		N'EQ',
+		N'INE309M01012',
+		5,
+		0
+	UNION
+	SELECT
+		N'PREMSYN',
+		N'PREMIER SYNTHETICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE940N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRERINFRA',
+		N'PRERNA INFRABUILD LTD.',
+		N'BSE',
+		NULL,
+		N'INE426H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRESOFI',
+		N'PREM SOMANI FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE035401012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRESSMN',
+		N'Pressman Advertising Limited',
+		N'BSE',
+		NULL,
+		N'INE980A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'PRESSMN',
+		N'Pressman Advertising Limited',
+		N'NSE',
+		N'EQ',
+		N'INE980A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'PRESTIGE',
+		N'PRESTIGE ESTATES PROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE811K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRESTIGE',
+		N'Prestige Estates Projects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE811K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRICOLLTD',
+		N'Pricol Ltd',
+		N'BSE',
+		NULL,
+		N'INE726V01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'PRICOLLTD',
+		N'Pricol Limited',
+		N'NSE',
+		N'EQ',
+		N'INE726V01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'PRIMAGR',
+		N'PRIMA AGRO LTD.',
+		N'BSE',
+		NULL,
+		N'INE297D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRIMAIN',
+		N'PRIMA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE723N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRIMAPLA',
+		N'PRIMA PLASTICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE573B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRIMEFRESH',
+		N'Prime Fresh Ltd',
+		N'BSE',
+		NULL,
+		N'INE442V01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRIMEPRO',
+		N'PRIME PROPERTY DEVELOPMENT CORPORATION LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE233C01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'PRIMESECU',
+		N'PRIME SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE032B01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'PRIMESECU',
+		N'Prime Securities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE032B01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'PRIMIND',
+		N'PRIME INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE543F01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'PRINCEPIPE',
+		N'Prince Pipes and Fittings Ltd',
+		N'BSE',
+		NULL,
+		N'INE689W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRINCEPIPE',
+		N'Prince Pipes And Fittings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE689W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRISMFN',
+		N'PRISM FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE429Q01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRISMMEDI',
+		N'PRISM MEDICO AND PHARMACY LTD.',
+		N'BSE',
+		NULL,
+		N'INE730E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRISMX',
+		N'Prismx Global Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE286N01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRITHVIEXCH',
+		N'Prithvi Exchange (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE621B01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRITIKAUTO',
+		N'Pritika Auto Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE583R01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRIVISCL',
+		N'Privi Speciality Chemicals Ltd',
+		N'BSE',
+		NULL,
+		N'INE959A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRIVISCL',
+		N'Privi Speciality Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE959A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRIYALT',
+		N'PRIYA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE686C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PROFINC',
+		N'PRO FIN CAPITAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE732K01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PROGREXV',
+		N'Progrex Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE421E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PROMACT',
+		N'Promact Impex Ltd',
+		N'BSE',
+		NULL,
+		N'INE818D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PROVESTSER',
+		N'Provestment Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE438C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PROZONINTU',
+		N'Prozone Intu Properties Limited',
+		N'BSE',
+		NULL,
+		N'INE195N01013',
+		2,
+		0
+	UNION
+	SELECT
+		N'PROZONINTU',
+		N'Prozone Intu Properties Limited',
+		N'NSE',
+		N'EQ',
+		N'INE195N01013',
+		2,
+		0
+	UNION
+	SELECT
+		N'PRSMJOHNSN',
+		N'Prism Johnson Ltd',
+		N'BSE',
+		NULL,
+		N'INE010A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRSMJOHNSN',
+		N'Prism Johnson Limited',
+		N'NSE',
+		N'EQ',
+		N'INE010A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'PRSNTIN',
+		N'PRASHANT INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE100E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PSB',
+		N'PUNJAB & SIND BANK',
+		N'BSE',
+		NULL,
+		N'INE608A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PSB',
+		N'Punjab & Sind Bank',
+		N'NSE',
+		N'EQ',
+		N'INE608A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PSPPROJECT',
+		N'PSP Projects Ltd',
+		N'BSE',
+		NULL,
+		N'INE488V01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'PSPPROJECT',
+		N'PSP Projects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE488V01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'PSUBNKBEES',
+		N'NIPPON INDIA ETF PSU BANK BEES',
+		N'BSE',
+		NULL,
+		N'INF204KB16I7',
+		1,
+		0
+	UNION
+	SELECT
+		N'PSUBNKBEES',
+		N'R*Shares PSU Bank BeES',
+		N'NSE',
+		N'Nifty PSU Bank',
+		N'INF732E01110',
+		10,
+		0
+	UNION
+	SELECT
+		N'PTC',
+		N'PTC INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE877F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PTC',
+		N'PTC India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE877F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PTCIL',
+		N'PTC Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE596F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'PTIL',
+		N'Prabhat Technologies (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE171P01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PTL',
+		N'PTL ENTERPRISES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE034D01031',
+		2,
+		0
+	UNION
+	SELECT
+		N'PTL',
+		N'PTL Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE034D01031',
+		2,
+		0
+	UNION
+	SELECT
+		N'PULSRIN',
+		N'PULSAR INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE183U01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PUNCTRD',
+		N'PUNCTUAL TRADING LTD.',
+		N'BSE',
+		NULL,
+		N'INE07NX01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PUNITCO',
+		N'PUNIT COMMERCIALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE750G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'PUNJABCHEM',
+		N'PUNJAB CHEMICALS AND CROP PROTECTION LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE277B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PUNJABCHEM',
+		N'Punjab Chemicals & Crop Protection Limited',
+		N'NSE',
+		N'EQ',
+		N'INE277B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PUNJCOMMU',
+		N'PUNJAB COMMUNICATIONS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE609A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PUNJLLOYD',
+		N'PUNJ LLOYD LTD.',
+		N'BSE',
+		NULL,
+		N'INE701B01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'PUNJLLOYD',
+		N'Punj Lloyd Limited',
+		N'NSE',
+		N'BZ',
+		N'INE701B01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'PURITY',
+		N'PURITY FLEX PACK LTD.',
+		N'BSE',
+		NULL,
+		N'INE898O01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'PUROHITCON',
+		N'Purohit Construction Ltd',
+		N'BSE',
+		NULL,
+		N'INE147J01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'PURPLE',
+		N'Purple Entertainment Ltd',
+		N'BSE',
+		NULL,
+		N'INE905R01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PURSHOTTAM',
+		N'Purshottam Investofin Ltd',
+		N'BSE',
+		NULL,
+		N'INE729C01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'PURVA',
+		N'Puravankara Ltd',
+		N'BSE',
+		NULL,
+		N'INE323I01011',
+		5,
+		0
+	UNION
+	SELECT
+		N'PURVA',
+		N'Puravankara Limited',
+		N'NSE',
+		N'EQ',
+		N'INE323I01011',
+		5,
+		0
+	UNION
+	SELECT
+		N'PVR',
+		N'PVR LTD.',
+		N'BSE',
+		NULL,
+		N'INE191H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PVR',
+		N'PVR Limited',
+		N'NSE',
+		N'EQ',
+		N'INE191H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'PVVINFRA',
+		N'PVV Infra Ltd',
+		N'BSE',
+		NULL,
+		N'INE428B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'PWASML',
+		N'Prakash Woollen & Synthetic Mills Ltd',
+		N'BSE',
+		NULL,
+		N'INE523I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'PYXISFIN',
+		N'Pyxis Finvest Ltd',
+		N'BSE',
+		NULL,
+		N'INE883L01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'QGO',
+		N'QGO Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE837C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'QGOLDHALF',
+		N'Quantum Gold Fund -Exchange Traded Fund (ETF)',
+		N'NSE',
+		N'Gold',
+		N'INF082J01010',
+		100,
+		0
+	UNION
+	SELECT
+		N'QNIFTY',
+		N'QUANTUM MUTUAL FUND - QUANTUM INDEX FUND ETF',
+		N'BSE',
+		NULL,
+		N'INF082J01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'QNIFTY',
+		N'Quantum Nifty ETF',
+		N'NSE',
+		N'Nifty 50',
+		N'INF082J01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'QUADRANT',
+		N'Quadrant Televentures Limited-$',
+		N'BSE',
+		NULL,
+		N'INE527B01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'QUANTBUILD',
+		N'Quantum Build-Tech Ltd',
+		N'BSE',
+		NULL,
+		N'INE222B01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'QUANTDIA',
+		N'QUANTUM DIGITAL VISION (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE373C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'QUASAR',
+		N'Quasar India Ltd',
+		N'BSE',
+		NULL,
+		N'INE855P01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'QUESS',
+		N'Quess Corp Ltd',
+		N'BSE',
+		NULL,
+		N'INE615P01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'QUESS',
+		N'Quess Corp Limited',
+		N'NSE',
+		N'EQ',
+		N'INE615P01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'QUEST',
+		N'Quest Softech (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE989J01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'QUICKHEAL',
+		N'Quick Heal Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE306L01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'QUICKHEAL',
+		N'Quick Heal Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE306L01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'QUINT',
+		N'Quint Digital Media Ltd',
+		N'BSE',
+		NULL,
+		N'INE641R01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAAJMEDI',
+		N'RAAJ MEDISAFE INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE548H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RACE',
+		N'Race Eco Chain Ltd',
+		N'BSE',
+		NULL,
+		N'INE084Q01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RACLGEAR',
+		N'RACL Geartech Ltd',
+		N'BSE',
+		NULL,
+		N'INE704B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RADAAN',
+		N'RADAAN MEDIAWORKS (I) LTD.',
+		N'BSE',
+		NULL,
+		N'INE874F01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'RADAAN',
+		N'Radaan Mediaworks India Limited',
+		N'NSE',
+		N'BE',
+		N'INE874F01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'RADHEDE',
+		N'RADHE DEVELOPERS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE986B01036',
+		10,
+		0
+	UNION
+	SELECT
+		N'RADHEY',
+		N'Radhey Trade Holding Ltd',
+		N'BSE',
+		NULL,
+		N'INE204S01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RADHIKAJWE',
+		N'Radhika Jeweltech Ltd',
+		N'BSE',
+		NULL,
+		N'INE583V01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RADICO',
+		N'RADICO KHAITAN LTD.',
+		N'BSE',
+		NULL,
+		N'INE944F01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'RADICO',
+		N'Radico Khaitan Limited',
+		N'NSE',
+		N'EQ',
+		N'INE944F01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'RADIOCITY',
+		N'Music Broadcast Ltd',
+		N'BSE',
+		NULL,
+		N'INE919I01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'RADIOCITY',
+		N'Music Broadcast Limited',
+		N'NSE',
+		N'EQ',
+		N'INE919I01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'RADIXIND',
+		N'Radix Industries (India) Limited',
+		N'BSE',
+		NULL,
+		N'INE576N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAFL',
+		N'Raghuvansh Agrofarms Ltd',
+		N'BSE',
+		NULL,
+		N'INE865P01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAGHUNAT',
+		N'RAGHUNATH INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE753B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAGHUSYN',
+		N'RAGHUVIR SYNTHETICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE969C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAGHUTOB',
+		N'RAGHUNATH TOBACCO CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE754B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAIDEEPIND',
+		N'Raideep Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE923R01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAIN',
+		N'Rain Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE855B01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'RAIN',
+		N'Rain Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE855B01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'RAINBOWDQ',
+		N'RAINBOW DENIM LTD.',
+		N'BSE',
+		NULL,
+		N'INE820D01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAINBOWF',
+		N'RAINBOW FOUNDATIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE230F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJABAH',
+		N'RAJA BAHADUR INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE491N01016',
+		100,
+		0
+	UNION
+	SELECT
+		N'RAJATH',
+		N'Rajath Finance Limited',
+		N'BSE',
+		NULL,
+		N'INE455H01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJESHEXPO',
+		N'RAJESH EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE343B01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'RAJESHEXPO',
+		N'Rajesh Exports Limited',
+		N'NSE',
+		N'EQ',
+		N'INE343B01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'RAJGLOWIR',
+		N'RAJRATAN GLOBAL WIRE LTD.',
+		N'BSE',
+		NULL,
+		N'INE451D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJINFRA',
+		N'Rajeswari Infrastructure Limited',
+		N'BSE',
+		NULL,
+		N'INE016C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJKOTINV',
+		N'Rajkot Investment Trust Ltd',
+		N'BSE',
+		NULL,
+		N'INE176R01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJKSYN',
+		N'RAJKAMAL SYNTHETICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE376L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJMET',
+		N'Rajnandini Metal Limited',
+		N'NSE',
+		N'EQ',
+		N'INE00KV01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJNISH',
+		N'Rajnish Wellness Ltd',
+		N'BSE',
+		NULL,
+		N'INE685Z01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJOIL',
+		N'RAJ OIL MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE294G01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJOOENG',
+		N'RAJOO ENGINEERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE535F01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'RAJPACK',
+		N'RAJ PACKAGING INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE639C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJPALAYAM',
+		N'RAJAPALAYAM MILLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE296E01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJPUTANA',
+		N'Rajputana Investment and Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE751R01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJRATAN',
+		N'Rajratan Global Wire Limited',
+		N'NSE',
+		N'EQ',
+		N'INE451D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJRAYON',
+		N'Raj Rayon Industries Limited-$',
+		N'BSE',
+		NULL,
+		N'INE533D01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'RAJRAYON',
+		N'Raj Rayon Industries Limited',
+		N'NSE',
+		N'BZ',
+		N'INE533D01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'RAJSPTR',
+		N'RAJASTHAN PETRO SYNTHETICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE374C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJSREESUG',
+		N'RAJSHREE SUGARS & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE562B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJSREESUG',
+		N'Rajshree Sugars & Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE562B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJTUBE',
+		N'RAJASTHAN TUBE MANUFACTURING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE497E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAJTV',
+		N'RAJ TELEVISION NETWORK LTD.',
+		N'BSE',
+		NULL,
+		N'INE952H01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'RAJTV',
+		N'Raj Television Network Limited',
+		N'NSE',
+		N'EQ',
+		N'INE952H01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'RALEGRA',
+		N'RAVILEELA GRANITES LTD.',
+		N'BSE',
+		NULL,
+		N'INE427E01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'RALLIS',
+		N'RALLIS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE613A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'RALLIS',
+		N'Rallis India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE613A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'RAMANEWS',
+		N'SHREE RAMA NEWSPRINT LTD.',
+		N'BSE',
+		NULL,
+		N'INE278B01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMANEWS',
+		N'Shree Rama Newsprint Limited',
+		N'NSE',
+		N'EQ',
+		N'INE278B01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMAPETRO',
+		N'RAMA PETROCHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE783A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMAPHO',
+		N'RAMA PHOSPHATES LTD.',
+		N'BSE',
+		NULL,
+		N'INE809A01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMAPPR-B',
+		N'RAMA PAPER MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE425E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMASIGNS',
+		N'Ramasigns Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE650D01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'RAMASTEEL',
+		N'Rama Steel Tubes Ltd',
+		N'BSE',
+		NULL,
+		N'INE230R01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'RAMASTEEL',
+		N'Rama Steel Tubes Limited',
+		N'NSE',
+		N'BE',
+		N'INE230R01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'RAMAVISION',
+		N'RAMA VISION LTD.',
+		N'BSE',
+		NULL,
+		N'INE763B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMCOCEM',
+		N'The Ramco Cements Limited',
+		N'BSE',
+		NULL,
+		N'INE331A01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'RAMCOCEM',
+		N'The Ramco Cements Limited',
+		N'NSE',
+		N'EQ',
+		N'INE331A01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'RAMCOIND',
+		N'RAMCO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE614A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'RAMCOIND',
+		N'Ramco Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE614A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'RAMCOSYS',
+		N'RAMCO SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE246B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMCOSYS',
+		N'Ramco Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE246B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMGOPOLY',
+		N'RAMGOPAL POLYTEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE410D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMINFO',
+		N'RAMINFO LIMITED',
+		N'BSE',
+		NULL,
+		N'INE357B01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMKY',
+		N'RAMKY INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE874I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMKY',
+		N'Ramky Infrastructure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE874I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAMRAT',
+		N'RAM RATNA WIRES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE207E01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'RAMSONS',
+		N'RAMSONS PROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE609D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RANASUG',
+		N'RANA SUGARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE625B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RANASUG',
+		N'Rana Sugars Limited',
+		N'NSE',
+		N'EQ',
+		N'INE625B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RANDER',
+		N'RANDER CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE821D01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'RANEENGINE',
+		N'RANE ENGINE VALVE LTD.',
+		N'BSE',
+		NULL,
+		N'INE222J01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RANEENGINE',
+		N'Rane Engine Valve Limited',
+		N'NSE',
+		N'EQ',
+		N'INE222J01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RANEHOLDIN',
+		N'RANE HOLDINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE384A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'RANEHOLDIN',
+		N'Rane Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE384A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'RANJEET',
+		N'Ranjeet Mechatronics Ltd',
+		N'BSE',
+		NULL,
+		N'INE01A501019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAP',
+		N'RAP MEDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE483D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAPICUT',
+		N'RAPICUT CARBIDES LTD.',
+		N'BSE',
+		NULL,
+		N'INE350D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAPIDIN',
+		N'RAPID INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE154M01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RASANDIK',
+		N'RASANDIK ENGINEERING INDUSTRIES INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE682D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'RASIELEC',
+		N'RASI ELECTRODES LTD.',
+		N'BSE',
+		NULL,
+		N'INE822D01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'RASRESOR',
+		N'RAS RESORTS & APART HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE651D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RASSIREF',
+		N'RAASI REFRACTORIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE858D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RATHIBAR',
+		N'RATHI BARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE575I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RATNABHUMI',
+		N'Ratnabhumi Developers Ltd',
+		N'BSE',
+		NULL,
+		N'INE821Y01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'RATNAMANI',
+		N'RATNAMANI METALS & TUBES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE703B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'RATNAMANI',
+		N'Ratnamani Metals & Tubes Limited',
+		N'NSE',
+		N'EQ',
+		N'INE703B01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'RAUNAQEPC',
+		N'Raunaq EPC International Ltd',
+		N'BSE',
+		NULL,
+		N'INE523K01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAVALSUGAR',
+		N'RAVALGAON SUGAR FARM LTD.',
+		N'BSE',
+		NULL,
+		N'INE615A01017',
+		50,
+		0
+	UNION
+	SELECT
+		N'RAWEDGE',
+		N'Raw Edge Industrial Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE960Z01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAYALEMA',
+		N'ROYALE MANOR HOTELS & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE008C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAYMOND',
+		N'RAYMOND LTD.',
+		N'BSE',
+		NULL,
+		N'INE301A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RAYMOND',
+		N'Raymond Limited',
+		N'NSE',
+		N'EQ',
+		N'INE301A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RBL',
+		N'Rane Brake Lining Limited',
+		N'NSE',
+		N'EQ',
+		N'INE244J01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RBL*',
+		N'RANE BRAKE LINING LTD.',
+		N'BSE',
+		NULL,
+		N'INE244J01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RBLBANK',
+		N'RBL Bank Ltd',
+		N'BSE',
+		NULL,
+		N'INE976G01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'RBLBANK',
+		N'RBL Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE976G01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'RCCL',
+		N'Rajasthan Cylinders & Containers Ltd',
+		N'BSE',
+		NULL,
+		N'INE929D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RCF',
+		N'RASHTRIYA CHEMICALS & FERTILIZERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE027A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RCF',
+		N'Rashtriya Chemicals and Fertilizers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE027A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RCIIND',
+		N'RCI Industries & Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE140B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RCL',
+		N'Radhagobind Commercial Ltd',
+		N'BSE',
+		NULL,
+		N'INE792P01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RCOM',
+		N'RELIANCE COMMUNICATIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE330H01018',
+		5,
+		0
+	UNION
+	SELECT
+		N'RCOM',
+		N'Reliance Communications Limited',
+		N'NSE',
+		N'EQ',
+		N'INE330H01018',
+		5,
+		0
+	UNION
+	SELECT
+		N'RDBRIL',
+		N'RDB REALTY & INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE245L01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'RDBRL',
+		N'RDB RASAYANS LTD.',
+		N'BSE',
+		NULL,
+		N'INE123M01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'REALECO',
+		N'Real Eco-Energy Ltd',
+		N'BSE',
+		NULL,
+		N'INE055E01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'REALSTR',
+		N'REAL STRIPS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE183B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RECLTD',
+		N'REC Ltd',
+		N'BSE',
+		NULL,
+		N'INE020B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'RECLTD',
+		N'REC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE020B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'REDEXPR',
+		N'REDEX PROTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE823D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'REDINGTON',
+		N'REDINGTON (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE891D01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'REDINGTON',
+		N'Redington (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE891D01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'REFEX',
+		N'Refex Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE056I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'REFEX',
+		N'Refex Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE056I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'REFNOL',
+		N'REFNOL RESINS & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE428C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'REGAL',
+		N'REGAL ENTERTAINMENT & CONSULTANTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE101E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'REGENCY',
+		N'Regency Fincorp Ltd',
+		N'BSE',
+		NULL,
+		N'INE964R01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'REGENTRP',
+		N'Regent Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE769D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'REGTRUS',
+		N'REGENCY TRUST LTD.',
+		N'BSE',
+		NULL,
+		N'INE425F01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'RELAXO',
+		N'RELAXO FOOTWEARS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE131B01039',
+		1,
+		0
+	UNION
+	SELECT
+		N'RELAXO',
+		N'Relaxo Footwears Limited',
+		N'NSE',
+		N'EQ',
+		N'INE131B01039',
+		1,
+		0
+	UNION
+	SELECT
+		N'RELCAPITAL',
+		N'RELIANCE CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE013A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELCAPITAL',
+		N'Reliance Capital Limited',
+		N'NSE',
+		N'EQ',
+		N'INE013A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELCHEMQ',
+		N'RELIANCE CHEMOTEX INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE750D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELHOME',
+		N'Reliance Home Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE217K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELIABVEN',
+		N'RELIABLE VENTURES INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE419H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELIANCE',
+		N'RELIANCE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE002A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELIANCE',
+		N'Reliance Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE002A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELICAB',
+		N'Relicab Cable Manufacturing Ltd',
+		N'BSE',
+		NULL,
+		N'INE773T01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELICTEC',
+		N'RELIC TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE452B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELIGARE',
+		N'RELIGARE ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE621H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELIGARE',
+		N'Religare Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE621H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELINFRA',
+		N'RELIANCE INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE036A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELINFRA',
+		N'Reliance Infrastructure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE036A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RELTD',
+		N'Ravindra Energy Ltd',
+		N'BSE',
+		NULL,
+		N'INE206N01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'REMIEDEL',
+		N'Remi Edelstahl Tubulars Limited',
+		N'BSE',
+		NULL,
+		N'INE158G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'REMIELEK',
+		N'Remi Elektrotechnik Limited',
+		N'BSE',
+		NULL,
+		N'INE512H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'REMIPRO',
+		N'REMI PROCESS PLANT & MACHINERY LTD.',
+		N'BSE',
+		NULL,
+		N'INE513H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'REMISIN',
+		N'REMI SALES & ENGINEERING LTD.',
+		N'BSE',
+		NULL,
+		N'INE130I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'REMITR',
+		N'REMI SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE592J01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'REMLIFE',
+		N'Remedium Lifecare Ltd',
+		N'BSE',
+		NULL,
+		N'INE549S01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'REMSONSIND',
+		N'REMSONS INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE474C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'REMSONSIND',
+		N'Remsons Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE474C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RENUKA',
+		N'SHREE RENUKA SUGARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE087H01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'RENUKA',
+		N'Shree Renuka Sugars Limited',
+		N'NSE',
+		N'EQ',
+		N'INE087H01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'REPCOHOME',
+		N'REPCO HOME FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE612J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'REPCOHOME',
+		N'Repco Home Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE612J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'REPL',
+		N'Rudrabhishek Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE364Z01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'REPRO',
+		N'REPRO INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE461B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'REPRO',
+		N'Repro India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE461B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RESONANCE',
+		N'RESONANCE SPECIALTIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE486D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RESPONIND',
+		N'RESPONSIVE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE688D01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'RESPONIND',
+		N'Responsive Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE688D01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'RESPONSINF',
+		N'Response Informatics Ltd',
+		N'BSE',
+		NULL,
+		N'INE401B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'RESTILE',
+		N'RESTILE CERAMICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE298E01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'REVATHI',
+		N'REVATHI EQUIPMENT LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE617A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'REVATHI',
+		N'Revathi Equipment Limited',
+		N'NSE',
+		N'EQ',
+		N'INE617A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'REXNORD',
+		N'REXNORD ELECTRONICS & CONTROLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE687C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RFLL',
+		N'Rita Finance and Leasing Ltd',
+		N'BSE',
+		NULL,
+		N'INE018S01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RFSL',
+		N'Richfield Financial Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE201C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RGF',
+		N'RGF Capital Markets Ltd',
+		N'BSE',
+		NULL,
+		N'INE684D01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'RGIL',
+		N'Rotographics (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE364S01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RGL',
+		N'Renaissance Global Ltd',
+		N'BSE',
+		NULL,
+		N'INE722H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RGL',
+		N'Renaissance Global Limited',
+		N'NSE',
+		N'EQ',
+		N'INE722H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RGRL',
+		N'Retro Green Revolution Ltd',
+		N'BSE',
+		NULL,
+		N'INE601N01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'RHFL',
+		N'Reliance Home Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE217K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'RIBATEX',
+		N'RIBA TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE811H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RICHAIND',
+		N'RICHA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE516H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RICHIRICH',
+		N'Richirich Inventures Limited',
+		N'BSE',
+		NULL,
+		N'INE102C01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'RICHUNV',
+		N'RICH UNIVERSE NETWORK LTD.',
+		N'BSE',
+		NULL,
+		N'INE652D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RICOAUTO',
+		N'RICO AUTO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE209B01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'RICOAUTO',
+		N'Rico Auto Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE209B01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'RIDDHI',
+		N'RIDDHI SIDDHI GLUCO BIOLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE249D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RIDDHICORP',
+		N'Riddhi Corporate Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE325X01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RIDHISYN',
+		N'RIDHI SYNTHETICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE07LK01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'RIDINGS',
+		N'Ridings Consulting Engineers India Ltd',
+		N'BSE',
+		NULL,
+		N'INE314Z01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RIGASUG',
+		N'RIGA SUGAR COMPANY LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE909C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'RIIL',
+		N'RELIANCE INDUSTRIAL INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE046A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RIIL',
+		N'Reliance Industrial Infrastructure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE046A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RIR',
+		N'RUTTONSHA INTERNATIONAL RECTIFIER LTD.',
+		N'BSE',
+		NULL,
+		N'INE302D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RISHDIGA',
+		N'RISHABH DIGHA STEEL & ALLIED PRODUCTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE864D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RISHILASE',
+		N'RISHI LASER LTD.',
+		N'BSE',
+		NULL,
+		N'INE988D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RISHIROOP',
+		N'Rishiroop Ltd',
+		N'BSE',
+		NULL,
+		N'INE582D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RISHITECH',
+		N'RISHI TECHTEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE989D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'RITCO',
+		N'Ritco Logistics Ltd',
+		N'BSE',
+		NULL,
+		N'INE01EG01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RITES',
+		N'RITES Ltd',
+		N'BSE',
+		NULL,
+		N'INE320J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RITES',
+		N'RITES Limited',
+		N'NSE',
+		N'EQ',
+		N'INE320J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RITESHIN',
+		N'RITESH INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE534D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RITHWIKFMS',
+		N'Rithwik Facility Management Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE819Y01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RJBIOTECH',
+		N'R J Bio-Tech Ltd',
+		N'BSE',
+		NULL,
+		N'INE594O01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RJKMRFR',
+		N'RAJKUMAR FORGE LTD.',
+		N'BSE',
+		NULL,
+		N'INE013J01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RJSHAH',
+		N'R.J.SHAH & CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE712Z01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RKDAGRRTL',
+		N'RKD Agri & Retail Ltd',
+		N'BSE',
+		NULL,
+		N'INE552N01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'RKDL',
+		N'RAVI KUMAR DISTILLERIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE722J01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RKDL',
+		N'Ravi Kumar Distilleries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE722J01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RKEC',
+		N'RKEC Projects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE786W01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'RKFORGE',
+		N'RAMKRISHNA FORGINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE399G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RKFORGE',
+		N'Ramkrishna Forgings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE399G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RLF',
+		N'RLF LTD.',
+		N'BSE',
+		NULL,
+		N'INE629C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RLFL',
+		N'Ramchandra Leasing & Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE516P01015',
+		1,
+		0
+	UNION
+	SELECT
+		N'RMC',
+		N'RMC Switchgears Ltd',
+		N'BSE',
+		NULL,
+		N'INE655V01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RMCL',
+		N'RADHA MADHAV CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE172H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RMCL',
+		N'Radha Madhav Corporation Limited',
+		N'NSE',
+		N'BE',
+		N'INE172H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RML',
+		N'RANE (MADRAS) LTD.',
+		N'BSE',
+		NULL,
+		N'INE050H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RML',
+		N'Rane (Madras) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE050H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RNAVAL',
+		N'Reliance Naval and Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE542F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RNAVAL',
+		N'Reliance Naval and Engineering Limited',
+		N'NSE',
+		N'BZ',
+		N'INE542F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'RNBDENIMS',
+		N'R&B Denims Ltd',
+		N'BSE',
+		NULL,
+		N'INE012Q01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RODIUM',
+		N'Rodium Realty Limited',
+		N'BSE',
+		NULL,
+		N'INE513E01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROHLTD',
+		N'ROYAL ORCHID HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE283H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROHLTD',
+		N'Royal Orchid Hotels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE283H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROJL',
+		N'RO Jewels Ltd',
+		N'BSE',
+		NULL,
+		N'INE0BDU01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROLCOEN',
+		N'ROLCON ENGINEERING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE775R01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROLLT',
+		N'ROLLATAINERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE927A01040',
+		1,
+		0
+	UNION
+	SELECT
+		N'ROLLT',
+		N'Rollatainers Limited',
+		N'NSE',
+		N'BE',
+		N'INE927A01040',
+		1,
+		0
+	UNION
+	SELECT
+		N'ROLTA',
+		N'ROLTA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE293A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROLTA',
+		N'Rolta India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE293A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROML',
+		N'Raj Oil Mills Limited',
+		N'NSE',
+		N'BE',
+		N'INE294G01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'RONI',
+		N'Roni Households Ltd',
+		N'BSE',
+		NULL,
+		N'INE02AP01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROOPAIND',
+		N'ROOPA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE443C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROOPSHRI',
+		N'Roopshri Resorts Ltd',
+		N'BSE',
+		NULL,
+		N'INE03WT01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROSELABS',
+		N'ROSELABS FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE475C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROSSARI',
+		N'Rossari Biotech Ltd',
+		N'BSE',
+		NULL,
+		N'INE02A801020',
+		2,
+		0
+	UNION
+	SELECT
+		N'ROSSARI',
+		N'Rossari Biotech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE02A801020',
+		2,
+		0
+	UNION
+	SELECT
+		N'ROSSELLIND',
+		N'ROSSELL INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE847C01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'ROSSELLIND',
+		N'Rossell India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE847C01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'ROTO',
+		N'ROTO PUMPS LTD.',
+		N'BSE',
+		NULL,
+		N'INE535D01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'ROUTE',
+		N'Route Mobile Ltd',
+		N'BSE',
+		NULL,
+		N'INE450U01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROUTE',
+		N'ROUTE MOBILE LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE450U01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROYALCU',
+		N'ROYAL CUSHION VINYL PRODUCTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE618A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ROYALIND',
+		N'Royal India Corporation Limited',
+		N'BSE',
+		NULL,
+		N'INE510H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RPEL',
+		N'Raghav Productivity Enhancers Ltd',
+		N'BSE',
+		NULL,
+		N'INE912T01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'RPGLIFE',
+		N'RPG LIFE SCIENCES LTD.',
+		N'BSE',
+		NULL,
+		N'INE105J01010',
+		8,
+		0
+	UNION
+	SELECT
+		N'RPGLIFE',
+		N'RPG Life Sciences Limited',
+		N'NSE',
+		N'EQ',
+		N'INE105J01010',
+		8,
+		0
+	UNION
+	SELECT
+		N'RPIL',
+		N'RITESH PROPERTIES & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE299D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RPOWER',
+		N'RELIANCE POWER LTD.',
+		N'BSE',
+		NULL,
+		N'INE614G01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'RPOWER',
+		N'Reliance Power Limited',
+		N'NSE',
+		N'EQ',
+		N'INE614G01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'RPPINFRA',
+		N'RPP INFRA PROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE324L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RPPINFRA',
+		N'R.P.P. Infra Projects Limited',
+		N'NSE',
+		N'EQ',
+		N'INE324L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RPSGVENT',
+		N'RPSG Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE425Y01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'RPSGVENT',
+		N'RPSG VENTURES LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE425Y01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'RRIL',
+		N'RRIL Ltd',
+		N'BSE',
+		NULL,
+		N'INE951M01037',
+		5,
+		0
+	UNION
+	SELECT
+		N'RRMETAL',
+		N'RR MetalMakers India Ltd',
+		N'BSE',
+		NULL,
+		N'INE117K01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RRSECUR',
+		N'R.R.SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE474H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RSCINT',
+		N'RSC INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE015F01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RSDFIN',
+		N'RSD Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE616F01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'RSSOFTWARE',
+		N'R.S.SOFTWARE INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE165B01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'RSSOFTWARE',
+		N'R. S. Software (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE165B01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'RSTL',
+		N'Riddhi Steel and Tube Ltd',
+		N'BSE',
+		NULL,
+		N'INE367U01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RSWM',
+		N'RSWM LTD.',
+		N'BSE',
+		NULL,
+		N'INE611A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RSWM',
+		N'RSWM Limited',
+		N'NSE',
+		N'EQ',
+		N'INE611A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'RSYSTEMINT',
+		N'R Systems International Limited',
+		N'BSE',
+		NULL,
+		N'INE411H01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'RSYSTEMS',
+		N'R Systems International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE411H01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'RTEXPO',
+		N'R.T.EXPORTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE581D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RTFL',
+		N'Real Touch Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE840I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RTNINFRA',
+		N'RattanIndia Infrastructure Limited',
+		N'BSE',
+		NULL,
+		N'INE834M01019',
+		2,
+		0
+	UNION
+	SELECT
+		N'RTNINFRA',
+		N'RattanIndia Infrastructure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE834M01019',
+		2,
+		0
+	UNION
+	SELECT
+		N'RTNPOWER',
+		N'RattanIndia Power Limited',
+		N'BSE',
+		NULL,
+		N'INE399K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RTNPOWER',
+		N'RattanIndia Power Limited',
+		N'NSE',
+		N'EQ',
+		N'INE399K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RTSPOWR',
+		N'RTS POWER CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE005C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RUBFILA',
+		N'RUBFILA INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE642C01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'RUBRAME',
+		N'RUBRA MEDICAMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE396H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'RUBYMILLS',
+		N'RUBY MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE301D01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'RUBYMILLS',
+		N'The Ruby Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE301D01026',
+		5,
+		0
+	UNION
+	SELECT
+		N'RUCHI',
+		N'Ruchi Soya Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE619A01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'RUCHINFRA',
+		N'RUCHI INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE413B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'RUCHINFRA',
+		N'Ruchi Infrastructure Limited',
+		N'NSE',
+		N'BE',
+		N'INE413B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'RUCHIRA',
+		N'RUCHIRA PAPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE803H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RUCHIRA',
+		N'Ruchira Papers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE803H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'RUCHISOYA',
+		N'RUCHI SOYA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE619A01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'RUDRA',
+		N'Rudra Global Infra Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE027T01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'RUNGTAIR',
+		N'RUNGTA IRRIGATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE347C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'RUPA',
+		N'RUPA & COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE895B01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'RUPA',
+		N'Rupa & Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE895B01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'RUSHIL',
+		N'RUSHIL DECOR LTD.',
+		N'BSE',
+		NULL,
+		N'INE573K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RUSHIL',
+		N'Rushil Decor Limited',
+		N'NSE',
+		N'EQ',
+		N'INE573K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'RVHL',
+		N'Ravinder Heights Ltd',
+		N'BSE',
+		NULL,
+		N'INE09E501017',
+		1,
+		0
+	UNION
+	SELECT
+		N'RVHL',
+		N'Ravinder Heights Limited',
+		N'NSE',
+		N'EQ',
+		N'INE09E501017',
+		1,
+		0
+	UNION
+	SELECT
+		N'RVNL',
+		N'Rail Vikas Nigam Ltd',
+		N'BSE',
+		NULL,
+		N'INE415G01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'RVNL',
+		N'Rail Vikas Nigam Limited',
+		N'NSE',
+		N'EQ',
+		N'INE415G01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'S&SPOWER',
+		N'S&S POWER SWITCHGEAR LTD.',
+		N'BSE',
+		NULL,
+		N'INE902B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'S&SPOWER',
+		N'S&S Power Switchgears Limited',
+		N'NSE',
+		N'BE',
+		N'INE902B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAB',
+		N'SAB Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE137M01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SABEVENTS',
+		N'Sab Events & Governance Now Media Limited',
+		N'NSE',
+		N'EQ',
+		N'INE860T01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SABOOBR',
+		N'SABOO BROTHERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE021N01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SABOOSOD',
+		N'SABOO SODIUM CHLORO LTD.',
+		N'BSE',
+		NULL,
+		N'INE440C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SABTN',
+		N'SRI ADHIKARI BROTHERS TELEVISION NETWORK LTD.',
+		N'BSE',
+		NULL,
+		N'INE416A01036',
+		10,
+		0
+	UNION
+	SELECT
+		N'SABTN',
+		N'Sri Adhikari Brothers Television Network Limited',
+		N'NSE',
+		N'BE',
+		N'INE416A01036',
+		10,
+		0
+	UNION
+	SELECT
+		N'SACHEMT',
+		N'SACHETA METALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE433G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SADBHAV',
+		N'SADBHAV ENGINEERING LTD.',
+		N'BSE',
+		NULL,
+		N'INE226H01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'SADBHAV',
+		N'Sadbhav Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE226H01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'SADBHIN',
+		N'Sadbhav Infrastructure Project Ltd',
+		N'BSE',
+		NULL,
+		N'INE764L01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SADBHIN',
+		N'Sadbhav Infrastructure Project Limited',
+		N'NSE',
+		N'EQ',
+		N'INE764L01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SADHNA',
+		N'Sadhna Broadcast Ltd',
+		N'BSE',
+		NULL,
+		N'INE994R01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SADHNANIQ',
+		N'SADHANA NITROCHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE888C01040',
+		1,
+		0
+	UNION
+	SELECT
+		N'SAENTER',
+		N'SOUTH ASIAN ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE118B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAFARI',
+		N'Safari Industries (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE429E01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'SAFARIND',
+		N'SAFARI INDUSTRIES (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE429E01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'SAFFRON',
+		N'Saffron Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE474D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAGAR',
+		N'Sagar Diamonds Ltd',
+		N'BSE',
+		NULL,
+		N'INE146Y01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAGARDEEP',
+		N'Sagardeep Alloys Limited',
+		N'NSE',
+		N'EQ',
+		N'INE976T01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAGARPROD',
+		N'Sagar Productions Limited',
+		N'BSE',
+		NULL,
+		N'INE807D01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'SAGARSOFT',
+		N'Sagarsoft (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE184B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAGARSYST',
+		N'SAGAR SYSTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE771Z01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAGCEM',
+		N'SAGAR CEMENTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE229C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAGCEM',
+		N'Sagar Cements Limited',
+		N'NSE',
+		N'EQ',
+		N'INE229C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAGL',
+		N'Shalimar Agencies Ltd',
+		N'BSE',
+		NULL,
+		N'INE631E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAGRSOY-B',
+		N'SAGAR SOYA PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE131O01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAHARA',
+		N'SAHARA ONE MEDIA & ENTERTAINMENT LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE479B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAHARAHOUS',
+		N'SAHARA HOUSINGFINA CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE135C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAHLIBHFI',
+		N'SHALIBHADRA FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE861D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAHYADRI',
+		N'SAHYADRI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE280H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAIBABA',
+		N'Sai Baba Investment And Commercial Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE706P01038',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAICAPI',
+		N'SAI CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE531X01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAIL',
+		N'STEEL AUTHORITY OF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE114A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAIL',
+		N'Steel Authority of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE114A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAINDUS',
+		N'SAI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE213S01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAINIK',
+		N'SAINIK FINANCE & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE584B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAINTGOBAIN',
+		N'SAINT-GOBAIN SEKURIT INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE068B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAKAR',
+		N'Sakar Healthcare Limited',
+		N'NSE',
+		N'EQ',
+		N'INE732S01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAKHTISUG',
+		N'SAKTHI SUGARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE623A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAKHTISUG',
+		N'Sakthi Sugars Limited',
+		N'NSE',
+		N'EQ',
+		N'INE623A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAKSOFT',
+		N'SAKSOFT LTD.',
+		N'BSE',
+		NULL,
+		N'INE667G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAKSOFT',
+		N'Saksoft Limited',
+		N'NSE',
+		N'EQ',
+		N'INE667G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAKTHIFIN',
+		N'SAKTHI FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE302E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAKUMA',
+		N'SAKUMA EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE190H01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'SAKUMA',
+		N'Sakuma Exports Limited',
+		N'NSE',
+		N'EQ',
+		N'INE190H01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'SALASAR',
+		N'Salasar Techno Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE170V01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SALASAR',
+		N'Salasar Techno Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE170V01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SALAUTO',
+		N'Sal Automotive Ltd',
+		N'BSE',
+		NULL,
+		N'INE724G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SALEM',
+		N'Salem Erode Investments Ltd',
+		N'BSE',
+		NULL,
+		N'INE894E01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'SALGUTI',
+		N'SALGUTI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE159C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SALONA',
+		N'Salona Cotspin Limited',
+		N'NSE',
+		N'EQ',
+		N'INE498E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SALONACOT',
+		N'SALONA COTSPIN LTD.',
+		N'BSE',
+		NULL,
+		N'INE498E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SALORAINTL',
+		N'SALORA INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE924A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SALSAIN',
+		N'SHREE SALASAR INVESTMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE315N01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SALSTEEL',
+		N'S.A.L.STEEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE658G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SALSTEEL',
+		N'S.A.L. Steel Limited',
+		N'NSE',
+		N'EQ',
+		N'INE658G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SALZER',
+		N'SALZER ELECTRONICS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE457F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SALZERELEC',
+		N'Salzer Electronics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE457F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAMBANDAM',
+		N'SAMBANDAM SPINNING MILLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE304D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAMBHAAV',
+		N'SAMBHAAV MEDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE699B01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'SAMBHAAV',
+		N'Sambhaav Media Limited',
+		N'NSE',
+		N'EQ',
+		N'INE699B01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'SAMINDUS',
+		N'SAM INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE653D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAMKRG',
+		N'SAMKRG PISTONS & RINGS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE706B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAMPRE',
+		N'SAMPRE NUTRITIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE375C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAMRATFORG',
+		N'Samrat Forgings Ltd',
+		N'BSE',
+		NULL,
+		N'INE412J01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAMRATPH',
+		N'SAMRAT PHARMACHEM LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE103E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAMTEX',
+		N'SAMTEX FASHIONS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE931D01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'SAMYAKINT',
+		N'SAMYAK INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE607G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANBLUE',
+		N'SANBLUE CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE602D01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANCO',
+		N'Sanco Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE782L01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANCTRN',
+		N'SANCO TRANS LTD.',
+		N'BSE',
+		NULL,
+		N'INE391G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANDESH',
+		N'SANDESH LTD.',
+		N'BSE',
+		NULL,
+		N'INE583B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANDESH',
+		N'The Sandesh Limited',
+		N'NSE',
+		N'EQ',
+		N'INE583B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANDHAR',
+		N'Sandhar Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE278H01035',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANDHAR',
+		N'Sandhar Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE278H01035',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANDUMA',
+		N'SANDUR MANGANESE & IRON ORES LTD.',
+		N'BSE',
+		NULL,
+		N'INE149K01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANDUPHQ',
+		N'SANDU PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE751D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANGAMIND',
+		N'SANGAM (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE495C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANGAMIND',
+		N'Sangam (India) Limited',
+		N'NSE',
+		N'BE',
+		N'INE495C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANGHIIND',
+		N'SANGHI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE999B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANGHIIND',
+		N'Sanghi Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE999B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANGHVIFOR',
+		N'SANGHVI FORGING AND ENGINEERING LTD.',
+		N'BSE',
+		NULL,
+		N'INE263L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANGHVIFOR',
+		N'Sanghvi Forging and Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE263L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANGHVIMOV',
+		N'SANGHVI MOVERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE989A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'SANGHVIMOV',
+		N'Sanghvi Movers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE989A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'SANGINITA',
+		N'Sanginita Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE753W01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANINFRA',
+		N'Sanmit Infra Limited',
+		N'BSE',
+		NULL,
+		N'INE799C01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANKHYAIN',
+		N'SANKHYA INFOTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE877A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANOFI',
+		N'Sanofi India Ltd',
+		N'BSE',
+		NULL,
+		N'INE058A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANOFI',
+		N'Sanofi India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE058A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANPA',
+		N'SANGAL PAPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE384D01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANTETX',
+		N'SANRHEA TECHNICAL TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE589J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANTOSHF',
+		N'SANTOSH FINE-FAB LTD.',
+		N'BSE',
+		NULL,
+		N'INE612D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SANWARIA',
+		N'Sanwaria Consumer Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE890C01046',
+		1,
+		0
+	UNION
+	SELECT
+		N'SANWARIA',
+		N'Sanwaria Consumer Limited',
+		N'NSE',
+		N'BZ',
+		N'INE890C01046',
+		1,
+		0
+	UNION
+	SELECT
+		N'SAPL',
+		N'SAR Auto Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE002E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAPPL',
+		N'Shree Ajit Pulp And Paper Ltd',
+		N'BSE',
+		NULL,
+		N'INE185C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SARDAEN',
+		N'SARDA ENERGY & MINERALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE385C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SARDAEN',
+		N'Sarda Energy & Minerals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE385C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SARDAPPR',
+		N'SARDA PAPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE385D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAREGAMA',
+		N'SAREGAMA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE979A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAREGAMA',
+		N'Saregama India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE979A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAREL',
+		N'Sangam Renewables Ltd',
+		N'BSE',
+		NULL,
+		N'INE299N01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SARLAPOLY',
+		N'SARLA PERFORMANCE FIBERS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE453D01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'SARLAPOLY',
+		N'Sarla Performance Fibers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE453D01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'SARTHAKGL',
+		N'SARTHAK GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE075H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SARTHAKIND',
+		N'SARTHAK INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE074H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SARUPINDUS',
+		N'SARUP INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE305D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SARVOTTAM',
+		N'Sarvottam Finvest Ltd',
+		N'BSE',
+		NULL,
+		N'INE822Q01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SASHWAT',
+		N'Sashwat Technocrats Limited',
+		N'BSE',
+		NULL,
+		N'INE789D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SASKEN',
+		N'Sasken Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE231F01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'SASKEN',
+		N'Sasken Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE231F01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'SASTASUNDR',
+		N'Sastasundar Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE019J01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SASTASUNDR',
+		N'Sastasundar Ventures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE019J01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SATIA',
+		N'Satia Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE170E01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'SATIA',
+		N'Satia Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE170E01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'SATIN',
+		N'Satin Creditcare Network Ltd',
+		N'BSE',
+		NULL,
+		N'INE836B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SATIN',
+		N'Satin Creditcare Network Limited',
+		N'NSE',
+		N'EQ',
+		N'INE836B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SATINDLTD',
+		N'SAT INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE065D01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'SATRAPROP',
+		N'SATRA PROPERTIES (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE086E01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'SAUMYA',
+		N'Saumya Consultants Ltd',
+		N'BSE',
+		NULL,
+		N'INE563C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAURASHCEM',
+		N'SAURASHTRA CEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE626A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAVERA',
+		N'SAVERA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE104E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAVFI',
+		N'SAVANI FINANCIALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE304E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAVINFOCO',
+		N'SAVANT INFOCOMM LTD.',
+		N'BSE',
+		NULL,
+		N'INE898E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAWABUSI',
+		N'SAWACA BUSINESS MACHINES LTD.',
+		N'BSE',
+		NULL,
+		N'INE248B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAYAJIHOTL',
+		N'SAYAJI HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE318C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SAYAJIIND',
+		N'Sayaji Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE327G01032',
+		5,
+		0
+	UNION
+	SELECT
+		N'SBC',
+		N'SBC Exports Ltd',
+		N'BSE',
+		NULL,
+		N'INE04AK01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SBECSUG',
+		N'SBEC SUGAR LTD.',
+		N'BSE',
+		NULL,
+		N'INE948G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SBECSYS',
+		N'SBEC SYSTEMS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE689V01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SBFL',
+		N'Shree Bhavya Fabrics Ltd',
+		N'BSE',
+		NULL,
+		N'INE363D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SBGLP',
+		N'Suratwwala Business Group Ltd',
+		N'BSE',
+		NULL,
+		N'INE05ST01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SBICARD',
+		N'SBI Cards and Payment Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE018E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SBICARD',
+		N'SBI Cards and Payment Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE018E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SBIETFQLTY',
+		N'SBIAMC - SBIETFQLTY',
+		N'NSE',
+		N'Nifty 200 Quality 30 Index',
+		N'INF200KA1WX6',
+		10,
+		0
+	UNION
+	SELECT
+		N'SBILIFE',
+		N'SBI Life Insurance Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE123W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SBILIFE',
+		N'SBI Life Insurance Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE123W01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SBIN',
+		N'STATE BANK OF INDIA',
+		N'BSE',
+		NULL,
+		N'INE062A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'SBIN',
+		N'State Bank of India',
+		N'NSE',
+		N'EQ',
+		N'INE062A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'SBISENSEX',
+		N'SBI Mutual Fund - SBI Sensex ETF',
+		N'BSE',
+		NULL,
+		N'INF200K01VT2',
+		10,
+		0
+	UNION
+	SELECT
+		N'SBRANDS',
+		N'Sanghvi Brands Ltd',
+		N'BSE',
+		NULL,
+		N'INE204Y01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCAGRO',
+		N'SC Agrotech Ltd',
+		N'BSE',
+		NULL,
+		N'INE895E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCANDENT',
+		N'Scandent Imaging Limited',
+		N'BSE',
+		NULL,
+		N'INE146N01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCANPGEOM',
+		N'SCANPOINT GEOMATICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE967B01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'SCANPRO',
+		N'SCAN PROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE393D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCANSTL',
+		N'Scan Steels Limited',
+		N'BSE',
+		NULL,
+		N'INE099G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCAPDVR',
+		N'Stampede Capital Ltd - DVR',
+		N'BSE',
+		NULL,
+		N'INE224E01036',
+		1,
+		0
+	UNION
+	SELECT
+		N'SCAPDVR',
+		N'Stampede Capital Limited',
+		N'NSE',
+		N'BE',
+		N'INE224E01036',
+		1,
+		0
+	UNION
+	SELECT
+		N'SCFL',
+		N'Shyam Century Ferrous Ltd',
+		N'BSE',
+		NULL,
+		N'INE979R01011',
+		1,
+		0
+	UNION
+	SELECT
+		N'SCHABLON',
+		N'SCHABLONA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE024C01026',
+		4,
+		0
+	UNION
+	SELECT
+		N'SCHAEFFLER',
+		N'Schaeffler India Ltd',
+		N'BSE',
+		NULL,
+		N'INE513A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCHAEFFLER',
+		N'Schaeffler India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE513A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCHAND',
+		N'S Chand and Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE807K01035',
+		5,
+		0
+	UNION
+	SELECT
+		N'SCHAND',
+		N'S Chand And Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE807K01035',
+		5,
+		0
+	UNION
+	SELECT
+		N'SCHNEIDER',
+		N'SCHNEIDER ELECTRIC INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE839M01018',
+		2,
+		0
+	UNION
+	SELECT
+		N'SCHNEIDER',
+		N'Schneider Electric Infrastructure Limited',
+		N'NSE',
+		N'EQ',
+		N'INE839M01018',
+		2,
+		0
+	UNION
+	SELECT
+		N'SCI',
+		N'SHIPPING CORPORATION OF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE109A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCI',
+		N'Shipping Corporation Of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE109A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCL',
+		N'Sunshine Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE974F01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCOOTER',
+		N'SCOOTERS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE959E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCPL',
+		N'Sheetal Cool Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE501Y01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SCTL',
+		N'Suncare Traders Ltd',
+		N'BSE',
+		NULL,
+		N'INE452S01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'SDBL',
+		N'SOM DISTILLERIES & BREWERIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE480C01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'SDBL',
+		N'Som Distilleries & Breweries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE480C01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'SDC',
+		N'SDC Techmedia Ltd',
+		N'BSE',
+		NULL,
+		N'INE807O01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SDL',
+		N'Span Divergent Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE004E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEACOAST',
+		N'Seacoast Shipping Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE277T01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEAGOLD',
+		N'SEA GOLD AQUA FARMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE428P01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEAMECLTD',
+		N'SEAMEC LTD.',
+		N'BSE',
+		NULL,
+		N'INE497B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEAMECLTD',
+		N'Seamec Limited',
+		N'NSE',
+		N'EQ',
+		N'INE497B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEASONF',
+		N'SEASONS FURNISHINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE454D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEASONST',
+		N'SEASONS TEXTILES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE707B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEATV',
+		N'SEA TV NETWORK LTD.',
+		N'BSE',
+		NULL,
+		N'INE351L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SECMARK',
+		N'SecMark Consultancy Ltd',
+		N'BSE',
+		NULL,
+		N'INE0BTM01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SECURKLOUD',
+		N'Securekloud Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE650K01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'SECURKLOUD',
+		N'SECUREKLOUD TECHNOLOGIES LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE650K01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'SEIL',
+		N'Shanti Educational Initiatives Ltd',
+		N'BSE',
+		NULL,
+		N'INE440T01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEL',
+		N'Sanathnagar Enterprises Limited',
+		N'BSE',
+		NULL,
+		N'INE367E01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'SELAN',
+		N'SELAN EXPLORATION TECHNOLOGY LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE818A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SELAN',
+		N'Selan Exploration Technology Limited',
+		N'NSE',
+		N'EQ',
+		N'INE818A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SELLWIN',
+		N'Sellwin Traders Ltd',
+		N'BSE',
+		NULL,
+		N'INE195F01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SELMCL',
+		N'SEL MANUFACTURING COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE105I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SELMCL',
+		N'SEL Manufacturing Company Limited',
+		N'NSE',
+		N'BZ',
+		N'INE105I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SENINFO',
+		N'Senthil Infotek Ltd',
+		N'BSE',
+		NULL,
+		N'INE564B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEPOWER',
+		N'S.E. POWER LTD.',
+		N'BSE',
+		NULL,
+		N'INE735M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEPOWER',
+		N'S.E. Power Limited',
+		N'NSE',
+		N'BE',
+		N'INE735M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEQUENT',
+		N'SEQUENT SCIENTIFIC LTD.',
+		N'BSE',
+		NULL,
+		N'INE807F01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'SEQUENT',
+		N'Sequent Scientific Limited',
+		N'NSE',
+		N'EQ',
+		N'INE807F01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'SERVOTEACH',
+		N'Servoteach Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE185D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SESHAPAPER',
+		N'SESHASAYEE PAPER & BOARDS LTD.',
+		N'BSE',
+		NULL,
+		N'INE630A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'SESHAPAPER',
+		N'Seshasayee Paper and Boards Limited',
+		N'NSE',
+		N'EQ',
+		N'INE630A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'SESL',
+		N'Sylph Education Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE622Q01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SETCO',
+		N'SETCO AUTOMOTIVE LTD.',
+		N'BSE',
+		NULL,
+		N'INE878E01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'SETCO',
+		N'Setco Automotive Limited',
+		N'NSE',
+		N'EQ',
+		N'INE878E01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'SETF10GILT',
+		N'SBIAMC - SETF10GILT',
+		N'NSE',
+		N'Nifty 10 yr Benchmark G-Sec Index',
+		N'INF200KA1JT1',
+		10,
+		0
+	UNION
+	SELECT
+		N'SETFBSE100',
+		N'SBI Mutual Fund - SBI - ETF BSE 100',
+		N'BSE',
+		NULL,
+		N'INF200KA1572',
+		10,
+		0
+	UNION
+	SELECT
+		N'SETFGOLD',
+		N'SBI-ETF Gold',
+		N'NSE',
+		N'Gold',
+		N'INF200K01099',
+		100,
+		0
+	UNION
+	SELECT
+		N'SETFNIF50',
+		N'SBI-ETF Nifty 50',
+		N'NSE',
+		N'Nifty 50',
+		N'INF200KA1FS1',
+		10,
+		0
+	UNION
+	SELECT
+		N'SETFNIFBK',
+		N'SBI-ETF Nifty Bank',
+		N'NSE',
+		N'Nifty Bank',
+		N'INF200KA1580',
+		10,
+		0
+	UNION
+	SELECT
+		N'SETFNN50',
+		N'SBI-ETF Nifty Next 50',
+		N'NSE',
+		N'Nifty Next 50',
+		N'INF200KA1598',
+		10,
+		0
+	UNION
+	SELECT
+		N'SETFSN50',
+		N'SBI - ETF - SENSEX NEXT 50',
+		N'BSE',
+		NULL,
+		N'INF200KA1VQ2',
+		10,
+		0
+	UNION
+	SELECT
+		N'SETUINFRA',
+		N'Setubandhan Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE023M01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'SETUINFRA',
+		N'Setubandhan Infrastructure Limited',
+		N'NSE',
+		N'BE',
+		N'INE023M01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'SEVENHILL',
+		N'Seven Hill Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE518D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEYAIND',
+		N'SEYA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE573R01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEYAIND',
+		N'Seya Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE573R01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEZAL',
+		N'Sezal Glass Limited',
+		N'BSE',
+		NULL,
+		N'INE955I01036',
+		10,
+		0
+	UNION
+	SELECT
+		N'SEZAL',
+		N'Sezal Glass Limited',
+		N'NSE',
+		N'BZ',
+		N'INE955I01036',
+		10,
+		0
+	UNION
+	SELECT
+		N'SFL',
+		N'Sheela Foam Ltd',
+		N'BSE',
+		NULL,
+		N'INE916U01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'SFL',
+		N'Sheela Foam Limited',
+		N'NSE',
+		N'EQ',
+		N'INE916U01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'SFPIL',
+		N'Square Four Projects India Limited',
+		N'BSE',
+		NULL,
+		N'INE716K01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SGIL',
+		N'Synergy Green Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE00QT01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SGL',
+		N'STL GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE353H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SGL',
+		N'STL Global Limited',
+		N'NSE',
+		N'EQ',
+		N'INE353H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SGNTE',
+		N'SGN TELECOMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE266C01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'SGRL',
+		N'Shree Ganesh Remedies Ltd',
+		N'BSE',
+		NULL,
+		N'INE414Y01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHAHALLOYS',
+		N'SHAH ALLOYS LTD.',
+		N'BSE',
+		NULL,
+		N'INE640C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHAHALLOYS',
+		N'Shah Alloys Limited',
+		N'NSE',
+		N'BE',
+		N'INE640C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHAHCON',
+		N'SHAH CONSTRUCTION CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE02C301011',
+		100,
+		0
+	UNION
+	SELECT
+		N'SHAHFOOD',
+		N'SHAH FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE455D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHAHLON',
+		N'Shahlon Silk Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE052001018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHAILY',
+		N'SHAILY ENGINEERING PLASTICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE151G01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHAKTIPUMP',
+		N'SHAKTI PUMPS (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE908D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHAKTIPUMP',
+		N'Shakti Pumps (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE908D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHALBY',
+		N'Shalby Ltd',
+		N'BSE',
+		NULL,
+		N'INE597J01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHALBY',
+		N'Shalby Limited',
+		N'NSE',
+		N'EQ',
+		N'INE597J01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHALIWIR',
+		N'SHALIMAR WIRES INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE655D01025',
+		2,
+		0
+	UNION
+	SELECT
+		N'SHALPAINTS',
+		N'SHALIMAR PAINTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE849C01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'SHALPAINTS',
+		N'Shalimar Paints Limited',
+		N'NSE',
+		N'EQ',
+		N'INE849C01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'SHALPRO',
+		N'SHALIMAR PRODUCTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE435E01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'SHANGAR',
+		N'Shangar Decor Ltd',
+		N'BSE',
+		NULL,
+		N'INE118R01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'SHANKARA',
+		N'Shankara Building Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE274V01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHANKARA',
+		N'Shankara Building Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE274V01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHANTAI',
+		N'Shantai Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE408F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHANTIGEAR',
+		N'SHANTHI GEARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE631A01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'SHANTIGEAR',
+		N'Shanthi Gears Limited',
+		N'NSE',
+		N'EQ',
+		N'INE631A01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'SHAQUAK',
+		N'SHANTANU SHEOREY AQUAKULT LTD.',
+		N'BSE',
+		NULL,
+		N'INE545N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHARDA',
+		N'Sharda Motor Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE597I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHARDACROP',
+		N'Sharda Cropchem Ltd',
+		N'BSE',
+		NULL,
+		N'INE221J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHARDACROP',
+		N'Sharda Cropchem Limited',
+		N'NSE',
+		N'EQ',
+		N'INE221J01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHARDAMOTR',
+		N'Sharda Motor Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE597I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHARDFI',
+		N'SHARAD FIBRES & YARN PROCESSORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE638N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHARDUL',
+		N'SHARDUL SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE037B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHAREINDIA',
+		N'Share India Securities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE932X01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHARIABEES',
+		N'NIPPON INDIA ETF SHARIAH BEES',
+		N'BSE',
+		NULL,
+		N'INF732E01128',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHARIABEES',
+		N'R*Shares Shariah BeES',
+		N'NSE',
+		N'Shariah',
+		N'INF732E01128',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHARIKA',
+		N'Sharika Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE669Y01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHARP',
+		N'SHARP INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE207B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHARPINV',
+		N'Sharp Investments Ltd',
+		N'BSE',
+		NULL,
+		N'INE909D01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'SHASHANK',
+		N'Shashank Traders Ltd',
+		N'BSE',
+		NULL,
+		N'INE508R01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHASHIJIT',
+		N'Shashijit Infraprojects Ltd',
+		N'BSE',
+		NULL,
+		N'INE700V01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHAWGELTIN',
+		N'NARMADA GELATINES LTD.',
+		N'BSE',
+		NULL,
+		N'INE869A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHBAJRG',
+		N'Shri Bajrang Alliance Ltd',
+		N'BSE',
+		NULL,
+		N'INE402H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHBCLQ',
+		N'SHIVALIK BIMETAL CONTROLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE386D01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'SHBHAWPA',
+		N'SHREE BHAWANI PAPER MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE688C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHEETAL',
+		N'SHEETAL DIAMONDS LTD.',
+		N'BSE',
+		NULL,
+		N'INE786J01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHEMAROO',
+		N'Shemaroo Entertainment Ltd',
+		N'BSE',
+		NULL,
+		N'INE363M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHEMAROO',
+		N'Shemaroo Entertainment Limited',
+		N'NSE',
+		N'EQ',
+		N'INE363M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHERVANI',
+		N'SHERVANI INDUSTRIAL SYNDICATE LTD.',
+		N'BSE',
+		NULL,
+		N'INE011D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHESHAINDS',
+		N'Sheshadri Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE193R01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHETR',
+		N'SHETRON LTD.',
+		N'BSE',
+		NULL,
+		N'INE278C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHGANEL',
+		N'SHREE GANESH ELASTOPLAST LTD.',
+		N'BSE',
+		NULL,
+		N'INE400N01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHHARICH',
+		N'SHREE HARI CHEMICALS EXPORT LTD.',
+		N'BSE',
+		NULL,
+		N'INE065E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHIKHARLETR',
+		N'SHIKHAR LEASING & TRADING LTD.',
+		N'BSE',
+		NULL,
+		N'INE02BV01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHIL',
+		N'Somany Home Innovation Ltd',
+		N'BSE',
+		NULL,
+		N'INE05AN01011',
+		2,
+		0
+	UNION
+	SELECT
+		N'SHIL',
+		N'Somany Home Innovation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE05AN01011',
+		2,
+		0
+	UNION
+	SELECT
+		N'SHILCTECH',
+		N'SHILCHAR TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE024F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHILGRAVQ',
+		N'SHILP GRAVURES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE960A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHILPAMED',
+		N'SHILPA MEDICARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE790G01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'SHILPAMED',
+		N'Shilpa Medicare Limited',
+		N'NSE',
+		N'EQ',
+		N'INE790G01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'SHINDL',
+		N'SHARAT INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE220Z01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHINEFASH',
+		N'Shine Fashions (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE0BLY01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHISHIND',
+		N'Shish Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE145Y01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHIVAAGRO',
+		N'SHIVA GLOBAL AGRO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE960E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHIVACEM',
+		N'SHIVA CEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE555C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'SHIVAEXPO',
+		N'Shiva Granito Export Ltd',
+		N'BSE',
+		NULL,
+		N'INE191V01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHIVAGR',
+		N'SHIVAGRICO IMPLEMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE092H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHIVALIK',
+		N'Shivalik Rasayan Ltd',
+		N'BSE',
+		NULL,
+		N'INE788J01021',
+		5,
+		0
+	UNION
+	SELECT
+		N'SHIVAMAUTO',
+		N'SHIVAM AUTOTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE637H01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'SHIVAMAUTO',
+		N'Shivam Autotech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE637H01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'SHIVAMILLS',
+		N'Shiva Mills Ltd',
+		N'BSE',
+		NULL,
+		N'INE644Y01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHIVAMILLS',
+		N'Shiva Mills Limited',
+		N'NSE',
+		N'BE',
+		N'INE644Y01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHIVATEX',
+		N'Shiva Texyarn Limited',
+		N'NSE',
+		N'EQ',
+		N'INE705C01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHIVKAMAL',
+		N'Shivkamal Impex Ltd',
+		N'BSE',
+		NULL,
+		N'INE429R01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHIVTEX',
+		N'SHIVA TEXYARN LTD.',
+		N'BSE',
+		NULL,
+		N'INE705C01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHK',
+		N'S H Kelkar and Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE500L01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHK',
+		N'S H Kelkar and Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE500L01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHKALYN',
+		N'SHRI KALYAN HOLDINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE079N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHKARTP',
+		N'SHREE KARTHIK PAPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE538D01015',
+		5,
+		0
+	UNION
+	SELECT
+		N'SHOPERSTOP',
+		N'SHOPPERS STOP LTD.',
+		N'BSE',
+		NULL,
+		N'INE498B01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'SHOPERSTOP',
+		N'Shoppers Stop Limited',
+		N'NSE',
+		N'EQ',
+		N'INE498B01024',
+		5,
+		0
+	UNION
+	SELECT
+		N'SHRADHA',
+		N'Shradha Infraprojects Limited',
+		N'NSE',
+		N'BE',
+		N'INE715Y01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRDAIS',
+		N'SHARDA ISPAT LTD.',
+		N'BSE',
+		NULL,
+		N'INE385M01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREDIGCEM',
+		N'SHREE DIGVIJAY CEMENT CO.LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE232A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREDIGCEM',
+		N'Shree Digvijay Cement Co.Ltd',
+		N'NSE',
+		N'EQ',
+		N'INE232A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREECEM',
+		N'SHREE CEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE070A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREECEM',
+		N'SHREE CEMENT LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE070A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREEGANES',
+		N'Shree Ganesh Biotech (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE051N01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREEPAC',
+		N'SHREE PACETRONIX LTD.',
+		N'BSE',
+		NULL,
+		N'INE847D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREEPUSHK',
+		N'Shree Pushkar Chemicals & Fertilisers Ltd',
+		N'BSE',
+		NULL,
+		N'INE712K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREEPUSHK',
+		N'Shree Pushkar Chemicals & Fertilisers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE712K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREERAMA',
+		N'SHREE RAMA MULTI-TECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE879A01019',
+		5,
+		0
+	UNION
+	SELECT
+		N'SHREERAMA',
+		N'Shree Rama Multi-Tech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE879A01019',
+		5,
+		0
+	UNION
+	SELECT
+		N'SHREESEC',
+		N'Shree Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE397C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREESHAY',
+		N'Shreeshay Engineers Ltd',
+		N'BSE',
+		NULL,
+		N'INE452Z01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREMETAL',
+		N'SHREE METALLOYS LTD.',
+		N'BSE',
+		NULL,
+		N'INE914B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRENIK',
+		N'Shrenik Limited',
+		N'NSE',
+		N'EQ',
+		N'INE632X01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'SHRENTI',
+		N'SHREENATH INVESTMENTS CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE475V01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREYANIND',
+		N'SHREYANS INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE231C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREYANIND',
+		N'Shreyans Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE231C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREYAS',
+		N'SHREYAS SHIPPING & LOGISTICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE757B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREYAS',
+		N'Shreyas Shipping & Logistics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE757B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHREYASI',
+		N'SHREYAS INTERMEDIATES LTD.',
+		N'BSE',
+		NULL,
+		N'INE115F01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRGLTR',
+		N'SHREE GLOBAL TRADEFIN LTD.',
+		N'BSE',
+		NULL,
+		N'INE080I01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'SHRIBCL',
+		N'Shri Bholanath Carpets Ltd',
+		N'BSE',
+		NULL,
+		N'INE151F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRICON',
+		N'SHRICON INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE753D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRIDINE',
+		N'SHRI DINESH MILLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE204C01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRIKRISH',
+		N'SHRI KRISHNA DEVCON LTD.',
+		N'BSE',
+		NULL,
+		N'INE997I01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRINIWAS',
+		N'Shri Niwas Leasing And Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE201F01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRIPISTON',
+		N'Shriram Pistons & Rings Limited',
+		N'NSE',
+		N'BE',
+		N'INE526E01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRIRAMCIT',
+		N'SHRIRAM CITY UNION FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE722A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRIRAMCIT',
+		N'Shriram City Union Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE722A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRIRAMEPC',
+		N'SHRIRAM EPC LTD.',
+		N'BSE',
+		NULL,
+		N'INE964H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRIRAMEPC',
+		N'Shriram EPC Limited',
+		N'NSE',
+		N'EQ',
+		N'INE964H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRISTI',
+		N'SHRISTI INFRASTRUCTURE DEVELOPMENT CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE472C01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHRJAGP',
+		N'SHRI JAGDAMBA POLYMERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE564J01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'SHRMFGC',
+		N'SHREE MANUFACTURING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE632A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHUBHAM',
+		N'Shubham Polyspin Ltd',
+		N'BSE',
+		NULL,
+		N'INE01J501010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHUKJEW',
+		N'SHUKRA JEWELLERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE344E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHUKRAPHAR',
+		N'Shukra Pharmaceuticals Ltd',
+		N'BSE',
+		NULL,
+		N'INE551C01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHVFL',
+		N'SHREEVATSAA FINANCE & LEASING LTD.',
+		N'BSE',
+		NULL,
+		N'INE981C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHVSUIT',
+		N'SHIVA SUITINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE02Z901011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHWL',
+		N'Shree Worstex Ltd',
+		N'BSE',
+		NULL,
+		N'INE926R01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHYAM',
+		N'VENTURA GUARANTY LTD.',
+		N'BSE',
+		NULL,
+		N'INE139J01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHYAMCENT',
+		N'Shyam Century Ferrous Limited',
+		N'NSE',
+		N'EQ',
+		N'INE979R01011',
+		1,
+		0
+	UNION
+	SELECT
+		N'SHYAMTEL',
+		N'SHYAM TELECOM LTD.',
+		N'BSE',
+		NULL,
+		N'INE635A01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHYAMTEL',
+		N'Shyam Telecom Limited',
+		N'NSE',
+		N'EQ',
+		N'INE635A01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'SHYMINV',
+		N'SHYAMKAMAL INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE203N01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIBARAUT',
+		N'SIBAR AUTO PARTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE441C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SICAGEN',
+		N'SICAGEN INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE176J01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SICAGEN',
+		N'Sicagen India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE176J01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SICAL',
+		N'SICAL LOGISTICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE075B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SICAL',
+		N'Sical Logistics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE075B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SICL',
+		N'Suvidha Infraestate Corporation Limited',
+		N'BSE',
+		NULL,
+		N'INE936N01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SICLTD',
+		N'Shivom Investment & Consultancy Ltd',
+		N'BSE',
+		NULL,
+		N'INE074G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIDDHA',
+		N'SIDDHA VENTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE140C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIEL',
+		N'Superior Industrial Enterprises Limited',
+		N'BSE',
+		NULL,
+		N'INE843L01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIELFNS',
+		N'SIEL FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE027F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIEMENS',
+		N'SIEMENS LTD.',
+		N'BSE',
+		NULL,
+		N'INE003A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'SIEMENS',
+		N'Siemens Limited',
+		N'NSE',
+		N'EQ',
+		N'INE003A01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'SIFL',
+		N'Sparkling (India) Finshares Ltd',
+		N'BSE',
+		NULL,
+		N'INE181T01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIGIND',
+		N'Signet Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE529F01035',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIGNETIND',
+		N'Signet Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE529F01035',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIIL',
+		N'Sabrimala Industries India Ltd',
+		N'BSE',
+		NULL,
+		N'INE400R01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIKA',
+		N'SIKA INTERPLANT SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE438E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIKOZY',
+		N'Sikozy Realtors Limited',
+		N'BSE',
+		NULL,
+		N'INE528E01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'SIL',
+		N'STANDARD INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE173A01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'SIL',
+		N'Standard Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE173A01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'SILINV',
+		N'SIL INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE923A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SILINV',
+		N'SIL Investments Limited',
+		N'NSE',
+		N'EQ',
+		N'INE923A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SILLYMONKS',
+		N'Silly Monks Entertainment Limited',
+		N'NSE',
+		N'BE',
+		N'INE203Y01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SILVERO',
+		N'SILVER OAK COMMERCIAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE798C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SILVOAK',
+		N'SILVER OAK (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE870J01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIMBHALS',
+		N'Simbhaoli Sugars Ltd',
+		N'BSE',
+		NULL,
+		N'INE748T01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIMBHALS',
+		N'Simbhaoli Sugars Limited',
+		N'NSE',
+		N'EQ',
+		N'INE748T01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIMMOND',
+		N'SIMMONDS MARSHALL LTD.',
+		N'BSE',
+		NULL,
+		N'INE657D01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'SIMPLEXCAS',
+		N'SIMPLEX CASTINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE658D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIMPLEXINF',
+		N'SIMPLEX INFRASTRUCTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE059B01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'SIMPLEXINF',
+		N'Simplex Infrastructures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE059B01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'SIMPLXMIL',
+		N'SIMPLEX MILLS COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE457H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIMPLXPAP',
+		N'SIMPLEX PAPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE456H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIMPLXREA',
+		N'SIMPLEX REALTY LTD.',
+		N'BSE',
+		NULL,
+		N'INE167H01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIMRAN',
+		N'SIMRAN FARMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE354D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SINCLAIR',
+		N'SINCLAIRS HOTELS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE985A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'SINDHUTRAD',
+		N'Sindhu Trade Links Limited',
+		N'BSE',
+		NULL,
+		N'INE325D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SINDUVA',
+		N'SINDU VALLEY TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N' ',
+		10,
+		0
+	UNION
+	SELECT
+		N'SINGER',
+		N'SINGER INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE638A01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'SINNAR',
+		N'SINNAR BIDI UDYOG LTD.',
+		N'BSE',
+		NULL,
+		N'INE896E01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'SINTERCOM',
+		N'Sintercom India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE129Z01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SINTEX',
+		N'SINTEX INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE429C01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'SINTEX',
+		N'Sintex Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE429C01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'SINTEXPLAST',
+		N'Sintex Plastics Technology Ltd',
+		N'BSE',
+		NULL,
+		N'INE501W01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'SIPIND',
+		N'SIP INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE186B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIPL',
+		N'SHELTER INFRA PROJECTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE413C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIPTL',
+		N'Sharanam Infraproject and Trading Ltd',
+		N'BSE',
+		NULL,
+		N'INE104S01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'SIRCA',
+		N'Sirca Paints India Limited',
+		N'NSE',
+		N'BE',
+		N'INE792Z01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIROHIA',
+		N'Sirohia & Sons Ltd',
+		N'BSE',
+		NULL,
+		N'INE785O01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SIS',
+		N'SIS Ltd',
+		N'BSE',
+		NULL,
+		N'INE285J01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'SIS',
+		N'SIS LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE285J01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'SISL',
+		N'Share India Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE932X01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SITAENT',
+		N'SITA ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE579D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SITINET',
+		N'Siti Networks Ltd',
+		N'BSE',
+		NULL,
+		N'INE965H01011',
+		1,
+		0
+	UNION
+	SELECT
+		N'SITINET',
+		N'Siti Networks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE965H01011',
+		1,
+		0
+	UNION
+	SELECT
+		N'SIYSIL',
+		N'SIYARAM SILK MILLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE076B01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'SIYSIL',
+		N'Siyaram Silk Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE076B01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'SJCORP',
+		N'SJ CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE312B01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'SJVN',
+		N'SJVN Ltd',
+		N'BSE',
+		NULL,
+		N'INE002L01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SJVN',
+		N'SJVN Limited',
+		N'NSE',
+		N'EQ',
+		N'INE002L01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKC',
+		N'Sri Krishna Constructions (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE094T01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKCIL',
+		N'Shri Keshav Cements And Infra Ltd',
+		N'BSE',
+		NULL,
+		N'INE260E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKFINDIA',
+		N'SKF India Ltd',
+		N'BSE',
+		NULL,
+		N'INE640A01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKFINDIA',
+		N'SKF India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE640A01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKIEL',
+		N'SK International Export Ltd',
+		N'BSE',
+		NULL,
+		N'INE04ST01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKIFL',
+		N'Shree Krishna Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE951Z01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKIL',
+		N'SKIL Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE429F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKIL',
+		N'SKIL Infrastructure Limited',
+		N'NSE',
+		N'BE',
+		N'INE429F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKILVEN',
+		N'Skyline Ventures India Ltd',
+		N'BSE',
+		NULL,
+		N'INE055Q01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKIPPER',
+		N'Skipper Ltd',
+		N'BSE',
+		NULL,
+		N'INE439E01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'SKIPPER',
+		N'Skipper Limited',
+		N'NSE',
+		N'EQ',
+		N'INE439E01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'SKL',
+		N'Super Fine Knitters Ltd',
+		N'BSE',
+		NULL,
+		N'INE459U01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKMEGGPROD',
+		N'SKM EGG PRODUCTS EXPORT (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE411D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKMEGGPROD',
+		N'SKM Egg Products Export (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE411D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKPMIL',
+		N'SHREE KRISHNA PAPER MILLS & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE970C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKPSEC',
+		N'SKP SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE709B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKRABUL',
+		N'SHUKRA BULLIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE561E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKSNFAB',
+		N'S. Kumars Nationwide Ltd',
+		N'BSE',
+		NULL,
+		N'NA          ',
+		100,
+		0
+	UNION
+	SELECT
+		N'SKSUGAR',
+		N'Sakthi Sugars Ltd',
+		N'BSE',
+		NULL,
+		N'NA          ',
+		100,
+		0
+	UNION
+	SELECT
+		N'SKSYNFA',
+		N'S. Kumars Nationwide Ltd',
+		N'BSE',
+		NULL,
+		N'NA          ',
+		100,
+		0
+	UNION
+	SELECT
+		N'SKSYNFB',
+		N'S. Kumars Nationwide Ltd',
+		N'BSE',
+		NULL,
+		N'NA          ',
+		100,
+		0
+	UNION
+	SELECT
+		N'SKUMARF',
+		N'S. Kumars Nationwide Ltd',
+		N'BSE',
+		NULL,
+		N'NA          ',
+		100,
+		0
+	UNION
+	SELECT
+		N'SKUMSNB',
+		N'S. Kumars Nationwide Ltd',
+		N'BSE',
+		NULL,
+		N'NA          ',
+		100,
+		0
+	UNION
+	SELECT
+		N'SKUMSYF',
+		N'S. Kumars Nationwide Ltd',
+		N'BSE',
+		NULL,
+		N'NA          ',
+		100,
+		0
+	UNION
+	SELECT
+		N'SKUMSYN',
+		N'S. Kumars Nationwide Ltd',
+		N'BSE',
+		NULL,
+		N'NA          ',
+		100,
+		0
+	UNION
+	SELECT
+		N'SKYGOLD',
+		N'Sky Gold Ltd',
+		N'BSE',
+		NULL,
+		N'INE01IU01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKYIND',
+		N'SKY INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE765B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SKYLMILAR',
+		N'SKYLINE MILLARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE178E01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'SLSTLQ',
+		N'SRI LAKSHMI SARASWATHI TEXTILES (ARNI) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE456D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMARTFIN',
+		N'Smart Finsec Ltd',
+		N'BSE',
+		NULL,
+		N'INE766D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMARTLINK',
+		N'Smartlink Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE178C01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'SMARTLINK',
+		N'Smartlink Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE178C01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'SMAUTO',
+		N'SM Auto Stamping Ltd',
+		N'BSE',
+		NULL,
+		N'INE0C4I01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMCGLOBAL',
+		N'SMC Global Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE103C01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'SMCGLOBAL',
+		N'SMC Global Securities Limited',
+		N'NSE',
+		N'BE',
+		N'INE103C01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'SMCREDT',
+		N'SMC CREDITS LTD.',
+		N'BSE',
+		NULL,
+		N'INE440E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMEL',
+		N'Sungold Media and Entertainment Ltd',
+		N'BSE',
+		NULL,
+		N'INE266S01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMGOLD',
+		N'S. M. Gold Ltd',
+		N'BSE',
+		NULL,
+		N'INE00Q901014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMIFS',
+		N'SMIFS CAPITAL MARKETS LTD.',
+		N'BSE',
+		NULL,
+		N'INE641A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SML',
+		N'Soni Medicare Ltd',
+		N'BSE',
+		NULL,
+		N'INE848R01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMLISUZU',
+		N'SML ISUZU LIMITED',
+		N'BSE',
+		NULL,
+		N'INE294B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMLISUZU',
+		N'SML Isuzu Limited',
+		N'NSE',
+		N'EQ',
+		N'INE294B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMLT',
+		N'Sarthak Metals Ltd',
+		N'BSE',
+		NULL,
+		N'INE017W01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMRUTHIORG',
+		N'Smruthi Organics Ltd',
+		N'BSE',
+		NULL,
+		N'INE172E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMSLIFE',
+		N'SMS Lifesciences India Ltd',
+		N'BSE',
+		NULL,
+		N'INE320X01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMSLIFE',
+		N'SMS Lifesciences India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE320X01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SMSPHARMA',
+		N'SMS PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE812G01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'SMSPHARMA',
+		N'SMS Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE812G01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'SNIM',
+		N'Svarnim Trade Udyog Ltd',
+		N'BSE',
+		NULL,
+		N'INE730R01034',
+		1,
+		0
+	UNION
+	SELECT
+		N'SNL',
+		N'SNL BEARINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE568F01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SNOWMAN',
+		N'Snowman Logistics Ltd',
+		N'BSE',
+		NULL,
+		N'INE734N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SNOWMAN',
+		N'Snowman Logistics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE734N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SNTCL',
+		N'Shree Nidhi Trading Co. Ltd',
+		N'BSE',
+		NULL,
+		N'INE066E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOBHA',
+		N'Sobha Limited',
+		N'BSE',
+		NULL,
+		N'INE671H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOBHA',
+		N'Sobha Limited',
+		N'NSE',
+		N'EQ',
+		N'INE671H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOBME',
+		N'SOBHAGYA MERCHANTILE LTD.',
+		N'BSE',
+		NULL,
+		N'INE754D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SODFC',
+		N'SOM DATT FINANCE CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE754C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOFCOM',
+		N'Sofcom Systems Ltd',
+		N'BSE',
+		NULL,
+		N'INE499Q01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOFTBPO',
+		N'SOFTBPO GLOBAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE459E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOFTSOL',
+		N'SOFTSOL INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE002B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOLARA',
+		N'Solara Active Pharma Sciences Ltd',
+		N'BSE',
+		NULL,
+		N'INE624Z01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOLARA',
+		N'Solara Active Pharma Sciences Limited',
+		N'NSE',
+		N'EQ',
+		N'INE624Z01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOLARINDS',
+		N'SOLAR INDUSTRIES INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE343H01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'SOLARINDS',
+		N'Solar Industries India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE343H01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'SOLIDCO',
+		N'SOLID CONTAINERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE134U01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOLIDSTON',
+		N'SOLID STONE COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE584G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOLIMAC',
+		N'SOLITAIRE MACHINE TOOLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE410A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOMANYCERA',
+		N'SOMANY CERAMICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE355A01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'SOMANYCERA',
+		N'Somany Ceramics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE355A01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'SOMATEX',
+		N'SOMA TEXTILES & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE314C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOMATEX',
+		N'Soma Textiles & Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE314C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOMICONV',
+		N'SOMI CONVEYOR BELTINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE323J01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOMICONVEY',
+		N'Somi Conveyor Beltings Limited',
+		N'NSE',
+		N'BE',
+		N'INE323J01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SONAL',
+		N'Sonal Mercantile Ltd',
+		N'BSE',
+		NULL,
+		N'INE321M01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SONALAD',
+		N'SONAL ADHESIVES LTD.',
+		N'BSE',
+		NULL,
+		N'INE344I01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SONATSOFTW',
+		N'SONATA SOFTWARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE269A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'SONATSOFTW',
+		N'Sonata Software Limited',
+		N'NSE',
+		N'EQ',
+		N'INE269A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'SORILINFRA',
+		N'SORIL Infra Resources Ltd',
+		N'BSE',
+		NULL,
+		N'INE034H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SORILINFRA',
+		N'SORIL Infra Resources Limited',
+		N'NSE',
+		N'EQ',
+		N'INE034H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOTL',
+		N'SAVITA OIL TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE035D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOTL',
+		N'Savita Oil Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE035D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOURCEIND',
+		N'SOURCE INDUSTRIES (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE695C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOURCENTRL',
+		N'SOURCE NATURAL FOODS & HERBAL SUPPL LTD.',
+		N'BSE',
+		NULL,
+		N'INE679C01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOUTHBANK',
+		N'SOUTH INDIAN BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE683A01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'SOUTHBANK',
+		N'The South Indian Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE683A01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'SOUTHERNIN',
+		N'Southern Infosys Ltd',
+		N'BSE',
+		NULL,
+		N'INE298B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOUTHMG',
+		N'SOUTHERN MAGNESIUM & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE308N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOUTHWEST',
+		N'South West Pinnacle Exploration Limited',
+		N'NSE',
+		N'EQ',
+		N'INE980Y01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOUTLAT',
+		N'SOUTHERN LATEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE410M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SOVERDIA',
+		N'SOVEREIGN DIAMONDS LTD.',
+		N'BSE',
+		NULL,
+		N'INE959D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPACAPS',
+		N'SPA Capital Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE726X01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPACEAGE',
+		N'Spaceage Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE498Q01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPACEINCUBA',
+		N'Space Incubatrics Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE797Z01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPAL',
+		N'S.P. Apparels Ltd',
+		N'BSE',
+		NULL,
+		N'INE212I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPAL',
+		N'S. P. Apparels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE212I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPANDANA',
+		N'Spandana Sphoorty Financial Ltd',
+		N'BSE',
+		NULL,
+		N'INE572J01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPANDANA',
+		N'Spandana Sphoorty Financial Limited',
+		N'NSE',
+		N'EQ',
+		N'INE572J01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPARC',
+		N'SUN PHARMA ADVANCED RESEARCH COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE232I01014',
+		1,
+		0
+	UNION
+	SELECT
+		N'SPARC',
+		N'Sun Pharma Advanced Research Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE232I01014',
+		1,
+		0
+	UNION
+	SELECT
+		N'SPARCSYS',
+		N'SPARC SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE960B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPCAPIT',
+		N'SP CAPITAL FINANCING LTD.',
+		N'BSE',
+		NULL,
+		N'INE102F01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPECFOOD',
+		N'SPECTRUM FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE547C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPECIALITY',
+		N'SPECIALITY RESTAURANTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE247M01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPECIALITY',
+		N'Speciality Restaurants Limited',
+		N'NSE',
+		N'EQ',
+		N'INE247M01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPECMKT',
+		N'SPECULAR MARKETING & FINANCING LTD.',
+		N'BSE',
+		NULL,
+		N'INE808W01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPECTRA',
+		N'SPECTRA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE848B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPELS',
+		N'SPEL SEMICONDUCTOR LTD.',
+		N'BSE',
+		NULL,
+		N'INE252A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPENCER',
+		N'Spencers Retail Ltd',
+		N'BSE',
+		NULL,
+		N'INE020801028',
+		5,
+		0
+	UNION
+	SELECT
+		N'SPENCERS',
+		N'Spencer''s Retail Limited',
+		N'NSE',
+		N'EQ',
+		N'INE020801028',
+		5,
+		0
+	UNION
+	SELECT
+		N'SPENTA',
+		N'SPENTA INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE175C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPENTEX',
+		N'SPENTEX INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE376C01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPENTEX',
+		N'Spentex Industries Limited',
+		N'NSE',
+		N'BZ',
+		N'INE376C01020',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPIC',
+		N'SOUTHERN PETROCHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE147A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPIC',
+		N'Southern Petrochemicals Industries Corporation  Limited',
+		N'NSE',
+		N'EQ',
+		N'INE147A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPICEISL',
+		N'SPICE ISLANDS APPARELS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE882D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPICEJET',
+		N'SPICEJET LTD.',
+		N'BSE',
+		NULL,
+		N'INE285B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPICEJET',
+		N'SPICEJET LTD',
+		N'NSE',
+		N'EQ',
+		N'INE285B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPICY',
+		N'Spicy Entertainment and Media Ltd',
+		N'BSE',
+		NULL,
+		N'INE592O01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPLIL',
+		N'SPL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE978G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPLIL',
+		N'SPL Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE978G01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPMLINFRA',
+		N'SPML Infra Limited',
+		N'BSE',
+		NULL,
+		N'INE937A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'SPMLINFRA',
+		N'SPML Infra Limited',
+		N'NSE',
+		N'EQ',
+		N'INE937A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'SPORTKING',
+		N'Sportking India Ltd',
+		N'BSE',
+		NULL,
+		N'INE885H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPRAYKING',
+		N'Sprayking Agro Equipment Ltd',
+		N'BSE',
+		NULL,
+		N'INE537U01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPS',
+		N'SPS Finquest Ltd',
+		N'BSE',
+		NULL,
+		N'INE502O01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPSINT',
+		N'SPS INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE758B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPTL',
+		N'Sintex Plastics Technology Limited',
+		N'NSE',
+		N'EQ',
+		N'INE501W01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'SPTRSHI',
+		N'SAPTARISHI AGRO INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE233P01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPVGLOBAL',
+		N'SPV Global Trading Ltd',
+		N'BSE',
+		NULL,
+		N'INE177E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SPYL',
+		N'SHEKHAWATI POLY-YARN LTD.',
+		N'BSE',
+		NULL,
+		N'INE268L01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'SPYL',
+		N'Shekhawati Poly-Yarn Limited',
+		N'NSE',
+		N'BE',
+		N'INE268L01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'SRAMSET',
+		N'SHRIRAM ASSET MANAGEMENT CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE777G01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRD',
+		N'Shankar Lal Rampal Dye-Chem Ltd',
+		N'BSE',
+		NULL,
+		N'INE01NE01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRDAPRT',
+		N'SARDA PROTEINS LTD.',
+		N'BSE',
+		NULL,
+		N'INE995U01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SREEJAYA',
+		N'SREE JAYALAKSHMI AUTOSPIN LTD.',
+		N'BSE',
+		NULL,
+		N'INE618F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SREEL',
+		N'Sreeleathers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE099F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SREEL*',
+		N'SREELEATHERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE099F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SREINFRA',
+		N'SREI INFRASTRUCTURE FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE872A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SREINFRA',
+		N'SREI Infrastructure Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE872A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRESTHA',
+		N'Srestha Finvest Ltd',
+		N'BSE',
+		NULL,
+		N'INE606K01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'SRF',
+		N'SRF LTD.',
+		N'BSE',
+		NULL,
+		N'INE647A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRF',
+		N'SRF Limited',
+		N'NSE',
+		N'EQ',
+		N'INE647A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRGHFL',
+		N'SRG HOUSING FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE559N01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRGSFL',
+		N'S R G Securities Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE326P01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRHHYPOLTD',
+		N'SREE RAYALASEEMA HI-STRENGTH HYPO LTD.',
+		N'BSE',
+		NULL,
+		N'INE917H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRHHYPOLTD',
+		N'Sree Rayalaseema Hi-Strength Hypo Limited',
+		N'NSE',
+		N'EQ',
+		N'INE917H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRIKPRIND',
+		N'SRI KPR INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE009C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRINACHA',
+		N'SRI NACHAMMAI COTTON MILLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE443E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRIND',
+		N'S.R.INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE329C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRIPIPES',
+		N'Srikalahasthi Pipes Limited',
+		N'BSE',
+		NULL,
+		N'INE943C01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRIPIPES',
+		N'Srikalahasthi Pipes Limited',
+		N'NSE',
+		N'EQ',
+		N'INE943C01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRMCL',
+		N'SRI RAMAKRISHNA MILLS (COIMBATORE) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE306D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRMENERGY',
+		N'SRM ENERGY LTD.',
+		N'BSE',
+		NULL,
+		N'INE173J01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRPL',
+		N'Shree Ram Proteins Limited',
+		N'NSE',
+		N'BE',
+		N'INE008Z01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRPML',
+		N'SHREE RAJESHWARANAND PAPER MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE617D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRTRANSFIN',
+		N'SHRIRAM TRANSPORT FINANCE CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE721A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRTRANSFIN',
+		N'Shriram Transport Finance Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE721A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SRUSTEELS',
+		N'SRU Steels Ltd',
+		N'BSE',
+		NULL,
+		N'INE425C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SSLEL',
+		N'SIR SHADI LAL ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE117H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SSLFINANCE',
+		N'ARCHANA SOFTWARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE149B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SSPDL',
+		N'SSPDL LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE838C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SSPNFIN',
+		N'SSPN Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE820R01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SSWL',
+		N'STEEL STRIPS WHEELS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE802C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SSWL',
+		N'Steel Strips Wheels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE802C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SSWRL',
+		N'SHREE STEEL WIRE ROPES LTD.',
+		N'BSE',
+		NULL,
+		N'INE387D01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'STANCAP',
+		N'STANDARD CAPITAL MARKETS LTD.',
+		N'BSE',
+		NULL,
+		N'INE625D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'STANPACK',
+		N'STANPACKS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE457D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'STANROS',
+		N'STANROSE MAFATLAL INVESTMENTS AND FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE441L01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'STAR',
+		N'Strides Pharma Science Ltd',
+		N'BSE',
+		NULL,
+		N'INE939A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'STAR',
+		N'Strides Pharma Science Limited',
+		N'NSE',
+		N'EQ',
+		N'INE939A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'STARCEMENT',
+		N'Star Cement Ltd',
+		N'BSE',
+		NULL,
+		N'INE460H01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'STARCEMENT',
+		N'Star Cement Limited',
+		N'NSE',
+		N'EQ',
+		N'INE460H01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'STARCOM',
+		N'Starcom Information Technology Ltd',
+		N'BSE',
+		NULL,
+		N'INE347I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'STARDELTA',
+		N'Star Delta Transformers Ltd',
+		N'BSE',
+		NULL,
+		N'INE541K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'STARLENT',
+		N'Starlineps Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE594W01034',
+		5,
+		0
+	UNION
+	SELECT
+		N'STARLIT',
+		N'Starlit Power Systems Ltd',
+		N'BSE',
+		NULL,
+		N'INE909P01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'STARLITE',
+		N'STARLITE COMPONENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE035C01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'STARLOG',
+		N'Starlog Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE580C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'STARPAPER',
+		N'STAR PAPER MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE733A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'STARPAPER',
+		N'Star Paper Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE733A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'STARTECK',
+		N'Starteck Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE992I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'STCINDIA',
+		N'STATE TRADING CORPORATION OF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE655A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'STCINDIA',
+		N'The State Trading Corporation of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE655A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'STCORP',
+		N'S&T CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE110Q01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'STDBAT',
+		N'STANDARD BATTERIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE502C01039',
+		1,
+		0
+	UNION
+	SELECT
+		N'STDSFAC',
+		N'STANDARD SURFACTANTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE307D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'STDSHOE',
+		N'STANDARD SHOE SOLE AND MOULD (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE888N01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'STEELCAS',
+		N'STEELCAST LTD.',
+		N'BSE',
+		NULL,
+		N'INE124E01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'STEELCITY',
+		N'Steel City Securities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE395H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'STEELXIND',
+		N'STEEL EXCHANGE INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE503B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'STEELXIND',
+		N'STEEL EXCHANGE INDIA LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE503B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'STEL',
+		N'STEL Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE577L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'STEL',
+		N'Stel Holdings Limited',
+		N'NSE',
+		N'BE',
+		N'INE577L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'STELLAR',
+		N'Stellar Capital Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE325P01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'STEP2COR',
+		N'STEP TWO CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE623D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'STEPHANOTIS',
+		N'Stephanotis Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE902L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'STERTOOLS',
+		N'STERLING TOOLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE334A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'STERTOOLS',
+		N'Sterling Tools Limited',
+		N'NSE',
+		N'EQ',
+		N'INE334A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'STHINPA',
+		N'SOUTH INDIA PAPER MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE088G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'STL',
+		N'Shreeji Translogistics Ltd',
+		N'BSE',
+		NULL,
+		N'INE402Y01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'STLSTRINF',
+		N'STEEL STRIPS INFRASTRUCTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE205F01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'STLTECH',
+		N'STERLITE TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE089C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'STLTECH',
+		N'Sterlite Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE089C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'STOVACQ',
+		N'STOVEC INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE755D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'STOVEKRAFT',
+		N'Stove Kraft Ltd',
+		N'BSE',
+		NULL,
+		N'INE00IN01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'STOVEKRAFT',
+		N'Stove Kraft Limited',
+		N'NSE',
+		N'EQ',
+		N'INE00IN01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'STRAEXPO',
+		N'Sophia Traexpo Ltd',
+		N'BSE',
+		NULL,
+		N'INE268X01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'STRATMONT',
+		N'Stratmont Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE473C01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'STRGRENWO',
+		N'STERLING GREEN WOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE398F01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'STRIPMT',
+		N'STEEL STRIPS LTD.',
+		N'BSE',
+		NULL,
+		N'INE01RN01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'STRLGUA',
+		N'STERLING GUARANTY & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE668Y01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'STYLAMIND',
+		N'Stylam Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE239C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUBCAPCITY',
+		N'International Constructions Limited',
+		N'NSE',
+		N'BE',
+		N'INE845C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUBEX',
+		N'SUBEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE754A01055',
+		5,
+		0
+	UNION
+	SELECT
+		N'SUBEXLTD',
+		N'Subex Limited',
+		N'NSE',
+		N'EQ',
+		N'INE754A01055',
+		5,
+		0
+	UNION
+	SELECT
+		N'SUBROS',
+		N'SUBROS LTD.',
+		N'BSE',
+		NULL,
+		N'INE287B01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'SUBROS',
+		N'Subros Limited',
+		N'NSE',
+		N'EQ',
+		N'INE287B01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'SUBSM',
+		N'SUBHASH SILK MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE690D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUCHITRA',
+		N'Suchitra Finance & Trading Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE475D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUCROSA',
+		N'SUPER CROP SAFE LTD.',
+		N'BSE',
+		NULL,
+		N'INE366G01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'SUDAI',
+		N'SUDAL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE618D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUDARSCHEM',
+		N'SUDARSHAN CHEMICAL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE659A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'SUDARSCHEM',
+		N'Sudarshan Chemical Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE659A01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'SUDTIND-B',
+		N'SUDITI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE691D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUERYAAKNI',
+		N'Sueryaa Knitwear Ltd',
+		N'BSE',
+		NULL,
+		N'INE249U01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUGALDAM',
+		N'SUGAL & DAMANI SHARE BROKERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE309D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUJALA',
+		N'Sujala Trading & Holdings Ltd',
+		N'BSE',
+		NULL,
+		N'INE029H01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUKHJITS',
+		N'SUKHJIT STARCH & CHEMICALS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE450E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SULABEN',
+		N'SULABH ENGINEERS & SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE673M01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUMEDHA',
+		N'SUMEDHA FISCAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE886B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUMERUIND',
+		N'SUMERU INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE764B01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUMICHEM',
+		N'Sumitomo Chemical India Ltd',
+		N'BSE',
+		NULL,
+		N'INE258G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUMICHEM',
+		N'Sumitomo Chemical India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE258G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUMIT',
+		N'Sumit Woods Limited',
+		N'NSE',
+		N'EQ',
+		N'INE748Z01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUMMITSEC',
+		N'SUMMIT SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE519C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUMMITSEC',
+		N'Summit Securities Limited',
+		N'NSE',
+		N'EQ',
+		N'INE519C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNCITYSY',
+		N'SUNCITY SYNTHETICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE584D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNCLAYLTD',
+		N'SUNDARAM-CLAYTON LTD.',
+		N'BSE',
+		NULL,
+		N'INE105A01035',
+		5,
+		0
+	UNION
+	SELECT
+		N'SUNCLAYLTD',
+		N'Sundaram Clayton Limited',
+		N'NSE',
+		N'EQ',
+		N'INE105A01035',
+		5,
+		0
+	UNION
+	SELECT
+		N'SUNDARAM',
+		N'SUNDARAM MULTI PAP LTD.',
+		N'BSE',
+		NULL,
+		N'INE108E01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUNDARAM',
+		N'Sundaram Multi Pap Limited',
+		N'NSE',
+		N'EQ',
+		N'INE108E01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUNDARMFIN',
+		N'SUNDARAM FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE660A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNDARMFIN',
+		N'Sundaram Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE660A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNDARMHLD',
+		N'Sundaram Finance Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE202Z01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'SUNDRMBRAK',
+		N'SUNDARAM BRAKE LININGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE073D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNDRMBRAK',
+		N'Sundaram Brake Linings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE073D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNDRMFAST',
+		N'SUNDRAM FASTENERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE387A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUNDRMFAST',
+		N'Sundram Fasteners Limited',
+		N'NSE',
+		N'EQ',
+		N'INE387A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUNEDISON',
+		N'Sunedison Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE332F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNFLAG',
+		N'SUNFLAG IRON & STEEL CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE947A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNFLAG',
+		N'Sunflag Iron And Steel Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE947A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNGOLD',
+		N'SUNGOLD CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE271D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNILAGR',
+		N'SUNIL AGRO FOODS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE224D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNILTX',
+		N'SUNIL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE124M01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNLOC',
+		N'Sunil Healthcare Ltd',
+		N'BSE',
+		NULL,
+		N'INE671C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNPHARMA',
+		N'SUN PHARMACEUTICAL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE044A01036',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUNPHARMA',
+		N'Sun Pharmaceutical Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE044A01036',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUNRAJDI',
+		N'SUNRAJ DIAMOND EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE459D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNRETAIL',
+		N'Sun Retail Ltd',
+		N'BSE',
+		NULL,
+		N'INE206Z01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNRINV',
+		N'SUNRISE INDUSTRIAL TRADERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE371U01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNSHIEL',
+		N'SUNSHIELD CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE199E01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNSHINE',
+		N'SUN AND SHINE WORLDWIDE LTD.',
+		N'BSE',
+		NULL,
+		N'INE560F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUNTECHNO',
+		N'SUN TECHNO OVERSEAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE703D01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUNTECK',
+		N'SUNTECK REALTY LTD.',
+		N'BSE',
+		NULL,
+		N'INE805D01034',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUNTECK',
+		N'Sunteck Realty Limited',
+		N'NSE',
+		N'EQ',
+		N'INE805D01034',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUNTV',
+		N'SUN TV NETWORK LTD.',
+		N'BSE',
+		NULL,
+		N'INE424H01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'SUNTV',
+		N'Sun TV Network Limited',
+		N'NSE',
+		N'EQ',
+		N'INE424H01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'SUPER',
+		N'SUPER SALES INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE091C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPERBAK',
+		N'SUPER BAKERS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE897A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPERHOUSE',
+		N'SUPERHOUSE LTD.',
+		N'BSE',
+		NULL,
+		N'INE712B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPERHOUSE',
+		N'Superhouse Limited',
+		N'NSE',
+		N'EQ',
+		N'INE712B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPERIOR',
+		N'Superior Finlease Ltd',
+		N'BSE',
+		NULL,
+		N'INE574R01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPERNOVA',
+		N'Supernova Advertising Ltd',
+		N'BSE',
+		NULL,
+		N'INE018Q01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPERSHAKT',
+		N'Supershakti Metaliks Ltd',
+		N'BSE',
+		NULL,
+		N'INE00SY01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPERSPIN',
+		N'SUPER SPINNING MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE662A01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUPERSPIN',
+		N'Super Spinning Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE662A01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUPERTEX',
+		N'SUPERTEX INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE881B01054',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPPETRO',
+		N'SUPREME PETROCHEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE663A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPPETRO',
+		N'Supreme Petrochem Limited',
+		N'NSE',
+		N'EQ',
+		N'INE663A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPRAJIT',
+		N'SUPRAJIT ENGINEERING LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE399C01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUPRAJIT',
+		N'Suprajit Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE399C01030',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUPRAP',
+		N'Supra Pacific Management Consultancy Ltd',
+		N'BSE',
+		NULL,
+		N'INE268T01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPRATRE',
+		N'Supra Trends Limited',
+		N'BSE',
+		NULL,
+		N'INE533B01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPRBPA',
+		N'SUPERB PAPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE311N01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPREME',
+		N'SUPREME HOLDINGS & HOSPITALITY (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE822E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPREMEENG',
+		N'Supreme Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE319Z01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUPREMEIND',
+		N'SUPREME INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE195A01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'SUPREMEIND',
+		N'Supreme Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE195A01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'SUPREMEX',
+		N'Supremex Shine Steels Ltd',
+		N'BSE',
+		NULL,
+		N'INE175N01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUPTANERY',
+		N'Super Tannery Limited',
+		N'BSE',
+		NULL,
+		N'INE460D01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'SURAJ',
+		N'SURAJ PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE069E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURAJLTD',
+		N'SURAJ LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE713C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURANASOL',
+		N'Surana Solar Limited',
+		N'BSE',
+		NULL,
+		N'INE272L01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'SURANASOL',
+		N'Surana Solar Limited',
+		N'NSE',
+		N'BE',
+		N'INE272L01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'SURANAT&P',
+		N'Surana Telecom And Power Limited',
+		N'BSE',
+		NULL,
+		N'INE130B01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'SURANAT&P',
+		N'Surana Telecom and Power Limited',
+		N'NSE',
+		N'EQ',
+		N'INE130B01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'SURATEX',
+		N'SURAT TEXTILE MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE936A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'SURBHIN',
+		N'SURBHI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE899E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURFI',
+		N'SURYO FOODS & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE565E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURYAAMBA',
+		N'SURYAAMBA SPINNING MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE360J01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURYACHAKRA',
+		N'SURYACHAKRA POWER CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE274I01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURYAINDIA',
+		N'Surya India Ltd',
+		N'BSE',
+		NULL,
+		N'INE446E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURYAKR',
+		N'SURYAKRIPA FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE381N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURYALA',
+		N'SURYALATA SPINNING MILLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE132C01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURYALAXMI',
+		N'SURYALAKSHMI COTTON MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE713B01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURYALAXMI',
+		N'Suryalakshmi Cotton Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE713B01026',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURYAROSNI',
+		N'SURYA ROSHNI LTD.',
+		N'BSE',
+		NULL,
+		N'INE335A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURYAROSNI',
+		N'Surya Roshni Limited',
+		N'NSE',
+		N'EQ',
+		N'INE335A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SURYVANSP',
+		N'SURYAVANSHI SPINNING MILLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE431C01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUTLEJTEX',
+		N'SUTLEJ TEXTILES & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE645H01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUTLEJTEX',
+		N'Sutlej Textiles and Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE645H01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUULD',
+		N'Suumaya Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE591Q01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUVEN',
+		N'SUVEN LIFE SCIENCES LTD.',
+		N'BSE',
+		NULL,
+		N'INE495B01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUVEN',
+		N'Suven Life Sciences Limited',
+		N'NSE',
+		N'EQ',
+		N'INE495B01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUVENPHAR',
+		N'Suven Pharmaceuticals Ltd',
+		N'BSE',
+		NULL,
+		N'INE03QK01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUVENPHAR',
+		N'Suven Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE03QK01018',
+		1,
+		0
+	UNION
+	SELECT
+		N'SUYOG',
+		N'Suyog Telematics Ltd',
+		N'BSE',
+		NULL,
+		N'INE442P01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SUZLON',
+		N'SUZLON ENERGY LTD.',
+		N'BSE',
+		NULL,
+		N'INE040H01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'SUZLON',
+		N'Suzlon Energy Limited',
+		N'NSE',
+		N'EQ',
+		N'INE040H01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'SVAINDIA',
+		N'SVA INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE763K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SVAMSOF',
+		N'SVAM SOFTWARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE119B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SVARTCORP',
+		N'Swasti Vinayaka Art And Heritage Corporation Ltd',
+		N'BSE',
+		NULL,
+		N'INE895A01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'SVCIND',
+		N'SVC INDUSTRIES Ltd',
+		N'BSE',
+		NULL,
+		N'INE038B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'SVGLOBAL',
+		N'S V GLOBAL MILL LTD.',
+		N'BSE',
+		NULL,
+		N'INE159L01013',
+		5,
+		0
+	UNION
+	SELECT
+		N'SVPGLOB',
+		N'SVP GLOBAL VENTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE308E01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'SVPHOUSING',
+		N'SVP Housing Ltd',
+		N'BSE',
+		NULL,
+		N'INE369Q01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SW1',
+		N'SW Investments Ltd',
+		N'BSE',
+		NULL,
+		N'INE948K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWADEIN',
+		N'SWADESHI INDUSTRIES LEASING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE716M01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWADPOL',
+		N'SWADESHI POLYTEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE243N01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'SWAGRUHA',
+		N'SWAGRUHA INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE587J01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'SWAGTAM',
+		N'Swagtam Trading & Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE150R01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWANENERGY',
+		N'SWAN ENERGY LTD.',
+		N'BSE',
+		NULL,
+		N'INE665A01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'SWANENERGY',
+		N'Swan Energy Limited',
+		N'NSE',
+		N'EQ',
+		N'INE665A01038',
+		1,
+		0
+	UNION
+	SELECT
+		N'SWARAJENG',
+		N'SWARAJ ENGINES LTD.',
+		N'BSE',
+		NULL,
+		N'INE277A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWARAJENG',
+		N'Swaraj Engines Limited',
+		N'NSE',
+		N'EQ',
+		N'INE277A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWARNSAR',
+		N'Swarnsarita Gems Ltd',
+		N'BSE',
+		NULL,
+		N'INE967A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWASTIKA',
+		N'SWASTIKA INVESTMART LTD.',
+		N'BSE',
+		NULL,
+		N'INE691C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWASTIVI',
+		N'SWASTI VINAYAKA SYNTHETICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE804A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'SWELECTES',
+		N'Swelect Energy Systems Limited-$',
+		N'BSE',
+		NULL,
+		N'INE409B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWELECTES',
+		N'Swelect Energy Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE409B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWITCHTE',
+		N'SWITCHING TECHNOLOGIES GUNTHER LTD.',
+		N'BSE',
+		NULL,
+		N'INE311D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWORDEDGE',
+		N'Sword-Edge Commercials Limited',
+		N'BSE',
+		NULL,
+		N'INE093G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWRNASE',
+		N'SWARNA SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE595G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'SWSOLAR',
+		N'Sterling and Wilson Solar Ltd',
+		N'BSE',
+		NULL,
+		N'INE00M201021',
+		1,
+		0
+	UNION
+	SELECT
+		N'SWSOLAR',
+		N'Sterling And Wilson Solar Limited',
+		N'NSE',
+		N'EQ',
+		N'INE00M201021',
+		1,
+		0
+	UNION
+	SELECT
+		N'SXETF',
+		N'HDFC Sensex ETF - Open Ended Traded Fund',
+		N'BSE',
+		NULL,
+		N'INF179KC1973',
+		250.36,
+		0
+	UNION
+	SELECT
+		N'SYBLY',
+		N'SYBLY INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE080D01042',
+		10,
+		0
+	UNION
+	SELECT
+		N'SYLPH',
+		N'SYLPH TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE706F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'SYMBIOX',
+		N'Symbiox Investment & Trading Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE653R01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'SYMPHONY',
+		N'Symphony Limited',
+		N'BSE',
+		NULL,
+		N'INE225D01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'SYMPHONY',
+		N'Symphony Limited',
+		N'NSE',
+		N'EQ',
+		N'INE225D01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'SYNCOM',
+		N'Syncom Healthcare Ltd',
+		N'BSE',
+		NULL,
+		N'INE602K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SYNCOM',
+		N'Syncom Healthcare Limited',
+		N'NSE',
+		N'BZ',
+		N'INE602K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'SYNCOMF',
+		N'SYNCOM FORMULATIONS (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE312C01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'SYNGENE',
+		N'Syngene International Ltd',
+		N'BSE',
+		NULL,
+		N'INE398R01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'SYNGENE',
+		N'Syngene International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE398R01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'SYNTHFO',
+		N'SYNTHIKO FOILS LTD.',
+		N'BSE',
+		NULL,
+		N'INE363L01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'SYSCHEM',
+		N'SYSCHEM (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE121D01036',
+		10,
+		0
+	UNION
+	SELECT
+		N'SYSTMTXC',
+		N'SYSTEMATIX CORPORATE SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE356B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TAALENT',
+		N'TAAL Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE524T01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TAAZAINT',
+		N'Taaza International Ltd',
+		N'BSE',
+		NULL,
+		N'INE392H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TAIIND',
+		N'TAI INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE358D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TAINWALCHM',
+		N'TAINWALA CHEMICALS & PLASTICS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE123C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TAINWALCHM',
+		N'Tainwala Chemical and Plastic (I) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE123C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TAJGVK',
+		N'TAJGVK HOTELS & RESORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE586B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'TAJGVK',
+		N'Taj GVK Hotels & Resorts Limited',
+		N'NSE',
+		N'EQ',
+		N'INE586B01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'TAKE',
+		N'TAKE SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE142I01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'TAKE',
+		N'Take Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE142I01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'TALBROAUTO',
+		N'TALBROS AUTOMOTIVE COMPONENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE187D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TALBROAUTO',
+		N'Talbros Automotive Components Limited',
+		N'NSE',
+		N'EQ',
+		N'INE187D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TALBROSENG',
+		N'Talbros Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE717E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TAMBOLI',
+		N'TAMBOLI CAPITAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE864J01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TANAA',
+		N'TANEJA AEROSPACE & AVIATION LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE692C01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'TANFACIND',
+		N'TANFAC INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE639B01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TANLA',
+		N'Tanla Platforms Ltd',
+		N'BSE',
+		NULL,
+		N'INE483C01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'TANLA',
+		N'Tanla Platforms Limited',
+		N'NSE',
+		N'EQ',
+		N'INE483C01032',
+		1,
+		0
+	UNION
+	SELECT
+		N'TANTIACONS',
+		N'TANTIA CONSTRUCTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE388G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TANTIACONS',
+		N'Tantia Constructions Limited',
+		N'NSE',
+		N'BZ',
+		N'INE388G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TANVI',
+		N'Tanvi Foods (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE978V01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TAPARIA',
+		N'TAPARIA TOOLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE614R01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TARAI',
+		N'TARAI FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE906C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TARC',
+		N'Anant Raj Global Ltd',
+		N'BSE',
+		NULL,
+		N'INE0EK901012',
+		2,
+		0
+	UNION
+	SELECT
+		N'TARC',
+		N'Anant Raj Global Limited',
+		N'NSE',
+		N'EQ',
+		N'INE0EK901012',
+		2,
+		0
+	UNION
+	SELECT
+		N'TARINI',
+		N'Tarini International Ltd',
+		N'BSE',
+		NULL,
+		N'INE849M01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TARMAT',
+		N'TARMAT LTD.',
+		N'BSE',
+		NULL,
+		N'INE924H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TARMAT',
+		N'Tarmat Limited',
+		N'NSE',
+		N'EQ',
+		N'INE924H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TASHIND',
+		N'TASHI INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE552H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TASTYBIT',
+		N'TASTY BITE EATABLES LTD.',
+		N'BSE',
+		NULL,
+		N'INE488B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TASTYBITE',
+		N'Tasty Bite Eatables Limited',
+		N'NSE',
+		N'EQ',
+		N'INE488B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATACHEM',
+		N'TATA CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE092A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATACHEM',
+		N'Tata Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE092A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATACOFFEE',
+		N'TATA COFFEE LTD.',
+		N'BSE',
+		NULL,
+		N'INE493A01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'TATACOFFEE',
+		N'Tata Coffee Limited',
+		N'NSE',
+		N'EQ',
+		N'INE493A01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'TATACOMM',
+		N'TATA COMMUNICATIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE151A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATACOMM',
+		N'Tata Communications Limited',
+		N'NSE',
+		N'EQ',
+		N'INE151A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATACONSUM',
+		N'Tata Consumer Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE192A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'TATACONSUM',
+		N'TATA CONSUMER PRODUCTS LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE192A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'TATAELXSI',
+		N'TATA ELXSI LTD.',
+		N'BSE',
+		NULL,
+		N'INE670A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATAELXSI',
+		N'Tata Elxsi Limited',
+		N'NSE',
+		N'EQ',
+		N'INE670A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATAINVEST',
+		N'TATA INVESTMENT CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE672A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATAINVEST',
+		N'Tata Investment Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE672A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATAMETALI',
+		N'TATA METALIKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE056C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATAMETALI',
+		N'Tata Metaliks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE056C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATAMOTORS',
+		N'TATA MOTORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE155A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'TATAMOTORS',
+		N'Tata Motors Limited',
+		N'NSE',
+		N'EQ',
+		N'INE155A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'TATAMTRDVR',
+		N'Tata Motors  Ltd - DVR',
+		N'BSE',
+		NULL,
+		N'IN9155A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'TATAMTRDVR',
+		N'Tata Motors Limited',
+		N'NSE',
+		N'EQ',
+		N'IN9155A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'TATAPOWER',
+		N'TATA POWER CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE245A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'TATAPOWER',
+		N'Tata Power Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE245A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'TATASTEEL',
+		N'TATA STEEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE081A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATASTEEL',
+		N'Tata Steel Limited',
+		N'NSE',
+		N'EQ',
+		N'INE081A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATASTLBSL',
+		N'Tata Steel Bsl Ltd',
+		N'BSE',
+		NULL,
+		N'INE824B01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'TATASTLBSL',
+		N'Tata Steel Bsl Limited',
+		N'NSE',
+		N'EQ',
+		N'INE824B01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'TATASTLLP',
+		N'Tata Steel Long Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE674A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATASTLLP',
+		N'Tata Steel Long Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE674A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATAYODOGA',
+		N'TAYO ROLLS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE895C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TATIAGLOB',
+		N'TATIA GLOBAL VENNTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE083G01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'TAVERNIER',
+		N'Tavernier Resources Limi',
+		N'BSE',
+		NULL,
+		N'INE355H01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TBZ',
+		N'TRIBHOVANDAS BHIMJI ZAVERI LTD.',
+		N'BSE',
+		NULL,
+		N'INE760L01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TBZ',
+		N'Tribhovandas Bhimji Zaveri Limited',
+		N'NSE',
+		N'EQ',
+		N'INE760L01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TCFCFINQ',
+		N'TCFC FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE389D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TCI',
+		N'TRANSPORT CORPORATION OF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE688A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'TCI',
+		N'Transport Corporation of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE688A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'TCIDEVELOP',
+		N'TCI DEVELOPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE662L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TCIDEVELOP',
+		N'TCI Developers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE662L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TCIEXP',
+		N'TCI Express Ltd',
+		N'BSE',
+		NULL,
+		N'INE586V01016',
+		2,
+		0
+	UNION
+	SELECT
+		N'TCIEXP',
+		N'TCI Express Limited',
+		N'NSE',
+		N'EQ',
+		N'INE586V01016',
+		2,
+		0
+	UNION
+	SELECT
+		N'TCIFINANCE',
+		N'TCI FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE911B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TCIFINANCE',
+		N'TCI Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE911B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TCIIND',
+		N'TCI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE920B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TCMLMTD',
+		N'TCM LTD.',
+		N'BSE',
+		NULL,
+		N'INE034F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'TCNSBRANDS',
+		N'TCNS Clothing Co. Ltd',
+		N'BSE',
+		NULL,
+		N'INE778U01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'TCNSBRANDS',
+		N'TCNS Clothing Co. Limited',
+		N'NSE',
+		N'EQ',
+		N'INE778U01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'TCPLPACK',
+		N'TCPL PACKAGING LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE822C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TCPLPACK',
+		N'TCPL Packaging Limited',
+		N'NSE',
+		N'EQ',
+		N'INE822C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TCS',
+		N'TATA CONSULTANCY SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE467B01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'TCS',
+		N'Tata Consultancy Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE467B01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'TDPOWERSYS',
+		N'T D POWER SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE419M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TDPOWERSYS',
+		N'TD Power Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE419M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TDSL',
+		N'Tasty Dairy Specialities Ltd',
+		N'BSE',
+		NULL,
+		N'INE773Y01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TEAMLEASE',
+		N'TeamLease Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE985S01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'TEAMLEASE',
+		N'Teamlease Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE985S01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'TEATIME',
+		N'TEA TIME LTD.',
+		N'BSE',
+		NULL,
+		N'INE237U01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TECHCON',
+		N'TECHNOJET CONSULTANTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE881P01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TECHIN',
+		N'TECHINDIA NIRMAN LIMITED',
+		N'BSE',
+		NULL,
+		N'INE778A01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'TECHIN',
+		N'Techindia Nirman Limited',
+		N'NSE',
+		N'BE',
+		N'INE778A01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'TECHM',
+		N'TECH MAHINDRA LTD.',
+		N'BSE',
+		NULL,
+		N'INE669C01036',
+		5,
+		0
+	UNION
+	SELECT
+		N'TECHM',
+		N'Tech Mahindra Limited',
+		N'NSE',
+		N'EQ',
+		N'INE669C01036',
+		5,
+		0
+	UNION
+	SELECT
+		N'TECHNOE',
+		N'Techno Electric & Engineering Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE285K01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'TECHNOE',
+		N'Techno Electric & Engineering Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE285K01026',
+		2,
+		0
+	UNION
+	SELECT
+		N'TECHNVISN',
+		N'TECHNVISION VENTURES LTD.',
+		N'BSE',
+		NULL,
+		N'INE314H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TEJASNET',
+		N'Tejas Networks Ltd',
+		N'BSE',
+		NULL,
+		N'INE010J01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TEJASNET',
+		N'Tejas Networks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE010J01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TEJASSVI',
+		N'Tejassvi Aaharam Ltd',
+		N'BSE',
+		NULL,
+		N'INE173E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TEJNAKSH',
+		N'Tejnaksh Healthcare Ltd',
+		N'BSE',
+		NULL,
+		N'INE030T01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TELECANOR',
+		N'TELECANOR GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE381G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TERAI',
+		N'TERAI TEA CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE390D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TERASOFT',
+		N'TERA SOFTWARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE482B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'TERASOFT',
+		N'Tera Software Limited',
+		N'NSE',
+		N'EQ',
+		N'INE482B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'TERRAFORM',
+		N'TERRAFORM MAGNUM LTD.',
+		N'BSE',
+		NULL,
+		N'INE122V01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'TERRAREAL',
+		N'Terraform Realstate Limited',
+		N'BSE',
+		NULL,
+		N'INE123V01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TERRASCOPE',
+		N'Terrascope Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE346M01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'TEXELIN',
+		N'TEXEL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE594V01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'TEXINFRA',
+		N'TEXMACO INFRASTRUCTURE & HOLDINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE435C01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'TEXINFRA',
+		N'Texmaco Infrastructure & Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE435C01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'TEXMOPIPES',
+		N'TEXMO PIPES & PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE141K01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TEXMOPIPES',
+		N'Texmo Pipes and Products Limited',
+		N'NSE',
+		N'EQ',
+		N'INE141K01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TEXRAIL',
+		N'TEXMACO RAIL & ENGINEERING LTD.',
+		N'BSE',
+		NULL,
+		N'INE621L01012',
+		1,
+		0
+	UNION
+	SELECT
+		N'TEXRAIL',
+		N'Texmaco Rail & Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE621L01012',
+		1,
+		0
+	UNION
+	SELECT
+		N'TFCILTD',
+		N'TOURISM FINANCE CORPORATION OF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE305A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TFCILTD',
+		N'Tourism Finance Corporation of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE305A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TFL',
+		N'TRANSWARRANTY FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE804H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TFL',
+		N'Transwarranty Finance Limited',
+		N'NSE',
+		N'BE',
+		N'INE804H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TFLL',
+		N'Tirupati Finlease Ltd',
+		N'BSE',
+		NULL,
+		N'INE027S01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TFSL',
+		N'Typhoon Financial Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE761R01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TGBHOTELS',
+		N'TGB BANQUETS AND HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE797H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TGBHOTELS',
+		N'TGB Banquets And Hotels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE797H01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TGVSL',
+		N'TGV Sraac Ltd',
+		N'BSE',
+		NULL,
+		N'INE284B01028',
+		10,
+		0
+	UNION
+	SELECT
+		N'THACKER',
+		N'THACKER & CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE077P01034',
+		1,
+		0
+	UNION
+	SELECT
+		N'THAKDEV',
+		N'THAKKERS DEVELOPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE403F01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'THAKRAL',
+		N'THAKRAL SERVICES (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE190F01028',
+		3,
+		0
+	UNION
+	SELECT
+		N'THAMBBI',
+		N'THAMBBI MODERN SPINNING MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE830D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'THANGAMAYL',
+		N'Thangamayil Jewellery Ltd',
+		N'BSE',
+		NULL,
+		N'INE085J01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'THANGAMAYL',
+		N'Thangamayil Jewellery Limited',
+		N'NSE',
+		N'EQ',
+		N'INE085J01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'THEBYKE',
+		N'THE BYKE HOSPITALITY LTD.',
+		N'BSE',
+		NULL,
+		N'INE319B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'THEINVEST',
+		N'The Investment Trust Of India Ltd',
+		N'BSE',
+		NULL,
+		N'INE924D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'THEINVEST',
+		N'The Investment Trust Of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE924D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'THEMISMED',
+		N'THEMIS MEDICARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE083B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'THEMISMED',
+		N'Themis Medicare Limited',
+		N'NSE',
+		N'EQ',
+		N'INE083B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'THERMAX',
+		N'THERMAX LTD.',
+		N'BSE',
+		NULL,
+		N'INE152A01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'THERMAX',
+		N'Thermax Limited',
+		N'NSE',
+		N'EQ',
+		N'INE152A01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'THINKINK',
+		N'Thinkink Picturez Ltd',
+		N'BSE',
+		NULL,
+		N'INE365S01037',
+		5,
+		0
+	UNION
+	SELECT
+		N'THIRDFIN',
+		N'THIRDWAVE FINANCIAL INTERMEDIARIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE528C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'THIRUSUGAR',
+		N'THIRU AROORAN SUGARS LTD.',
+		N'BSE',
+		NULL,
+		N'INE409A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'THIRUSUGAR',
+		N'Thiru Arooran Sugars Limited',
+		N'NSE',
+		N'BZ',
+		N'INE409A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'THOMASCOOK',
+		N'THOMAS COOK (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE332A01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'THOMASCOOK',
+		N'Thomas Cook  (India)  Limited',
+		N'NSE',
+		N'EQ',
+		N'INE332A01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'THOMASCOTT',
+		N'THOMAS SCOTT (INDIA) LIMITED',
+		N'BSE',
+		NULL,
+		N'INE480M01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'THOMASCOTT',
+		N'Thomas Scott (India) Limited',
+		N'NSE',
+		N'BE',
+		N'INE480M01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'THYROCARE',
+		N'Thyrocare Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE594H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'THYROCARE',
+		N'Thyrocare Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE594H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TI',
+		N'TILAKNAGAR INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE133E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TI',
+		N'Tilaknagar Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE133E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIAANC',
+		N'Tiaan Consumer Ltd',
+		N'BSE',
+		NULL,
+		N'INE864T01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIDEWATER',
+		N'TIDE WATER OIL (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE484C01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'TIDEWATER',
+		N'Tide Water Oil Company (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE484C01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'TIGERLOGS',
+		N'Tiger Logistics (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE906O01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIGLOB',
+		N'T & I GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE811B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIIL',
+		N'TECHNOCRAFT INDUSTRIES (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE545H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIIL',
+		N'Technocraft Industries (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE545H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIINDIA',
+		N'Tube Investments of India Ltd',
+		N'BSE',
+		NULL,
+		N'INE974X01010',
+		1,
+		0
+	UNION
+	SELECT
+		N'TIINDIA',
+		N'Tube Investments of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE974X01010',
+		1,
+		0
+	UNION
+	SELECT
+		N'TIJARIA',
+		N'TIJARIA POLYPIPES LTD.',
+		N'BSE',
+		NULL,
+		N'INE440L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIJARIA',
+		N'Tijaria Polypipes Limited',
+		N'NSE',
+		N'BE',
+		N'INE440L01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIL',
+		N'TIL LTD.',
+		N'BSE',
+		NULL,
+		N'INE806C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIL',
+		N'TIL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE806C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TILAK',
+		N'Tilak Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE026L01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'TIMESGTY',
+		N'TIMES GUARANTY LTD.',
+		N'BSE',
+		NULL,
+		N'INE289C01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIMESGTY',
+		N'Times Guaranty Limited',
+		N'NSE',
+		N'EQ',
+		N'INE289C01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIMETECHNO',
+		N'TIME TECHNOPLAST LTD.',
+		N'BSE',
+		NULL,
+		N'INE508G01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'TIMETECHNO',
+		N'Time Technoplast Limited',
+		N'NSE',
+		N'EQ',
+		N'INE508G01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'TIMEX',
+		N'TIMEX GROUP INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE064A01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'TIMEXPS',
+		N'Timex Group India Ltd',
+		N'BSE',
+		NULL,
+		N' ',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIMKEN',
+		N'TIMKEN INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE325A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIMKEN',
+		N'Timken India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE325A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TINNARUBR',
+		N'Tinna Rubber and Infrastructure Limited',
+		N'BSE',
+		NULL,
+		N'INE015C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TINNATFL',
+		N'Tinna Trade Ltd',
+		N'BSE',
+		NULL,
+		N'INE401Z01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TINPLATE',
+		N'TINPLATE COMPANY OF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE422C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TINPLATE',
+		N'The Tinplate Company of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE422C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIPSINDLTD',
+		N'TIPS INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE716B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIPSINDLTD',
+		N'TIPS Industries Limited',
+		N'NSE',
+		N'BE',
+		N'INE716B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIRSARJ',
+		N'TIRUPATI SARJAN LTD.',
+		N'BSE',
+		NULL,
+		N'INE297J01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'TIRUFOAM',
+		N'Tirupati Foam Ltd',
+		N'BSE',
+		NULL,
+		N'INE115G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIRUMALCHM',
+		N'THIRUMALAI CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE338A01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'TIRUMALCHM',
+		N'Thirumalai Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE338A01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'TIRUPATIFL',
+		N'Tirupati Forge Limited',
+		N'NSE',
+		N'BE',
+		N'INE319Y01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TIRUSTA',
+		N'TIRUPATI STARCH & CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE314D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TITAANIUM',
+		N'Titaanium Ten Enterprise Ltd',
+		N'BSE',
+		NULL,
+		N'INE120V01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TITAN',
+		N'Titan Company Limited',
+		N'BSE',
+		NULL,
+		N'INE280A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'TITAN',
+		N'Titan Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE280A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'TITANBIO',
+		N'TITAN BIOTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE150C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TITANSEC',
+		N'TITAN SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE090D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TMRVL',
+		N'The Mandhana Retail Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE759V01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TMRVL',
+		N'The Mandhana Retail Ventures Limited',
+		N'NSE',
+		N'EQ',
+		N'INE759V01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TMTIND-B1',
+		N'TMT (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE182E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'TNPETRO',
+		N'TAMILNADU PETROPRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE148A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TNPETRO',
+		N'Tamilnadu PetroProducts Limited',
+		N'NSE',
+		N'EQ',
+		N'INE148A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TNPL',
+		N'TAMIL NADU NEWSPRINT & PAPERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE107A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TNPL',
+		N'Tamil Nadu Newsprint & Papers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE107A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TNSTLTU',
+		N'TAMILNADU STEEL TUBES LTD.',
+		N'BSE',
+		NULL,
+		N'INE176E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TNTELE',
+		N'TAMILNADU TELECOMMUNICATIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE141D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TNTELE',
+		N'Tamilnadu Telecommunication Limited',
+		N'NSE',
+		N'BE',
+		N'INE141D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TOKYOFIN',
+		N'TOKYO FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE546D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TOKYOPLAST',
+		N'TOKYO PLAST INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE932C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TOKYOPLAST',
+		N'Tokyo Plast International Limited',
+		N'NSE',
+		N'EQ',
+		N'INE932C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TORNTPHARM',
+		N'TORRENT PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE685A01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'TORNTPHARM',
+		N'Torrent Pharmaceuticals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE685A01028',
+		5,
+		0
+	UNION
+	SELECT
+		N'TORNTPOWER',
+		N'TORRENT POWER LTD.',
+		N'BSE',
+		NULL,
+		N'INE813H01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'TORNTPOWER',
+		N'Torrent Power Limited',
+		N'NSE',
+		N'EQ',
+		N'INE813H01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'TOTAL',
+		N'Total Transport Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE336X01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TOUCHWOOD',
+		N'Touchwood Entertainment Limited',
+		N'NSE',
+		N'BE',
+		N'INE486Y01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TOWASOK',
+		N'TOWA SOKKI LTD.',
+		N'BSE',
+		NULL,
+		N'INE311M01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TOYAMIND',
+		N'Toyam Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE457P01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'TPLPLAST',
+		N'TPL PLASTECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE413G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TPLPLASTEH',
+		N'TPL Plastech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE413G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TPROJECT',
+		N'Thirani Projects Ltd',
+		N'BSE',
+		NULL,
+		N'INE901C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRABI',
+		N'TRANSGENE BIOTEK LTD.',
+		N'BSE',
+		NULL,
+		N'INE773D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRADWIN',
+		N'TRADE WINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE961E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRANOCE',
+		N'TRANSOCEANIC PROPERTIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE074J01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRANSASIA',
+		N'TRANS ASIA CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE321C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRANSCHEM',
+		N'TRANSCHEM LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE019B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRANSCOR',
+		N'TRANSCORP INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE330E01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'TRANSFD',
+		N'TRANSGLOBE FOODS LTD.',
+		N'BSE',
+		NULL,
+		N'INE213P01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRANSFIN',
+		N'TRANS FINANCIAL RESOURCES LTD.',
+		N'BSE',
+		NULL,
+		N'INE404B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRANSFRE',
+		N'TRANS-FREIGHT CONTAINERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE360D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRANSPEK',
+		N'TRANSPEK INDUSTRY LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE687A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRCFIN',
+		N'TRC FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE759D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TREEHOUSE',
+		N'TREE HOUSE EDUCATION & ACCESSORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE040M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TREEHOUSE',
+		N'Tree House Education & Accessories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE040M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TREJHARA',
+		N'Trejhara Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE00CA01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TREJHARA',
+		N'TREJHARA SOLUTIONS LIMITED',
+		N'NSE',
+		N'EQ',
+		N'INE00CA01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRENT',
+		N'TRENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE849A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'TRENT',
+		N'Trent Limited',
+		N'NSE',
+		N'EQ',
+		N'INE849A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'TRESCON',
+		N'Trescon Ltd',
+		N'BSE',
+		NULL,
+		N'INE088D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRF',
+		N'TRF LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE391D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRF',
+		N'TRF Limited',
+		N'NSE',
+		N'EQ',
+		N'INE391D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRICOMFRU',
+		N'Tricom Fruit Products Limited',
+		N'BSE',
+		NULL,
+		N'INE843F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRIDENT',
+		N'TRIDENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE064C01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'TRIDENT',
+		N'Trident Limited',
+		N'NSE',
+		N'EQ',
+		N'INE064C01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'TRIDETOOL',
+		N'TRIDENT TOOLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE179D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRIGYN',
+		N'TRIGYN TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE948A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRIGYN',
+		N'Trigyn Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE948A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRIJAL',
+		N'TRIJAL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE454E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRIL',
+		N'TRANSFORMERS AND RECTIFIERS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE763I01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'TRIL',
+		N'Transformers And Rectifiers (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE763I01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'TRIMURTHI',
+		N'Trimurthi Ltd',
+		N'BSE',
+		NULL,
+		N'INE314I01036',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRINITYLEA',
+		N'TRINITY LEAGUE INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE884X01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRIOMERC',
+		N'TRIO MERCANTILE & TRADING LTD.',
+		N'BSE',
+		NULL,
+		N'INE234G01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRIPR',
+		N'TRIOCHEM PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE331E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRISHAKT',
+		N'TRISHAKTI ELECTRONICS & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE238C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRITONV',
+		N'TRITON VALVES LTD.',
+		N'BSE',
+		NULL,
+		N'INE440G01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRITURBINE',
+		N'TRIVENI TURBINE LTD.',
+		N'BSE',
+		NULL,
+		N'INE152M01016',
+		1,
+		0
+	UNION
+	SELECT
+		N'TRITURBINE',
+		N'Triveni Turbine Limited',
+		N'NSE',
+		N'EQ',
+		N'INE152M01016',
+		1,
+		0
+	UNION
+	SELECT
+		N'TRIVENI',
+		N'TRIVENI ENGINEERING & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE256C01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'TRIVENI',
+		N'Triveni Engineering & Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE256C01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'TRIVENIENT',
+		N'Triveni Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE916P01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'TRIVENIGQ',
+		N'TRIVENI GLASS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE094C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRIVIKRAMA',
+		N'Trivikrama Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE641Q01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TRL',
+		N'Taylormade Renewables Ltd',
+		N'BSE',
+		NULL,
+		N'INE459Z01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'TSPIRITUAL',
+		N'T.SPIRITUAL WORLD LTD.',
+		N'BSE',
+		NULL,
+		N'INE541C01037',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTFL',
+		N'Trident Texofab Ltd',
+		N'BSE',
+		NULL,
+		N'INE071Y01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTIENT',
+		N'TTI Enterprise Ltd',
+		N'BSE',
+		NULL,
+		N'INE404F01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTIL',
+		N'Tirupati Tyres Ltd',
+		N'BSE',
+		NULL,
+		N'INE812Q01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTKHEALTH',
+		N'TTK HEALTHCARE LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE910C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTKHLTCARE',
+		N'TTK Healthcare Limited',
+		N'NSE',
+		N'EQ',
+		N'INE910C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTKPRESTIG',
+		N'TTK PRESTIGE LTD.',
+		N'BSE',
+		NULL,
+		N'INE690A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTKPRESTIG',
+		N'TTK Prestige Limited',
+		N'NSE',
+		N'EQ',
+		N'INE690A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTL',
+		N'T T LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE592B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTL',
+		N'T T Limited',
+		N'NSE',
+		N'EQ',
+		N'INE592B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTLEL',
+		N'TTL Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE664X01025',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTML',
+		N'TATA TELESERVICES (MAHARASHTRA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE517B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TTML',
+		N'Tata Teleservices (Maharashtra) Limited',
+		N'NSE',
+		N'BE',
+		N'INE517B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TULASEEBIOE',
+		N'TULASEE BIO-ETHANOL LTD.',
+		N'BSE',
+		NULL,
+		N'INE276N01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'TULIVE',
+		N'Tulive Developers Limited',
+		N'BSE',
+		NULL,
+		N'INE637D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'TUNITEX',
+		N'TUNI TEXTILE MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE560D01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'TUTIALKA',
+		N'TUTICORIN ALKALI CHEMICALS & FERTILISERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE400A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TV18BRDCST',
+		N'TV18 BROADCAST LTD.',
+		N'BSE',
+		NULL,
+		N'INE886H01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'TV18BRDCST',
+		N'TV18 Broadcast Limited',
+		N'NSE',
+		N'EQ',
+		N'INE886H01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'TVF1D',
+		N'Tata Vaue Fund Series 1 - Regular Plan - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF277K010H7',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVF1DZ',
+		N'Tata Vaue Fund Series 1 - Direct Plan - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF277K012H3',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVF1G',
+		N'Tata Vaue Fund Series 1 - Regular Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF277K019G0',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVF1GZ',
+		N'Tata Vaue Fund Series 1 - Direct Plan - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF277K011H5',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVF2D',
+		N'TATA Value Fund Series  2 - Regular Plan  - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF277K014J5',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVF2DZ',
+		N'TATA Value Fund Series  2 - Direct Plan  - Dividend Payout Option',
+		N'BSE',
+		NULL,
+		N'INF277K016J0',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVF2G',
+		N'TATA Value Fund Series  2 - Regular  Plan  - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF277K013J7',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVF2GZ',
+		N'TATA Value Fund Series  2 - Direct Plan  - Growth Option',
+		N'BSE',
+		NULL,
+		N'INF277K015J2',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVOLCON',
+		N'TIVOLI CONSTRUCTION LTD.',
+		N'BSE',
+		NULL,
+		N'INE747V01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVSELECT',
+		N'TVS ELECTRONICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE236G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVSELECT',
+		N'TVS Electronics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE236G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVSMOTOR',
+		N'TVS MOTOR COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE494B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'TVSMOTOR',
+		N'TVS Motor Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE494B01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'TVSSRICHAK',
+		N'TVS SRICHAKRA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE421C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVSSRICHAK',
+		N'TVS Srichakra Limited',
+		N'NSE',
+		N'EQ',
+		N'INE421C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVTODAY',
+		N'TV TODAY NETWORK LTD.',
+		N'BSE',
+		NULL,
+		N'INE038F01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'TVTODAY',
+		N'TV Today Network Limited',
+		N'NSE',
+		N'EQ',
+		N'INE038F01029',
+		5,
+		0
+	UNION
+	SELECT
+		N'TVVISION',
+		N'TV Vision Ltd',
+		N'BSE',
+		NULL,
+		N'INE871L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TVVISION',
+		N'TV Vision Limited',
+		N'NSE',
+		N'EQ',
+		N'INE871L01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TWINSTAR',
+		N'Twinstar Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE070B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'TWIROST',
+		N'TWIN ROSES TRADES & AGENCIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE436U01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'TWL',
+		N'TITAGARH WAGONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE615H01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'TWL',
+		N'Titagarh Wagons Limited',
+		N'NSE',
+		N'EQ',
+		N'INE615H01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'TYCHE',
+		N'TYCHE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE443B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'TYROON',
+		N'TYROON TEA CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE945B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'UBL',
+		N'UNITED BREWERIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE686F01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'UBL',
+		N'United Breweries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE686F01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'UCALFUEL',
+		N'UCAL FUEL SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE139B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'UCALFUEL',
+		N'Ucal Fuel Systems Limited',
+		N'NSE',
+		N'EQ',
+		N'INE139B01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'UCOBANK',
+		N'UCO BANK',
+		N'BSE',
+		NULL,
+		N'INE691A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'UCOBANK',
+		N'UCO Bank',
+		N'NSE',
+		N'EQ',
+		N'INE691A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'UDAICEMENT',
+		N'UDAIPUR CEMENT WORKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE225C01029',
+		4,
+		0
+	UNION
+	SELECT
+		N'UDAYJEW',
+		N'Uday Jewellery Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE551B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'UFLEX',
+		N'UFLEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE516A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'UFLEX',
+		N'UFLEX Limited',
+		N'NSE',
+		N'EQ',
+		N'INE516A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'UFO',
+		N'UFO Moviez India Ltd',
+		N'BSE',
+		NULL,
+		N'INE527H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'UFO',
+		N'UFO Moviez India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE527H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'UGARSUGAR',
+		N'UGAR SUGAR WORKS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE071E01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'UGARSUGAR',
+		N'The Ugar Sugar Works Limited',
+		N'NSE',
+		N'EQ',
+		N'INE071E01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'UGROCAP',
+		N'Ugro Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE583D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'UHZAVERI',
+		N'U. H. Zaveri Ltd',
+		N'BSE',
+		NULL,
+		N'INE556Z01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'UJAAS',
+		N'Ujaas Energy Limited',
+		N'BSE',
+		NULL,
+		N'INE899L01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'UJAAS',
+		N'Ujaas Energy Limited',
+		N'NSE',
+		N'BE',
+		N'INE899L01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'UJJIVAN',
+		N'Ujjivan Financial Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE334L01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'UJJIVAN',
+		N'Ujjivan Financial Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE334L01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'UJJIVANSFB',
+		N'Ujjivan Small Finance Bank Ltd',
+		N'BSE',
+		NULL,
+		N'INE551W01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'UJJIVANSFB',
+		N'Ujjivan Small Finance Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE551W01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ULTRACAB',
+		N'Ultracab (India) Ltd',
+		N'BSE',
+		NULL,
+		N'INE010R01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ULTRACEMCO',
+		N'ULTRATECH CEMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE481G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ULTRACEMCO',
+		N'UltraTech Cement Limited',
+		N'NSE',
+		N'EQ',
+		N'INE481G01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ULTRAMAR',
+		N'ULTRAMARINE & PIGMENTS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE405A01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'UMANGDAIR',
+		N'UMANG DAIRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE864B01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'UMANGDAIRY',
+		N'Umang Dairies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE864B01027',
+		5,
+		0
+	UNION
+	SELECT
+		N'UMESLTD',
+		N'Usha Martin Education & Solutions Limited',
+		N'BSE',
+		NULL,
+		N'INE240C01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'UMESLTD',
+		N'Usha Martin Education & Solutions Limited',
+		N'NSE',
+		N'BE',
+		N'INE240C01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'UMIYA',
+		N'Umiya Tubes Ltd',
+		N'BSE',
+		NULL,
+		N'INE173U01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIABEXAL',
+		N'UNI ABEX ALLOY PRODUCTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE361D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIAUTO',
+		N'Universal Autofoundry Ltd',
+		N'BSE',
+		NULL,
+		N'INE203T01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNICHEMLAB',
+		N'UNICHEM LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE351A01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'UNICHEMLAB',
+		N'Unichem Laboratories Limited',
+		N'NSE',
+		N'EQ',
+		N'INE351A01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'UNICK',
+		N'Unick Fix-A-Form And Printers Ltd',
+		N'BSE',
+		NULL,
+		N'INE250G01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIDT',
+		N'UNITED DRILLING TOOLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE961D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIDT',
+		N'United Drilling Tools Limited',
+		N'NSE',
+		N'EQ',
+		N'INE961D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIENTER',
+		N'Uniphos Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE037A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'UNIJOLL',
+		N'UNIJOLLY INVESTMENTS CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE130N01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIMOVR',
+		N'UNIMODE OVERSEAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE348N01034',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIOFFICE',
+		N'UNIVERSAL OFFICE AUTOMATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE951C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIONBANK',
+		N'UNION BANK OF INDIA',
+		N'BSE',
+		NULL,
+		N'INE692A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIONBANK',
+		N'Union Bank of India',
+		N'NSE',
+		N'EQ',
+		N'INE692A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIPHOS',
+		N'UNIPHOS ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE037A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'UNIQUEO',
+		N'UNIQUE ORGANICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE333E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIROYAL',
+		N'UNIROYAL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE980D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNISHIRE',
+		N'Unishire Urban Infra Ltd',
+		N'BSE',
+		NULL,
+		N'INE210P01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNISON',
+		N'Unison Metals Ltd',
+		N'BSE',
+		NULL,
+		N'INE099D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNISTRMU',
+		N'UNISTAR MULTIMEDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE808C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNITDCR',
+		N'UNITED CREDIT LTD.',
+		N'BSE',
+		NULL,
+		N'INE858C01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNITDSPR',
+		N'UNITED SPIRITS LTD.',
+		N'BSE',
+		NULL,
+		N'INE854D01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'UNITECH',
+		N'UNITECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE694A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'UNITECH',
+		N'Unitech Limited',
+		N'NSE',
+		N'BZ',
+		N'INE694A01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'UNITEDINT',
+		N'UNITED INTERACTIVE LTD.',
+		N'BSE',
+		NULL,
+		N'INE706D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNITEDTE',
+		N'UNITED TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE727E01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNITEDTEA',
+		N'The United Nilgiri Tea Estates Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE458F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNITINT',
+		N'UNITECH INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE929K01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNITY',
+		N'UNITY INFRAPROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE466H01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'UNITY',
+		N'Unity Infraprojects Limited',
+		N'NSE',
+		N'BZ',
+		N'INE466H01028',
+		2,
+		0
+	UNION
+	SELECT
+		N'UNIVARTS',
+		N'UNIVERSAL ARTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE464B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIVASTU',
+		N'Univastu India Limited',
+		N'NSE',
+		N'BE',
+		N'INE562X01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIVCABLES',
+		N'UNIVERSAL CABLES LTD.',
+		N'BSE',
+		NULL,
+		N'INE279A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIVCABLES',
+		N'Universal Cables Limited',
+		N'NSE',
+		N'EQ',
+		N'INE279A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIVPHOTO',
+		N'Universus Photo Imagings Ltd',
+		N'BSE',
+		NULL,
+		N'INE03V001013',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIVPHOTO',
+		N'Universus Photo Imagings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE03V001013',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIVPRIM',
+		N'UNIVERSAL PRIME ALUMINIUM LTD.',
+		N'BSE',
+		NULL,
+		N'INE621D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIVSTAR',
+		N'UNIVERSAL STARCH-CHEM ALLIED LTD.',
+		N'BSE',
+		NULL,
+		N'INE113E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIWORTH',
+		N'UNIWORTH LTD.',
+		N'BSE',
+		NULL,
+		N'INE207A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNIWSEC',
+		N'UNIWORTH SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE728J01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNJHAFOR',
+		N'UNJHA FORMULATIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE576D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNQTYMI',
+		N'UNION QUALITY PLASTICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE338N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNRYLMA',
+		N'UNIROYAL MARINE EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE602H01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'UNTTEMI',
+		N'UNITED LEASING & INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE357P01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'UPASAFN',
+		N'UPASANA FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE819K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'UPL',
+		N'UPL Limited',
+		N'BSE',
+		NULL,
+		N'INE628A01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'UPL',
+		N'UPL Limited',
+		N'NSE',
+		N'EQ',
+		N'INE628A01036',
+		2,
+		0
+	UNION
+	SELECT
+		N'UPSURGE',
+		N'UPSURGE INVESTMENT & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE890B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'URJA',
+		N'Urja Global Limited',
+		N'NSE',
+		N'BE',
+		N'INE550C01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'URJAGLOBA',
+		N'URJA GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE550C01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'USGTECH',
+		N'USG TECH SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE718B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'USHAKIRA',
+		N'USHAKIRAN FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE697C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'USHAMART',
+		N'USHA MARTIN LTD.',
+		N'BSE',
+		NULL,
+		N'INE228A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'USHAMART',
+		N'Usha Martin Limited',
+		N'NSE',
+		N'EQ',
+		N'INE228A01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'USHDI',
+		N'USHDEV INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE981D01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'UTIAMC',
+		N'UTI Asset Management Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE094J01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTIAMC',
+		N'UTI Asset Management Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE094J01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTIBANKETF',
+		N'UTI Bank Exchange Traded Fund (UTI Bank ETF)',
+		N'BSE',
+		NULL,
+		N'INF789F1AUV1',
+		1,
+		0
+	UNION
+	SELECT
+		N'UTINEXT50',
+		N'UTI Nifty Next 50 ETF',
+		N'BSE',
+		NULL,
+		N'INF789FC1N82',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTINEXT50',
+		N'UTIAMC - UTINEXT50',
+		N'NSE',
+		N'Nifty Next 50',
+		N'INF789FC1N82',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTINIFTETF',
+		N'UTI NIFTY ETF',
+		N'BSE',
+		NULL,
+		N'INF789FB1X41',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTINIFTETF',
+		N'UTI Mutual Fund - UTI-Nifty Exchange Traded Fund',
+		N'NSE',
+		N'Nifty 50',
+		N'INF789FB1X41',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTIQUE',
+		N'Utique Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE096A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTISENSETF',
+		N'UTI- SENSEX ETF',
+		N'BSE',
+		NULL,
+		N'INF789FB1X58',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTISENSETF',
+		N'UTI Mutual Fund - UTI-Sensex Exchange Traded Fund ',
+		N'NSE',
+		N'SENSEX',
+		N'INF789FB1X58',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTISXN50',
+		N'UTI S&P BSE Sensex Next 50 ETF',
+		N'BSE',
+		NULL,
+		N'INF789F1AUU3',
+		1,
+		0
+	UNION
+	SELECT
+		N'UTISXN50',
+		N'UTIAMC - UTISXN50',
+		N'NSE',
+		N'BSE Sensex Next 50',
+		N'INF789F1AHR6',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTLINDS',
+		N'UTL Industries Limited',
+		N'BSE',
+		NULL,
+		N'INE184E01024',
+		1,
+		0
+	UNION
+	SELECT
+		N'UTTAMSTL',
+		N'UTTAM GALVA STEELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE699A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTTAMSTL',
+		N'Uttam Galva Steels Limited',
+		N'NSE',
+		N'BE',
+		N'INE699A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTTAMSUGAR',
+		N'UTTAM SUGAR MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE786F01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'UTTAMSUGAR',
+		N'Uttam Sugar Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE786F01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'UVDRHOR',
+		N'UNITED VAN DER HORST LTD.',
+		N'BSE',
+		NULL,
+		N'INE890G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'UYFINCORP',
+		N'U. Y. Fincorp Ltd',
+		N'BSE',
+		NULL,
+		N'INE152C01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'V2RETAIL',
+		N'V2 RETAIL LTD.',
+		N'BSE',
+		NULL,
+		N'INE945H01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'V2RETAIL',
+		N'V2 Retail Limited',
+		N'NSE',
+		N'EQ',
+		N'INE945H01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VAARAD',
+		N'Vaarad Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE418B01048',
+		1,
+		0
+	UNION
+	SELECT
+		N'VADILALIND',
+		N'VADILAL INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE694D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'VADILALIND',
+		N'Vadilal Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE694D01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'VADILENT',
+		N'VADILAL ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE693D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'VAGHANI',
+		N'VAGHANI TECHNO-BUILD LTD.',
+		N'BSE',
+		NULL,
+		N'INE554H01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'VAIBHAVGBL',
+		N'Vaibhav Global Ltd',
+		N'BSE',
+		NULL,
+		N'INE884A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VAIBHAVGBL',
+		N'Vaibhav Global Limited',
+		N'NSE',
+		N'EQ',
+		N'INE884A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VAISHALI',
+		N'Vaishali Pharma Limited',
+		N'NSE',
+		N'BE',
+		N'INE972X01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VAKRANGEE',
+		N'Vakrangee Limited-$',
+		N'BSE',
+		NULL,
+		N'INE051B01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'VAKRANGEE',
+		N'Vakrangee Limited',
+		N'NSE',
+		N'EQ',
+		N'INE051B01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'VAL',
+		N'Vaksons Automobiles Ltd',
+		N'BSE',
+		NULL,
+		N'INE256S01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VALIANT',
+		N'VALIANT COMMUNICATIONS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE760B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VALIANTORG',
+		N'Valiant Organics Ltd',
+		N'BSE',
+		NULL,
+		N'INE565V01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VALIANTORG',
+		N'Valiant Organics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE565V01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VALLABHSQ',
+		N'VALLABH STEELS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE457E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'VALLEY',
+		N'Valley Magnesite Company Ltd',
+		N'BSE',
+		NULL,
+		N'INE834E01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'VALSONQ',
+		N'VALSON INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE808A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'VAMA',
+		N'VAMA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE685D01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'VAMSHIRU',
+		N'VAMSHI RUBBER LTD.',
+		N'BSE',
+		NULL,
+		N'INE380C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VANDANA',
+		N'VANDANA KNITWEAR LTD.',
+		N'BSE',
+		NULL,
+		N'INE219M01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'VANICOM',
+		N'Vani Commercials Ltd',
+		N'BSE',
+		NULL,
+		N'INE661Q01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'VANTABIO',
+		N'Vanta Bioscience Ltd',
+		N'BSE',
+		NULL,
+		N'INE695X01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'VAPIPPR',
+		N'VAPI PAPER MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE464D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VARDHACRLC',
+		N'Vardhman Acrylics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE116G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VARDHANCFL',
+		N'Vardhan Capital & Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE128G01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'VARDHMAN',
+		N'Vardhman Concrete Limited',
+		N'BSE',
+		NULL,
+		N'INE115C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VARDMNPOLY',
+		N'VARDHMAN POLYTEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE835A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'VARDMNPOLY',
+		N'Vardhman Polytex Limited',
+		N'NSE',
+		N'EQ',
+		N'INE835A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'VARIMAN',
+		N'Variman Global Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE717F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VARROC',
+		N'Varroc Engineering Ltd',
+		N'BSE',
+		NULL,
+		N'INE665L01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'VARROC',
+		N'Varroc Engineering Limited',
+		N'NSE',
+		N'EQ',
+		N'INE665L01035',
+		1,
+		0
+	UNION
+	SELECT
+		N'VARUNME',
+		N'VARUN MERCANTILE LTD.',
+		N'BSE',
+		NULL,
+		N'INE442U01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VASCONEQ',
+		N'Vascon Engineers Ltd',
+		N'BSE',
+		NULL,
+		N'INE893I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VASCONEQ',
+		N'Vascon Engineers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE893I01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VASINFRA',
+		N'VAS INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE192C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VASWANI',
+		N'VASWANI INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE590L01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VASWANI',
+		N'Vaswani Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE590L01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VBCFERROQ',
+		N'VBC FERRO ALLOYS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE114E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VBDESAI',
+		N'V.B.DESAI FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE848D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'VBL',
+		N'Varun Beverages Ltd',
+		N'BSE',
+		NULL,
+		N'INE200M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VBL',
+		N'Varun Beverages Limited',
+		N'NSE',
+		N'EQ',
+		N'INE200M01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VCU',
+		N'VCU Data Management Ltd',
+		N'BSE',
+		NULL,
+		N'INE962O01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VEDAVAAG',
+		N'VEDAVAAG SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE359B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VEDL',
+		N'Vedanta Limited',
+		N'BSE',
+		NULL,
+		N'INE205A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'VEDL',
+		N'Vedanta Limited',
+		N'NSE',
+		N'EQ',
+		N'INE205A01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'VEERENRGY',
+		N'VEER ENERGY & INFRASTRUCTURE LTD.',
+		N'BSE',
+		NULL,
+		N'INE255E01030',
+		10,
+		0
+	UNION
+	SELECT
+		N'VEERHEALTH',
+		N'Veerhealth Care Limited',
+		N'BSE',
+		NULL,
+		N'INE882C01035',
+		10,
+		0
+	UNION
+	SELECT
+		N'VEGETABLE',
+		N'Vegetable Products Ltd',
+		N'BSE',
+		NULL,
+		N'INE761D01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'VELHO',
+		N'VELAN HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE548D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VELJAN',
+		N'Veljan Denison Limited',
+		N'BSE',
+		NULL,
+		N'INE232E01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VENKEYS',
+		N'Venky''s (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE398A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VENKYS',
+		N'VENKY&#39;S (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE398A01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VENLONENT',
+		N'VENLON ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE204D01022',
+		5,
+		0
+	UNION
+	SELECT
+		N'VENTURA',
+		N'VENTURA TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE810C01044',
+		10,
+		0
+	UNION
+	SELECT
+		N'VENUSREM',
+		N'VENUS REMEDIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE411B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VENUSREM',
+		N'Venus Remedies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE411B01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VERITAS',
+		N'VERITAS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE379J01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'VERTEX',
+		N'VERTEX SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE316D01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'VERTOZ',
+		N'Vertoz Advertising Limited',
+		N'NSE',
+		N'EQ',
+		N'INE188Y01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'VESUVIUS',
+		N'VESUVIUS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE386A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'VESUVIUS',
+		N'Vesuvius India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE386A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'VETO',
+		N'Veto Switchgears and Cables Ltd',
+		N'BSE',
+		NULL,
+		N'INE918N01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'VETO',
+		N'Veto Switchgears And Cables Limited',
+		N'NSE',
+		N'EQ',
+		N'INE918N01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'VFL',
+		N'Viji Finance Ltd',
+		N'BSE',
+		NULL,
+		N'INE159N01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'VGCL',
+		N'Vibrant Global Capital Ltd',
+		N'BSE',
+		NULL,
+		N'INE761Q01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'VGIL',
+		N'Veer Global Infraconstruction Ltd',
+		N'BSE',
+		NULL,
+		N'INE244W01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VGUARD',
+		N'V-GUARD INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE951I01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'VGUARD',
+		N'V-Guard Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE951I01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'VHL',
+		N'VARDHMAN HOLDINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE701A01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'VHL',
+		N'Vardhman Holdings Limited',
+		N'NSE',
+		N'EQ',
+		N'INE701A01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIAANINDUS',
+		N'Viaan Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE324N01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'VICEROY',
+		N'VICEROY HOTELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE048C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'VICEROY',
+		N'Viceroy Hotels Limited',
+		N'NSE',
+		N'BE',
+		N'INE048C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'VICTMILL',
+		N'VICTORIA MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE203D01016',
+		100,
+		0
+	UNION
+	SELECT
+		N'VICTORYPP',
+		N'VICTORY PAPER & BOARDS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE962E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIDEOIND',
+		N'VIDEOCON INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE703A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIDEOIND',
+		N'Videocon Industries Limited',
+		N'NSE',
+		N'BZ',
+		N'INE703A01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIDHIING',
+		N'Vidhi Specialty Food Ingredients Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE632C01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIDHIING',
+		N'Vidhi Specialty Food Ingredients Limited',
+		N'NSE',
+		N'EQ',
+		N'INE632C01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIDLI',
+		N'Vidli Restaurants Ltd',
+		N'BSE',
+		NULL,
+		N'INE564S01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIJAYTX',
+		N'VIJAY TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE256G01033',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIJIFIN',
+		N'Viji Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE159N01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIJSOLX',
+		N'VIJAY SOLVEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE362D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIKALPS',
+		N'VIKALP SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE186E01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIKASECO',
+		N'Vikas EcoTech Ltd',
+		N'BSE',
+		NULL,
+		N'INE806A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIKASECO',
+		N'Vikas EcoTech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE806A01020',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIKASMCORP',
+		N'Vikas Multicorp Ltd',
+		N'BSE',
+		NULL,
+		N'INE161L01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIKASMCORP',
+		N'Vikas Multicorp Limited',
+		N'NSE',
+		N'EQ',
+		N'INE161L01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIKASPROP',
+		N'Vikas Proppant & Granite Ltd',
+		N'BSE',
+		NULL,
+		N'INE767B01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIKASPROP',
+		N'Vikas Proppant & Granite Limited',
+		N'NSE',
+		N'EQ',
+		N'INE767B01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIKASWSP',
+		N'VIKAS WSP LTD.',
+		N'BSE',
+		NULL,
+		N'INE706A01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIKASWSP',
+		N'Vikas WSP Limited',
+		N'NSE',
+		N'EQ',
+		N'INE706A01022',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIKRAMTH',
+		N'VIKRAM THERMO (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE337E01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIKSHEN',
+		N'VIKSIT ENGINEERING LTD.',
+		N'BSE',
+		NULL,
+		N'INE965V01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIMTALABS',
+		N'VIMTA LABS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE579C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'VIMTALABS',
+		N'Vimta Labs Limited',
+		N'NSE',
+		N'EQ',
+		N'INE579C01029',
+		2,
+		0
+	UNION
+	SELECT
+		N'VINATIORGA',
+		N'VINATI ORGANICS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE410B01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'VINATIORGA',
+		N'Vinati Organics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE410B01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'VINAYAKPOL',
+		N'VINAYAK POLYCON INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE581M01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'VINDHYATEL',
+		N'VINDHYA TELELINKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE707A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VINDHYATEL',
+		N'Vindhya Telelinks Limited',
+		N'NSE',
+		N'EQ',
+		N'INE707A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VINTAGES',
+		N'VINTAGE SECURITIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE153C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'VINTRON',
+		N'VINTRON INFORMATICS LTD.',
+		N'BSE',
+		NULL,
+		N'INE043B01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'VINYLINDIA',
+		N'VINYL CHEMICALS (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE250B01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'VINYLINDIA',
+		N'Vinyl Chemicals (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE250B01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'VINYOFL',
+		N'VINYOFLEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE526H01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIPCLOTHNG',
+		N'VIP Clothing Ltd',
+		N'BSE',
+		NULL,
+		N'INE450G01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'VIPCLOTHNG',
+		N'VIP Clothing Limited',
+		N'NSE',
+		N'BE',
+		N'INE450G01024',
+		2,
+		0
+	UNION
+	SELECT
+		N'VIPIND',
+		N'V.I.P.INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE054A01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'VIPIND',
+		N'VIP Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE054A01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'VIPPYSP',
+		N'VIPPY SPINPRO LTD.',
+		N'BSE',
+		NULL,
+		N'INE660D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIPUL',
+		N'VIPUL LTD.',
+		N'BSE',
+		NULL,
+		N'INE946H01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIPULLTD',
+		N'Vipul Limited',
+		N'NSE',
+		N'EQ',
+		N'INE946H01037',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIPULORG',
+		N'Vipul Organics Ltd',
+		N'BSE',
+		NULL,
+		N'INE834D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIRAT',
+		N'VIRAT INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE467D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIRATCRA',
+		N'VIRAT CRANE INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE295C01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIRINCHI',
+		N'Virinchi Ltd',
+		N'BSE',
+		NULL,
+		N'INE539B01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIRTUALG',
+		N'VIRTUAL GLOBAL EDUCATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE247C01023',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIRTUALS',
+		N'VIRTUALSOFT SYSTEMS LTD.',
+		N'BSE',
+		NULL,
+		N'INE237C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISAGAR',
+		N'VISAGAR FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE309H01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'VISAKAIND',
+		N'VISAKA INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE392A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISAKAIND',
+		N'Visaka Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE392A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISASTEEL',
+		N'VISA STEEL LTD.',
+		N'BSE',
+		NULL,
+		N'INE286H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISASTEEL',
+		N'Visa Steel Limited',
+		N'NSE',
+		N'EQ',
+		N'INE286H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISCO',
+		N'Visco Trade Associates Ltd',
+		N'BSE',
+		NULL,
+		N'INE890S01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISHAL',
+		N'Vishal Fabrics Ltd',
+		N'BSE',
+		NULL,
+		N'INE755Q01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'VISHAL',
+		N'Vishal Fabrics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE755Q01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'VISHALBL',
+		N'Vishal Bearings Ltd',
+		N'BSE',
+		NULL,
+		N'INE060T01024',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISHNU',
+		N'VISHNU CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE270I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISHNU',
+		N'Vishnu Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE270I01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISHWARAJ',
+		N'Vishwaraj Sugar Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE430N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISHWARAJ',
+		N'Vishwaraj Sugar Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE430N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISIONCINE',
+		N'VISION CINEMAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE515B01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'VISIONCO',
+		N'VISION CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE661D01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISTAPH',
+		N'VISTA PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE427C01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'VISTARAMAR',
+		N'Vistar Amar Ltd',
+		N'BSE',
+		NULL,
+		N'INE878P01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VISVEN',
+		N'Vishvprabha Ventures Ltd',
+		N'BSE',
+		NULL,
+		N'INE762D01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'VITESSE',
+		N'Vitesse Agro Ltd',
+		N'BSE',
+		NULL,
+		N'INE550U01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIVANTA',
+		N'Vivanta Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE299W01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIVANZA',
+		N'Vivanza Biosciences Ltd',
+		N'BSE',
+		NULL,
+		N'INE984E01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIVIDHA',
+		N'VISAGAR POLYTEX LTD.',
+		N'BSE',
+		NULL,
+		N'INE370E01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIVIDHA',
+		N'Visagar Polytex Limited',
+		N'NSE',
+		N'BE',
+		N'INE370E01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'VIVIDIND',
+		N'VIVID GLOBAL INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE737C01023',
+		5,
+		0
+	UNION
+	SELECT
+		N'VIVIDM',
+		N'Vivid Mercantile Ltd',
+		N'BSE',
+		NULL,
+		N'INE647Z01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'VIVIMEDLAB',
+		N'VIVIMED LABS LTD.',
+		N'BSE',
+		NULL,
+		N'INE526G01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'VIVIMEDLAB',
+		N'Vivimed Labs Limited',
+		N'NSE',
+		N'EQ',
+		N'INE526G01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'VIVOBIOT',
+		N'VIVO BIO TECH LTD.',
+		N'BSE',
+		NULL,
+		N'INE380K01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'VJLAXMIE',
+		N'VEEJAY LAKSHMI ENGINEERING WORKS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE466D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VJTFEDU',
+		N'VJTF EDUSERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE117F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VLSFINANCE',
+		N'VLS FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE709A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'VLSFINANCE',
+		N'VLS Finance Limited',
+		N'NSE',
+		N'EQ',
+		N'INE709A01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'VMART',
+		N'V-MART RETAIL LTD.',
+		N'BSE',
+		NULL,
+		N'INE665J01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VMART',
+		N'V-Mart Retail Limited',
+		N'NSE',
+		N'EQ',
+		N'INE665J01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'VMS',
+		N'VMS INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE932K01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'VMV',
+		N'VMV Holidays Ltd',
+		N'BSE',
+		NULL,
+		N'INE451S01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VOITHPAPR',
+		N'VOITH PAPER FABRICS INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE285C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'VOLLF',
+		N'VOLTAIRE LEASING & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE763D01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'VOLTAMP',
+		N'VOLTAMP TRANSFORMERS LTD.',
+		N'BSE',
+		NULL,
+		N'INE540H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VOLTAMP',
+		N'Voltamp Transformers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE540H01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VOLTAS',
+		N'VOLTAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE226A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'VOLTAS',
+		N'Voltas Limited',
+		N'NSE',
+		N'EQ',
+		N'INE226A01021',
+		1,
+		0
+	UNION
+	SELECT
+		N'VRFILMS',
+		N'V R Films & Studios Ltd',
+		N'BSE',
+		NULL,
+		N'INE06LG01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VRL',
+		N'Vasundhara Rasayans Ltd',
+		N'BSE',
+		NULL,
+		N'INE406F01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VRLLOG',
+		N'VRL Logistics Limited',
+		N'NSE',
+		N'EQ',
+		N'INE366I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VRLLOG*',
+		N'VRL Logistics Ltd',
+		N'BSE',
+		NULL,
+		N'INE366I01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VRWODAR',
+		N'V R WOODART LTD.',
+		N'BSE',
+		NULL,
+		N'INE317D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VSFPROJ',
+		N'VSF PROJECTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE923K01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'VSL',
+		N'Veeram Securities Ltd',
+		N'BSE',
+		NULL,
+		N'INE607V01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'VSSL',
+		N'VARDHMAN SPECIAL STEELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE050M01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VSSL',
+		N'Vardhman Special Steels Limited',
+		N'NSE',
+		N'EQ',
+		N'INE050M01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VSTIND',
+		N'VST INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE710A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'VSTIND',
+		N'VST Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE710A01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'VSTTILLERS',
+		N'V.S.T.TILLERS TRACTORS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE764D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'VSTTILLERS',
+		N'V.S.T Tillers Tractors Limited',
+		N'NSE',
+		N'EQ',
+		N'INE764D01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'VTL',
+		N'VARDHMAN TEXTILES LTD.',
+		N'BSE',
+		NULL,
+		N'INE825A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VTL',
+		N'Vardhman Textiles Limited',
+		N'NSE',
+		N'EQ',
+		N'INE825A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'VTMLTD',
+		N'VTM LTD.',
+		N'BSE',
+		NULL,
+		N'INE222F01029',
+		1,
+		0
+	UNION
+	SELECT
+		N'VXLINSTR',
+		N'VXL INSTRUMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE756A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'WAA',
+		N'Waa Solar Ltd',
+		N'BSE',
+		NULL,
+		N'INE799N01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'WAAREE',
+		N'Waaree Technologies Ltd',
+		N'BSE',
+		NULL,
+		N'INE725P01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'WABAG',
+		N'VA TECH WABAG LTD.',
+		N'BSE',
+		NULL,
+		N'INE956G01038',
+		2,
+		0
+	UNION
+	SELECT
+		N'WABAG',
+		N'VA Tech Wabag Limited',
+		N'NSE',
+		N'EQ',
+		N'INE956G01038',
+		2,
+		0
+	UNION
+	SELECT
+		N'WABCOINDIA',
+		N'WABCO INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE342J01019',
+		5,
+		0
+	UNION
+	SELECT
+		N'WABCOINDIA',
+		N'WABCO India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE342J01019',
+		5,
+		0
+	UNION
+	SELECT
+		N'WAGEND',
+		N'Wagend Infra Venture Limited',
+		N'BSE',
+		NULL,
+		N'INE786K01023',
+		2,
+		0
+	UNION
+	SELECT
+		N'WALCHANNAG',
+		N'WALCHANDNAGAR INDUSTRIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE711A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'WALCHANNAG',
+		N'Walchandnagar Industries Limited',
+		N'NSE',
+		N'EQ',
+		N'INE711A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'WALCHPF',
+		N'WALCHAND PEOPLEFIRST LTD.',
+		N'BSE',
+		NULL,
+		N'INE695D01021',
+		10,
+		0
+	UNION
+	SELECT
+		N'WALLFORT',
+		N'WALLFORT FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE121B01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'WANBURY',
+		N'WANBURY LTD.',
+		N'BSE',
+		NULL,
+		N'INE107F01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'WANBURY',
+		N'Wanbury Limited',
+		N'NSE',
+		N'BZ',
+		N'INE107F01022',
+		10,
+		0
+	UNION
+	SELECT
+		N'WARDINMOBI',
+		N'Wardwizard Innovations & Mobility Ltd',
+		N'BSE',
+		NULL,
+		N'INE945P01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'WARRENTEA',
+		N'WARREN TEA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE712A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'WATERBASE',
+		N'WATERBASE LTD.',
+		N'BSE',
+		NULL,
+		N'INE054C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'WATERBASE',
+		N'Waterbase Limited',
+		N'NSE',
+		N'EQ',
+		N'INE054C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'WEALTH',
+		N'Wealth First Portfolio Managers Limited',
+		N'NSE',
+		N'EQ',
+		N'INE658T01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'WEBELSOLAR',
+		N'WEBSOL ENERGY SYSTEM LTD.',
+		N'BSE',
+		NULL,
+		N'INE855C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'WEBELSOLAR',
+		N'Websol Energy System Limited',
+		N'NSE',
+		N'EQ',
+		N'INE855C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'WEBSL',
+		N'Web Element Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE562Q01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'WEIZFIN',
+		N'WEIZMANN FINCORP LTD.',
+		N'BSE',
+		NULL,
+		N'INE407F01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'WEIZMANIND',
+		N'WEIZMANN LTD.',
+		N'BSE',
+		NULL,
+		N'INE080A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'WEIZMANIND',
+		N'Weizmann Limited',
+		N'NSE',
+		N'EQ',
+		N'INE080A01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'WELCORP',
+		N'Welspun Corp Limited',
+		N'BSE',
+		NULL,
+		N'INE191B01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'WELCORP',
+		N'Welspun Corp Limited',
+		N'NSE',
+		N'EQ',
+		N'INE191B01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'WELCURE',
+		N'WELCURE DRUGS & PHARMACEUTICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE331C01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'WELENT',
+		N'Welspun Enterprises Ltd',
+		N'BSE',
+		NULL,
+		N'INE625G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'WELENT',
+		N'Welspun Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE625G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'WELINV',
+		N'WELSPUN INVESTMENTS AND COMMERCIALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE389K01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'WELINV',
+		N'Welspun Investments and Commercials Limited',
+		N'NSE',
+		N'EQ',
+		N'INE389K01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'WELLESLEY',
+		N'WELLESLEY CORPORATION LTD.',
+		N'BSE',
+		NULL,
+		N'INE176O01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'WELLNESS',
+		N'WELLNESS NONI LTD.',
+		N'BSE',
+		NULL,
+		N'INE571H01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'WELSPLSOL',
+		N'Welspun Specialty Solutions Ltd',
+		N'BSE',
+		NULL,
+		N'INE731F01037',
+		6,
+		0
+	UNION
+	SELECT
+		N'WELSPUNIND',
+		N'WELSPUN INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE192B01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'WELSPUNIND',
+		N'Welspun India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE192B01031',
+		1,
+		0
+	UNION
+	SELECT
+		N'WELTI',
+		N'WELTERMAN INTERNATIONAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE662D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'WENDT',
+		N'WENDT (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE274C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'WENDT',
+		N'Wendt (India) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE274C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'WEPSOLN',
+		N'WEP SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE434B01029',
+		10,
+		0
+	UNION
+	SELECT
+		N'WESTLEIRES',
+		N'West Leisure Resorts Ltd',
+		N'BSE',
+		NULL,
+		N'INE266P01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'WESTLIFE',
+		N'WESTLIFE DEVELOPMENT LTD.',
+		N'BSE',
+		NULL,
+		N'INE274F01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'WESTLIFE',
+		N'Westlife Development Ltd',
+		N'NSE',
+		N'EQ',
+		N'INE274F01020',
+		2,
+		0
+	UNION
+	SELECT
+		N'WHBRADY',
+		N'W.H.BRADY & CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE855A01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'WHEELS',
+		N'WHEELS INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE715A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'WHEELS',
+		N'Wheels India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE715A01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'WHIRLPOOL',
+		N'WHIRLPOOL OF INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE716A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'WHIRLPOOL',
+		N'Whirlpool of India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE716A01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'WHITEORG',
+		N'White Organic Agro Ltd',
+		N'BSE',
+		NULL,
+		N'INE146C01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'WILLAMAGOR',
+		N'WILLIAMSON MAGOR & COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE210A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'WILLAMAGOR',
+		N'Williamson Magor & Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE210A01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'WILLIMFI',
+		N'WILLIAMSON FINANCIAL SERVICES LTD.',
+		N'BSE',
+		NULL,
+		N'INE188E01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'WIMPLAST',
+		N'WIM PLAST LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE015B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'WINDMACHIN',
+		N'WINDSOR MACHINES LTD.',
+		N'BSE',
+		NULL,
+		N'INE052A01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'WINDMACHIN',
+		N'Windsor Machines Limited',
+		N'NSE',
+		N'EQ',
+		N'INE052A01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'WINROC',
+		N'WINRO COMMERCIAL (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE837E01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'WINSOMBR',
+		N'WINSOME BREWERIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE391C01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'WINSOMTX',
+		N'WINSOME TEXTILE INDUSTRIES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE837B01031',
+		10,
+		0
+	UNION
+	SELECT
+		N'WIPL',
+		N'The Western India Plywoods Limited',
+		N'NSE',
+		N'BE',
+		N'INE215F01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'WIPRO',
+		N'WIPRO LTD.',
+		N'BSE',
+		NULL,
+		N'INE075A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'WIPRO',
+		N'Wipro Limited',
+		N'NSE',
+		N'EQ',
+		N'INE075A01022',
+		2,
+		0
+	UNION
+	SELECT
+		N'WIREFABR',
+		N'WIRES & FABRIKS (SA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE469D01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'WMINIMT',
+		N'WESTERN MINISTIL LTD.',
+		N'BSE',
+		NULL,
+		N'INE187U01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'WOCKPHARMA',
+		N'WOCKHARDT LTD.',
+		N'BSE',
+		NULL,
+		N'INE049B01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'WOCKPHARMA',
+		N'Wockhardt Limited',
+		N'NSE',
+		N'EQ',
+		N'INE049B01025',
+		5,
+		0
+	UNION
+	SELECT
+		N'WOMENNET',
+		N'WOMEN NETWORKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE905B01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'WONDERLA',
+		N'Wonderla Holidays Ltd',
+		N'BSE',
+		NULL,
+		N'INE066O01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'WONDERLA',
+		N'Wonderla Holidays Limited',
+		N'NSE',
+		N'EQ',
+		N'INE066O01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'WOODSVILA',
+		N'WOODSVILLA LTD.',
+		N'BSE',
+		NULL,
+		N'INE374J01020',
+		5,
+		0
+	UNION
+	SELECT
+		N'WORL',
+		N'White Organic Retail Ltd',
+		N'BSE',
+		NULL,
+		N'INE06CG01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'WORTH',
+		N'Worth Investment & Trading Co Ltd',
+		N'BSE',
+		NULL,
+		N'INE114O01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'WORTH',
+		N'Worth Peripherals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE196Y01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'WPIL',
+		N'WPIL LTD.',
+		N'BSE',
+		NULL,
+		N'INE765D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'WSFIN',
+		N'WALL STREET FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE549D01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'WSI',
+		N'W S Industries (I) Limited',
+		N'NSE',
+		N'EQ',
+		N'INE100D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'WSIND',
+		N'W.S.INDUSTRIES (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE100D01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'WSTCSTPAPR',
+		N'WEST COAST PAPER MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE976A01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'WSTCSTPAPR',
+		N'West Coast Paper Mills Limited',
+		N'NSE',
+		N'EQ',
+		N'INE976A01021',
+		2,
+		0
+	UNION
+	SELECT
+		N'WWALUM',
+		N'Worldwide Aluminium Ltd',
+		N'BSE',
+		NULL,
+		N'INE550D01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'WWTECHHOL',
+		N'W W TECHNOLOGY HOLDINGS LTD.',
+		N'BSE',
+		NULL,
+		N'INE972M01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'XCHANGING',
+		N'XCHANGING SOLUTIONS LTD.',
+		N'BSE',
+		NULL,
+		N'INE692G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'XCHANGING',
+		N'Xchanging Solutions Limited',
+		N'NSE',
+		N'EQ',
+		N'INE692G01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'XELPMOC',
+		N'Xelpmoc Design and Tech Ltd',
+		N'BSE',
+		NULL,
+		N'INE01P501012',
+		10,
+		0
+	UNION
+	SELECT
+		N'XELPMOC',
+		N'Xelpmoc Design And Tech Limited',
+		N'NSE',
+		N'EQ',
+		N'INE01P501012',
+		10,
+		0
+	UNION
+	SELECT
+		N'XPROINDIA',
+		N'XPRO INDIA LTD.',
+		N'BSE',
+		NULL,
+		N'INE445C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'XPROINDIA',
+		N'Xpro India Limited',
+		N'NSE',
+		N'EQ',
+		N'INE445C01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'XTGLOBAL',
+		N'Xtglobal Infotech Ltd',
+		N'BSE',
+		NULL,
+		N'INE547B01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'YAARII',
+		N'Yaarii Digital Integrated Services Ltd',
+		N'BSE',
+		NULL,
+		N'INE126M01010',
+		2,
+		0
+	UNION
+	SELECT
+		N'YAARII',
+		N'Yaarii Digital Integrated Services Limited',
+		N'NSE',
+		N'EQ',
+		N'INE126M01010',
+		2,
+		0
+	UNION
+	SELECT
+		N'YAMNINV',
+		N'YAMINI INVESTMENTS COMPANY LTD.',
+		N'BSE',
+		NULL,
+		N'INE457N01025',
+		1,
+		0
+	UNION
+	SELECT
+		N'YARNSYN',
+		N'YARN SYNDICATE LTD.',
+		N'BSE',
+		NULL,
+		N'INE564C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'YASHCHEM',
+		N'Yash Chemex Ltd',
+		N'BSE',
+		NULL,
+		N'INE571U01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'YASHMGM',
+		N'YASH MANAGEMENT & SATELLITE LTD.',
+		N'BSE',
+		NULL,
+		N'INE216B01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'YASHO',
+		N'Yasho Industries Ltd',
+		N'BSE',
+		NULL,
+		N'INE616Z01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'YASHPAKKA',
+		N'Yash Pakka Ltd-$',
+		N'BSE',
+		NULL,
+		N'INE551D01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'YASHRAJC',
+		N'YASHRAJ CONTAINEURS LTD.',
+		N'BSE',
+		NULL,
+		N'INE095C01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'YASTF',
+		N'YASH TRADING & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE745A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'YESBANK',
+		N'YES BANK LTD.',
+		N'BSE',
+		NULL,
+		N'INE528G01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'YESBANK',
+		N'Yes Bank Limited',
+		N'NSE',
+		N'EQ',
+		N'INE528G01035',
+		2,
+		0
+	UNION
+	SELECT
+		N'YOGISUNG',
+		N'YOGI SUNG-WON (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE429B01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'YORKEXP',
+		N'YORK EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE057Q01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'YSL',
+		N'The Yamuna Syndicate Ltd',
+		N'BSE',
+		NULL,
+		N'INE868X01014',
+		100,
+		0
+	UNION
+	SELECT
+		N'YUG',
+		N'Yug Decor Ltd',
+		N'BSE',
+		NULL,
+		N'INE796W01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'YUKEN',
+		N'YUKEN INDIA LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE384C01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'YURANUS',
+		N'Yuranus Infrastructure Ltd',
+		N'BSE',
+		NULL,
+		N'INE156M01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZBINTXPP',
+		N'BINAYAK TEX PROCESSORS LTD.',
+		N'BSE',
+		NULL,
+		N'INE626H01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZDHJERK',
+		N'DHANVANTRI JEEVAN REKHA LTD.',
+		N'BSE',
+		NULL,
+		N'INE239F01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZEAL',
+		N'Zeal Aqua Ltd',
+		N'BSE',
+		NULL,
+		N'INE819S01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZEEL',
+		N'ZEE ENTERTAINMENT ENTERPRISES LTD.',
+		N'BSE',
+		NULL,
+		N'INE256A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'ZEEL',
+		N'Zee Entertainment Enterprises Limited',
+		N'NSE',
+		N'EQ',
+		N'INE256A01028',
+		1,
+		0
+	UNION
+	SELECT
+		N'ZEELEARN',
+		N'ZEE LEARN LTD.',
+		N'BSE',
+		NULL,
+		N'INE565L01011',
+		1,
+		0
+	UNION
+	SELECT
+		N'ZEELEARN',
+		N'Zee Learn Limited',
+		N'NSE',
+		N'EQ',
+		N'INE565L01011',
+		1,
+		0
+	UNION
+	SELECT
+		N'ZEEMEDIA',
+		N'Zee Media Corporation Limited',
+		N'BSE',
+		NULL,
+		N'INE966H01019',
+		1,
+		0
+	UNION
+	SELECT
+		N'ZEEMEDIA',
+		N'Zee Media Corporation Limited',
+		N'NSE',
+		N'EQ',
+		N'INE966H01019',
+		1,
+		0
+	UNION
+	SELECT
+		N'ZENIFIB',
+		N'ZENITH FIBRES LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE106C01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZENITHEXPO',
+		N'ZENITH EXPORTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE058B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZENITHEXPO',
+		N'Zenith Exports Limited',
+		N'NSE',
+		N'EQ',
+		N'INE058B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZENITHHE',
+		N'ZENITH HEALTH CARE LTD.',
+		N'BSE',
+		NULL,
+		N'INE812B01026',
+		1,
+		0
+	UNION
+	SELECT
+		N'ZENLABS',
+		N'Zenlabs Ethica Ltd',
+		N'BSE',
+		NULL,
+		N'INE546F01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZENOTECH',
+		N'ZENOTECH LABORATORIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE486F01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZENSARTECH',
+		N'ZENSAR TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE520A01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'ZENSARTECH',
+		N'Zensar Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE520A01027',
+		2,
+		0
+	UNION
+	SELECT
+		N'ZENTEC',
+		N'ZEN TECHNOLOGIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE251B01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'ZENTEC',
+		N'Zen Technologies Limited',
+		N'NSE',
+		N'EQ',
+		N'INE251B01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'ZFSTEERING',
+		N'Z.F.STEERING GEAR (INDIA) LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE116C01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZGAEKWAR',
+		N'GAEKWAR MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE837X01027',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZGOLDINV',
+		N'GOLD ROCK INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE598F01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZHINDHSG',
+		N'HINDUSTAN HOUSING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE083O01019',
+		25,
+		0
+	UNION
+	SELECT
+		N'ZHINUDYP',
+		N'HINDUSTHAN UDYOG LTD.',
+		N'BSE',
+		NULL,
+		N'INE582K01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZIMLAB',
+		N'Zim Laboratories Ltd',
+		N'BSE',
+		NULL,
+		N'INE518E01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZKHANDEN',
+		N'KHANDELWAL EXTRACTION LTD.',
+		N'BSE',
+		NULL,
+		N'INE687W01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZKHATAUE',
+		N'KHATAU EXIM LTD.',
+		N'BSE',
+		NULL,
+		N'INE092P01017',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZKOVALIN',
+		N'KOVALAM INVESTMENT & TRADING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE735U01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZLEENCON',
+		N'LEENA CONSULTANCY LTD.',
+		N'BSE',
+		NULL,
+		N'INE778N01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZMANSOON',
+		N'MANSOON TRADING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE776V01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZMILGFIN',
+		N'Milgrey Finance & Investments Ltd',
+		N'BSE',
+		NULL,
+		N'INE679T01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZMULTIPU',
+		N'MULTIPURPOSE TRADING & AGENCIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE017P01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZNILKENG',
+		N'NILKANTH ENGINEERING LTD.',
+		N'BSE',
+		NULL,
+		N'INE582V01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZNIVITRD',
+		N'NIVI TRADING LTD.',
+		N'BSE',
+		NULL,
+		N'INE552F01011',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZODIACLOTH',
+		N'ZODIAC CLOTHING CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE206B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZODIACLOTH',
+		N'Zodiac Clothing Company Limited',
+		N'NSE',
+		N'EQ',
+		N'INE206B01013',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZODIACVEN',
+		N'Zodiac Ventures Limited',
+		N'BSE',
+		NULL,
+		N'INE945J01027',
+		1,
+		0
+	UNION
+	SELECT
+		N'ZODJRDMKJ',
+		N'ZODIAC-JRD-MKJ LTD.',
+		N'BSE',
+		NULL,
+		N'INE077B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZODJRDMKJ',
+		N'Zodiac JRD- MKJ Limited',
+		N'NSE',
+		N'EQ',
+		N'INE077B01018',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZOTA',
+		N'Zota Health Care LImited',
+		N'NSE',
+		N'EQ',
+		N'INE358U01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZPPOLYSA',
+		N'PLANTER POLYSACKS LTD.',
+		N'BSE',
+		NULL,
+		N'INE293E01023',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZSANMCOM',
+		N'SANMITRA COMMERCIAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE896J01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZSARACOM',
+		N'SARASWATI COMMERCIAL (INDIA) LTD.',
+		N'BSE',
+		NULL,
+		N'INE967G01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZSARVAMA',
+		N'SARVAMANGAL MERCANTILE CO.LTD.',
+		N'BSE',
+		NULL,
+		N'INE978L01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZSATYASL',
+		N'SATYAM SILK MILLS LTD.',
+		N'BSE',
+		NULL,
+		N'INE07MC01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZSHERAPR',
+		N'SHERATON PROPERTIES & FINANCE LTD.',
+		N'BSE',
+		NULL,
+		N'INE495M01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZSOUTGAS',
+		N'SOUTHERN GAS LTD.',
+		N'BSE',
+		NULL,
+		N'INE532U01012',
+		100,
+		0
+	UNION
+	SELECT
+		N'ZSPEEDCO',
+		N'SPEEDAGE COMMERCIALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE497M01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZSVARAJT',
+		N'SVARAJ TRADING & AGENCIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE406N01014',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZSVTRADI',
+		N'S.V.TRADING & AGENCIES LTD.',
+		N'BSE',
+		NULL,
+		N'INE404N01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZSWASTSA',
+		N'SWASTIK SAFE DEPOSIT & INVESTMENTS LTD.',
+		N'BSE',
+		NULL,
+		N'INE094R01019',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZUARI',
+		N'ZUARI AGRO CHEMICALS LTD.',
+		N'BSE',
+		NULL,
+		N'INE840M01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZUARI',
+		N'Zuari Agro Chemicals Limited',
+		N'NSE',
+		N'EQ',
+		N'INE840M01016',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZUARIGLOB',
+		N'ZUARI GLOBAL LTD.',
+		N'BSE',
+		NULL,
+		N'INE217A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZUARIGLOB',
+		N'Zuari Global Limited',
+		N'NSE',
+		N'BE',
+		N'INE217A01012',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZWELCAST',
+		N'WELCAST STEELS LTD.',
+		N'BSE',
+		NULL,
+		N'INE380G01015',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZYDUSWELL',
+		N'ZYDUS WELLNESS LTD.-$',
+		N'BSE',
+		NULL,
+		N'INE768C01010',
+		10,
+		0
+	UNION
+	SELECT
+		N'ZYDUSWELL',
+		N'Zydus Wellness Limited',
+		N'NSE',
+		N'EQ',
+		N'INE768C01010',
+		10,
+		0
+GO
+   

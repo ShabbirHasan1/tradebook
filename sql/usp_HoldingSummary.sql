@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_HoldingSummary]
+CREATE OR ALTER PROCEDURE [dbo].[usp_HoldingSummary]
 (
 	@period	  int,
 	@exchange nvarchar(50)
@@ -210,4 +210,4 @@ BEGIN
 			CTE_Pnl p
 		ORDER BY
 			1;
-END
+END;
